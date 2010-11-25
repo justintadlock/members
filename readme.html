@@ -1,0 +1,376 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<title>A guide to the Members plugin</title>
+
+<link rel="stylesheet" href="readme.css" type="text/css" media="screen" />
+
+</head>
+<body>
+
+<h1>A guide to the Members plugin</h1>
+
+<p class="first">The <em>Members</em> plugin is meant to be a complete user, role, and content management plugin for WordPress. Its purpose is to give you fine-grained control over who has access to what.</p>
+
+<p class="second">Right now, it's in the early stages of development.  It's my hope that this provides that true <acronym title="Content Management System">CMS</acronym> experience that many users long for in WordPress. There's a long road ahead, and I hope you join me for the ride.</p>
+
+<h2>The plugin documentation</h2>
+
+<p>Use the links below to navigate to a specific section in the documentation:</p>
+
+<ul>
+	<li><a href="#users-roles-caps">The relationship of users, roles, and capabilities</a></li>
+	<li><a href="#install">How to install the plugin</a></li>
+	<li><a href="#how-to">How to use the plugin</a></li>
+	<li>Components
+		<ul>
+			<li><a href="#edit-roles">Edit Roles component</a></li>
+			<li><a href="#new-roles">New Roles component</a></li>
+			<li><a href="#content-permissions">Content Permissions component</a></li>
+			<li><a href="#shortcodes">Shortcodes component</a>
+				<ul>
+					<li><a href="#access">[access]</a></li>
+					<li><a href="#get-avatar">[get_avatar]</a></li>
+					<li><a href="#is-user-logged-in">[is_user_logged_in]</a></li>
+					<li><a href="#feed">[feed]</a></li>
+					<li><a href="#login-form">[login-form]</a></li>
+				</ul>
+			</li>
+			<li><a href="#template-tags">Template Tags component</a>
+				<ul>
+					<li><a href="#current_user_has_role">current_user_has_role()</a></li>
+					<li><a href="#has_role">has_role()</a></li>
+					<li><a href="#members_list_users">members_list_users()</a></li>
+					<li><a href="#members_author_profile">members_author_profile()</a></li>
+				</ul>
+			</li>
+			<li><a href="#widgets">Widgets component</a>
+				<ul>
+					<li><a href="#login-widget">Login Form widget</a></li>
+					<li><a href="#users-widget">Users widget</a></li>
+				</ul>
+			</li>
+			<li><a href="#private-blog">Private Blog component</a></li>
+		</ul>
+	</li>
+	<li><a href="#capability-check">Checking if the current user has a capability</a></li>
+	<li>Plugin/theme integration for developers
+		<ul>
+			<li><a href="#components-api">Creating custom components</a></li>
+			<li><a href="#filter-caps">Adding new capabilities</a></li>
+			<li><a href="#cap-check">Checking for capabilities</a></li>
+		</ul>
+	</li>
+	<li><a href="#old-levels">Need the old user levels system?</a></li>
+	<li><a href="#plugin-support">Plugin support</a></li>
+	<li><a href="#copyright">Copyright &amp; License</a></li>
+</ul>
+
+<h2 id="users-roles-caps">The relationship of users, roles, and capabilities</h2>
+
+<p>This is the most important thing to understand with this plugin.  It's so important that I took the time out of my day to write a complete tutorial on understanding this:  <a href="http://justintadlock.com/archives/2009/08/30/users-roles-and-capabilities-in-wordpress" title="Users, roles, and capabilities in WordPress">Users, roles, and capabilities in WordPress</a>.  If you don't understand this concept, you won't understand what this plugin does.  This is not a concept created by the plugin.  This is how it's done in WordPress.</p>
+
+<p>I highly recommend reading that blog post, but here's the short version:</p>
+
+<ul>
+	<li><strong>Users</strong> are people that have registered on your site.  I'm sure you already knew that.  In WordPress, users are assigned a specific role.  This role defines what the user can/can't do.</li>
+	<li><strong>Roles</strong> are a way of grouping users.  Each user on your site will have a specific role.  Roles are a set of capabilities.  It is important to note that <strong>roles are not hierarchical</strong>.  For example, "Administrator" is not higher than "Subscriber" in WordPress.  You could literally give the Subscriber role more capabilities than the Administrator role.  It's very important that you grasp this concept.</li>
+	<li><strong>Capabilities</strong> give meaning to roles.  It's a permissions system.  They're a way of saying a role <em>can</em> do something or a role <em>can't</em> do something (e.g., Role A can <code>edit_posts</code>, Role B can't <code>activate_plugins</code>, etc.).</li>
+</ul>
+
+<h2 id="install">How to install the plugin</h2>
+
+<ol>
+	<li>Uzip the <code>members.zip</code> folder.</li>
+	<li>Upload the <code>members</code> folder to your <code>/wp-content/plugins</code> directory.</li>
+	<li>In your WordPress dashboard, head over to the <em>Plugins</em> section.</li>
+	<li>Activate <em>Members</em>.</li>
+</ol>
+
+<h2 id="how-to">How to use the plugin</h2>
+
+<p>This plugin is set up to have a components-based system.  The reason for this is that I don't want to stick everyone with a bunch of features they don't need.  There's no point in using the <em>Edit Roles</em> component if all you need is just a login widget and some shortcodes.  So, it's a <em>use-only-what-you-want</em> system.</p>
+
+<p>To add components, look for the <em>Members Components</em> link under your <em>Settings</em> menu while in your WordPress admin.  When on the new page, you'll be able to select the components you want to use.</p>
+
+<p>I recommend at least activating <em>Edit Roles</em> component.  It is at the heart of this plugin, and many other components will likely require its use in some form.</p>
+
+<h2 id="edit-roles">Edit Roles Component</h2>
+
+<p>This component can be both a blessing and a curse, so I'm going to ask that you use it wisely.  Use extreme caution when assigning new capabilities to roles. You wouldn't want to give Average Joe the <code>edit_plugins</code> capability, for example.</p>
+
+<p><em>Edit Roles</em> is the big daddy of all the components.  It allows you to edit and assign new capabilities to existing roles.</p>
+
+<p>You can find the settings page for this component under the <em>Users</em> menu.  It will be labeled <em>Roles</em>.  When clicking on the menu item, you'll get a list of all the available roles.  From there, you can select a role to edit.</p>
+
+<p>To delete a role, you must have the <code>delete_roles</code> capability.  If you don't have that, you won't see a delete option on the <em>Roles</em> page.</p>
+
+<p class="alert">It is important that you assign the capability of <code>edit_roles</code> to a role (the administrator role would be a good one).  That way, only users with that particular capability can edit roles.</p>
+
+<h2 id="new-roles">New Roles Component</h2>
+
+<p>The <em>New Roles</em> component allows you to create new roles.  The menu item for this is located under the <em>Users</em> menu and is labeled <em>New Roles</em>.</p>
+
+<p>You can only use this component (create new roles) if you have the <code>create_roles</code> capability.  So, if you don't have that, you need to use the <em>Manage Roles</em> component to add that capability to the role you currently have.</p>
+
+<p>Adding new roles is pretty straightforward.  You need to input a <em>Role</em> (only use letters, numbers, and underscores), <em>Role Name</em>, and select which capabilities the new role should have.  You can later manage this role using the <em>Edit Roles</em> component.</p>
+
+<p>You can assign new roles to users from the <em>Authors &amp; Users</em> screen in WordPress.  This is nothing particular to the plugin and is a default part of WordPress.  I believe you need the <code>edit_users</code> capability to do this (I'll have to check).</p>
+
+<h2 id="content-permissions">Content Permissions Component</h2>
+
+<p>The <em>Content Permissions</em> component will be the heart and soul of this plugin in the future.  Right now, it only adds an additional meta box on the post/page edit screen.  This meta box allows you to select which roles can view the content of the post/page.  If no roles are selected, anyone can view the content.</p>
+
+<p>You need the <code>restrict_content</code> capability to use this component.  So, you'll need to add this capability to your role using the <em>Edit Roles</em> component.</p>
+
+<p class="alert">Note that you'll see a <em>Role</em> custom field key and values when testing this component. This is for my personal testing only right now.</p>
+
+<h2 id="shortcodes">Shortcodes Component</h2>
+
+<p>There are several shortcodes that you can use in your post/page editor.  These need some major testing right now, so please offer any feedback you can.</p>
+
+<h3 id="access">[access]</h3>
+
+<p>The <code>[access]</code> shortcode is for hiding content from particular roles and capabilities.  You need to wrap your content when using this shortcode:</p>
+
+<pre><code>[access role="editor"]Hide this content from everyone but editors.[/access]</code></pre>
+
+<p><strong>Parameters:</strong></p>
+
+<ul>
+	<li><code>capability</code>:  A capability that has been assigned to a role.</li>
+	<li><code>role</code>: A user role from WordPress or one that you've created.</li>
+	<li><code>feed</code>: Set to <code>true</code> if you'd like to show the content in feeds.</li>
+</ul>
+
+<p>Note that <code>capability</code> and <code>role</code> parameters aren't used in conjunction.  The code first checks for the capability (if input) then checks for the role (if input).</p>
+
+<h3 id="get-avatar">[get_avatar]</h3>
+
+<p>This shortcode is for showing a user's avatar through <a href="http://gravatar.com" title="Gravatar">Gravatar</a>.  It should be used like so within your post/page editor:</p>
+
+<pre><code>[get_avatar id="30"]</code></pre>
+
+<p><strong>Parameters:</strong></p>
+
+<ul>
+	<li><code>id</code>: The ID of the user's avatar you'd like to show.</li>
+	<li><code>email</code>: The email of the user's avatar you'd like to show (you can use either <code>id</code> or <code>email</code></li>
+	<li><code>size</code>:  The width and height in pixels of the avatar.</li>
+	<li><code>alt</code>: The <code>alt="Text"</code> that should appear for the image.</li>
+	<li><code>default</code>:  A default image for users without a gravatar.</li>
+</ul>
+
+<h3 id="is-user-logged-in">[is_user_logged_in]</h3>
+
+<p>The <code>[is_user_logged_in]</code> shortcode should be used to check if a user is currently logged into the site.  If not, the content will be hidden.</p>
+
+<pre><code>[is_user_logged_in]This content is only shown to logged-in users.[/is_user_logged_in]</code></pre>
+
+<p>This shortcode has no parameters.</p>
+
+<h3 id="feed">[feed]</h3>
+
+<p>If you have content you only want to show to subscribers of your feed, wrap it in this shortcode:</p>
+
+<pre><code>[feed]This content will only be shown in feeds.[/feed]</code></pre>
+
+<p>This shortcode has no parameters.</p>
+
+<h3 id="login-form">[login-form]</h3>
+
+<p>The <code>[login-form]</code>shortcode produces a form for users to log into your site.  More than likely, you'll want to use the <em>Login Form</em> widget for something like this.  The shortcode should be used like so:</p>
+
+<pre><code>[login-form]</code></pre>
+
+<p>This shortcode has no parameters.</p>
+
+<h2 id="template-tags">Template Tags Component</h2>
+
+<p>The <em>Template Tags</em> component gives you additional functions (i.e., template tags) to use within your WordPress theme.</p>
+
+<h3 id="current_user_has_role">current_user_has_role()</h3>
+
+<p>This template tag checks if the currently logged-in user has a specific role.</p>
+
+<pre><code>&lt;?php if ( function_exists( 'current_user_has_role' ) && current_user_has_role( 'editor' ) ) { ?>
+	Only users with the editor role can see this content.
+&lt;?php } ?></code></pre>
+
+<h3 id="has_role">has_role()</h3>
+
+<p>This function will check if a specific user (by ID) has the given role.</p>
+
+<pre><code>&lt;?php if ( function_exists( 'has_role' ) && has_role( 'editor', 30 ) ) { ?>
+	If the user with the ID or 30 has the editor role, this will be shown.
+&lt;?php } ?></code></pre>
+
+<h3 id="members_list_users">members_list_users()</h3>
+
+<p>The <code>members_list_users()</code> template tag works much like <code>wp_list_authors()</code>.  This is also a widget called <em>Users</em> if you're using the <em>Widgets</em> component.</p>
+
+<pre><code>&lt;?php if ( function_exists( 'members_list_users' ) ) { ?>
+
+	&lt;ul>
+		&lt;?php members_list_users( array( 'order' => 'ASC', 'orderby' => 'display_name' ) ); ?>
+	&lt;/ul>
+
+&lt;?php } ?></code></pre>
+
+<p>This function currently only takes in a few parameters, but I hope to work more in sometime in the future.</p>
+
+<ul>
+	<li><code>order</code>: Takes in <code>ASC</code> (ascending) or <code>DESC</code> (descending).  The default is <code>ASC</code>.</li>
+	<li><code>orderby</code>:  What to order your users by.  The possible values are <code>display_name</code>, <code>ID</code>, and <code>user_login</code>.  The default is <code>display_name</code>.</li>
+	<li><code>include</code>:  Comma-separated list of user IDs to include in the list.</li>
+	<li><code>exclude</code>:  Comma-separated list of user IDs to exclude from the list.</li>
+	<li><code>limit</code>:  The number of users to show.  Note that large lists can really hit the database.</li>
+	<li><code>show_fullname</code>  This is set to <code>true</code> by default.  If set to <code>false</code>, the users' display names will be shown.</li>
+	<li><code>echo</code>:  Set to <code>false</code> to return the list of users rather than displaying them on screen.</li>
+</ul>
+
+<h3 id="members_author_profile">members_author_profile()</h3>
+
+<p>A template tag to be used within The Loop for showing the current author's avatar, name (linked to author archive), and bio.  A good place to use this is in your <code>single.php</code> template after the post.</p>
+
+<pre><code>&lt;?php if ( function_exists( 'members_author_profile' ) ) members_author_profile(); ?></code></pre>
+
+<h2 id="widgets">Widgets Component</h2>
+
+<p>The widgets component provides easy-to-use widgets for your site.  They can be used in any WordPress widget area (provided by your theme).  Currently, there's the <em>Login Form</em> and <em>Users</em> widgets.</p>
+
+<h3 id="login-widget">Login Form widget</h3>
+
+<p>The <em>Login Form</em> gives you a login form.  It's a mixture of a text widget and login form.  It can also show your avatar.</p>
+
+<p>It's pretty straightforward, but I'll provide more documentation later.</p>
+
+<h3 id="users-widget">Users widget</h3>
+
+<p>The <em>Users</em> widget allows you to list users in any widget area.  It's based off the <code>members_list_users()</code> function, so all of the <a href="#members_list_users" title="members_list_users() template tag">parameters are the same</a>.</p>
+
+<h2 id="private-blog">Private Blog Component</h2>
+
+<p>The <em>Private Blog</em> component makes sure that only logged-in users can see anything on your site.  If a user visits your site and is not logged in, they are immediately redirected to your <code>wp-login.php</code> (WordPress login) page.</p>
+
+<p class="alert">Note that feeds are not currently blocked with this component, but it's likely they will be later with an introduction of a feeds component.</p>
+
+<h2 id="capability-check">Checking if the current user has a capability</h2>
+
+<p>In plugins and your theme template files, you might sometimes need to check if the currently logged in user has permission to do something.  We do this by using the WordPress function <code>current_user_can()</code>.  The basic format looks like this:</p>
+
+<pre><code>&lt;?php if ( current_user_can( 'capability_name' ) ) echo 'This user can do something'; ?></code></pre>
+
+<p>For a more practical situation, let's say you created a new capability called <code>read_pages</code>.  Well, you might want to hide the content within your <code>page.php</code> template by adding this:</p>
+
+<pre><code>&lt;?php if ( current_user_can( 'read_pages ' ) ) { ?>
+	&lt;?php the_content(); ?>
+&lt;?php } ?></code></pre>
+
+<p>Only users with a role that has the <code>read_pages</code> capability will be able to see the content.</p>
+
+<h2 id="components-api">Components API</h2>
+
+<p>The components API is for developing new components to use within the Members plugin. This API is meant to be used so that users can select which components they want to run.  While it is possible to build something on top of the <em>Members</em> plugin without using the components API, this provides a way to jump start development and keep code clean and organized.</p>
+
+<h3>Creating a custom component</h3>
+
+<p>To create a custom component, you need to use the <code>register_members_component()</code> function in your plugin.  You should wrap it within its own function.</p>
+
+<pre><code>function register_my_components() {
+
+	register_members_component( array( 
+		'name' => 'component_name', 
+		'label' => __('Component Label', 'members'), 
+		'callback' => 'component_callback_function', 
+		'hook' => false,
+		'description' => __('Add a description of your component.', 'members') 
+	) );
+}</code></pre>
+
+<ul>
+	<li><strong><em>Required</em></strong> <code>name</code>: A unique name for your component (do not localize this, use spaces, or hyphens).</li>
+	<li><strong><em>Required</em></strong> <code>label</code>:  The name of the component that users will see (should be localized).</li>
+	<li><strong><em>Required</em></strong> <code>description</code>: The description of your plugin (should be localized).</li>
+	<li><strong><em>Optional</em></strong> <code>callback</code>: The function to call for your component.</li>
+	<li><strong><em>Optional</em></strong> <code>hook</code>: The action hook used to fire your callback function.</li>
+</ul>
+
+<p>Once you've done the above, you need to add your function to the <code>members_register_components</code> hook.</p>
+
+<pre><code>add_action( 'members_register_components', 'register_my_components' );</code></pre>
+
+<h3>Checking if a component is active</h3>
+
+<p>If you want to check if a component is active (nice way to only load code if needed), you can use the <code>is_active_members_component()</code> function.</p>
+
+<pre><code>if ( is_active_members_component( $component_name ) ) {
+	/* Load files or do something else. */
+}</code></pre>
+
+<h3>Getting a component</h3>
+
+<p>If you need to grab a component object, you can do so with the <code>get_members_component()</code> function.</p>
+
+<pre><code>$component = get_members_component( $component_name );
+
+echo $component->name;
+echo $component->label;
+echo $component->description;
+echo $component->callback;
+echo $component->hook;</code></pre>
+
+<h2 id="filter-caps">Adding new default capabilities</h2>
+
+<p>Your plugin/theme can add new capabilities to the <em>Edit Roles</em> component if needed.  This will allow users to easily select the additional capabilities for whichever roles they choose.</p>
+
+<pre><code>add_filter( 'members_get_capabilities', 'my_plugin_new_caps' );
+
+function my_plugin_new_caps( $capabilities ) {
+
+	$capabilities[] = 'cap_name_1';
+	$capabilities[] = 'cap_name_2';
+	$capabilities[] = 'cap_name_3';
+
+	return $capabilities;
+}</code></pre>
+
+<p>Note that you need to respect the existing capabilities and return the original array.</p>
+
+<h2 id="cap-check">Checking for capabilities</h2>
+
+<p>In WordPress, you can use the <code>current_user_can()</code> function to check if the current user has a particular capability.  Since you don't know whether a user has this plugin installed, you might want to check first.</p>
+
+<p>The <code>members_check_for_cap()</code> function (only use in admin) checks if any role has a particular capability.  This can be useful in setting up something like admin menus.  For example, you can set up a theme settings menu for users that have the <code>edit_themes</code> capability.  But, if this plugin is installed and a user has the <code>edit_my_theme</code> capability, that'll be used instead.</p>
+
+<pre><code>if ( function_exists( 'members_check_for_cap' ) && members_check_for_cap( 'some_cap' ) ) {
+	/* Do something if any role has the 'some_cap' capability. */
+else {
+	/* Do something for people without the plugin. */
+}</code></pre>
+
+<h2 id="old-levels">Need the old user levels system?</h2>
+
+<p>Some plugins and themes might rely on the old user level system in WordPress.  WordPress still has legacy support for these, but I'm hoping to continue phasing out the use of them.</p>
+
+<p>By default, the levels aren't shown.  They still exist, but are tucked away behind the scenes.  If you need to control who has what level (levels are just capabilities), add this to your plugin or your theme's <code>functions.php</code>:</p>
+
+<pre><code>remove_filter( 'members_get_capabilities', 'members_remove_old_levels' );</code></pre>
+
+<h2 id="plugin-support">Plugin support</h2>
+
+<p>I run a WordPress community called <a href="http://themehybrid.com" title="Theme Hybrid">Theme Hybrid</a>, which is where I fully support all of my WordPress projects, including plugins.  You can sign up for an account to get plugin support for a small yearly fee ($25 <acronym title="United States Dollars">USD</acronym> at the time of writing).</p>
+
+<p>I know.  I know.  You might not want to pay for support, but just consider it a donation to the project.  To continue making cool, <acronym title="GNU General Public License">GPL</acronym>-licensed plugins and having the time to support them, I must pay the bills.</p>
+
+<h2 id="copyright">Copyright &amp; license</h2>
+
+<p><em>Members</em> is licensed under the <a href="http://www.gnu.org/licenses/old-licenses/gpl-2.0.html" title="GNU GPL">GNU General Public License</a>, version 2 (<acronym title="GNU General Public License">GPL</acronym>).</p>
+
+<p>This plugin is copyrighted to <a href="http://justintadlock.com" title="Justin Tadlock">Justin Tadlock</a>.</p>
+
+<p>2009 &copy; Justin Tadlock</p>
+
+</body>
+</html>
