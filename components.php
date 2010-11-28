@@ -13,10 +13,10 @@
  */
 
 /* Register the default components shippedd with the plugin. */
-add_action( 'init', 'members_create_default_components', 0 );
+add_action( 'after_setup_theme', 'members_create_default_components', 0 );
 
 /* Load the callback functions for each of the registered components. Components should be registered on 'init' with a priority less than '10'. */
-add_action( 'init', 'members_load_components', 5 );
+add_action( 'after_setup_theme', 'members_load_components', 5 );
 
 /**
  * Registers the initial components packaged with the plugin.
@@ -33,7 +33,7 @@ function members_create_default_components() {
 	register_members_component( array( 'name' => 'template_tags', 'label' => __('Template Tags', 'members'), 'callback' => 'members_component_template_tags', 'requires' => false, 'description' => __('Provides additional template tags for use within your WordPress theme for restricting or providing access to certain content.', 'members') ) );
 	register_members_component( array( 'hook' => 'widgets_init', 'name' => 'widgets', 'label' => __('Widgets', 'members'), 'callback' => 'members_component_widgets', 'requires' => false, 'description' => __('Creates additional widgets for use in any widget area on your site. The current widgets are Login Form and Users.', 'members') ) );
 	register_members_component( array( 'name' => 'private_blog', 'label' => __('Private Blog', 'members'), 'callback' => 'members_component_private_blog', 'requires' => false, 'description' => __('Forces all users to log into the site before viewing it. It will always redirect users to the login page. Note that this component does not block public access to your feeds.', 'members') ) );
-	register_members_component( array( 'name' => 'stats', 'label' => __( 'Statistics', 'members' ), 'callback' => 'members_component_stats', 'requires' => false, 'description' => __( 'Adds statistics for user signups based on role.', 'members' ) ) );
+	//register_members_component( array( 'name' => 'stats', 'label' => __( 'Statistics', 'members' ), 'callback' => 'members_component_stats', 'requires' => false, 'description' => __( 'Adds statistics for user signups based on role.', 'members' ) ) );
 	//register_members_component( array( 'name' => 'user_fields', 'label' => __('User Fields', 'members'), 'callback' => 'members_component_user_fields', 'requires' => false, 'description' => __('Provides an interface for building additional user profile fields.  Users will then be able provide this additional information when editing their profile', 'members') ) );
 
 	do_action( 'members_register_components' ); // Available hook to register components.
