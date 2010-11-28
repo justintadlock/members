@@ -3,68 +3,118 @@
  * Plugin Name: Members
  * Plugin URI: http://justintadlock.com/archives/2009/09/17/members-wordpress-plugin
  * Description: A user, role, and content management plugin for controlling permissions and access. A plugin for making WordPress a more powerful <acronym title="Content Management System">CMS</acronym>.
- * Version: 0.1.1
+ * Version: 0.2 Beta
  * Author: Justin Tadlock
  * Author URI: http://justintadlock.com
  *
- * The members plugin was created because the WordPress community is lacking
- * a solid permissions plugin that is both open source and works completely within the 
- * confines of the APIs in WordPress.  But, the plugin is so much more than just a
- * plugin to control permissions.  It is meant to extend WordPress by making user, 
- * role, and content management as simple as using the system altogether.
+ * The members plugin was created because the WordPress community is lacking a solid permissions 
+ * plugin that is both open source and works completely within the confines of the APIs in WordPress.  
+ * But, the plugin is so much more than just a plugin to control permissions.  It is meant to extend 
+ * WordPress by making user, role, and content management as simple as using the system altogether.
  *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * This program is free software; you can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License version 2, as published by the Free Software Foundation.  You may NOT assume 
+ * that you can use any other version of the GPL.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without 
+ * even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
  * @package Members
+ * @version 0.2.0
+ * @author Justin Tadlock <justin@justintadlock.com>
+ * @copyright Copyright (c) 2009 - 2010, Justin Tadlock
+ * @link http://justintadlock.com/archives/2009/09/17/members-wordpress-plugin
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
-
-/* Set constant path to the members plugin directory. */
-define( 'MEMBERS_DIR', plugin_dir_path( __FILE__ ) );
-
-/* Set constant path to the members plugin URL. */
-define( 'MEMBERS_URL', plugin_dir_url( __FILE__ ) );
-
-/* Set constant path to the members components directory. */
-define( 'MEMBERS_COMPONENTS', MEMBERS_DIR . 'components' );
-
-/* Launch the plugin. */
-add_action( 'plugins_loaded', 'members_plugin_init' );
 
 /**
- * Initialize the plugin.  This function loads the required files needed for the plugin
- * to run in the proper order.  Mostly, it's the function that brings the components
- * system into play.
- *
- * @since 0.1
+ * @since 0.2.0
  */
-function members_plugin_init() {
-	
-	/* Load the translation of the plugin. */
-	load_plugin_textdomain( 'members', false, 'members/languages' );
+class Members_Load {
 
-	/* Load global functions for the WordPress admin. */
-	if ( is_admin() )
-		require_once( MEMBERS_DIR . 'functions-admin.php' );
+	/**
+	 * PHP4 constructor method.
+	 *
+	 * @since 0.2.0
+	 */
+	function Members_Load() {
+		$this->__construct();
+	}
 
-	/* Load global functions for the front end of the site. */
-	else
-		require_once( MEMBERS_DIR . 'functions.php' );
+	/**
+	 * PHP5 constructor method.
+	 *
+	 * @since 0.2.0
+	 */
+	function __construct() {
+		add_action( 'plugins_loaded', array( &$this, 'constants' ), 1 );
+		add_action( 'plugins_loaded', array( &$this, 'locale' ), 2 );
+		add_action( 'plugins_loaded', array( &$this, 'load' ), 3 );
+		add_action( 'plugins_loaded', array( &$this, 'admin' ), 4 );
+	}
 
-	/* Load the components system, which is the file that has all the components-related functions. */
-	require_once( MEMBERS_DIR . 'components.php' );
+	/**
+	 * Defines constants used by the plugin.
+	 *
+	 * @since 0.2.0
+	 */
+	function constants() {
 
-	/* Members components settings page. */
-	add_action( 'admin_menu', 'members_settings_page_init' );
-	add_action( 'admin_init', 'members_register_settings' );
+		/* Set constant path to the members plugin directory. */
+		define( 'MEMBERS_DIR', plugin_dir_path( __FILE__ ) );
 
-	/* Set up globals. */
-	add_action( 'init', 'members_core_globals_setup', 0 );
+		/* Set constant path to the members plugin URL. */
+		define( 'MEMBERS_URI', plugin_dir_url( __FILE__ ) );
 
-	/* Available action hook if needed by another plugin/theme to run additional functions. */
-	do_action( 'members_init' );
+		/* Set constant path to the members components directory. */
+		define( 'MEMBERS_COMPONENTS', trailingslashit( MEMBERS_DIR ) . 'components' );
+	}
+
+	/**
+	 * Loads the initial files needed by the plugin.
+	 *
+	 * @since 0.2.0
+	 */
+	function load() {
+		if ( !is_admin() )
+			require_once( MEMBERS_DIR . 'functions.php' );
+
+		/* Load the components system, which is the file that has all the components-related functions. */
+		require_once( MEMBERS_DIR . 'components.php' );
+
+		/* Set up globals. */
+		add_action( 'after_setup_theme', 'members_core_globals_setup', 0 );
+	}
+
+	/**
+	 * Loads the translation files.
+	 *
+	 * @since 0.2.0
+	 */
+	function locale() {
+		/* Load the translation of the plugin. */
+		load_plugin_textdomain( 'members', false, 'members/languages' );
+	}
+
+	/**
+	 * Loads the admin functions and files.
+	 *
+	 * @since 0.2.0
+	 */
+	function admin() {
+
+		/* Load global functions for the WordPress admin. */
+		if ( is_admin() ) {
+			require_once( MEMBERS_DIR . 'functions-admin.php' );
+
+			/* Members components settings page. */
+			add_action( 'admin_menu', 'members_settings_page_init' );
+			add_action( 'admin_init', 'members_register_settings' );
+		}
+	}
 }
+
+$members_load = new Members_Load();
 
 /**
  * Set up the $members global variable. Since we'll need to have several
@@ -97,7 +147,7 @@ function members_core_globals_setup() {
 function members_settings_page_init() {
 	global $members;
 	
-	$members->settings_page = add_submenu_page( 'options-general.php', __('Members Components', 'members'), __('Members Components', 'members'), 'activate_plugins', 'members-components', 'members_settings_page' );
+	$members->settings_page = add_submenu_page( 'options-general.php', __('Members Components', 'members'), __('Members Components', 'members'), 'manage_options', 'members-components', 'members_settings_page' );
 }
 
 /**
