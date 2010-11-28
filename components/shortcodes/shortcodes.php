@@ -153,10 +153,10 @@ function members_access_check_shortcode( $attr, $content = null ) {
  * Displays a login form.
  *
  * @since 0.1
- * @uses members_get_login_form() Displays the login form.
+ * @uses wp_login_form() Displays the login form.
  */
 function members_login_form_shortcode() {
-	return members_get_login_form();
+	return wp_login_form( array( 'echo' => false ) );
 }
 
 ?>
