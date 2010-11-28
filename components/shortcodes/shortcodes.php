@@ -10,12 +10,21 @@
  */
 
 /* Add shortcodes. */
-add_shortcode( 'login-form', 'members_login_form_shortcode' );
-add_shortcode( 'access', 'members_access_check_shortcode' );
-add_shortcode( 'feed', 'members_access_check_shortcode' );
-add_shortcode( 'is_user_logged_in', 'members_is_user_logged_in_shortcode' );
-add_shortcode( 'get_avatar', 'members_get_avatar_shortcode' );
-add_shortcode( 'avatar', 'members_get_avatar_shortcode' );
+add_action( 'init', 'members_component_shortcodes_register_shortcodes' );
+
+/**
+ * Registers shortcodes for the shortcodes component.
+ *
+ * @since 0.2.0
+ */
+function members_component_shortcodes_register_shortcodes() {
+	add_shortcode( 'login-form', 'members_login_form_shortcode' );
+	add_shortcode( 'access', 'members_access_check_shortcode' );
+	add_shortcode( 'feed', 'members_access_check_shortcode' );
+	add_shortcode( 'is_user_logged_in', 'members_is_user_logged_in_shortcode' );
+	add_shortcode( 'get_avatar', 'members_get_avatar_shortcode' );
+	add_shortcode( 'avatar', 'members_get_avatar_shortcode' );
+}
 
 /**
  * Displays an avatar for any user.  At the very least, an ID or email must
