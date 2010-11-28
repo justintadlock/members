@@ -13,10 +13,11 @@
 /**
  * Displays the login form.
  *
- * @since 0.1
+ * @since 0.1.0
+ * @deprecated 0.2.0 Use wp_login_form() instead.
  */
 function members_login_form() {
-	echo members_get_login_form();
+	wp_login_form( array( 'echo' => true ) );
 }
 
 /**
@@ -24,45 +25,11 @@ function members_login_form() {
  * @todo Make each section customizable.
  * @todo Clean up.
  *
- * @since 0.1
+ * @since 0.1.0
+ * @deprecated 0.2.0 Use wp_login_form() instead.
  */
-function members_get_login_form() {
-	global $user_identity, $user_ID;
-
-	if ( is_user_logged_in() ) {
-
-		$login = '<div class="login-form">';
-			$login .= '<p><strong>' . sprintf( __('Welcome, %1$s!', 'members'), $user_identity ) . '</strong></p>';
-		$login .= '</div>';
-	}
-	else {
-
-		$login = '<div class="log-in login-form">';
-
-			$login .= '<form class="log-in" action="' . get_bloginfo( 'wpurl' ) . '/wp-login.php" method="post">';
-
-				$login .= '<p class="text-input">';
-					$login .= '<label class="text" for="log">' . __('Username:', 'members') . '</label>';
-					$login .= '<input class="field" type="text" name="log" id="log" value="' . esc_attr( $user_login ) . '" size="23" />';
-				$login .= '</p>';
-
-				$login .= '<p class="text-input">';
-					$login .= '<label class="text" for="pwd">' . __('Password:', 'members') . '</label>';
-					$login .= '<input class="field" type="password" name="pwd" id="pwd" size="23" />';
-				$login .= '</p>';
-
-				$login .= '<div class="clear">';
-					$login .= '<input type="submit" name="submit" value="' . __('Log In', 'members') . '" class="log-in" />';
-					$login .= '<label class="remember"><input name="rememberme" id="rememberme" type="checkbox" checked="checked" value="forever" /> ' . __('Remember me', 'members') . '</label>';
-					$login .= '<input type="hidden" name="redirect_to" value="' . $_SERVER['REQUEST_URI'] . '"/>';
-				$login .= '</div>';
-
-			$login .= '</form>';
-
-		$login .= '</div>';
-	}
-
-	return $login;
+function members_get_login_form( $args = array() ) {
+	wp_login_form( array( echo => 'false' ) );
 }
 
 /**
