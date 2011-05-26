@@ -22,7 +22,7 @@
  * @package Members
  * @version 0.2.0
  * @author Justin Tadlock <justin@justintadlock.com>
- * @copyright Copyright (c) 2009 - 2010, Justin Tadlock
+ * @copyright Copyright (c) 2009 - 2011, Justin Tadlock
  * @link http://justintadlock.com/archives/2009/09/17/members-wordpress-plugin
  * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
@@ -33,7 +33,8 @@
 class Members_Load {
 
 	/**
-	 * PHP4 constructor method.
+	 * PHP4 constructor method.  This will be removed once the plugin only supports WordPress 3.2, 
+	 * which is the version that drops PHP4 support.
 	 *
 	 * @since 0.2.0
 	 */
@@ -47,9 +48,17 @@ class Members_Load {
 	 * @since 0.2.0
 	 */
 	function __construct() {
+
+		/* Set the constants needed by the plugin. */
 		add_action( 'plugins_loaded', array( &$this, 'constants' ), 1 );
-		add_action( 'plugins_loaded', array( &$this, 'locale' ), 2 );
-		add_action( 'plugins_loaded', array( &$this, 'load' ), 3 );
+
+		/* Internationalize the text strings used. */
+		add_action( 'plugins_loaded', array( &$this, 'i18n' ), 2 );
+
+		/* Load the functions files. */
+		add_action( 'plugins_loaded', array( &$this, 'includes' ), 3 );
+
+		/* Load the admin files. */
 		add_action( 'plugins_loaded', array( &$this, 'admin' ), 4 );
 	}
 
@@ -60,14 +69,20 @@ class Members_Load {
 	 */
 	function constants() {
 
+		/* Set the version number of the plugin. */
+		define( 'MEMBERS_VERSION', '0.2.0' );
+
 		/* Set constant path to the members plugin directory. */
-		define( 'MEMBERS_DIR', plugin_dir_path( __FILE__ ) );
+		define( 'MEMBERS_DIR', trailingslashit( plugin_dir_path( __FILE__ ) ) );
 
 		/* Set constant path to the members plugin URL. */
-		define( 'MEMBERS_URI', plugin_dir_url( __FILE__ ) );
+		define( 'MEMBERS_URI', trailingslashit( plugin_dir_url( __FILE__ ) ) );
 
-		/* Set constant path to the members components directory. */
-		define( 'MEMBERS_COMPONENTS', trailingslashit( MEMBERS_DIR ) . 'components' );
+		/* Set the constant path to the members includes directory. */
+		define( 'MEMBERS_INCLUDES', MEMBERS_DIR . trailingslashit( 'includes' ) );
+
+		/* Set the constant path to the members admin directory. */
+		define( 'MEMBERS_ADMIN', MEMBERS_DIR . trailingslashit( 'admin' ) );
 	}
 
 	/**
@@ -75,15 +90,28 @@ class Members_Load {
 	 *
 	 * @since 0.2.0
 	 */
-	function load() {
-		if ( !is_admin() )
-			require_once( MEMBERS_DIR . 'functions.php' );
+	function includes() {
 
-		/* Load the components system, which is the file that has all the components-related functions. */
-		require_once( MEMBERS_DIR . 'components.php' );
+		/* Load the plugin functions file. */
+		require_once( MEMBERS_INCLUDES . 'functions.php' );
 
-		/* Set up globals. */
-		add_action( 'after_setup_theme', 'members_core_globals_setup', 0 );
+		/* Load the deprecated functions file. */
+		require_once( MEMBERS_INCLUDES . 'deprecated.php' );
+
+		/* Load the functions related to capabilities. */
+		require_once( MEMBERS_INCLUDES . 'capabilities.php' );
+
+		/* Load the content permissions functions. */
+		require_once( MEMBERS_INCLUDES . 'content-permissions.php' );
+
+		/* Load the private site functions. */
+		require_once( MEMBERS_INCLUDES . 'private-site.php' );
+
+		/* Load the shortcodes functions file. */
+		require_once( MEMBERS_INCLUDES . 'shortcodes.php' );
+
+		/* Load the widgets functions file. */
+		require_once( MEMBERS_INCLUDES . 'widgets.php' );
 	}
 
 	/**
@@ -91,7 +119,8 @@ class Members_Load {
 	 *
 	 * @since 0.2.0
 	 */
-	function locale() {
+	function i18n() {
+
 		/* Load the translation of the plugin. */
 		load_plugin_textdomain( 'members', false, 'members/languages' );
 	}
@@ -103,94 +132,18 @@ class Members_Load {
 	 */
 	function admin() {
 
-		/* Load global functions for the WordPress admin. */
+		/* Only load files if in the WordPress admin. */
 		if ( is_admin() ) {
-			require_once( MEMBERS_DIR . 'functions-admin.php' );
 
-			/* Members components settings page. */
-			add_action( 'admin_menu', 'members_settings_page_init' );
-			add_action( 'admin_init', 'members_register_settings' );
+			/* Load the main admin file. */
+			require_once( MEMBERS_ADMIN . 'admin.php' );
+
+			/* Load the plugin settings. */
+			require_once( MEMBERS_ADMIN . 'settings.php' );
 		}
 	}
 }
 
 $members_load = new Members_Load();
-
-/**
- * Set up the $members global variable. Since we'll need to have several
- * different variables, it just makes sense to put them all into one place.
- * Other functions will hook onto this (e.g., $members-registered_components).
- * 
- * @since 0.1
- * @global $members object The global members object.
- * @global $current_user object The currently logged-in user.
- */
-function members_core_globals_setup() {
-	global $members, $current_user;
-
-	/* Get the currently logged-in user. */
-	$current_user = wp_get_current_user();
-
-	/* Add the currently logged-in user to our global object. */
-	$members->current_user = $current_user;
-	
-	/* Get all active components */
-	$members->active_components = get_option( 'members_settings' );
-}
-
-/**
- * Creates the members settings/components page.
- *
- * @since 0.1
- * @uses add_submenu_page() Creates a submenu for the Settings menu item.
- */
-function members_settings_page_init() {
-	global $members;
-	
-	$members->settings_page = add_submenu_page( 'options-general.php', __('Members Components', 'members'), __('Members Components', 'members'), 'manage_options', 'members-components', 'members_settings_page' );
-}
-
-/**
- * Registers the plugin settings, which will become an array of activated components.
- *
- * @since 0.1
- * @uses register_setting() Function for registering a setting in WordPress.
- */
-function members_register_settings() {
-	register_setting( 'members_plugin_settings', 'members_settings', 'members_settings_validate' );
-}
-
-/**
- * Loads the admin screen page for selecting components for use with the plugin.
- *
- * @since 0.1
- */
-function members_settings_page() {	
-	require_once( MEMBERS_DIR . 'settings.php' );
-}
-
-/**
- * Validates the members settings.  Since the settings is just a list of components,
- * all we need to do here is loop through the array and check for true/false.
- *
- * @since 0.1
- * @param $input array Values sent by the settings page.
- * @return $input array Validated values to return.
- */
-function members_settings_validate( $input ) {
-	if ( !is_array( $input ) )
-		return $input;
-	
-	foreach ( $input as $key => $value ) {
-
-		/* Disable old edit_roles and new_roles components. */
-		if ( 'edit_roles' == $input[$key] || 'new_roles' == $input[$key] )
-			$input[$key] = false;
-		else
-			$input[$key] = ( $input[$key] == 1 ? 1 : 0 );
-	}
-
-	return $input;
-}
 
 ?>

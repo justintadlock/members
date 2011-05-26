@@ -1,0 +1,86 @@
+/**
+ * CSS for the plugin settings page.
+ */
+.settings_page_members-settings .form-table th {
+	width: 20%;
+	font-weight: bold;
+	}
+.settings_page_members-settings .metabox-holder .column-1 {
+	float: left;
+	width: 66%;
+	}
+.settings_page_members-settings .metabox-holder .column-2 {
+	float: right;
+	width: 32%;
+	}
+.settings_page_members-settings .hook-editor {
+	overflow: hidden;
+	}
+.settings_page_members-settings p.submit {
+	clear: both;
+	}
+.settings_page_members-settings textarea {
+	width: 99.5%;
+	}
+.settings_page_members-settings .postbox .inside p, 
+.settings_page_members-settings .postbox .inside label, 
+.settings_page_members-settings .postbox .inside li, 
+.settings_page_members-settings .postbox .inside a,
+.settings_page_members-settings .postbox .inside label {
+	font-size: 11px;
+	line-height: 175%;
+	}
+.settings_page_members-settings .postbox form {
+	line-height: 150%;	
+	}
+.settings_page_members-settings div.inside ul {
+	margin-left: 20px;
+	}
+.settings_page_members-settings div.inside ul li {
+	list-style: square;
+	line-height:16px;
+	}
+.settings_page_members-settings div.inside .alignleft {
+	width: 45%;
+	float: left;
+	}
+.settings_page_members-settings div.inside .alignright {
+	width: 45%;
+	float: right;
+	text-align: right;
+	}
+
+
+.users_page_roles .members-role-checkbox,
+.users_page_new-role .members-role-checkbox {
+	overflow: hidden;
+	margin: 0 0 5px 0;
+	float: left;
+	width: 32.67%;
+	}
+.users_page_roles .clear,
+.users_page_new-role .clear {
+	clear: both;
+	}
+.users_page_roles .members-role-checkbox .has-cap,
+.users_page_new-role .members-role-checkbox .has-cap {
+	font-weight: bold;
+	}
+.users_page_roles a#members-add-new-cap {
+	cursor: pointer;
+	}
+.users_page_roles input.new-cap {
+	float: left;
+	width: 20%;
+	margin: 0 5% 10px 0;
+	}
+
+.users_page_roles .hide-if-no-js {
+	display: none;
+	}
+
+
+
+
+
+
