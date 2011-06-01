@@ -5,7 +5,7 @@
  * from feeds from the site.
  *
  * @package Members
- * @subpackage Components
+ * @subpackage Functions
  */
 
 /* Redirects users to the login page. */
@@ -13,6 +13,7 @@ add_action( 'template_redirect', 'members_please_log_in', 1 );
 
 /* Disable content in feeds if the feed should be private. */
 add_filter( 'the_content_feed', 'members_private_feed' );
+add_filter( 'the_excerpt_rss', 'members_private_feed' );
 add_filter( 'comment_text_rss', 'members_private_feed' );
 
 /**

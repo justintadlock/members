@@ -46,6 +46,7 @@ class Members_Widget_Users extends WP_Widget {
 
 		extract( $args, EXTR_SKIP );
 
+		/* Set up the arguments for get_users(). */
 		$args = array(
 			'role' => $instance['role'],
 			'meta_key' => $instance['meta_key'],
@@ -66,12 +67,15 @@ class Members_Widget_Users extends WP_Widget {
 		if ( !empty( $instance['title'] ) )
 			echo $before_title . apply_filters( 'widget_title',  $instance['title'], $instance, $this->id_base ) . $after_title;
 
+		/* Get users. */
 		$users = get_users( $args );
 
+		/* If users were found. */
 		if ( !empty( $users ) ) {
 
 			echo '<ul class="xoxo users">';
 
+			/* Loop through each available user, creating a list item with a link to the user's archive. */
 			foreach ( $users as $user ) {
 				$url = get_author_posts_url( $user->ID, $user->user_nicename );
 

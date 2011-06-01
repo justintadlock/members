@@ -69,10 +69,21 @@
 .users_page_roles a#members-add-new-cap {
 	cursor: pointer;
 	}
-.users_page_roles input.new-cap {
+
+.users_page_roles p.members-add-new-cap-wrap {
 	float: left;
 	width: 20%;
-	margin: 0 5% 10px 0;
+	margin-right: 2%;
+	}
+.users_page_roles p.new-cap-holder {
+	float: left;
+	width: 78%;
+	}
+
+.users_page_roles input.new-cap {
+	float: left;
+	width: 30%;
+	margin: 0 3.3% 10px 0;
 	}
 
 .users_page_roles .hide-if-no-js {

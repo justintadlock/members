@@ -1,14 +1,17 @@
 <?php
 /**
- * Long description.
+ * Creates and handles all of the functionality needed for the 'Members Settings' page in the WordPress admin.
  *
  * @package Members
+ * @subpackage Admin
  */
 
 /* Set up the administration functionality. */
 add_action( 'admin_menu', 'members_settings_page_setup' );
 
 /**
+ * Initializes and sets up the main plugin settings page.
+ *
  * @since 0.2.0
  */
 function members_settings_page_setup() {
@@ -22,11 +25,11 @@ function members_settings_page_setup() {
 	add_action( 'admin_init', 'members_register_settings' );
 
 	/* Add Members settings page. */
-	$members->settings_page = add_submenu_page( 'options-general.php', __( 'Members Settings', 'members' ), __( 'Members Settings', 'members' ), apply_filters( 'members_settings_capability', 'manage_options' ), 'members-settings', 'members_settings_page' );
+	$members->settings_page = add_submenu_page( 'options-general.php', esc_attr__( 'Members Settings', 'members' ), esc_attr__( 'Members', 'members' ), apply_filters( 'members_settings_capability', 'manage_options' ), 'members-settings', 'members_settings_page' );
 
 	/* Add media for the settings page. */
 	add_action( 'admin_enqueue_scripts', 'members_admin_enqueue_style' );
-	add_action( "load-{$members->settings_page}", 'members_settings_page_media' );
+	add_action( 'admin_enqueue_scripts', 'members_settings_page_media' );
 	add_action( "admin_head-{$members->settings_page}", 'members_settings_page_scripts' );
 
 	/* Load the meta boxes. */
@@ -37,6 +40,8 @@ function members_settings_page_setup() {
 }
 
 /**
+ * Registers the Members plugin settings with WordPress.
+ *
  * @since 0.2.0
  */
 function members_register_settings() {
@@ -102,6 +107,7 @@ function members_validate_settings( $input ) {
 	/* Set the content permissions error text and kill evil scripts. */
 	if ( current_user_can( 'unfiltered_html' ) && isset( $input['content_permissions_error'] ) )
 		$settings['content_permissions_error'] = stripslashes( wp_filter_post_kses( addslashes( $input['content_permissions_error'] ) ) );
+
 	elseif ( isset( $input['content_permissions_error'] ) )
 		$settings['content_permissions_error'] = $input['content_permissions_error'];
 
@@ -116,6 +122,7 @@ function members_validate_settings( $input ) {
 	/* Set the private feed error text and kill evil scripts. */
 	if ( current_user_can( 'unfiltered_html' ) && isset( $input['private_feed_error'] ) )
 		$settings['private_feed_error'] = stripslashes( wp_filter_post_kses( addslashes( $input['private_feed_error'] ) ) );
+
 	elseif ( isset( $input['private_feed_error'] ) )
 		$settings['private_feed_error'] = $input['private_feed_error'];
 
@@ -163,11 +170,16 @@ function members_settings_page() {
  * Loads needed JavaScript files for handling the meta boxes on the settings page.
  *
  * @since 0.2.0
+ * @param string $hook_suffix The hook for the current page in the admin.
  */
-function members_settings_page_media() {
-	wp_enqueue_script( 'common' );
-	wp_enqueue_script( 'wp-lists' );
-	wp_enqueue_script( 'postbox' );
+function members_settings_page_media( $hook_suffix ) {
+	global $members;
+
+	if ( isset( $members->settings_page ) && $hook_suffix == $members->settings_page ) {
+		wp_enqueue_script( 'common' );
+		wp_enqueue_script( 'wp-lists' );
+		wp_enqueue_script( 'postbox' );
+	}
 }
 
 /**

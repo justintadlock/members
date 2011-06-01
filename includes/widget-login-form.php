@@ -47,6 +47,7 @@ class Members_Widget_Login extends WP_Widget {
 
 		extract( $args );
 
+		/* Set up the arguments for wp_login_form(). */
 		$args = array(
 	 		'form_id' => 		!empty( $instance['form_id'] ) ? esc_attr( $instance['form_id'] ) : 'loginform',
 			'label_username' => 	esc_html( $instance['label_username'] ),
@@ -60,18 +61,17 @@ class Members_Widget_Login extends WP_Widget {
 			'remember' =>		!empty( $instance['remember'] ) ? true : false,
 			'value_username' =>	esc_attr( $instance['value_username'] ),
 			'value_remember' =>	!empty( $instance['value_remember'] ) ? true : false,
-			'echo' => true,
+			'echo' => false,
 		);
 
 		if ( !empty( $instance['redirect'] ) )
 			$args['redirect'] = esc_url( $instance['redirect'] );
 
-
+		/* Get the logged in/out text. */
 		$logged_in_text = apply_filters( 'widget_text', $instance['logged_in_text'] );
 		$logged_out_text = apply_filters( 'widget_text', $instance['logged_out_text'] );
 
 		$show_avatar = !empty( $instance['show_avatar'] ) ? true : false;
-
 
 		/* Output the theme's $before_widget wrapper. */
 		echo $before_widget;
@@ -80,27 +80,31 @@ class Members_Widget_Login extends WP_Widget {
 		if ( !empty( $instance['title'] ) )
 			echo $before_title . apply_filters( 'widget_title',  $instance['title'], $instance, $this->id_base ) . $after_title;
 
+		/* If the current user is logged in. */
 		if ( is_user_logged_in() ) {
 
-			if ( $show_avatar )
+			/* Show avatar if enabled. */
+			if ( !empty( $show_avatar ) )
 				echo get_avatar( $user_ID );
 
-			if ( $logged_in_text )
-				echo wpautop( do_shortcode( $logged_in_text ) );
-
+			/* Show logged in text if any is written. */
+			if ( !empty( $logged_in_text ) )
+				echo do_shortcode( shortcode_unautop( wpautop( $logged_in_text ) ) );
 		}
+
+		/* If the current user is not logged in. */
 		else {
+
+			/* Show avatar if enabled. */
 			if ( $show_avatar )
 				echo get_avatar( $user_ID );
 
+			/* Show logged out text if any is written. */
 			if ( $logged_out_text )
-				echo wpautop( do_shortcode( $logged_out_text ) );
+				echo do_shortcode( shortcode_unautop( wpautop( $logged_out_text ) ) );
 
-			echo '<div class="members-login-form">';
-
-			wp_login_form( $args );
-
-			echo '</div>';
+			/* Output the login form. */
+			echo '<div class="members-login-form">' . wp_login_form( $args ) . '</div>';
 		}
 
 		/* Close the theme's widget wrapper. */

@@ -3,7 +3,7 @@
  * Plugin Name: Members
  * Plugin URI: http://justintadlock.com/archives/2009/09/17/members-wordpress-plugin
  * Description: A user, role, and content management plugin for controlling permissions and access. A plugin for making WordPress a more powerful <acronym title="Content Management System">CMS</acronym>.
- * Version: 0.2 Beta
+ * Version: 0.2 Beta 2
  * Author: Justin Tadlock
  * Author URI: http://justintadlock.com
  *
@@ -60,6 +60,9 @@ class Members_Load {
 
 		/* Load the admin files. */
 		add_action( 'plugins_loaded', array( &$this, 'admin' ), 4 );
+
+		/* Register activation hook. */
+		register_activation_hook( __FILE__, array( &$this, 'activation' ) );
 	}
 
 	/**
@@ -140,6 +143,52 @@ class Members_Load {
 
 			/* Load the plugin settings. */
 			require_once( MEMBERS_ADMIN . 'settings.php' );
+		}
+	}
+
+	/**
+	 * Method that runs only when the plugin is activated.
+	 *
+	 * @since 0.2.0
+	 */
+	function activation() {
+
+		/* Get the administrator role. */
+		$role =& get_role( 'administrator' );
+
+		/* If the administrator role exists, add required capabilities for the plugin. */
+		if ( !empty( $role ) ) {
+
+			/* Role management capabilities. */
+			$role->add_cap( 'list_roles' );
+			$role->add_cap( 'create_roles' );
+			$role->add_cap( 'delete_roles' );
+			$role->add_cap( 'edit_roles' );
+
+			/* Content permissions capabilities. */
+			$role->add_cap( 'retrict_content' );
+		}
+
+		/**
+		 * If the administrator role does not exist for some reason, we have a bit of a problem 
+		 * because this is a role management plugin and requires that someone actually be able to 
+		 * manage roles.  So, we're going to create a custom role here.  The site administrator can 
+		 * assign this custom role to any user they wish to work around this problem.  We're only 
+		 * doing this for single-site installs of WordPress.  The 'super admin' has permission to do
+		 * pretty much anything on a multisite install.
+		 */
+		elseif ( empty( $role ) && !is_multisite() ) {
+
+			/* Add the 'members_role_manager' role with limited capabilities. */
+			add_role(
+				'members_role_manager',
+				_x( 'Role Manager', 'role', 'members' ),
+				array(
+					'read' => true,
+					'list_roles' => true,
+					'edit_roles' => true
+				)
+			);
 		}
 	}
 }

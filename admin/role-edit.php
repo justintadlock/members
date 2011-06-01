@@ -1,7 +1,5 @@
 <?php
 /**
- * @todo Add inline styles the the admin.css stylesheet.
- *
  * @package Members
  * @subpackage Admin
  */
@@ -12,8 +10,8 @@ $role = get_role( esc_attr( strip_tags( $_GET['role'] ) ) );
 /* Get all the capabilities */
 $capabilities = members_get_capabilities();
 
-/* Check if the form has been submitted. */
-if ( isset( $_POST['role-caps'] ) || isset( $_POST['new-cap'] ) ) {
+/* Check if the current user can edit roles and the form has been submitted. */
+if ( current_user_can( 'edit_roles' ) && ( isset( $_POST['role-caps'] ) || isset( $_POST['new-cap'] ) ) ) {
 
 	/* Verify the nonce. */
 	check_admin_referer( members_get_nonce( 'edit-roles' ) );
@@ -25,14 +23,14 @@ if ( isset( $_POST['role-caps'] ) || isset( $_POST['new-cap'] ) ) {
 	foreach ( $capabilities as $cap ) {
 
 		/* Get the posted capability. */
-		$posted_cap = isset($_POST['role-caps']["{$role->name}-{$cap}"]) ? $_POST['role-caps']["{$role->name}-{$cap}"] : false;
-		
+		$posted_cap = isset( $_POST['role-caps']["{$role->name}-{$cap}"] ) ? $_POST['role-caps']["{$role->name}-{$cap}"] : false;
+
 		/* If the role doesn't have the capability and it was selected, add it. */
-		if ( !$role->has_cap( $cap ) && $posted_cap )
+		if ( !$role->has_cap( $cap ) && !empty( $posted_cap ) )
 			$role->add_cap( $cap );
 
 		/* If the role has the capability and it wasn't selected, remove it. */
-		elseif ( $role->has_cap( $cap ) && !$posted_cap )
+		elseif ( $role->has_cap( $cap ) && empty( $posted_cap ) )
 			$role->remove_cap( $cap );
 
 	} // End loop through existing capabilities
@@ -44,13 +42,10 @@ if ( isset( $_POST['role-caps'] ) || isset( $_POST['new-cap'] ) ) {
 		foreach ( $_POST['new-cap'] as $new_cap ) {
 
 			/* Sanitize the new capability to remove any unwanted characters. */
-			$new_cap = strip_tags( $new_cap );
-			$new_cap = str_replace( array( '-', ' ', '&nbsp;' ) , '_', $new_cap );
-			$new_cap = preg_replace('/[^A-Za-z0-9_]/', '', $new_cap );
-			$new_cap = strtolower( $new_cap );
+			$new_cap = sanitize_key( $new_cap );
 
 			/* Run one more check to make sure the new capability exists. Add the cap to the role. */
-			if ( $new_cap && !$role->has_cap( $new_cap ) )
+			if ( !empty( $new_cap ) && !$role->has_cap( $new_cap ) )
 				$role->add_cap( $new_cap );
 
 		} // End loop through new capabilities
@@ -71,7 +66,7 @@ if ( isset( $_POST['role-caps'] ) || isset( $_POST['new-cap'] ) ) {
 		<?php if ( current_user_can( 'create_roles' ) ) echo '<a href="' . admin_url( 'users.php?page=new-role' ) . '" class="add-new-h2">' . __( 'Add New', 'members' ) . '</a>'; ?>
 	</h2>
 
-	<?php if ( !empty( $role_updated ) ) members_admin_message( '', __( 'Role updated.', 'members' ) ); ?>
+	<?php if ( !empty( $role_updated ) ) echo '<div class="updated"><p><strong>' . esc_html__( 'Role updated.', 'members' ) . '</strong></p><p><a href="' . admin_url( 'users.php?page=roles' ) . '">' . esc_html__( '&larr; Back to Roles', 'members' ) . '</a></p></div>'; ?>
 
 	<?php do_action( 'members_pre_edit_role_form' ); //Available pre-form hook for displaying messages. ?>
 
@@ -81,62 +76,53 @@ if ( isset( $_POST['role-caps'] ) || isset( $_POST['new-cap'] ) ) {
 
 			<?php wp_nonce_field( members_get_nonce( 'edit-roles' ) ); ?>
 
-					<table class="form-table">
+			<table class="form-table">
 
-					<tr>
-						<th>
-							<?php _e( 'Role Name', 'members' ); ?>
-						</th>
-						<td>
-							<input type="text" disabled="disabled" readonly="readonly" value="<?php echo esc_attr( $role->name ); ?>" />
-						</td>
-					</tr>
+				<tr>
+					<th>
+						<?php _e( 'Role Name', 'members' ); ?>
+					</th>
+					<td>
+						<input type="text" disabled="disabled" readonly="readonly" value="<?php echo esc_attr( $role->name ); ?>" />
+					</td>
+				</tr>
 
-					<tr>
-						<th>
-							<?php _e( 'Capabilities', 'members' ); ?>
-						</th>
+				<tr>
+					<th>
+						<?php _e( 'Capabilities', 'members' ); ?>
+					</th>
 
-						<td>
-							<p>
-								<?php _e( 'Select which capabilities this role should have. Make sure you understand what the capability does before giving it to just any role. This is a powerful feature, but it can cause you some grief if you give regular ol\' Joe more capabilities than yourself.', 'members' ); ?>
-							</p>
+					<td>
+						<?php $i = -1; foreach ( $capabilities as $cap ) { ?>
 
-							<?php $i = -1; foreach ( $capabilities as $cap ) { ?>
+							<div class="members-role-checkbox <?php if ( ++$i % 3 == 0 ) echo 'clear'; ?>">
+								<?php $has_cap = ( $role->has_cap( $cap ) ? true : false ); ?>
+								<input  type="checkbox" name="<?php echo esc_attr( "role-caps[{$role->name}-{$cap}]" ); ?>" id="<?php echo esc_attr( "{$role->name}-{$cap}" ); ?>" <?php checked( true, $has_cap ); ?> value="true" /> 
+								<label for="<?php echo esc_attr( "{$role->name}-{$cap}" ); ?>" class="<?php echo ( $has_cap ? 'has-cap' : 'has-cap-not' ); ?>"><?php echo $cap; ?></label>
+							</div>
 
-								<div class="members-role-checkbox <?php if ( ++$i % 3 == 0 ) echo 'clear'; ?>">
-									<?php $has_cap = ( $role->has_cap( $cap ) ? true : false ); ?>
-									<input  type="checkbox" name="<?php echo esc_attr( "role-caps[{$role->name}-{$cap}]" ); ?>" id="<?php echo esc_attr( "{$role->name}-{$cap}" ); ?>" <?php checked( true, $has_cap ); ?> value="true" /> 
-									<label for="<?php echo esc_attr( "{$role->name}-{$cap}" ); ?>" class="<?php echo ( $has_cap ? 'has-cap' : 'has-cap-not' ); ?>"><?php echo $cap; ?></label>
-								</div>
+						<?php } // Endforeach ?>
+					</td>
+				</tr>
 
-							<?php } // Endforeach ?>
-						</td>
-					</tr>
+				<tr>
+					<th>
+						<?php _e( 'Custom Capabilities', 'members' ); ?>
+					</th>
+					<td>
 
-					<tr>
-						<th>
-							<?php _e( 'New Capabilities', 'members' ); ?>
-						</th>
+						<p class="members-add-new-cap-wrap clear hide-if-no-js">
+							<a class="button-secondary" id="members-add-new-cap"><?php _e( 'Add New Capability', 'members' ); ?></a>
+						</p>
+						<p class="new-cap-holder">
+							<input type="text" class="new-cap hide-if-js" name="new-cap[]" value="" size="20" />
+						</p>
+					</td>
+				</tr>
 
-						<td>
-							<p>
-								<?php _e( 'Add custom capabilities to this role. Please only use letters, numbers, and underscores.', 'members' ); ?>
-							</p>
+			</table><!-- .form-table -->
 
-							<p class="new-cap-holder">
-								<input type="text" class="new-cap" name="new-cap[]" value="" size="20" />
-							</p>
-
-							<p class="clear hide-if-no-js">
-								<a id="members-add-new-cap"><?php _e( 'Add New Capability &rarr;', 'members' ); ?></a>
-							</p>
-						</td>
-					</tr>
-
-					</table><!-- .form-table -->
-
-			<?php submit_button( __( 'Update Role', 'members' ) ); ?>
+			<?php submit_button( esc_attr__( 'Update Role', 'members' ) ); ?>
 
 		</form>
 

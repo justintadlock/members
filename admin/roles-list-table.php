@@ -1,6 +1,6 @@
 <?php
 /**
- * @todo Add inline styles the the admin.css stylesheet.
+ * This file handles the display of the 'Roles' page in the admin.
  *
  * @package Members
  * @subpackage Admin
@@ -9,29 +9,45 @@
 /* Get the global $wp_roles variable. */
 global $wp_roles;
 
-/* Sort out the roles, active roles, and inactive roles. */
-$all_roles = members_count_roles();
-$active_roles_arr = members_get_active_roles();
-$inactive_roles_arr = members_get_inactive_roles();
-$active_roles = count( $active_roles_arr );
-$inactive_roles = count( $inactive_roles_arr );
+/* Get a count of all the roles available. */
+$roles_count = members_count_roles();
 
-if ( !isset( $_GET['role_status'] ) ) {
+/* Get all of the active and inactive roles. */
+$active_roles = members_get_active_roles();
+$inactive_roles = members_get_inactive_roles();
+
+/* Get a count of the active and inactive roles. */
+$active_roles_count = count( $active_roles );
+$inactive_roles_count = count( $inactive_roles );
+
+/* If we're viewing 'active' or 'inactive' roles. */
+if ( !empty( $_GET['role_status'] ) && in_array( $_GET['role_status'], array( 'active', 'inactive' ) ) ) {
+
+	/* Get the role status ('active' or 'inactive'). */
+	$role_status = esc_attr( $_GET['role_status'] );
+
+	/* Set up the roles array. */
+	$list_roles = ( ( 'active' == $role_status ) ? $active_roles : $inactive_roles );
+
+	/* Set the current page URL. */
+	$current_page = admin_url( "users.php?page=roles&role_status={$role_status}" );
+}
+
+/* If viewing the regular role list table. */
+else {
+
+	/* Get the role status ('active' or 'inactive'). */
 	$role_status = 'all';
-	$roles_loop_array = $wp_roles->role_names;
-	$current_page = admin_url( esc_url( "users.php?page=roles" ) );
-} elseif ( 'active' == $_GET['role_status'] ) {
-	$role_status = 'active';
-	$roles_loop_array = $active_roles_arr;
-	$current_page = admin_url( 'users.php?page=roles&role_status=active' );
-} elseif ( 'inactive' == $_GET['role_status'] ) {
-	$role_status = 'inactive';
-	$roles_loop_array = $inactive_roles_arr;
-	$current_page = admin_url( 'users.php?page=roles&role_status=inactive' );
+
+	/* Set up the roles array. */
+	$list_roles = $wp_roles->role_names;
+
+	/* Set the current page URL. */
+	$current_page = $current_page = admin_url( 'users.php?page=roles' );
 }
 
 /* Sort the roles array into alphabetical order. */
-ksort( $roles_loop_array ); ?>
+ksort( $list_roles ); ?>
 
 <div class="wrap">
 
@@ -51,31 +67,35 @@ ksort( $roles_loop_array ); ?>
 			<?php wp_nonce_field( members_get_nonce( 'edit-roles' ) ); ?>
 
 			<ul class="subsubsub">
-				<li><a <?php if ( 'all' == $role_status ) echo 'class="current"'; ?> href="<?php echo admin_url( esc_url( 'users.php?page=roles' ) ); ?>"><?php _e( 'All', 'members' ); ?> <span class="count">(<span id="all_count"><?php echo $all_roles; ?></span>)</span></a> | </li>
-				<li><a <?php if ( 'active' == $role_status ) echo 'class="current"'; ?> href="<?php echo admin_url( esc_url( 'users.php?page=roles&amp;role_status=active' ) ); ?>"><?php _e( 'Active', 'members' ); ?> <span class="count">(<span id="active_count"><?php echo $active_roles; ?></span>)</span></a> | </li>
-				<li><a <?php if ( 'inactive' == $role_status ) echo 'class="current"'; ?> href="<?php echo admin_url( esc_url( 'users.php?page=roles&amp;role_status=inactive' ) ); ?>"><?php _e( 'Inactive', 'members' ); ?> <span class="count">(<span id="inactive_count"><?php echo $inactive_roles; ?></span>)</span></a></li>
+				<li><a <?php if ( 'all' == $role_status ) echo 'class="current"'; ?> href="<?php echo admin_url( esc_url( 'users.php?page=roles' ) ); ?>"><?php _e( 'All', 'members' ); ?> <span class="count">(<span id="all_count"><?php echo $roles_count; ?></span>)</span></a> | </li>
+				<li><a <?php if ( 'active' == $role_status ) echo 'class="current"'; ?> href="<?php echo admin_url( esc_url( 'users.php?page=roles&amp;role_status=active' ) ); ?>"><?php _e( 'Has Users', 'members' ); ?> <span class="count">(<span id="active_count"><?php echo $active_roles_count; ?></span>)</span></a> | </li>
+				<li><a <?php if ( 'inactive' == $role_status ) echo 'class="current"'; ?> href="<?php echo admin_url( esc_url( 'users.php?page=roles&amp;role_status=inactive' ) ); ?>"><?php _e( 'No Users', 'members' ); ?> <span class="count">(<span id="inactive_count"><?php echo $inactive_roles_count; ?></span>)</span></a></li>
 			</ul><!-- .subsubsub -->
 
 			<div class="tablenav">
 
-				<div class="alignleft actions">
+				<?php if ( current_user_can( 'delete_roles' ) ) { ?>
 
-					<select name="action">
+					<div class="alignleft actions">
 
-						<option value="" selected="selected"><?php _e( 'Bulk Actions', 'members' ); ?></option>
+						<select name="bulk-action">
 
-						<?php if ( current_user_can( 'delete_roles' ) ) { ?>
-							<option value="delete"><?php esc_html_e( 'Delete', 'members' ); ?></option>
-						<?php } ?>
+							<option value="" selected="selected"><?php _e( 'Bulk Actions', 'members' ); ?></option>
 
-					</select>
+							<?php if ( current_user_can( 'delete_roles' ) ) { ?>
+								<option value="delete"><?php esc_html_e( 'Delete', 'members' ); ?></option>
+							<?php } ?>
 
-					<?php submit_button( __( 'Apply', 'members' ), 'button-secondary action', 'doaction', false ); ?>
+						</select>
 
-				</div><!-- .alignleft .actions -->
+						<?php submit_button( esc_attr__( 'Apply', 'members' ), 'button-secondary action', 'roles-bulk-action', false ); ?>
+
+					</div><!-- .alignleft .actions -->
+
+				<?php } // End cap check ?>
 
 				<div class='tablenav-pages one-page'>
-					<span class="displaying-num"><?php printf( _n( '%s item', '%s items', count( $roles_loop_array ), 'members' ), count( $roles_loop_array ) ); ?></span>
+					<span class="displaying-num"><?php printf( _n( '%s item', '%s items', count( $list_roles ), 'members' ), count( $list_roles ) ); ?></span>
 				</div>
 
 				<br class="clear" />
@@ -106,9 +126,9 @@ ksort( $roles_loop_array ); ?>
 
 				<tbody id="users" class="list:user user-list plugins">
 
-				<?php foreach ( $roles_loop_array as $role => $name ) { ?>
+				<?php foreach ( $list_roles as $role => $name ) { ?>
 
-					<tr valign="top" class="<?php echo ( isset( $active_roles_arr[$role] ) ? 'active' : 'inactive' ); ?>">
+					<tr valign="top" class="<?php echo ( isset( $active_roles[$role] ) ? 'active' : 'inactive' ); ?>">
 
 						<th class="manage-column column-cb check-column">
 
@@ -122,11 +142,17 @@ ksort( $roles_loop_array ); ?>
 
 							<?php $edit_link = admin_url( wp_nonce_url( "users.php?page=roles&amp;action=edit&amp;role={$role}", members_get_nonce( 'edit-roles' ) ) ); ?> 
 
-							<a href="<?php echo esc_url( $edit_link ); ?>" title="<?php printf( esc_attr__( 'Edit the %s role', 'members' ), $name ); ?>"><strong><?php echo $name; ?></strong></a>
+							<?php if ( current_user_can( 'edit_roles' ) ) { ?>
+								<a href="<?php echo esc_url( $edit_link ); ?>" title="<?php printf( esc_attr__( 'Edit the %s role', 'members' ), $name ); ?>"><strong><?php echo esc_html( $name ); ?></strong></a>
+							<?php } else { ?>
+								<strong><?php echo esc_html( $name ); ?></strong>
+							<?php } ?>
 
 							<div class="row-actions">
 
-								<a href="<?php echo esc_url( $edit_link ); ?>" title="<?php printf( esc_attr__( 'Edit the %s role', 'members' ), $name ); ?>"><?php _e( 'Edit', 'members' ); ?></a> 
+								<?php if ( current_user_can( 'edit_roles' ) ) { ?>
+									<a href="<?php echo esc_url( $edit_link ); ?>" title="<?php printf( esc_attr__( 'Edit the %s role', 'members' ), $name ); ?>"><?php _e( 'Edit', 'members' ); ?></a> 
+								<?php } ?>
 
 								<?php if ( current_user_can( 'delete_roles' ) && $role !== get_option( 'default_role' ) && !current_user_can( $role ) ) { ?>
 									| <a href="<?php echo admin_url( wp_nonce_url( "users.php?page=roles&amp;action=delete&amp;role={$role}", members_get_nonce( 'edit-roles' ) ) ); ?>" title="<?php printf( esc_attr__( 'Delete the %s role', 'members' ), $name ); ?>"><?php _e( 'Delete', 'members' ); ?></a>
@@ -145,7 +171,9 @@ ksort( $roles_loop_array ); ?>
 						</td><!-- .plugin-title -->
 
 						<td class="desc">
-							<p><?php echo $role; ?></p>
+							<p>
+								<?php echo $role; ?>
+							</p>
 						</td><!-- .desc -->
 
 						<td class="desc">
@@ -178,21 +206,29 @@ ksort( $roles_loop_array ); ?>
 
 			<div class="tablenav">
 
-				<div class="alignleft actions">
+				<?php if ( current_user_can( 'delete_roles' ) ) { ?>
 
-					<select name="action2">
+					<div class="alignleft actions">
 
-						<option value="" selected="selected"><?php _e( 'Bulk Actions', 'members' ); ?></option>
+						<select name="bulk-action-2">
 
-						<?php if ( current_user_can( 'delete_roles' ) ) { ?>
-							<option value="delete"><?php _e( 'Delete', 'members' ); ?></option>
-						<?php } ?>
+							<option value="" selected="selected"><?php _e( 'Bulk Actions', 'members' ); ?></option>
 
-					</select>
+							<?php if ( current_user_can( 'delete_roles' ) ) { ?>
+								<option value="delete"><?php _e( 'Delete', 'members' ); ?></option>
+							<?php } ?>
 
-					<?php submit_button( __( 'Apply', 'members' ), 'button-secondary action', 'doaction2', false ); ?>
+						</select>
 
-				</div><!-- .alignleft .actions -->
+						<?php submit_button( esc_attr__( 'Apply', 'members' ), 'button-secondary action', 'roles-bulk-action-2', false ); ?>
+
+					</div><!-- .alignleft .actions -->
+
+				<?php } // End cap check ?>
+
+				<div class='tablenav-pages one-page'>
+					<span class="displaying-num"><?php printf( _n( '%s item', '%s items', count( $list_roles ), 'members' ), count( $list_roles ) ); ?></span>
+				</div>
 
 				<br class="clear" />
 

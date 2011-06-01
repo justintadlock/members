@@ -48,7 +48,7 @@ function members_content_permissions_meta_box( $object, $box ) {
 	<div style="overflow: hidden; margin-left: 5px;">
 
 		<p>
-		<?php _e( 'Limit access to this post to only users of the selected roles.', 'members' ); ?>
+		<?php _e( "Limit access to this post's content to users of the selected roles.", 'members' ); ?>
 		</p>
 
 		<?php
@@ -72,7 +72,7 @@ function members_content_permissions_meta_box( $object, $box ) {
 	</div>
 
 	<p style="clear: left;">
-		<span class="howto"><?php _e( 'If no roles are selected, everyone can view the content and the post author can view the content regardless of role.', 'members' ); ?></span>
+		<span class="howto"><?php printf( __( 'If no roles are selected, everyone can view the content. The post author, any users who can edit this post, and users with the %s capability can view the content regardless of role.', 'members' ), '<code>restrict_content</code>' ); ?></span>
 	</p>
 
 	<p>

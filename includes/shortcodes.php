@@ -1,5 +1,7 @@
 <?php
 /**
+ * Shortcodes for use within posts and other shortcode-aware areas.
+ *
  * @package Members
  * @subpackage Functions
  */
@@ -70,7 +72,10 @@ function members_feed_shortcode( $attr, $content = null ) {
 }
 
 /**
- * Provide/restrict access to specific roles or capabilities. This content should not be shown in feeds.
+ * Provide/restrict access to specific roles or capabilities. This content should not be shown in feeds.  Note that 
+ * capabilities are checked first.  If a capability matches, any roles added will *not* be checked.  Users should 
+ * choose between using either capabilities or roles for the check rather than both.  The best option is to always 
+ * use a capability
  *
  * @since 0.1.0
  * @param $attr array The shortcode attributes.

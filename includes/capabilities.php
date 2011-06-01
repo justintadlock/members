@@ -1,19 +1,22 @@
 <?php
+/**
+ * @package Members
+ * @subpackage Includes
+ */
 
 /* Disables the old levels from being seen. If you need them, use remove_filter() to add display back. */
 add_filter( 'members_get_capabilities', 'members_remove_old_levels' );
 
 /**
- * The function that makes this plugin what it is.  It returns all of our capabilities
- * in a nicely-formatted, alphabetized array with no duplicate capabilities.  It pulls
- * from three different functions to make sure we get all of the capabilities that 
- * we need for use in the plugin components.
+ * The function that makes this plugin what it is.  It returns all of our capabilities in a nicely-formatted, 
+ * alphabetized array with no duplicate capabilities.  It pulls from three different functions to make sure 
+ * we get all of the capabilities that we need for use in the plugin components.
  *
- * @since 0.1
+ * @since 0.1.0
  * @uses members_get_default_capabilities() Gets an array of WP's default capabilities.
  * @uses members_get_role_capabilities() Gets an array of all the capabilities currently mapped to a role.
  * @uses members_get_additional_capabilities() Gets an array of capabilities added by the plugin.
- * @return $capabilities array An array containing all of the capabilities.
+ * @return array $capabilities An array containing all of the capabilities.
  */
 function members_get_capabilities() {
 
@@ -43,20 +46,21 @@ function members_get_capabilities() {
 }
 
 /**
- * Gets an array of capabilities according to each user role.  Each role will return its caps, 
- * which are then added to the overall $capabilities array.
+ * Gets an array of capabilities according to each user role.  Each role will return its caps, which are then 
+ * added to the overall $capabilities array.
  *
- * Note that if no role has the capability, it technically no longer exists.  Since this could be 
- * a problem with folks accidentally deleting the default WordPress capabilities, the 
- * members_default_capabilities() will return those all the defaults.
+ * Note that if no role has the capability, it technically no longer exists.  Since this could be a problem with 
+ * folks accidentally deleting the default WordPress capabilities, the members_default_capabilities() will 
+ * return all the defaults.
  *
- * @since 0.1
- * @return $capabilities array All the capabilities of all the user roles.
- * @global $wp_roles array Holds all the roles for the installation.
+ * @since 0.1.0
+ * @return array $capabilities All the capabilities of all the user roles.
+ * @global array $wp_roles Holds all the roles for the installation.
  */
 function members_get_role_capabilities() {
 	global $wp_roles;
 
+	/* Set up an empty capabilities array. */
 	$capabilities = array();
 
 	/* Loop through each role object because we need to get the caps. */
@@ -71,22 +75,24 @@ function members_get_role_capabilities() {
 		}
 	}
 
-	/* Return the capabilities array. */
-	return $capabilities;
+	/* Return the capabilities array, making sure there are no duplicates. */
+	return array_unique( $capabilities );
 }
 
 /**
- * Additional capabilities provided by the plugin that gives users permissions
- * to handle certain components of the plugin.
+ * Additional capabilities provided by the Members plugin that gives users permissions to handle certain features
+ * of the plugin.
  *
  * @todo Integrate 'edit_roles' into the settings.  It should be a priority on initial setup.
  * @todo Move each capability within its component. Use the 'members_get_capabilities' filter hook to add them.
  *
- * @since 0.1
+ * @since 0.1.0
+ * @return array $capabilities
  */
 function members_get_additional_capabilities() {
 
 	$capabilities = array(
+		'list_roles',	// Ability to view roles list
 		'create_roles',	// Ability to create new roles
 		'delete_roles',	// Ability to delete roles
 		'edit_roles',	// Ability to edit a role's caps
@@ -97,19 +103,19 @@ function members_get_additional_capabilities() {
 }
 
 /**
- * Make sure we keep the default capabilities in case users screw 'em up.  A user could 
- * easily remove a useful WordPress capability from all roles.  When this happens, the capability
- * is no longer stored in any of the roles, so it basically doesn't exist.  This function will house
- * all of the default WordPress capabilities in case this scenario comes into play.
+ * Make sure we keep the default capabilities in case users screw 'em up.  A user could easily remove a 
+ * useful WordPress capability from all roles.  When this happens, the capability is no longer stored in any of 
+ * the roles, so it basically doesn't exist.  This function will house all of the default WordPress capabilities in 
+ * case this scenario comes into play.
  *
- * For those reading this note, yes, I did "accidentally" remove all capabilities from my administrator
- * account when developing this plugin.  And yes, that was fun putting back together. ;)
+ * For those reading this note, yes, I did "accidentally" remove all capabilities from my administrator account 
+ * when developing this plugin.  And yes, that was fun putting back together. ;)
  *
  * The Codex has a list of all the defaults:
  * @link http://codex.wordpress.org/Roles_and_Capabilities#Capabilities
  *
  * @since 0.1
- * @return $defaults array All the default WordPress capabilities.
+ * @return array $defaults All the default WordPress capabilities.
  */
 function members_get_default_capabilities() {
 
@@ -171,12 +177,11 @@ function members_get_default_capabilities() {
 }
 
 /**
- * Checks if a specific capability has been given to at least one role. If it has,
- * return true. Else, return false.
+ * Checks if a specific capability has been given to at least one role. If it has, return true. Else, return false.
  *
- * @since 0.1
+ * @since 0.1.0
  * @uses members_get_role_capabilities() Checks for capability in array of role caps.
- * @param $cap string Name of the capability to check for.
+ * @param string $cap Name of the capability to check for.
  * @return true|false bool Whether the capability has been given to a role.
  */
 function members_check_for_cap( $cap = '' ) {
@@ -197,12 +202,11 @@ function members_check_for_cap( $cap = '' ) {
 }
 
 /**
- * Old WordPress levels system.  This is mostly useful for filtering out the
- * levels when shown in admin screen.  Plugins shouldn't rely on these levels
- * to create permissions for users.  They should move to the newer system of
- * checking for a specific capability instead.
+ * Old WordPress levels system.  This is mostly useful for filtering out the levels when shown in admin 
+ * screen.  Plugins shouldn't rely on these levels to create permissions for users.  They should move to the 
+ * newer system of checking for a specific capability instead.
  *
- * @since 0.1
+ * @since 0.1.0
  * @return array Old user levels.
  */
 function members_get_old_levels() {
@@ -215,12 +219,27 @@ function members_get_old_levels() {
  * To remove this filter:
  * remove_filter( 'members_get_capabilities', 'members_remove_old_levels' );
  *
- * @since 0.1
+ * @since 0.1.0
  * @param $capabilities array All of the combined capabilities.
  * @return $capabilities array Capabilities with old user levels removed.
  */
 function members_remove_old_levels( $capabilities ) {
 	return array_diff( $capabilities, members_get_old_levels() );
+}
+
+/**
+ * Returns an array of capabilities that should be set on the New Role admin screen.  By default, the only 
+ * capability checked is 'read' because it's needed for users of the role to view their profile in the admin.
+ *
+ * @since 0.1.0
+ * @return $capabilities array Default capabilities for new roles.
+ */
+function members_new_role_default_capabilities() {
+
+	$capabilities = array( 'read' );
+
+	/* Filters should return an array. */
+	return apply_filters( 'members_new_role_default_capabilities', $capabilities );
 }
 
 ?>

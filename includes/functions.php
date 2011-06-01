@@ -99,10 +99,12 @@ function members_get_inactive_roles() {
  * @todo Use WP's cache API to cache this data.
  *
  * @since 0.2.0
+ * @param string $user_role The role to get the user count for.
  */
 function members_get_role_user_count( $user_role = '' ) {
 	global $members;
 
+	/* If the count is not already set for all roles, let's get it. */
 	if ( !isset( $members->role_user_count ) ) {
 
 		$avail_roles = array();
@@ -117,12 +119,15 @@ function members_get_role_user_count( $user_role = '' ) {
 		$members->role_user_count = $avail_roles;
 	}
 
+	/* If the $user_role parameter wasn't passed into this function, return the array of user counts. */
 	if ( empty( $user_role ) )
 		return $members->role_user_count;
 
+	/* If the role has no users, we need to set it to '0'. */
 	if ( !isset( $members->role_user_count[$user_role] ) )
 		$members->role_user_count[$user_role] = 0;
 
+	/* Return the user count for the given role. */
 	return $members->role_user_count[$user_role];
 }
 
@@ -148,7 +153,7 @@ function members_list_users( $args = array() ) {
 
 			$url = get_author_posts_url( $author->ID, $author->user_nicename );
 
-			$class = "user-{$user->ID}";
+			$class = esc_attr( "user-{$user->ID}" );
 			if ( is_author( $user->ID ) )
 				$class .= ' current-user';
 
