@@ -1,5 +1,7 @@
 <?php
 /**
+ * This file handles the display of the edit role form and the updates submitted by the user for the role.
+ *
  * @package Members
  * @subpackage Admin
  */
@@ -63,10 +65,10 @@ if ( current_user_can( 'edit_roles' ) && ( isset( $_POST['role-caps'] ) || isset
 
 	<h2>
 		<?php _e( 'Edit Role', 'members' ); ?>
-		<?php if ( current_user_can( 'create_roles' ) ) echo '<a href="' . admin_url( 'users.php?page=new-role' ) . '" class="add-new-h2">' . __( 'Add New', 'members' ) . '</a>'; ?>
+		<?php if ( current_user_can( 'create_roles' ) ) echo '<a href="' . admin_url( 'users.php?page=role-new' ) . '" class="add-new-h2">' . __( 'Add New', 'members' ) . '</a>'; ?>
 	</h2>
 
-	<?php if ( !empty( $role_updated ) ) echo '<div class="updated"><p><strong>' . esc_html__( 'Role updated.', 'members' ) . '</strong></p><p><a href="' . admin_url( 'users.php?page=roles' ) . '">' . esc_html__( '&larr; Back to Roles', 'members' ) . '</a></p></div>'; ?>
+	<?php if ( !empty( $role_updated ) ) echo '<div class="updated"><p><strong>' . __( 'Role updated.', 'members' ) . '</strong></p><p><a href="' . admin_url( 'users.php?page=roles' ) . '">' . __( '&larr; Back to Roles', 'members' ) . '</a></p></div>'; ?>
 
 	<?php do_action( 'members_pre_edit_role_form' ); //Available pre-form hook for displaying messages. ?>
 

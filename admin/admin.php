@@ -44,11 +44,12 @@ function members_admin_setup() {
 		$members->edit_roles_page = add_submenu_page( 'users.php', esc_attr__( 'Roles', 'members' ), esc_attr__( 'Roles', 'members' ), $edit_roles_cap, 'roles', 'members_edit_roles_page' );
 
 		/* Create the New Role page. */
-		$members->new_roles_page = add_submenu_page( 'users.php', esc_attr__( 'Add New Role', 'members' ), esc_attr__( 'Add New Role', 'members' ), 'create_roles', 'new-role', 'members_new_role_page' );
+		$members->new_roles_page = add_submenu_page( 'users.php', esc_attr__( 'Add New Role', 'members' ), esc_attr__( 'Add New Role', 'members' ), 'create_roles', 'role-new', 'members_new_role_page' );
 	}
 
 	/* Load post meta boxes on the post editing screen. */
 	add_action( 'load-post.php', 'members_admin_load_post_meta_boxes' );
+	add_action( 'load-post-new.php', 'members_admin_load_post_meta_boxes' );
 
 	/* Load stylesheets and scripts for our custom admin pages. */
 	add_action( 'admin_enqueue_scripts', 'members_admin_enqueue_style' );
@@ -65,7 +66,7 @@ function members_admin_enqueue_style( $hook_suffix ) {
 
 	$pages = array(
 		'users_page_roles',
-		'users_page_new-role',
+		'users_page_role-new',
 		'settings_page_members-settings'
 	);
 
@@ -83,7 +84,7 @@ function members_admin_enqueue_scripts( $hook_suffix ) {
 
 	$pages = array(
 		'users_page_roles',
-		'users_page_new-role'
+		'users_page_role-new'
 	);
 
 	if ( in_array( $hook_suffix, $pages ) )
@@ -173,7 +174,7 @@ function members_admin_contextual_help( $text, $screen ) {
 	}
 
 	/* Text to show on the "Add New Role" screen in the admin. */
-	elseif ( 'users_page_new-role' == $screen ) {
+	elseif ( 'users_page_role-new' == $screen ) {
 		$text = '';
 
 		$text .= '<p>' . __( 'This screen allows you to create a new user role for your site. You must input a unique role name and role label. You can also grant capabilities (permissions) to the new role. Capabilities are both powerful and dangerous tools. You should not add a capability to a role unless you understand what permission you are granting.', 'members' ) . '</p>';

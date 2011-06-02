@@ -49,7 +49,7 @@ if ( current_user_can( 'create_roles' ) && isset( $_POST['role-name'] ) && isset
 
 	<div id="poststuff">
 
-		<form name="form0" method="post" action="<?php echo admin_url( 'users.php?page=new-role' ); ?>">
+		<form name="form0" method="post" action="<?php echo admin_url( 'users.php?page=role-new' ); ?>">
 
 			<?php wp_nonce_field( members_get_nonce( 'new-role' ) ); ?>
 

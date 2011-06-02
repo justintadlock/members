@@ -3,14 +3,14 @@
  * Plugin Name: Members
  * Plugin URI: http://justintadlock.com/archives/2009/09/17/members-wordpress-plugin
  * Description: A user, role, and content management plugin for controlling permissions and access. A plugin for making WordPress a more powerful <acronym title="Content Management System">CMS</acronym>.
- * Version: 0.2 Beta 2
+ * Version: 0.2 Beta 3
  * Author: Justin Tadlock
  * Author URI: http://justintadlock.com
  *
  * The members plugin was created because the WordPress community is lacking a solid permissions 
  * plugin that is both open source and works completely within the confines of the APIs in WordPress.  
  * But, the plugin is so much more than just a plugin to control permissions.  It is meant to extend 
- * WordPress by making user, role, and content management as simple as using the system altogether.
+ * WordPress by making user, role, and content management as simple as using WordPress itself.
  *
  * This program is free software; you can redistribute it and/or modify it under the terms of the GNU 
  * General Public License version 2, as published by the Free Software Foundation.  You may NOT assume 
@@ -101,6 +101,9 @@ class Members_Load {
 		/* Load the deprecated functions file. */
 		require_once( MEMBERS_INCLUDES . 'deprecated.php' );
 
+		/* Load the admin bar functions. */
+		require_once( MEMBERS_INCLUDES . 'admin-bar.php' );
+
 		/* Load the functions related to capabilities. */
 		require_once( MEMBERS_INCLUDES . 'capabilities.php' );
 
@@ -112,6 +115,9 @@ class Members_Load {
 
 		/* Load the shortcodes functions file. */
 		require_once( MEMBERS_INCLUDES . 'shortcodes.php' );
+
+		/* Load the template functions. */
+		require_once( MEMBERS_INCLUDES . 'template.php' );
 
 		/* Load the widgets functions file. */
 		require_once( MEMBERS_INCLUDES . 'widgets.php' );

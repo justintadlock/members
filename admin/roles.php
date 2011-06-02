@@ -89,6 +89,12 @@ switch( $action ) {
 			require_once( MEMBERS_ADMIN . 'role-edit.php' );
 		}
 
+		/* If the user can't edit roles. */
+		else {
+			/* Load the edit roles page.*/
+			require_once( MEMBERS_ADMIN . 'roles-list-table.php' );
+		}
+
 		/* Break out of switch statement. */
 		break;
 

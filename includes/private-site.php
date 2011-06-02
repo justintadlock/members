@@ -25,9 +25,15 @@ add_filter( 'comment_text_rss', 'members_private_feed' );
  */
 function members_please_log_in() {
 
+	/* Check if the private blog feature is active. */
 	if ( members_get_setting( 'private_blog' ) ) {
 
-		if ( !is_user_logged_in() && !strpos( $_SERVER['SCRIPT_NAME'], 'wp-login.php' ) )
+		/* If using BuddyPress and on the register page, don't do anything. */
+		if ( function_exists( 'bp_is_current_component' ) && bp_is_current_component( 'register' ) )
+			return;
+
+		/* Else, if the user is not logged in, redirect to the login page. */
+		elseif ( !is_user_logged_in() )
 			auth_redirect();
 	}
 }
@@ -41,9 +47,8 @@ function members_please_log_in() {
  */
 function members_private_feed( $content ) {
 
-	if ( members_get_setting( 'private_feed' ) ) {
+	if ( members_get_setting( 'private_feed' ) )
 		$content = members_get_setting( 'private_feed_error' );
-	}
 
 	return $content;
 }

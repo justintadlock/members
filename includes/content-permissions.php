@@ -7,7 +7,7 @@
  * @subpackage Functions
  */
 
-/* Enable the content permissions features on the front end of the site. */
+/* Enable the content permissions features. */
 add_action( 'after_setup_theme', 'members_enable_content_permissions', 1 );
 
 /**
@@ -82,82 +82,6 @@ function members_content_permissions_comments( $template ) {
 
 	/* Return the comments template filename. */
 	return $template;
-}
-
-/**
- * Wrapper function for the members_can_user_view_post() function. This function checks if the currently 
- * logged-in user can view the content of a specific post.
- *
- * @since 0.2.0
- * @param int $post_id The ID of the post to check.
- * @return bool True if the user can view the post. False if the user cannot view the post.
- */
-function members_can_current_user_view_post( $post_id = '' ) {
-
-	/* Get the current user object. */
-	$current_user = wp_get_current_user();
-
-	/* Return the members_can_user_view_post() function, which returns true/false. */
-	return members_can_user_view_post( $current_user->ID, $post_id );
-}
-
-/**
- * Conditional tag to check if a user can view a specific post.  A user cannot view a post if their user role has 
- * not been selected in the 'Content Permissions' meta box on the edit post screen in the admin.  Non-logged in 
- * site visitors cannot view posts if roles were seletected.  If no roles were selected, all users and site visitors 
- * can view the content.
- *
- * There are exceptions to this rule though.  The post author, any user with the 'restrict_content' capability, 
- * and users that have the ability to edit the post can all view the post, even if their role was not granted 
- * permission to view the post.
- *
- * @since 0.2.0
- * @param int $user_id The ID of the user to check.
- * @param int $post_id The ID of the post to check.
- * @return bool True if the user can view the post. False if the user cannot view the post.
- */
-function members_can_user_view_post( $user_id, $post_id = '' ) {
-
-	/* If no post ID is given, assume we're in The Loop and get the current post's ID. */
-	if ( empty( $post_id ) )
-		$post_id = get_the_ID();
-
-	/* Get the roles selected by the user. */
-	$roles = get_post_meta( $post_id, '_members_access_role', false );
-
-	/* Check if there are any old roles with the '_role' meta key. */
-	if ( empty( $roles ) )
-		$roles = members_convert_old_post_meta( $post_id );
-
-	/* If we have an array of roles, let's get to work. */
-	if ( !empty( $roles ) && is_array( $roles ) ) {
-
-		/* If viewing a feed or if the user's not logged in, assume it's blocked at this point. */
-		if ( is_feed() || !is_user_logged_in() )
-			return false;
-
-		/* Get the post object. */
-		$post = get_post( $post_id );
-
-		/* Get the post type object. */
-		$post_type = get_post_type_object( $post->post_type );
-
-		/* If the post author, the current user can edit the post, or the current user can 'restrict_content', return true. */
-		if ( $post->post_author == $user_id || current_user_can( 'restrict_content' ) || current_user_can( $post_type->cap->edit_post, $post_id ) )
-			return true;
-
-		/* Loop through each role and return true if the user has one of the roles. */
-		foreach ( $roles as $role ) {
-			if ( current_user_can( $role ) )
-				return true;
-		}
-
-		/* Return an error message if the user doesn't have one of the selected roles. */
-		return false;
-	}
-
-	/* Assume the content isn't blocked at this point and return true. */
-	return true;
 }
 
 /**

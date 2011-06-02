@@ -1,6 +1,4 @@
-/**
- * CSS for the plugin settings page.
- */
+/* Plugin settings page. */
 .settings_page_members-settings .form-table th {
 	width: 20%;
 	font-weight: bold;
@@ -50,20 +48,20 @@
 	text-align: right;
 	}
 
-
+/* Role management pages. */
 .users_page_roles .members-role-checkbox,
-.users_page_new-role .members-role-checkbox {
+.users_page_role-new .members-role-checkbox {
 	overflow: hidden;
 	margin: 0 0 5px 0;
 	float: left;
 	width: 32.67%;
 	}
 .users_page_roles .clear,
-.users_page_new-role .clear {
+.users_page_role-new .clear {
 	clear: both;
 	}
 .users_page_roles .members-role-checkbox .has-cap,
-.users_page_new-role .members-role-checkbox .has-cap {
+.users_page_role-new .members-role-checkbox .has-cap {
 	font-weight: bold;
 	}
 .users_page_roles a#members-add-new-cap {
@@ -89,9 +87,3 @@
 .users_page_roles .hide-if-no-js {
 	display: none;
 	}
-
-
-
-
-
-

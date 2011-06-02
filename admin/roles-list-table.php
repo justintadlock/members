@@ -55,7 +55,7 @@ ksort( $list_roles ); ?>
 
 	<h2>
 		<?php _e( 'Roles', 'members' ); ?> 
-		<?php if ( current_user_can( 'create_roles' ) ) echo '<a href="' . admin_url( 'users.php?page=new-role' ) . '" class="add-new-h2">' . __( 'Add New', 'members' ) . '</a>'; ?>
+		<?php if ( current_user_can( 'create_roles' ) ) echo '<a href="' . admin_url( 'users.php?page=role-new' ) . '" class="add-new-h2">' . __( 'Add New', 'members' ) . '</a>'; ?>
 	</h2>
 
 	<?php do_action( 'members_pre_edit_roles_form' ); // Available action hook for displaying messages. ?>
