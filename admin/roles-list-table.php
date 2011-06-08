@@ -132,7 +132,7 @@ ksort( $list_roles ); ?>
 
 						<th class="manage-column column-cb check-column">
 
-							<?php if ( !current_user_can( $role ) && $role !== get_option( 'default_role' ) ) { ?>
+							<?php if ( ( is_multisite() && is_super_admin() && $role !== get_option( 'default_role' ) ) || ( !current_user_can( $role ) && $role !== get_option( 'default_role' ) ) ) { ?>
 								<input type="checkbox" name="roles[<?php echo esc_attr( $role ); ?>]" id="<?php echo esc_attr( $role ); ?>" value="<?php echo esc_attr( $role ); ?>" />
 							<?php } ?>
 
@@ -154,7 +154,7 @@ ksort( $list_roles ); ?>
 									<a href="<?php echo esc_url( $edit_link ); ?>" title="<?php printf( esc_attr__( 'Edit the %s role', 'members' ), $name ); ?>"><?php _e( 'Edit', 'members' ); ?></a> 
 								<?php } ?>
 
-								<?php if ( current_user_can( 'delete_roles' ) && $role !== get_option( 'default_role' ) && !current_user_can( $role ) ) { ?>
+								<?php if ( ( is_multisite() && is_super_admin() && $role !== get_option( 'default_role' ) ) || ( current_user_can( 'delete_roles' ) && $role !== get_option( 'default_role' ) && !current_user_can( $role ) ) ) { ?>
 									| <a href="<?php echo admin_url( wp_nonce_url( "users.php?page=roles&amp;action=delete&amp;role={$role}", members_get_nonce( 'edit-roles' ) ) ); ?>" title="<?php printf( esc_attr__( 'Delete the %s role', 'members' ), $name ); ?>"><?php _e( 'Delete', 'members' ); ?></a>
 								<?php } ?>
 

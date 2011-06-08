@@ -143,7 +143,6 @@ function members_admin_contextual_help( $text, $screen ) {
 		$text .= '<li><a href="' . MEMBERS_URI . 'docs/readme.html">' . __( 'Documentation', 'members' ) . '</a></li>';
 		$text .= '<li><a href="http://themehybrid.com/support">' . __( 'Support Forums', 'members' ) . '</a></li>';
 		$text .= '</ul>';
-
 	}
 
 	/* Text shown on the "Roles" screens in the admin. */

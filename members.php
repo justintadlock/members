@@ -3,7 +3,7 @@
  * Plugin Name: Members
  * Plugin URI: http://justintadlock.com/archives/2009/09/17/members-wordpress-plugin
  * Description: A user, role, and content management plugin for controlling permissions and access. A plugin for making WordPress a more powerful <acronym title="Content Management System">CMS</acronym>.
- * Version: 0.2 Beta 3
+ * Version: 0.2 Beta 4
  * Author: Justin Tadlock
  * Author URI: http://justintadlock.com
  *
@@ -172,7 +172,7 @@ class Members_Load {
 			$role->add_cap( 'edit_roles' );
 
 			/* Content permissions capabilities. */
-			$role->add_cap( 'retrict_content' );
+			$role->add_cap( 'restrict_content' );
 		}
 
 		/**
