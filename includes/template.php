@@ -11,7 +11,7 @@
  * can view the content.
  *
  * There are exceptions to this rule though.  The post author, any user with the 'restrict_content' capability, 
- * and users that have the ability to edit the post can all view the post, even if their role was not granted 
+ * and users that have the ability to edit the post can always view the post, even if their role was not granted 
  * permission to view it.
  *
  * @todo See how feasible it is to just use the normal user_can() WordPress function to check against a meta 
@@ -49,9 +49,11 @@ function members_can_user_view_post( $user_id, $post_id = '' ) {
 		/* If we have an array of roles, let's get to work. */
 		if ( !empty( $roles ) && is_array( $roles ) ) {
 
-			/* If viewing a feed or if the user's not logged in, assume it's blocked at this point. */
-			if ( is_feed() || !is_user_logged_in() )
-				$can_view = false;
+			/**
+			 * Since specific roles were given, let's assume the user can't view the post at 
+			 * this point.  The rest of this functionality should try to disprove this.
+			 */
+			$can_view = false;
 
 			/* Get the post object. */
 			$post = get_post( $post_id );
@@ -59,18 +61,25 @@ function members_can_user_view_post( $user_id, $post_id = '' ) {
 			/* Get the post type object. */
 			$post_type = get_post_type_object( $post->post_type );
 
-			/* If the post author, the current user can edit the post, or the current user can 'restrict_content', return true. */
-			if ( $post->post_author == $user_id || user_can( $user_id, 'restrict_content' ) || user_can( $user_id, $post_type->cap->edit_post, $post_id ) )
-				$can_view = true;
-
-			/* Loop through each role and return true if the user has one of the roles. */
-			foreach ( $roles as $role ) {
-				if ( user_can( $user_id, $role ) )
-					$can_view = true;
+			/* If viewing a feed or if the user's not logged in, assume it's blocked at this point. */
+			if ( is_feed() || !is_user_logged_in() ) {
+				$can_view = false;
 			}
 
-			/* Return an error message if the user doesn't have one of the selected roles. */
-			$can_view = false;
+			/* If the post author, the current user can edit the post, or the current user can 'restrict_content', return true. */
+			elseif ( $post->post_author == $user_id || user_can( $user_id, 'restrict_content' ) || user_can( $user_id, $post_type->cap->edit_post, $post_id ) ) {
+				$can_view = true;
+			}
+
+			/* Else, let's check the user's role against the selected roles. */
+			else {
+
+				/* Loop through each role and set $can_view to true if the user has one of the roles. */
+				foreach ( $roles as $role ) {
+					if ( user_can( $user_id, $role ) )
+						$can_view = true;
+				}
+			}
 		}
 	}
 
