@@ -49,29 +49,6 @@ function members_register_settings() {
 }
 
 /**
- * Returns an array of the default plugin settings.  These are only used on initial setup.
- *
- * @since 0.2.0
- */
-function members_get_default_settings() {
-
-	/* Set up the default plugin settings. */
-	$settings = array(
-		'role_manager' => 1,
-		'content_permissions' => 1,
-		'private_blog' => 0,
-		'private_feed' => 0,
-		'login_form_widget' => 0,
-		'users_widget' => 0,
-		'content_permissions_error' => '<p class="restricted">' . __( 'Sorry, but you do not have permission to view this content.', 'members' ) . '</p>',
-		'private_feed_error' => '<p class="restricted">' . __( 'You must be logged into the site to view this content.', 'members' ) . '</p>'
-	);
-
-	/* Return the default settings. */
-	return $settings;
-}
-
-/**
  * Executes the 'add_meta_boxes' action hook because WordPress doesn't fire this on custom admin pages.
  *
  * @since 0.2.0
