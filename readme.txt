@@ -22,6 +22,10 @@ The foundation of the plugin is its extensive role and capability management sys
 * Widgets:  A login form widget and users widget to show in your theme's sidebars.
 * Private Site: You can make your site and its feed completely private if you want.
 
+**If updating from a previous version:**
+
+If you've used a previous version of the Members plugin, please check your settings under Settings > Members and reset your Users and Login Form widgets (if you were using them).
+
 == Installation ==
 
 1. Upload `members` to the `/wp-content/plugins/` directory.
@@ -56,11 +60,20 @@ If, for some reason, you do have the administrator role and the role manager is 
 
 Well, that's why you really need to read the documentation for the plugin before actually using it, especially a plugin that controls permissions for your site.
 
+== Screenshots ==
+
+1. Members plugin settings
+2. Role management screen
+3. Edit role screen
+4. Members settings help tab
+5. Content permissions on the edit post screen
+
 == Changelog ==
 
 **Version 0.2**
 
 * Updated everything.  Nearly all the code was rewritten from the ground up to make for a better user experience.
+* Plugin users should check their plugin settings.
 
 **Version 0.1.1**
 
@@ -73,3 +86,9 @@ Well, that's why you really need to read the documentation for the plugin before
 **Version 0.1**
 
 * Plugin launch.  Everything's new!
+
+== Upgrade Notice ==
+
+= Version 0.2 =
+
+Version 0.2 is a complete overhaul of the plugin.  It includes security fixes, bug fixes, and a few new features.  Please check your plugin settings and widget settings.

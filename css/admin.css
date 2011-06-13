@@ -21,10 +21,7 @@
 	width: 99.5%;
 	}
 .settings_page_members-settings .postbox .inside p, 
-.settings_page_members-settings .postbox .inside label, 
-.settings_page_members-settings .postbox .inside li, 
-.settings_page_members-settings .postbox .inside a,
-.settings_page_members-settings .postbox .inside label {
+.settings_page_members-settings .postbox .inside li {
 	font-size: 11px;
 	line-height: 175%;
 	}

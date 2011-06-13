@@ -173,7 +173,7 @@ function members_admin_contextual_help( $text, $screen ) {
 	}
 
 	/* Text to show on the "Add New Role" screen in the admin. */
-	elseif ( 'users_page_role-new' == $screen ) {
+	elseif ( 'users_page_role-new' == $screen || 'users_page_role' == $screen ) {
 		$text = '';
 
 		$text .= '<p>' . __( 'This screen allows you to create a new user role for your site. You must input a unique role name and role label. You can also grant capabilities (permissions) to the new role. Capabilities are both powerful and dangerous tools. You should not add a capability to a role unless you understand what permission you are granting.', 'members' ) . '</p>';
