@@ -32,8 +32,11 @@ function members_get_capabilities() {
 	/* Gets capabilities added by the plugin. */
 	$plugin_caps = members_get_additional_capabilities();
 
+	/* Gets capabilities for the bbPress plugin. */
+	$bbpress_caps = members_get_default_bbpress_capabilities();
+
 	/* Merge all the capability arrays (current role caps, plugin caps, and default WP caps) together. */
-	$capabilities = array_merge( $default_caps, $role_caps, $plugin_caps );
+	$capabilities = array_merge( $default_caps, $role_caps, $plugin_caps, $bbpress_caps );
 
 	/* Apply filters to the array of capabilities. Devs should respect the available capabilities and return an array. */
 	$capabilities = apply_filters( 'members_get_capabilities', $capabilities );
@@ -174,6 +177,28 @@ function members_get_default_capabilities() {
 
 	/* Return the array of default capabilities. */
 	return $defaults;
+}
+
+/**
+ * Gets an array of all of bbPress' default capabilities.  This is just a companion function for the 
+ * members_get_default_capabilities() function to house all the default caps in case an admin removes 
+ * all the caps from all roles.
+ *
+ * @since 0.3.0
+ */
+function members_get_default_bbpress_capabilities() {
+
+	if ( class_exists( 'bbPress' ) ) {
+		$capabilities = array_merge(
+			bbp_get_forum_caps(),
+			bbp_get_topic_caps(),
+			bbp_get_topic_tag_caps(),
+			bbp_get_reply_caps()
+		);
+	}
+
+	/* Return the default capabilities of bbPress. */
+	return $capabilities;
 }
 
 /**
