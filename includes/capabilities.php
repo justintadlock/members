@@ -188,6 +188,8 @@ function members_get_default_capabilities() {
  */
 function members_get_default_bbpress_capabilities() {
 
+	$capabilities = array();
+
 	if ( class_exists( 'bbPress' ) ) {
 		$capabilities = array_merge(
 			bbp_get_forum_caps(),
