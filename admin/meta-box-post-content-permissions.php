@@ -25,7 +25,7 @@ function members_content_permissions_create_meta_box() {
 
 		/* Loop through each post type, adding the meta box for each type's post editor screen. */
 		foreach ( $post_types as $type )
-			add_meta_box( 'content-permissions-meta-box', __( 'Content Permissions', 'members' ), 'members_content_permissions_meta_box', $type->name, 'advanced', 'high' );
+			add_meta_box( 'content-permissions-meta-box', __( 'Content Permissions', 'members' ), 'members_content_permissions_meta_box', $type->name, 'side', 'high' );
 	}
 }
 
@@ -45,12 +45,12 @@ function members_content_permissions_meta_box( $object, $box ) {
 
 	<input type="hidden" name="content_permissions_meta_nonce" value="<?php echo wp_create_nonce( plugin_basename( __FILE__ ) ); ?>" />
 
-	<div style="overflow: hidden; margin-left: 5px;">
+	<p>
+	<?php _e( "Limit post content access to selected roles:", 'members' ); ?>
+	</p>
 
-		<p>
-		<?php _e( "Limit access to this post's content to users of the selected roles.", 'members' ); ?>
-		</p>
-
+	<div class="inline-editor">
+	<ul class="categorychecklist cat-checklist">
 		<?php
 
 		/* Loop through each of the available roles. */
@@ -61,23 +61,23 @@ function members_content_permissions_meta_box( $object, $box ) {
 			if ( is_array( $roles ) && in_array( $role, $roles ) )
 				$checked = ' checked="checked" '; ?>
 
-			<div style="width: 32%; float: left; margin: 0 0 5px 0;">
+			<li>
 				<label for="members_access_role-<?php echo $role; ?>">
 					<input type="checkbox" name="members_access_role[<?php echo $role; ?>]" id="members_access_role-<?php echo $role; ?>" <?php echo $checked; ?> value="<?php echo $role; ?>" /> 
 					<?php echo esc_html( $name ); ?>
 				</label>
-			</div>
+			</li>
 		<?php } ?>
-
+	</ul>
 	</div>
 
-	<p style="clear: left;">
-		<span class="howto"><?php printf( __( 'If no roles are selected, everyone can view the content. The post author, any users who can edit this post, and users with the %s capability can view the content regardless of role.', 'members' ), '<code>restrict_content</code>' ); ?></span>
+	<p>
+		<span class="howto"><?php printf( __( 'The post author, any users who can edit this post, and users with the %s capability can view the content regardless of role.', 'members' ), '<code>restrict_content</code>' ); ?></span>
 	</p>
 
 	<p>
 		<label for="members_access_error"><?php _e( 'Custom error messsage:', 'members' ); ?></label>
-		<textarea id="members_access_error" name="members_access_error" cols="60" rows="2" tabindex="30" style="width: 99%;"><?php echo esc_html( get_post_meta( $object->ID, '_members_access_error', true ) ); ?></textarea>
+		<textarea id="members_access_error" name="members_access_error" cols="60" rows="3" tabindex="30" style="width: 99%;"><?php echo esc_html( get_post_meta( $object->ID, '_members_access_error', true ) ); ?></textarea>
 		<br />
 		<span class="howto"><?php _e( 'Message shown to users that do no have permission to view the post.', 'members' ); ?></span>
 	</p>
