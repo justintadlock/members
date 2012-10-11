@@ -27,6 +27,16 @@ function members_enable_content_permissions() {
 		add_filter( 'the_content_feed', 'members_content_permissions_protect' );
 		add_filter( 'comment_text_rss', 'members_content_permissions_protect' );
 
+		/* bbPress compatibility. */
+		if ( class_exists( 'bbPress' ) ) {
+
+			add_filter( 'bbp_get_topic_content', 'members_bbp_content_permissions_protect_topic', 10, 2 );
+			add_filter( 'bbp_get_topic_excerpt', 'members_bbp_content_permissions_protect_topic', 10, 2 );
+
+			add_filter( 'bbp_get_reply_content', 'members_bbp_content_permissions_protect_reply', 10, 2 );
+			add_filter( 'bbp_get_reply_excerpt', 'members_bbp_content_permissions_protect_reply', 10, 2 );
+		}
+
 		/* Filter the comments template to make sure comments aren't shown to users without access. */
 		add_filter( 'comments_template', 'members_content_permissions_comments' );
 
@@ -55,6 +65,30 @@ function members_content_permissions_protect( $content ) {
 
 	/* Return an error message at this point. */
 	return members_get_post_error_message( get_the_ID() );
+}
+
+function members_bbp_content_permissions_protect_topic( $content, $topic_id ) {
+
+	$forum_id = bbp_get_topic_forum_id( $topic_id );
+
+	if ( members_can_current_user_view_post( $forum_id ) )
+		return $content;
+
+	return members_get_post_error_message( $forum_id );
+}
+
+function members_bbp_content_permissions_protect_reply( $content, $reply_id ) {
+
+	$forum_id = bbp_get_reply_forum_id( $reply_id );
+	$topic_id = bbp_get_reply_topic_id( $reply_id );
+
+	if ( !members_can_current_user_view_post( $forum_id ) )
+		return members_get_post_error_message( $forum_id );
+
+	if ( !members_can_current_user_view_post( $topic_id ) )
+		return members_get_post_error_message( $topic_id );
+
+	return $content;
 }
 
 /**
