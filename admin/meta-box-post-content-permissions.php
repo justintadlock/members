@@ -25,7 +25,7 @@ function members_content_permissions_create_meta_box() {
 
 		/* Loop through each post type, adding the meta box for each type's post editor screen. */
 		foreach ( $post_types as $type )
-			add_meta_box( 'content-permissions-meta-box', __( 'Content Permissions', 'members' ), 'members_content_permissions_meta_box', $type->name, 'side', 'high' );
+			add_meta_box( 'content-permissions-meta-box', __( 'Content Permissions', 'members' ), 'members_content_permissions_meta_box', $type->name, 'side', 'core' );
 	}
 }
 
