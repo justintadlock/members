@@ -3,7 +3,7 @@
  * Plugin Name: Members
  * Plugin URI: http://justintadlock.com/archives/2009/09/17/members-wordpress-plugin
  * Description: A user, role, and content management plugin for controlling permissions and access. A plugin for making WordPress a more powerful <acronym title="Content Management System">CMS</acronym>.
- * Version: 0.3 Alpha
+ * Version: 0.2.1
  * Author: Justin Tadlock
  * Author URI: http://justintadlock.com
  *
@@ -20,9 +20,9 @@
  * even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
  * @package Members
- * @version 0.3.0 Alpha
+ * @version 0.2.1
  * @author Justin Tadlock <justin@justintadlock.com>
- * @copyright Copyright (c) 2009 - 2011, Justin Tadlock
+ * @copyright Copyright (c) 2009 - 2012, Justin Tadlock
  * @link http://justintadlock.com/archives/2009/09/17/members-wordpress-plugin
  * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
@@ -48,6 +48,10 @@ class Members_Load {
 	 * @since 0.2.0
 	 */
 	function __construct() {
+		global $members;
+
+		/* Set up an empty class for the global $members object. */
+		$members = new stdClass;
 
 		/* Set the constants needed by the plugin. */
 		add_action( 'plugins_loaded', array( &$this, 'constants' ), 1 );
