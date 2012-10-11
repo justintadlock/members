@@ -22,7 +22,7 @@
  * @package Members
  * @version 0.3.0 Alpha
  * @author Justin Tadlock <justin@justintadlock.com>
- * @copyright Copyright (c) 2009 - 2011, Justin Tadlock
+ * @copyright Copyright (c) 2009 - 2012, Justin Tadlock
  * @link http://justintadlock.com/archives/2009/09/17/members-wordpress-plugin
  * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
