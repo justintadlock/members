@@ -2,14 +2,20 @@
 /**
  * General functions file for the plugin.
  *
- * @package Members
- * @subpackage Functions
+ * @package    Members
+ * @subpackage Includes
+ * @author     Justin Tadlock <justin@justintadlock.com>
+ * @copyright  Copyright (c) 2009 - 2012, Justin Tadlock
+ * @link       http://themehybrid.com/plugins/members
+ * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
 /**
  * Gets a setting from from the plugin settings in the database.
  *
  * @since 0.2.0
+ * @param string $option The name of the specific plugin setting to get.
+ * @return mixed
  */
 function members_get_setting( $option = '' ) {
 	global $members;
@@ -30,6 +36,7 @@ function members_get_setting( $option = '' ) {
  * Counts the number of roles the site has.
  *
  * @since 0.2.0
+ * @return int|bool
  */
 function members_count_roles() {
 	global $wp_roles;
@@ -44,6 +51,7 @@ function members_count_roles() {
  * Gets all the roles that have users for the site.
  *
  * @since 0.2.0
+ * @return array
  */
 function members_get_active_roles() {
 	global $wp_roles, $members;
@@ -70,6 +78,7 @@ function members_get_active_roles() {
  * Gets all the roles that do not have users for the site.
  *
  * @since 0.2.0
+ * @return array
  */
 function members_get_inactive_roles() {
 	global $wp_roles, $members;
@@ -100,6 +109,7 @@ function members_get_inactive_roles() {
  *
  * @since 0.2.0
  * @param string $user_role The role to get the user count for.
+ * @return int
  */
 function members_get_role_user_count( $user_role = '' ) {
 	global $members;
@@ -139,6 +149,7 @@ function members_get_role_user_count( $user_role = '' ) {
  *
  * @since 0.1.0
  * @uses get_users()
+ * @return string
  */
 function members_list_users( $args = array() ) {
 

@@ -2,8 +2,12 @@
 /**
  * Creates a widget that allows users to add a login form to a widget area.
  *
- * @package Members
+ * @package    Members
  * @subpackage Includes
+ * @author     Justin Tadlock <justin@justintadlock.com>
+ * @copyright  Copyright (c) 2009 - 2012, Justin Tadlock
+ * @link       http://themehybrid.com/plugins/members
+ * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
 /**
@@ -16,20 +20,21 @@ class Members_Widget_Login extends WP_Widget {
 	/**
 	 * Set up the widget's unique name, ID, class, description, and other options.
 	 *
-	 * @since 0.1.0
+	 * @since  0.1.0
+	 * @return void
 	 */
 	function Members_Widget_Login() {
 
 		/* Set up the widget options. */
 		$widget_options = array(
-			'classname' => 'login',
+			'classname'   => 'login',
 			'description' => esc_html__( 'A widget that allows users to log into your site.', 'members' )
 		);
 
 		/* Set up the widget control options. */
 		$control_options = array(
-			'width' => 800,
-			'height' => 350,
+			'width'   => 800,
+			'height'  => 350,
 			'id_base' => 'members-widget-login'
 		);
 
@@ -40,7 +45,8 @@ class Members_Widget_Login extends WP_Widget {
 	/**
 	 * Outputs the widget based on the arguments input through the widget controls.
 	 *
-	 * @since 0.1.0
+	 * @since  0.1.0
+	 * @return void
 	 */
 	function widget( $args, $instance ) {
 		global $user_identity, $user_ID;
@@ -49,19 +55,19 @@ class Members_Widget_Login extends WP_Widget {
 
 		/* Set up the arguments for wp_login_form(). */
 		$args = array(
-	 		'form_id' => 		!empty( $instance['form_id'] ) ? esc_attr( $instance['form_id'] ) : 'loginform',
-			'label_username' => 	esc_html( $instance['label_username'] ),
-			'label_password' =>	esc_html( $instance['label_password'] ),
-			'label_remember' => 	esc_html( $instance['label_remember'] ),
-			'label_log_in' =>		esc_html( $instance['label_log_in'] ),
-			'id_username' =>		esc_attr( $instance['id_username'] ),
-			'id_password' =>		esc_attr( $instance['id_password'] ),
-			'id_remember' =>		esc_attr( $instance['id_submit'] ),
-			'id_submit' =>		esc_attr( $instance['remember'] ),
-			'remember' =>		!empty( $instance['remember'] ) ? true : false,
-			'value_username' =>	esc_attr( $instance['value_username'] ),
-			'value_remember' =>	!empty( $instance['value_remember'] ) ? true : false,
-			'echo' => false,
+	 		'form_id'        => !empty( $instance['form_id'] ) ? esc_attr( $instance['form_id'] ) : 'loginform',
+			'label_username' => esc_html( $instance['label_username'] ),
+			'label_password' => esc_html( $instance['label_password'] ),
+			'label_remember' => esc_html( $instance['label_remember'] ),
+			'label_log_in'   => esc_html( $instance['label_log_in'] ),
+			'id_username'    => esc_attr( $instance['id_username'] ),
+			'id_password'    => esc_attr( $instance['id_password'] ),
+			'id_remember'    => esc_attr( $instance['id_submit'] ),
+			'id_submit'      => esc_attr( $instance['remember'] ),
+			'remember'       => !empty( $instance['remember'] ) ? true : false,
+			'value_username' => esc_attr( $instance['value_username'] ),
+			'value_remember' => !empty( $instance['value_remember'] ) ? true : false,
+			'echo'           => false,
 		);
 
 		if ( !empty( $instance['redirect'] ) )
@@ -114,32 +120,33 @@ class Members_Widget_Login extends WP_Widget {
 	/**
 	 * Updates the widget control options for the particular instance of the widget.
 	 *
-	 * @since 0.1.0
+	 * @since  0.1.0
+	 * @return array
 	 */
 	function update( $new_instance, $old_instance ) {
 		$instance = $old_instance;
 
-		$instance['title'] = strip_tags( $new_instance['title'] );
+		$instance['title']          = strip_tags( $new_instance['title'] );
 		$instance['label_username'] = strip_tags( $new_instance['label_username'] );
 		$instance['label_password'] = strip_tags( $new_instance['label_password'] );
 		$instance['label_remember'] = strip_tags( $new_instance['label_remember'] );
-		$instance['label_log_in'] = strip_tags( $new_instance['label_log_in'] );
-		$instance['id_username'] = strip_tags( $new_instance['id_username'] );
-		$instance['id_password'] = strip_tags( $new_instance['id_password'] );
-		$instance['id_remember'] = strip_tags( $new_instance['id_remember'] );
-		$instance['id_submit'] = strip_tags( $new_instance['id_submit'] );
+		$instance['label_log_in']   = strip_tags( $new_instance['label_log_in'] );
+		$instance['id_username']    = strip_tags( $new_instance['id_username'] );
+		$instance['id_password']    = strip_tags( $new_instance['id_password'] );
+		$instance['id_remember']    = strip_tags( $new_instance['id_remember'] );
+		$instance['id_submit']      = strip_tags( $new_instance['id_submit'] );
 		$instance['value_username'] = strip_tags( $new_instance['value_username'] );
 
-		$instance['remember'] = ( isset( $new_instance['remember'] ) ? 1 : 0 );
-		$instance['value_remember'] = ( isset( $new_instance['value_remember'] ) ? 1 : 0 );
-		$instance['show_avatar'] = ( isset( $new_instance['show_avatar'] ) ? 1 : 0 );
+		$instance['remember']       = isset( $new_instance['remember'] ) ? 1 : 0;
+		$instance['value_remember'] = isset( $new_instance['value_remember'] ) ? 1 : 0;
+		$instance['show_avatar']    = isset( $new_instance['show_avatar'] ) ? 1 : 0;
 
 		if ( current_user_can('unfiltered_html') ) {
-			$instance['logged_in_text'] =  $new_instance['logged_in_text'];
+			$instance['logged_in_text']  =  $new_instance['logged_in_text'];
 			$instance['logged_out_text'] =  $new_instance['logged_out_text'];
 		}
 		else {
-			$instance['logged_in_text'] = wp_filter_post_kses( $new_instance['logged_in_text'] );
+			$instance['logged_in_text']  = wp_filter_post_kses( $new_instance['logged_in_text'] );
 			$instance['logged_out_text'] = wp_filter_post_kses( $new_instance['logged_out_text'] );
 		}
 
@@ -149,28 +156,29 @@ class Members_Widget_Login extends WP_Widget {
 	/**
 	 * Displays the widget control options in the Widgets admin screen.
 	 *
-	 * @since 0.1.0
+	 * @since  0.1.0
+	 * @return void
 	 */
 	function form( $instance ) {
 
 		/* Set up the default form values. */
 		$defaults = array(
-			'title' => esc_attr__( 'Log In', 'members' ), 
-			'label_username' => esc_attr__( 'Username', 'members' ),
-			'label_password' => esc_attr__( 'Password', 'members' ),
-			'label_log_in' => esc_attr__( 'Log In', 'members' ),
-			'label_remember' => esc_attr__('Remember Me', 'members' ),
-			'form_id' => 'loginform',
-			'id_username' => 'user_login',
-			'id_password' => 'user_pass',
-			'id_remember' => 'rememberme',
-			'id_submit' => 'wp-submit',
-			'remember' => true,
-			'value_remember' => false,
-			'value_username' => '',
-			'show_avatar' => true,
+			'title'           => esc_attr__( 'Log In', 'members' ), 
+			'label_username'  => esc_attr__( 'Username', 'members' ),
+			'label_password'  => esc_attr__( 'Password', 'members' ),
+			'label_log_in'    => esc_attr__( 'Log In', 'members' ),
+			'label_remember'  => esc_attr__('Remember Me', 'members' ),
+			'form_id'         => 'loginform',
+			'id_username'     => 'user_login',
+			'id_password'     => 'user_pass',
+			'id_remember'     => 'rememberme',
+			'id_submit'       => 'wp-submit',
+			'remember'        => true,
+			'value_remember'  => false,
+			'value_username'  => '',
+			'show_avatar'     => true,
 			'logged_out_text' => esc_html__( 'Please log into the site.', 'members' ),
-			'logged_in_text' => esc_html__( 'You are currently logged in.', 'members' )
+			'logged_in_text'  => esc_html__( 'You are currently logged in.', 'members' )
 		);
 
 		/* Merge the user-selected arguments with the defaults. */

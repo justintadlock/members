@@ -2,8 +2,12 @@
 /**
  * Version check and update functionality.
  *
- * @package Members
+ * @package    Members
  * @subpackage Includes
+ * @author     Justin Tadlock <justin@justintadlock.com>
+ * @copyright  Copyright (c) 2009 - 2012, Justin Tadlock
+ * @link       http://themehybrid.com/plugins/members
+ * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
 /* Hook our version check to 'init'. */
@@ -88,16 +92,16 @@ function members_get_default_settings() {
 	$settings = array(
 
 		// Version 0.1.0
-		'role_manager' => 1,
-		'content_permissions' => 1,
-		'private_blog' => 0,
+		'role_manager'              => 1,
+		'content_permissions'       => 1,
+		'private_blog'              => 0,
 
 		// Version 0.2.0
-		'private_feed' => 0,
-		'login_form_widget' => 0,
-		'users_widget' => 0,
+		'private_feed'              => 0,
+		'login_form_widget'         => 0,
+		'users_widget'              => 0,
 		'content_permissions_error' => '<p class="restricted">' . __( 'Sorry, but you do not have permission to view this content.', 'members' ) . '</p>',
-		'private_feed_error' => '<p class="restricted">' . __( 'You must be logged into the site to view this content.', 'members' ) . '</p>',
+		'private_feed_error'        => '<p class="restricted">' . __( 'You must be logged into the site to view this content.', 'members' ) . '</p>',
 	);
 
 	/* Return the default settings. */

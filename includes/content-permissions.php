@@ -3,8 +3,12 @@
  * Handles permissions for post content, post excerpts, and post comments.  This is based on whether a user 
  * has permission to view a post according to the settings provided by the plugin.
  *
- * @package Members
- * @subpackage Functions
+ * @package    Members
+ * @subpackage Includes
+ * @author     Justin Tadlock <justin@justintadlock.com>
+ * @copyright  Copyright (c) 2009 - 2012, Justin Tadlock
+ * @link       http://themehybrid.com/plugins/members
+ * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
 /* Enable the content permissions features. */
@@ -14,6 +18,8 @@ add_action( 'after_setup_theme', 'members_enable_content_permissions', 1 );
  * Adds required filters for the content permissions feature if it is active.
  *
  * @since 0.2.0
+ * @access public
+ * @return void
  */
 function members_enable_content_permissions() {
 
@@ -54,8 +60,10 @@ function members_enable_content_permissions() {
  * Denies/Allows access to view post content depending on whether a user has permission to view the content.
  *
  * @since 0.1.0
+ * @access public
  * @param string $content The content of a post.
  * @param string $content The content of a post or an error message.
+ * @return string
  */
 function members_content_permissions_protect( $content ) {
 
@@ -67,6 +75,15 @@ function members_content_permissions_protect( $content ) {
 	return members_get_post_error_message( get_the_ID() );
 }
 
+/**
+ * Denies/Allows access to view post content depending on whether a user has permission to view the content 
+ * of a topic's forum.
+ *
+ * @since 0.3.0
+ * @param string $content The content of a post.
+ * @param string $content The content of a post or an error message.
+ * @return string
+ */
 function members_bbp_content_permissions_protect_topic( $content, $topic_id ) {
 
 	$forum_id = bbp_get_topic_forum_id( $topic_id );
@@ -77,6 +94,15 @@ function members_bbp_content_permissions_protect_topic( $content, $topic_id ) {
 	return members_get_post_error_message( $forum_id );
 }
 
+/**
+ * Denies/Allows access to view post content depending on whether a user has permission to view the content 
+ * of a reply's topic or forum.
+ *
+ * @since 0.3.0
+ * @param string $content The content of a post.
+ * @param string $content The content of a post or an error message.
+ * @return string
+ */
 function members_bbp_content_permissions_protect_reply( $content, $reply_id ) {
 
 	$forum_id = bbp_get_reply_forum_id( $reply_id );

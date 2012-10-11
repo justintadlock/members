@@ -2,8 +2,12 @@
 /**
  * Functions for modifying the WordPress admin bar.
  *
- * @package Members
- * @subpackage Functions
+ * @package    Members
+ * @subpackage Includes
+ * @author     Justin Tadlock <justin@justintadlock.com>
+ * @copyright  Copyright (c) 2009 - 2012, Justin Tadlock
+ * @link       http://themehybrid.com/plugins/members
+ * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
 /* Hook the members admin bar to 'wp_before_admin_bar_render'. */
@@ -24,10 +28,10 @@ function members_admin_bar() {
 		/* Add a 'Role' menu item as a sub-menu item of the new content menu. */
 		$wp_admin_bar->add_menu(
 			array(
-				'id' => 'members-new-role',
+				'id'     => 'members-new-role',
 				'parent' => 'new-content',
-				'title' => esc_attr__( 'Role', 'members' ),
-				'href' => admin_url( 'users.php?page=role-new' )
+				'title'  => esc_attr__( 'Role', 'members' ),
+				'href'   => admin_url( 'users.php?page=role-new' )
 			)
 		);
 	}

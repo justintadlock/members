@@ -2,8 +2,12 @@
 /**
  * Creates a widget that allows users to list users of their site.
  *
- * @package Members
+ * @package    Members
  * @subpackage Includes
+ * @author     Justin Tadlock <justin@justintadlock.com>
+ * @copyright  Copyright (c) 2009 - 2012, Justin Tadlock
+ * @link       http://themehybrid.com/plugins/members
+ * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
 /**
@@ -16,20 +20,21 @@ class Members_Widget_Users extends WP_Widget {
 	/**
 	 * Set up the widget's unique name, ID, class, description, and other options.
 	 *
-	 * @since 0.1.0
+	 * @since  0.1.0
+	 * @return void
 	 */
 	function Members_Widget_Users() {
 
 		/* Set up the widget options. */
 		$widget_options = array(
-			'classname' => 'users',
+			'classname'   => 'users',
 			'description' => esc_html__( 'Provides the ability to list the users of the site.', 'members' )
 		);
 
 		/* Set up the widget control options. */
 		$control_options = array(
-			'width' => 525,
-			'height' => 350,
+			'width'   => 525,
+			'height'  => 350,
 			'id_base' => 'members-widget-users'
 		);
 
@@ -40,7 +45,8 @@ class Members_Widget_Users extends WP_Widget {
 	/**
 	 * Outputs the widget based on the arguments input through the widget controls.
 	 *
-	 * @since 0.1.0
+	 * @since  0.1.0
+	 * @return void
 	 */
 	function widget( $args, $instance ) {
 
@@ -48,16 +54,16 @@ class Members_Widget_Users extends WP_Widget {
 
 		/* Set up the arguments for get_users(). */
 		$args = array(
-			'role' => $instance['role'],
-			'meta_key' => $instance['meta_key'],
+			'role'       => $instance['role'],
+			'meta_key'   => $instance['meta_key'],
 			'meta_value' => $instance['meta_value'],
-			'include' => ( !empty( $instance['include'] ) ? explode( ',', $instance['include'] ) : '' ),
-			'exclude' => ( !empty( $instance['exclude'] ) ? explode( ',', $instance['exclude'] ) : '' ),
-			'search' => $instance['search'],
-			'orderby' => $instance['orderby'],
-			'order' => $instance['order'],
-			'offset' => ( !empty( $instance['offset'] ) ? intval( $instance['offset'] ) : '' ),
-			'number' => ( !empty( $instance['number'] ) ? intval( $instance['number'] ) : '' ),
+			'include'    => !empty( $instance['include'] ) ? explode( ',', $instance['include'] ) : '',
+			'exclude'    => !empty( $instance['exclude'] ) ? explode( ',', $instance['exclude'] ) : '',
+			'search'     => $instance['search'],
+			'orderby'    => $instance['orderby'],
+			'order'      => $instance['order'],
+			'offset'     => !empty( $instance['offset'] ) ? intval( $instance['offset'] ) : '',
+			'number'     => !empty( $instance['number'] ) ? intval( $instance['number'] ) : '',
 		);
 
 		/* Output the theme's $before_widget wrapper. */
@@ -96,22 +102,23 @@ class Members_Widget_Users extends WP_Widget {
 	/**
 	 * Updates the widget control options for the particular instance of the widget.
 	 *
-	 * @since 0.1.0
+	 * @since  0.1.0
+	 * @return array
 	 */
 	function update( $new_instance, $old_instance ) {
 		$instance = $old_instance;
 
-		$instance['title'] = strip_tags( $new_instance['title'] );
-		$instance['order'] = strip_tags( $new_instance['order'] );
-		$instance['orderby'] = strip_tags( $new_instance['orderby'] );
-		$instance['number'] = strip_tags( $new_instance['number'] );
-		$instance['offset'] = strip_tags( $new_instance['offset'] );
-		$instance['meta_key'] = strip_tags( $new_instance['meta_key'] );
+		$instance['title']      = strip_tags( $new_instance['title'] );
+		$instance['order']      = strip_tags( $new_instance['order'] );
+		$instance['orderby']    = strip_tags( $new_instance['orderby'] );
+		$instance['number']     = strip_tags( $new_instance['number'] );
+		$instance['offset']     = strip_tags( $new_instance['offset'] );
+		$instance['meta_key']   = strip_tags( $new_instance['meta_key'] );
 		$instance['meta_value'] = strip_tags( $new_instance['meta_value'] );
-		$instance['role'] = strip_tags( $new_instance['role'] );
-		$instance['include'] = strip_tags( $new_instance['include'] );
-		$instance['exclude'] = strip_tags( $new_instance['exclude'] );
-		$instance['search'] = strip_tags( $new_instance['search'] );
+		$instance['role']       = strip_tags( $new_instance['role'] );
+		$instance['include']    = strip_tags( $new_instance['include'] );
+		$instance['exclude']    = strip_tags( $new_instance['exclude'] );
+		$instance['search']     = strip_tags( $new_instance['search'] );
 
 		return $instance;
 	}
@@ -119,32 +126,48 @@ class Members_Widget_Users extends WP_Widget {
 	/**
 	 * Displays the widget control options in the Widgets admin screen.
 	 *
-	 * @since 0.1.0
+	 * @since  0.1.0
+	 * @return void
 	 */
 	function form( $instance ) {
 		global $wp_roles;
 
 		/* Set up the default form values. */
 		$defaults = array(
-			'title' => esc_attr__( 'Users', 'members' ),
-			'order' => 'ASC',
-			'orderby' => 'login',
-			'role' => '',
-			'meta_key' => '',
+			'title'      => esc_attr__( 'Users', 'members' ),
+			'order'      => 'ASC',
+			'orderby'    => 'login',
+			'role'       => '',
+			'meta_key'   => '',
 			'meta_value' => '',
-			'include' => '',
-			'exclude' => '',
-			'search' => '',
-			'offset' => '',
-			'number' => ''
+			'include'    => '',
+			'exclude'    => '',
+			'search'     => '',
+			'offset'     => '',
+			'number'     => ''
 		);
 
 		/* Merge the user-selected arguments with the defaults. */
 		$instance = wp_parse_args( (array) $instance, $defaults );
 
-		$order = array( 'ASC' => esc_attr__( 'Ascending', 'members' ), 'DESC' => esc_attr__( 'Descending', 'members' ) );
-		$orderby = array( 'display_name' => esc_attr__( 'Display Name', 'members' ), 'email' => esc_attr__( 'Email', 'members' ), 'ID' => esc_attr__( 'ID', 'members' ), 'nicename' => esc_attr__( 'Nice Name', 'members' ), 'post_count' => esc_attr__( 'Post Count', 'members' ), 'registered' => esc_attr__( 'Registered', 'members' ), 'url' => esc_attr__( 'URL', 'members' ), 'user_login' => esc_attr__( 'Login', 'members' ) );
+		$order = array( 
+			'ASC'  => esc_attr__( 'Ascending', 'members' ), 
+			'DESC' => esc_attr__( 'Descending', 'members' ) 
+		);
+
+		$orderby = array( 
+			'display_name' => esc_attr__( 'Display Name', 'members' ), 
+			'email'        => esc_attr__( 'Email', 'members' ), 
+			'ID'           => esc_attr__( 'ID', 'members' ), 
+			'nicename'     => esc_attr__( 'Nice Name', 'members' ), 
+			'post_count'   => esc_attr__( 'Post Count', 'members' ), 
+			'registered'   => esc_attr__( 'Registered', 'members' ), 
+			'url'          => esc_attr__( 'URL', 'members' ), 
+			'user_login'   => esc_attr__( 'Login', 'members' ) 
+		);
+
 		$meta_key = array_merge( array( '' ), (array) members_get_user_meta_keys() );
+
 		$roles = array( '' => '' );
 
 		foreach ( $wp_roles->role_names as $role => $name )

@@ -2,8 +2,12 @@
 /**
  * Shortcodes for use within posts and other shortcode-aware areas.
  *
- * @package Members
- * @subpackage Functions
+ * @package    Members
+ * @subpackage Includes
+ * @author     Justin Tadlock <justin@justintadlock.com>
+ * @copyright  Copyright (c) 2009 - 2012, Justin Tadlock
+ * @link       http://themehybrid.com/plugins/members
+ * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
 /* Add shortcodes. */
@@ -86,8 +90,8 @@ function members_access_check_shortcode( $attr, $content = null ) {
 
 	/* Set up the default attributes. */
 	$defaults = array(
-		'capability' => '',	// Single capability or comma-separated multiple capabilities
-		'role' => '',	// Single role or comma-separated multiple roles
+		'capability' => '', // Single capability or comma-separated multiple capabilities
+		'role'       => '', // Single role or comma-separated multiple roles
 	);
 
 	/* Merge the input attributes and the defaults. */

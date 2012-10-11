@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Members
- * Plugin URI: http://justintadlock.com/archives/2009/09/17/members-wordpress-plugin
+ * Plugin URI: http://themehybrid.com/plugins/members
  * Description: A user, role, and content management plugin for controlling permissions and access. A plugin for making WordPress a more powerful <acronym title="Content Management System">CMS</acronym>.
  * Version: 0.3 Alpha
  * Author: Justin Tadlock
@@ -19,12 +19,12 @@
  * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without 
  * even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @package Members
- * @version 0.3.0 Alpha
- * @author Justin Tadlock <justin@justintadlock.com>
+ * @package   Members
+ * @version   0.3.0 Alpha
+ * @author    Justin Tadlock <justin@justintadlock.com>
  * @copyright Copyright (c) 2009 - 2012, Justin Tadlock
- * @link http://justintadlock.com/archives/2009/09/17/members-wordpress-plugin
- * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+ * @link      http://themehybrid.com/plugins/members
+ * @license   http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
 /**
@@ -190,7 +190,7 @@ class Members_Load {
 				'members_role_manager',
 				_x( 'Role Manager', 'role', 'members' ),
 				array(
-					'read' => true,
+					'read'       => true,
 					'list_roles' => true,
 					'edit_roles' => true
 				)

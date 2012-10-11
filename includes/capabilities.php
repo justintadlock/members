@@ -1,7 +1,11 @@
 <?php
 /**
- * @package Members
+ * @package    Members
  * @subpackage Includes
+ * @author     Justin Tadlock <justin@justintadlock.com>
+ * @copyright  Copyright (c) 2009 - 2012, Justin Tadlock
+ * @link       http://themehybrid.com/plugins/members
+ * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
 /* Disables the old levels from being seen. If you need them, use remove_filter() to add display back. */
@@ -95,11 +99,11 @@ function members_get_role_capabilities() {
 function members_get_additional_capabilities() {
 
 	$capabilities = array(
-		'list_roles',	// Ability to view roles list
-		'create_roles',	// Ability to create new roles
-		'delete_roles',	// Ability to delete roles
-		'edit_roles',	// Ability to edit a role's caps
-		'restrict_content'	// Ability to restrict content (content permissions component)
+		'list_roles',	   // Ability to view roles list
+		'create_roles',	   // Ability to create new roles
+		'delete_roles',	   // Ability to delete roles
+		'edit_roles',	   // Ability to edit a role's caps
+		'restrict_content' // Ability to restrict content (content permissions component)
 	);
 
 	return $capabilities;
