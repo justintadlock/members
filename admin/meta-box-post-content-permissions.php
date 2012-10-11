@@ -53,8 +53,11 @@ function members_content_permissions_meta_box( $object, $box ) {
 	<ul class="categorychecklist cat-checklist">
 		<?php
 
+		$loop_roles = $wp_roles->role_names;
+		ksort( $loop_roles );
+
 		/* Loop through each of the available roles. */
-		foreach ( $wp_roles->role_names as $role => $name ) {
+		foreach ( $loop_roles as $role => $name ) {
 			$checked = false;
 
 			/* If the role has been selected, make sure it's checked. */
