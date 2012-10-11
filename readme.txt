@@ -1,6 +1,6 @@
 === Members ===
 Contributors: greenshady
-Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=3687060
+Donate link: http://themehybrid.com/donate
 Tags: admin, role, roles, member, members, profile, shortcode, user, users, widget, widgets
 Requires at least: 3.4
 Tested up to: 3.5
