@@ -48,6 +48,10 @@ class Members_Load {
 	 * @since 0.2.0
 	 */
 	function __construct() {
+		global $members;
+
+		/* Set up an empty class for the global $members object. */
+		$members = new stdClass;
 
 		/* Set the constants needed by the plugin. */
 		add_action( 'plugins_loaded', array( &$this, 'constants' ), 1 );
