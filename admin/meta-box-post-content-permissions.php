@@ -79,7 +79,7 @@ function members_content_permissions_meta_box( $object, $box ) {
 		<label for="members_access_error"><?php _e( 'Custom error messsage:', 'members' ); ?></label>
 		<textarea id="members_access_error" name="members_access_error" cols="60" rows="3" tabindex="30" style="width: 99%;"><?php echo esc_html( get_post_meta( $object->ID, '_members_access_error', true ) ); ?></textarea>
 		<br />
-		<span class="howto"><?php _e( 'Message shown to users that do no have permission to view the post.', 'members' ); ?></span>
+		<span class="howto"><?php _e( 'Message shown to users who do no have permission to view the post.', 'members' ); ?></span>
 	</p>
 
 <?php
