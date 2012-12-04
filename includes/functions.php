@@ -35,7 +35,7 @@ function members_count_roles() {
 	global $wp_roles;
 
 	if ( !empty( $wp_roles->role_names ) )
-		return count( $wp_roles->role_names );
+		return count( apply_filters( 'editable_roles', $wp_roles->role_names ) );
 
 	return false;
 }
@@ -52,7 +52,7 @@ function members_get_active_roles() {
 
 		$active = array();
 
-		foreach ( $wp_roles->role_names as $role => $name ) {
+		foreach ( apply_filters( 'editable_roles', $wp_roles->role_names ) as $role => $name ) {
 
 			$count = members_get_role_user_count( $role );
 
@@ -78,7 +78,7 @@ function members_get_inactive_roles() {
 
 		$inactive = array();
 
-		foreach ( $wp_roles->role_names as $role => $name ) {
+		foreach ( apply_filters( 'editable_roles', $wp_roles->role_names ) as $role => $name ) {
 
 			$count = members_get_role_user_count( $role );
 
