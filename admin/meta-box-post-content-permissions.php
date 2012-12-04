@@ -131,6 +131,7 @@ function members_content_permissions_save_meta( $post_id, $post ) {
 		delete_post_meta( $post_id, '_members_access_role' );
 	}
 
+	// @todo Allow HTML from users with unfiltered_html cap.
 	$meta = array(
 		'_members_access_error' => esc_html( $_POST['members_access_error'] )
 	);
