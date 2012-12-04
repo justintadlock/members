@@ -6,9 +6,6 @@
  * @subpackage Admin
  */
 
-/* Get the global $wp_roles variable. */
-global $wp_roles;
-
 /* Get a count of all the roles available. */
 $roles_count = members_count_roles();
 
@@ -40,7 +37,7 @@ else {
 	$role_status = 'all';
 
 	/* Set up the roles array. */
-	$list_roles = $wp_roles->role_names;
+	$list_roles = array_merge( $active_roles, $inactive_roles );
 
 	/* Set the current page URL. */
 	$current_page = $current_page = admin_url( 'users.php?page=roles' );
