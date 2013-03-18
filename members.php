@@ -33,17 +33,7 @@
 class Members_Load {
 
 	/**
-	 * PHP4 constructor method.  This will be removed once the plugin only supports WordPress 3.2, 
-	 * which is the version that drops PHP4 support.
-	 *
-	 * @since 0.2.0
-	 */
-	function Members_Load() {
-		$this->__construct();
-	}
-
-	/**
-	 * PHP5 constructor method.
+	 * Constructor method.
 	 *
 	 * @since 0.2.0
 	 */
