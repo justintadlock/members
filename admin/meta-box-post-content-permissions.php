@@ -56,6 +56,9 @@ function members_content_permissions_meta_box( $object, $box ) {
 		$loop_roles = $wp_roles->role_names;
 		ksort( $loop_roles );
 
+		/* Allow devs to filter the roles shown in the meta box. */
+		$loop_roles = apply_filters( 'members_content_permissions_meta_box_roles', $loop_roles );
+
 		/* Loop through each of the available roles. */
 		foreach ( $loop_roles as $role => $name ) {
 			$checked = false;
