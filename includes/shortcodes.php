@@ -23,7 +23,7 @@ function members_register_shortcodes() {
 	add_shortcode( 'access', 'members_access_check_shortcode' );
 
 	/* Add the [feed] shortcode. */
-	add_shortcode( 'feed', 'members_access_check_shortcode' );
+	add_shortcode( 'feed', 'members_feed_shortcode' );
 
 	/* Add the [is_user_logged_in] shortcode. */
 	add_shortcode( 'is_user_logged_in', 'members_is_user_logged_in_shortcode' );
