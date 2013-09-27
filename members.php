@@ -3,7 +3,7 @@
  * Plugin Name: Members
  * Plugin URI: http://justintadlock.com/archives/2009/09/17/members-wordpress-plugin
  * Description: A user, role, and content management plugin for controlling permissions and access. A plugin for making WordPress a more powerful <acronym title="Content Management System">CMS</acronym>.
- * Version: 0.2.2
+ * Version: 0.2.3
  * Author: Justin Tadlock
  * Author URI: http://justintadlock.com
  *
@@ -20,9 +20,9 @@
  * even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
  * @package Members
- * @version 0.2.2
+ * @version 0.2.3
  * @author Justin Tadlock <justin@justintadlock.com>
- * @copyright Copyright (c) 2009 - 2012, Justin Tadlock
+ * @copyright Copyright (c) 2009 - 2013, Justin Tadlock
  * @link http://justintadlock.com/archives/2009/09/17/members-wordpress-plugin
  * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
@@ -31,16 +31,6 @@
  * @since 0.2.0
  */
 class Members_Load {
-
-	/**
-	 * PHP4 constructor method.  This will be removed once the plugin only supports WordPress 3.2, 
-	 * which is the version that drops PHP4 support.
-	 *
-	 * @since 0.2.0
-	 */
-	function Members_Load() {
-		$this->__construct();
-	}
 
 	/**
 	 * PHP5 constructor method.
@@ -170,7 +160,7 @@ class Members_Load {
 	function activation() {
 
 		/* Get the administrator role. */
-		$role =& get_role( 'administrator' );
+		$role = get_role( 'administrator' );
 
 		/* If the administrator role exists, add required capabilities for the plugin. */
 		if ( !empty( $role ) ) {

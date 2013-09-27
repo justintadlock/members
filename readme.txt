@@ -1,10 +1,11 @@
 === Members ===
+
 Contributors: greenshady
 Donate link: http://themehybrid.com/donate
 Tags: admin, role, roles, member, members, profile, shortcode, user, users, widget, widgets
 Requires at least: 3.4
-Tested up to: 3.5
-Stable tag: 0.2.2
+Tested up to: 3.7
+Stable tag: 0.2.3
 
 A user, role, and content management plugin that makes WordPress a more powerful CMS.
 
@@ -30,7 +31,7 @@ If you've used a previous version of the Members plugin, please check your setti
 
 1. Upload `members` to the `/wp-content/plugins/` directory.
 1. Activate the plugin through the 'Plugins' menu in WordPress.
-1. Go to <em>Settings > Members Components</em> to select which components you'd like to use.
+1. Go to <em>Settings > Members</em> to select which settings you'd like to use.
 
 More detailed instructions are included in the plugin's `readme.html` file.
 
@@ -69,6 +70,12 @@ Well, that's why you really need to read the documentation for the plugin before
 5. Content permissions on the edit post screen
 
 == Changelog ==
+
+**Version 0.2.3**
+
+* Fixes the strict standards notice "Redefining already defined constructor for class Members_Load".
+* No longer uses `&` for passing the role name by reference on plugin activation.
+* Fixes the `[feed]` shortcode, which was using the wrong callback function.
 
 **Version 0.2.2**
 
