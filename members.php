@@ -160,7 +160,7 @@ class Members_Load {
 	function activation() {
 
 		/* Get the administrator role. */
-		$role =& get_role( 'administrator' );
+		$role = get_role( 'administrator' );
 
 		/* If the administrator role exists, add required capabilities for the plugin. */
 		if ( !empty( $role ) ) {
