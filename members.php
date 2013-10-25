@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Members
- * Plugin URI: http://justintadlock.com/archives/2009/09/17/members-wordpress-plugin
+ * Plugin URI: http://themehybrid.com/plugins/members
  * Description: A user, role, and content management plugin for controlling permissions and access. A plugin for making WordPress a more powerful <acronym title="Content Management System">CMS</acronym>.
  * Version: 0.2.4-alpha
  * Author: Justin Tadlock
