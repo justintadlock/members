@@ -11,6 +11,8 @@ add_action( 'add_meta_boxes', 'members_content_permissions_create_meta_box' );
 
 /* Saves the content permissions metabox data to a custom field. */
 add_action( 'save_post', 'members_content_permissions_save_meta', 10, 2 );
+add_action( 'add_attachment', 'members_content_permissions_save_meta' );
+add_action( 'edit_attachment', 'members_content_permissions_save_meta' );
 
 /**
  * @since 0.1.0
@@ -88,8 +90,12 @@ function members_content_permissions_meta_box( $object, $box ) {
 /**
  * @since 0.1.0
  */
-function members_content_permissions_save_meta( $post_id, $post ) {
+function members_content_permissions_save_meta( $post_id, $post = '' ) {
 	global $wp_roles;
+
+	/* Fix for attachment save issue in WordPress 3.5. @link http://core.trac.wordpress.org/ticket/21963 */
+	if ( !is_object( $post ) )
+		$post = get_post();
 
 	/* Verify the nonce. */
 	if ( !isset( $_POST['content_permissions_meta_nonce'] ) || !wp_verify_nonce( $_POST['content_permissions_meta_nonce'], plugin_basename( __FILE__ ) ) )
