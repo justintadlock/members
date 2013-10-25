@@ -6,6 +6,10 @@
  * @subpackage Includes
  */
 
+/* Don't run when installing. */
+if ( defined( 'WP_INSTALLING' ) && WP_INSTALLING )
+  return;
+
 /* Hook our version check to 'init'. */
 add_action( 'init', 'members_version_check' );
 
