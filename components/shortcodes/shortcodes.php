@@ -90,14 +90,12 @@ function members_is_user_logged_in_shortcode( $attr, $content = null ) {
 }
 
 /**
- * Displays content if the user viewing it is currently not logged in. This also blocks
- * content from showing in feeds.
+ * Displays content if the user viewing it is currently not logged in.
  *
  * Content needs to be wrapped with this shortcode like 
  * [is_user_not_logged_in]This is content.[/is_user_not_logged_in].
  *
  * @since 0.1
- * @uses is_feed() Checks if the content is currently being shown in a feed.
  * @uses is_user_logged_in() Checks if the current user is logged in.
  * @param $attr array Attributes for the shortcode (not usefule here).
  * @param $content string The content located between the opening and closing of the shortcode.
@@ -106,7 +104,7 @@ function members_is_user_logged_in_shortcode( $attr, $content = null ) {
 function members_is_user_not_logged_in_shortcode( $attr, $content = null ) {
 
 	/* If it is a feed or the user is not logged in, return nothing. */
-	if ( !is_feed() || is_user_logged_in() )
+	if (is_user_logged_in() )
 		return '';
 		
 	/* Return the content. */
