@@ -28,6 +28,9 @@ function members_register_shortcodes() {
 	/* Add the [is_user_logged_in] shortcode. */
 	add_shortcode( 'is_user_logged_in', 'members_is_user_logged_in_shortcode' );
 
+	/* Add the [is_user_not_logged_in] shortcode. */
+	add_shortcode( 'is_user_not_logged_in', 'members_is_user_not_logged_in_shortcode' );
+
 	/* @deprecated 0.2.0. */
 	add_shortcode( 'get_avatar', 'members_get_avatar_shortcode' );
 	add_shortcode( 'avatar', 'members_get_avatar_shortcode' );
@@ -47,6 +50,23 @@ function members_is_user_logged_in_shortcode( $attr, $content = null ) {
 
 	/* If it is a feed or the user is not logged in, return nothing. */
 	if ( is_feed() || !is_user_logged_in() || is_null( $content ) )
+		return '';
+
+	/* Return the content. */
+	return do_shortcode( $content );
+}
+
+/**
+ * Displays content if the user viewing it is currently not logged in.
+ *
+ * @param $attr array Attributes for the shortcode (not used).
+ * @param $content string The content located between the opening and closing of the shortcode.
+ * @return $content string The content to be shown.
+ */
+function members_is_user_not_logged_in_shortcode( $attr, $content = null ) {
+
+	/* If it is a feed or the user is not logged in, return nothing. */
+	if (is_user_logged_in() || is_null( $content ) )
 		return '';
 
 	/* Return the content. */
