@@ -106,11 +106,11 @@ function members_is_user_logged_in_shortcode( $attr, $content = null ) {
 function members_is_user_not_logged_in_shortcode( $attr, $content = null ) {
 
 	/* If it is a feed or the user is not logged in, return nothing. */
-	if ( !is_feed() || !is_user_logged_in() )
-		/* Return the content. */
-		return do_shortcode( $content );
-	
-	return '';
+	if ( !is_feed() || is_user_logged_in() )
+		return '';
+		
+	/* Return the content. */
+	return do_shortcode( $content );
 }
 
 /**
