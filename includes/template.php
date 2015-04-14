@@ -7,7 +7,7 @@
 /**
  * Conditional tag to check if a user can view a specific post.  A user cannot view a post if their user role has 
  * not been selected in the 'Content Permissions' meta box on the edit post screen in the admin.  Non-logged in 
- * site visitors cannot view posts if roles were seletected.  If no roles were selected, all users and site visitors 
+ * site visitors cannot view posts if roles were selected.  If no roles were selected, all users and site visitors 
  * can view the content.
  *
  * There are exceptions to this rule though.  The post author, any user with the 'restrict_content' capability, 
