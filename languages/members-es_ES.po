@@ -1,0 +1,1867 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Members WordPress Plugin en español\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-06-03 12:36-0600\n"
+"PO-Revision-Date: 2015-04-23 23:16+0100\n"
+"Last-Translator: David <david@closemarketing.es>\n"
+"Language-Team: PNTE <blogs@educacion.navarra.es>\n"
+"Language: es_ES\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: _e;__;esc_attr__;esc_attr_e;_n:1,2;_x:1,2c;esc_html__;"
+"esc_html_e;_c\n"
+"X-Poedit-Basepath: ../\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Poedit 1.7.6\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: members.php:191 admin/meta-box-plugin-settings.php:30
+msgid "Role Manager"
+msgstr "Role Manager"
+
+#: admin/admin.php:44 admin/roles-list-table.php:57
+msgid "Roles"
+msgstr "Roles"
+
+#: admin/admin.php:47 admin/role-new.php:44
+msgid "Add New Role"
+msgstr "Añadir nuevo rol"
+
+#: admin/admin.php:135
+msgid ""
+"<strong>Role Manager:</strong> This feature allows you to manage roles on "
+"your site by giving you the ability to create, edit, and delete any role. "
+"Note that changes to roles do not change settings for the Members plugin. "
+"You are literally changing data in your WordPress database. This plugin "
+"feature merely provides an interface for you to make these changes."
+msgstr ""
+"<strong>Role Manager:</strong> Esta característica te permite gestionar los "
+"roles de tu sitio y te proporciona la posibilidad de crear, editar y borrar "
+"cualquier rol. Debes tener en cuenta que los cambios en los roles no cambian "
+"la configuración del pliugin Members. En realidad, lo que cambias son "
+"ciertos datos en la base de datos de WordPress. Esta característica "
+"simplemente propiorciona un interfaz para que lleves a cabo tales cambios."
+
+#: admin/admin.php:136
+msgid ""
+"<strong>Content Permissions:</strong> This feature adds a meta box to the "
+"post edit screen that allows you to grant permissions for who can read the "
+"post content based on the user's role. Only users of roles with the "
+"<code>restrict_content</code> capability will be able to use this component."
+msgstr ""
+"<strong>Permisos para el contenido:</strong> esta característica añade, a la "
+"pantalla de edición de artículos, una caja que permite asignar permisos a "
+"aquellos usuarios a quienes se permita leer el contenido del artículo, en "
+"función de sus roles de usuario. Solo los usuarios con roles que tengan la "
+"capacidad <code>restrict_content</code> podrán utilizar este componente."
+
+#: admin/admin.php:137
+msgid ""
+"<strong>Sidebar Widgets:</strong> This feature creates additional widgets "
+"for use in your theme's sidebars. You can access them by clicking Widgets in "
+"the menu."
+msgstr ""
+"<strong>Widgets de la barra lateral:</strong> esta característica crea "
+"widgets adicionales que se pueden utilizar en las barras laterales de los "
+"temas. Puedes acceder a ellos haciendo clic en la opción Widgets del menú."
+
+#: admin/admin.php:138
+msgid ""
+"<strong>Private Site:</strong> This feature allows you to redirect all users "
+"who are not logged into the site to the login page, creating an entirely "
+"private site. You may also replace your feed content with a custom error "
+"message."
+msgstr ""
+"<strong>Sitio privado:</strong> esta característica te permite redirigir a "
+"la página de inicio de sesión a todos los usuarios que no hayan iniciado "
+"sesión en el sitio, lo cual permite crear un sitio totalmente privado. "
+"También puedes reemplazar el contenido de tus fuentes RSS con un mensaje de "
+"error personalizado."
+
+#: admin/admin.php:140 admin/admin.php:167 admin/admin.php:183
+msgid "For more information:"
+msgstr "Para más información"
+
+#: admin/admin.php:143 admin/admin.php:171 admin/admin.php:187
+msgid "Documentation"
+msgstr "Documentación"
+
+#: admin/admin.php:144 admin/admin.php:172 admin/admin.php:188
+msgid "Support Forums"
+msgstr "Foros de soporte"
+
+#: admin/admin.php:156
+msgid ""
+"This screen allows you to edit the capabilities given to the role. You can "
+"tick the checkbox next to a capability to add the capability to the role. "
+"You can untick the checkbox next to a capability to remove a capability from "
+"the role. You can also add as many custom capabilities as you need in the "
+"Custom Capabilities section."
+msgstr ""
+"Esta pantalla te permite editar las capacidades que se asignan a un rol "
+"determinado. Para asignar una capacidad a un rol, marca la correspondiente "
+"casilla; para eliminar la capacidad, desmárcala. También puedes añadir todas "
+"las capacidades personalizadas que necesites, en la sección de Capacidades "
+"personalizadas."
+
+#: admin/admin.php:157
+msgid ""
+"Capabilities are both powerful and dangerous tools. You should not add or "
+"remove a capability to a role unless you understand what permission you are "
+"granting or removing."
+msgstr ""
+"Las capacidades son a la vez herramientas muy potentes y muy peligrosas. No "
+"debes añadir o eliminar una capacidad a menos que sepas muy bien lo que "
+"estás haciendo."
+
+#: admin/admin.php:162
+msgid ""
+"This screen lists all the user roles available on this site. Roles are given "
+"to users as a way to \"group\" them. Roles are made up of capabilities "
+"(permissions), which decide what functions users of each role can perform on "
+"the site. From this screen, you can manage these roles and their "
+"capabilities."
+msgstr ""
+"Esta pantalla ofrece un listado de todos los roles de usuario disponibles en "
+"este sitio. Los roles se asignan a los usuarios como una forma de "
+"\"agruparlos\". Cada rol está compuesto por una serie de capacidades o "
+"permisos, que deciden qué funciones de un sitio pueden ser desempeñadas por "
+"cada usuario. Desde esta pantalla, puedes gestionar los roles y sus "
+"capacidades."
+
+#: admin/admin.php:163
+msgid ""
+"To add a role to a user, click Users in the menu. To create a new role, "
+"click the Add New button at the top of the screen or Add New Role under the "
+"Users menu."
+msgstr ""
+"Para añadir un rol a un usuario, haz clic en el menú Usuarios. Para crear un "
+"nuevo rol, haz clic en el botón Añadir Nuevo, en la parte superior de la "
+"pantalla, o Añadir nuevo rol, en el menú Usuarios."
+
+#: admin/admin.php:170 admin/admin.php:186
+msgid "Users, Roles, and Capabilities"
+msgstr "Usuarios, roles y capacidades"
+
+#: admin/admin.php:180
+msgid ""
+"This screen allows you to create a new user role for your site. You must "
+"input a unique role name and role label. You can also grant capabilities "
+"(permissions) to the new role. Capabilities are both powerful and dangerous "
+"tools. You should not add a capability to a role unless you understand what "
+"permission you are granting."
+msgstr ""
+"Esta pantalla te permite crear un nuevo rol de usuario para tu sitio. Debes "
+"introducir un nombre de rol único y su etiqueta. También puedes asignar "
+"capacidades o permisos al nuevo rol. Las capacidades son al mismo tiempo una "
+"herramienta muy potente y muy peligrosa. No debes añadir una capacidad a un "
+"rol a menos que sepas muy bien lo que estás haciendo."
+
+#: admin/admin.php:181
+msgid ""
+"To add a role to a user, click Users in the menu. To edit roles, click Roles "
+"under the Users menu."
+msgstr ""
+"Para añadir un rol a un usuario, haz clic sobre el menú Usuarios. Para "
+"editar los roles, haz cli la opción Roles del menú Usuarios."
+
+#: admin/admin.php:202
+msgid "Role deleted."
+msgstr "Rol borrado."
+
+#: admin/admin.php:211
+msgid "Selected roles deleted."
+msgstr "Los roles seleccionados han sido borrados"
+
+#: admin/meta-box-plugin-settings.php:21
+msgid "About"
+msgstr "Sobre"
+
+#: admin/meta-box-plugin-settings.php:24
+msgid "Like this plugin?"
+msgstr "¿Te gusta este plugin?"
+
+#: admin/meta-box-plugin-settings.php:27
+msgid "Support"
+msgstr "Soporte"
+
+#: admin/meta-box-plugin-settings.php:33
+#: admin/meta-box-post-content-permissions.php:28
+msgid "Content Permissions"
+msgstr "Permisos de contenido"
+
+#: admin/meta-box-plugin-settings.php:36
+msgid "Sidebar Widgets"
+msgstr "Widgets de las barras laterales"
+
+#: admin/meta-box-plugin-settings.php:39
+msgid "Private Site"
+msgstr "Sitio privado"
+
+#: admin/meta-box-plugin-settings.php:52
+msgid "Version:"
+msgstr "Versión:"
+
+#: admin/meta-box-plugin-settings.php:55
+msgid "Description:"
+msgstr "Descripción:"
+
+#: admin/meta-box-plugin-settings.php:69
+msgid "Here's how you can give back:"
+msgstr "Así es como puedes demostrar tu apoyo:"
+
+#: admin/meta-box-plugin-settings.php:72
+msgid "Members on the WordPress plugin repository"
+msgstr "Members en el repositorio de plugins de WordPress"
+
+#: admin/meta-box-plugin-settings.php:72
+msgid "Give the plugin a good rating."
+msgstr "Otorga al plugin una buena calificación."
+
+#: admin/meta-box-plugin-settings.php:73
+msgid "Donate via PayPal"
+msgstr "Haz una donación a través de PayPal."
+
+#: admin/meta-box-plugin-settings.php:73
+msgid "Donate a few dollars."
+msgstr "Haz una donación de unos cuantos dólares."
+
+#: admin/meta-box-plugin-settings.php:74
+msgid "Justin Tadlock's Amazon Wish List"
+msgstr "Lista de deseos de Justin Tadlock en Amazon"
+
+#: admin/meta-box-plugin-settings.php:74
+msgid "Get me something from my wish list."
+msgstr "Cómprame algo de mi lista de deseos."
+
+#: admin/meta-box-plugin-settings.php:86
+#, php-format
+msgid ""
+"Support for this plugin is provided via the support forums at %1$s. If you "
+"need any help using it, please ask your support questions there."
+msgstr ""
+"El soporte para este plugin se proporciona en los foros de soporte, en el "
+"%1$s. Si necesitas ayuda, por favor plantea tu pregunta allí."
+
+#: admin/meta-box-plugin-settings.php:86
+msgid "Theme Hybrid Support Forums"
+msgstr "Foros de soporte del tema Hybrid"
+
+#: admin/meta-box-plugin-settings.php:86
+msgid "Theme Hybrid"
+msgstr "Tema Hybrid"
+
+#: admin/meta-box-plugin-settings.php:99
+msgid "Enable the role manager."
+msgstr "Activar la gestión de roles."
+
+#: admin/meta-box-plugin-settings.php:102
+msgid ""
+"Your roles and capabilities will not revert back to their previous settings "
+"after deactivating or uninstalling this plugin, so use this feature wisely."
+msgstr ""
+"Tus roles y capacidades no volverán a su configuración previa cuando "
+"desactives o desinstales este plugin, así que debes utilizar esta "
+"característica con cuidado."
+
+#: admin/meta-box-plugin-settings.php:116
+msgid "Enable the content permissions feature."
+msgstr "Activar la característica de permisos para el contenido."
+
+#: admin/meta-box-plugin-settings.php:120
+msgid "Default post error message:"
+msgstr "Mensaje de error en los artículos:"
+
+#: admin/meta-box-plugin-settings.php:122
+msgid ""
+"You can use <abbr title=\"Hypertext Markup Language\">HTML</abbr> and/or "
+"shortcodes to create a custom error message for users that don't have "
+"permission to view posts."
+msgstr ""
+"Puedes utilizar <abbr title=\"Hypertext Markup Language\">HTML</abbr> o/y "
+"shortcodes para crear un mensaje de error personalizado para aquellos "
+"usuarios que no tengan permiso para ver los artículos."
+
+#: admin/meta-box-plugin-settings.php:136
+msgid "Enable the login form widget."
+msgstr "Activar el widget de inicio de sesión."
+
+#: admin/meta-box-plugin-settings.php:141
+msgid "Enable the users widget."
+msgstr "Activar el widget de usuarios."
+
+#: admin/meta-box-plugin-settings.php:155
+msgid ""
+"Redirect all logged-out users to the login page before allowing them to view "
+"the site."
+msgstr ""
+"Redirigir a la página de inicio de sesión a todos los usuarios que no hayan "
+"iniciado sesión, antes de permitirles que vean el sitio."
+
+#: admin/meta-box-plugin-settings.php:160
+msgid "Show error message for feed items."
+msgstr "Mostrar mensajes de error en los elementos de las fuentes RSS."
+
+#: admin/meta-box-plugin-settings.php:164
+msgid "Feed error message:"
+msgstr "Mensaje de error de la fuente RSS:"
+
+#: admin/meta-box-plugin-settings.php:167
+msgid ""
+"You can use <abbr title=\"Hypertext Markup Language\">HTML</abbr> and/or "
+"shortcodes to create a custom error message to display instead of feed item "
+"content."
+msgstr ""
+"Puedes utilizar <abbr title=\"Hypertext Markup Language\">HTML</abbr> o/y "
+"shortcodes para crear un mensaje de error personalizado en lugar del "
+"contenido de los elementos de las fuentes RSS."
+
+#: admin/meta-box-post-content-permissions.php:51
+msgid "Limit access to this post's content to users of the selected roles."
+msgstr ""
+"Limitar el acceso al contenido de este artículo solo para aquellos usuarios "
+"que tengan los roles seleccionados."
+
+#: admin/meta-box-post-content-permissions.php:75
+#, php-format
+msgid ""
+"If no roles are selected, everyone can view the content. The post author, "
+"any users who can edit this post, and users with the %s capability can view "
+"the content regardless of role."
+msgstr ""
+"Si no seleccionas ningún rol, todo el mundo podrá ver el contenido. El autor "
+"del artículo y cualquier usuario que pueda editarlo, así como los usuarios "
+"con la capacidad %s, podrán ver el contenido, independientemente de su rol."
+
+#: admin/meta-box-post-content-permissions.php:79
+msgid "Custom error messsage:"
+msgstr "Mensaje de error personalizado:"
+
+#: admin/meta-box-post-content-permissions.php:82
+msgid "Message shown to users that do no have permission to view the post."
+msgstr ""
+"Mensaje que se mostrará a los usuarios que no tengan permiso para ver el "
+"artículo."
+
+#: admin/role-edit.php:67
+msgid "Edit Role"
+msgstr "Editar rol"
+
+#: admin/role-edit.php:68 admin/roles-list-table.php:58
+msgid "Add New"
+msgstr "Añadir"
+
+#: admin/role-edit.php:71
+msgid "Role updated."
+msgstr "Rol actualizado."
+
+#: admin/role-edit.php:71
+msgid "&larr; Back to Roles"
+msgstr "&larr; Volver a los Roles"
+
+#: admin/role-edit.php:85 admin/role-new.php:60 admin/roles-list-table.php:111
+msgid "Role Name"
+msgstr "Nombre del rol"
+
+#: admin/role-edit.php:94 admin/roles-list-table.php:113
+#: admin/roles-list-table.php:123
+msgid "Capabilities"
+msgstr "Capacidades"
+
+#: admin/role-edit.php:112
+msgid "Custom Capabilities"
+msgstr "Capacidades personalizadas"
+
+#: admin/role-edit.php:117
+msgid "Add New Capability"
+msgstr "Añadir nueva capacidad"
+
+#: admin/role-edit.php:127
+msgid "Update Role"
+msgstr "Actualizar rol"
+
+#: admin/role-new.php:46
+#, php-format
+msgid "The %s role has been created."
+msgstr "El rol %s ha sido creado."
+
+#: admin/role-new.php:65
+msgid ""
+"<strong>Required:</strong> The role name should be unique and contain only "
+"alphanumeric characters and underscores."
+msgstr ""
+"<strong>Obligatorio:</strong> el nombre del rol debe ser único y contener "
+"solo caracteres alfanuméricos y guiones bajos."
+
+#: admin/role-new.php:71 admin/roles-list-table.php:110
+#: admin/roles-list-table.php:120
+msgid "Role Label"
+msgstr "Etiqueta del rol"
+
+#: admin/role-new.php:76
+msgid ""
+"<strong>Required:</strong> The role label is used to represent your role in "
+"the WordPress admin."
+msgstr ""
+"<strong>Obligatorio:</strong> la etiqueta del rol se utiliza para nombrarlo "
+"en el interfaz de administración de WordPress."
+
+#: admin/role-new.php:82
+msgid "Role Capabilities"
+msgstr "Capacidades del rol"
+
+#: admin/role-new.php:86
+msgid ""
+"<strong>Optional:</strong> Select the capabilities this role should have. "
+"These may be updated later."
+msgstr ""
+"<strong>Opcional:</strong> selecciona qué capacidades debe tener tu nuevo "
+"rol. Se pueden cambiar más adelante."
+
+#: admin/role-new.php:102
+msgid "Add Role"
+msgstr "Añadir rol"
+
+#: admin/roles-list-table.php:70
+msgid "All"
+msgstr "Todos"
+
+#: admin/roles-list-table.php:71
+msgid "Has Users"
+msgstr "Con usuarios"
+
+#: admin/roles-list-table.php:72
+msgid "No Users"
+msgstr "Sin usuarios"
+
+#: admin/roles-list-table.php:83 admin/roles-list-table.php:215
+msgid "Bulk Actions"
+msgstr "Acciones masivas"
+
+#: admin/roles-list-table.php:86 admin/roles-list-table.php:158
+#: admin/roles-list-table.php:218
+msgid "Delete"
+msgstr "Borrar"
+
+#: admin/roles-list-table.php:91 admin/roles-list-table.php:223
+msgid "Apply"
+msgstr "Aplicar"
+
+#: admin/roles-list-table.php:98 admin/roles-list-table.php:230
+#, php-format
+msgid "%s item"
+msgstr "%s ítem"
+
+#: admin/roles-list-table.php:112 admin/roles-list-table.php:122
+msgid "Users"
+msgstr "Usuarios"
+
+#: admin/roles-list-table.php:121 includes/admin-bar.php:29
+msgid "Role"
+msgstr "Rol"
+
+#: admin/roles-list-table.php:146 admin/roles-list-table.php:154
+#, php-format
+msgid "Edit the %s role"
+msgstr "Editar el rol %s"
+
+#: admin/roles-list-table.php:154
+msgid "Edit"
+msgstr "Editar"
+
+#: admin/roles-list-table.php:158
+#, php-format
+msgid "Delete the %s role"
+msgstr "Borrar el rol %s"
+
+#: admin/roles-list-table.php:162
+msgid "Change default role"
+msgstr "Cambiar el rol por defecto"
+
+#: admin/roles-list-table.php:162
+msgid "Default Role"
+msgstr "Rol por defecto"
+
+#: admin/roles-list-table.php:166 admin/roles-list-table.php:182
+#, php-format
+msgid "View all users with the %s role"
+msgstr "Ver todos los usuarios con el rol %s"
+
+#: admin/roles-list-table.php:166
+msgid "View Users"
+msgstr "Ver usuarios"
+
+#: admin/roles-list-table.php:182 admin/roles-list-table.php:184
+#, php-format
+msgid "%s User"
+msgstr "%s usuario"
+
+#: admin/roles-list-table.php:194
+#, php-format
+msgid "%s Capability"
+msgstr "%s Capacidad"
+
+#: admin/settings.php:28
+msgid "Members Settings"
+msgstr "Configuración del plugin Members"
+
+#: admin/settings.php:28
+msgid "Members"
+msgstr "Members"
+
+#: admin/settings.php:66
+msgid "Sorry, but you do not have permission to view this content."
+msgstr "Lo sentimos, pero no tienes permisos para ver este contenido."
+
+#: admin/settings.php:67
+msgid "You must be logged into the site to view this content."
+msgstr "Debes estar registrado en este sitio para ver el contenido."
+
+#: admin/settings.php:145
+msgid "Members Plugin Settings"
+msgstr "Configuración del plugin Members"
+
+#: admin/settings.php:160
+msgid "Update Settings"
+msgstr "Actualizar configuración"
+
+#: includes/widget-login-form.php:26
+msgid "A widget that allows users to log into your site."
+msgstr ""
+"Un widget que permite a los usuarios iniciar sesión para poder entrar en el "
+"sitio."
+
+#: includes/widget-login-form.php:37
+msgid "Login Form"
+msgstr "Formulario de inicio de sesión"
+
+#: includes/widget-login-form.php:158 includes/widget-login-form.php:161
+msgid "Log In"
+msgstr "Conexión"
+
+#: includes/widget-login-form.php:159
+msgid "Username"
+msgstr "Usuario"
+
+#: includes/widget-login-form.php:160
+msgid "Password"
+msgstr "Contraseña"
+
+#: includes/widget-login-form.php:162
+msgid "Remember Me"
+msgstr "Recordarme"
+
+#: includes/widget-login-form.php:172
+msgid "Please log into the site."
+msgstr "Por favor, conéctate para entrar en el sitio."
+
+#: includes/widget-login-form.php:173
+msgid "You are currently logged in."
+msgstr "Has iniciado sesión en este sitio."
+
+#: includes/widget-login-form.php:185 includes/widget-users.php:157
+msgid "Title:"
+msgstr "Título:"
+
+#: includes/widget-login-form.php:235
+msgid "\"Remember me\" checkbox?"
+msgstr "¿Quieres mostrar la opción \"Recordarme\"?"
+
+#: includes/widget-login-form.php:239
+msgid "Check \"remember me\"?"
+msgstr "¿Quieres que apareczca seleccionada la casilla \"Recordarme\"?"
+
+#: includes/widget-login-form.php:243
+msgid "Display avatar?"
+msgstr "¿Quieres mostrar el avatar?"
+
+#: includes/widget-login-form.php:246
+msgid "Logged out text:"
+msgstr "Texto para el usuario que no ha iniciado sesión:"
+
+#: includes/widget-login-form.php:251
+msgid "Logged in text:"
+msgstr "Texto para el usuario que ha iniciado sesión:"
+
+#: includes/widget-users.php:26
+msgid "Provides the ability to list the users of the site."
+msgstr ""
+"Proporciona la capacidad para generar un listado de los usuarios del sitio."
+
+#: includes/widget-users.php:145
+msgid "Ascending"
+msgstr "Ascendente"
+
+#: includes/widget-users.php:145
+msgid "Descending"
+msgstr "Descendente"
+
+#: includes/widget-users.php:146
+msgid "Display Name"
+msgstr "Mostrar nombre"
+
+#: includes/widget-users.php:146
+msgid "Email"
+msgstr "Email"
+
+#: includes/widget-users.php:146
+msgid "ID"
+msgstr "ID"
+
+#: includes/widget-users.php:146
+msgid "Nice Name"
+msgstr "Nombre del rol"
+
+#: includes/widget-users.php:146
+msgid "Post Count"
+msgstr "Número de artículos"
+
+#: includes/widget-users.php:146
+msgid "Registered"
+msgstr "Registrado"
+
+#: includes/widget-users.php:146
+msgid "URL"
+msgstr "URL"
+
+#: includes/widget-users.php:146
+msgid "Login"
+msgstr "Inicio de sesión"
+
+msgid "Welcome, %1$s!"
+msgstr "¡Bienvenido, %1$s!"
+
+msgid "Select Components"
+msgstr "Seleccionar Componentes"
+
+msgid "Component"
+msgstr "Componente"
+
+msgid "Save Changes"
+msgstr "Bewaren"
+
+msgid ""
+"You tried going to %1$s, and it doesn't exist. All is not lost! You can "
+"search for what you're looking for."
+msgstr ""
+"Je wilde naar  %1$s  gaan, maar dit bestaat niet.  Geen nood! Zoek hier wat "
+"je zocht:"
+
+msgid "Possibly Related"
+msgstr "Mogelijk gerelateerd"
+
+msgid "Continue reading"
+msgstr "Lees hier verder"
+
+msgid "Download &quot;%1$s&quot;"
+msgstr "Download &quot;%1$s&quot;"
+
+msgid "Pages:"
+msgstr "Pagina's:"
+
+msgid "Sorry, no applications matched your criteria."
+msgstr "Sorry, er zijn geen toepassingen die met je criteria overeenkomen."
+
+msgid "You are browsing the archive for %1$s."
+msgstr "Je bladert nu door het archief voor %1$s."
+
+msgid "By"
+msgstr "Door"
+
+msgid "on"
+msgstr "op"
+
+msgid "l, F jS, Y, g:i a"
+msgstr "l, j F, Y, G:i"
+
+msgid "F j, Y"
+msgstr "j F, Y"
+
+msgid "Tagged"
+msgstr "Tags:"
+
+msgid "Leave a response"
+msgstr "Reageer"
+
+msgid "1 Response"
+msgstr "1 Reactie"
+
+msgid "% Responses"
+msgstr "% Reacties"
+
+msgid "Sorry, there are no posts in this archive."
+msgstr "Sorry, dit archief bevat geen berichten."
+
+msgid "Archives by category"
+msgstr "Archieven per rubriek"
+
+msgid "Archives by month"
+msgstr "Archieven per maand"
+
+msgid "Sorry, no page matched your criteria."
+msgstr "Sorry, er bestaat geen pagina die aan je criteria voldoet."
+
+msgid "Sorry, no attachments matched your criteria."
+msgstr "Sorry, er zijn geen bijlages die aan je criteria voldoen."
+
+msgid "Sorry, no audio files matched your criteria."
+msgstr "Sorry, er zijn geen geluidsbestanden die aan je criteria voldoen."
+
+msgid "Send an email to %1$s"
+msgstr "Stuur een email aan %1$s"
+
+msgid "%1$s hasn't written any posts yet."
+msgstr "%1$s heeft nog geen berichten geschreven."
+
+msgid "Nickname:"
+msgstr "Bijnaam:"
+
+msgid "Website:"
+msgstr "Website:"
+
+msgid "AIM:"
+msgstr "AIM:"
+
+msgid "IM with %1$s"
+msgstr "IM met %1$s"
+
+msgid "Jabber:"
+msgstr "Jabber:"
+
+msgid "Yahoo:"
+msgstr "Yahoo:"
+
+msgid "Sorry, there are no posts in the %1$s category."
+msgstr "Sorry, er zijn geen berichten in de rubriek %1$s. "
+
+msgid "Please do not load this page directly. Thanks!"
+msgstr "Gelieve deze pagina niet rechtstreeks te laden.  Dankjewel!"
+
+msgid "No Responses"
+msgstr "Geen reacties"
+
+msgid "One Response"
+msgstr "Een reactie"
+
+msgid "Responses"
+msgstr "Reacties"
+
+msgid "to"
+msgstr "naar"
+
+msgid "%1$s at %2$s"
+msgstr "%1$s op %2$s"
+
+msgid "Permalink to comment"
+msgstr "Permalink naar reactie"
+
+msgid "Permalink"
+msgstr "Permalink"
+
+msgid "Your comment is awaiting moderation."
+msgstr "Je reactie wacht op moderatie."
+
+msgid ""
+"Comments are closed, but <a href=\"%1$s\" title=\"Trackback URL for this post"
+"\">trackbacks</a> and pingbacks are open."
+msgstr ""
+"Reageren is niet mogelijk, maar <a href=\"%1$s\" title=\"Trackback URL for "
+"this post\">trackbacks</a> en pingbacks blijven open."
+
+msgid "Comments are closed."
+msgstr "Reageren is niet mogelijk."
+
+msgid "Leave a Reply"
+msgstr "Reageer"
+
+msgid ""
+"You must be <a href=\"%1$s\" title=\"Log in\">logged in</a> to post a "
+"comment."
+msgstr ""
+"Je moet <a href=\"%1$s\" title=\"Log in\">ingelogd</a> zijn om te reageren."
+
+msgid "Logged in as <a href=\"%1$s\" title=\"%2$s\">%2$s</a>."
+msgstr "Ingelogd als <a href=\"%1$s\" title=\"%2$s\">%2$s</a>."
+
+msgid "Log out of this account"
+msgstr "Afmelden."
+
+msgid "Logout &raquo;"
+msgstr "Afmelden &raquo;"
+
+msgid "*"
+msgstr "*"
+
+msgid "Website"
+msgstr "Website"
+
+msgid "Enter the password to view comments."
+msgstr "Voer wachtwoord in om reacties te lezen."
+
+msgid "Leave a Reply to %s"
+msgstr "Reageer op %s"
+
+msgid "Click here to cancel reply."
+msgstr "Klik hier om de reactie te annuleren."
+
+msgid "F jS, Y"
+msgstr "j F, Y"
+
+msgid "Week %1$s of %2$s"
+msgstr "Week %1$s van %2$s"
+
+msgid "W"
+msgstr "W"
+
+msgid "Y"
+msgstr "Y"
+
+msgid "You are browsing the archive for week %1$s of %2$s."
+msgstr "Je bekijkt het archief voor week %1$s van %2$s."
+
+msgid "Sorry, there are no posts for %1$s."
+msgstr "Sorry, maar er zijn geen berichten voor %1$s."
+
+msgid "Sorry, no posts matched your criteria."
+msgstr "Sorry, er zijn geen berichten die met je criteria overeenkomen."
+
+msgid "Sorry, no images matched your criteria."
+msgstr "Sorry, er zijn geen afbeeldingen die met je criteria overeenkomen."
+
+msgid ""
+"You are currently logged in as <a href=\"%1$s\" title=\"%2$s\">%2$s</a>."
+msgstr ""
+"Je bent momenteel ingelogd als <a href=\"%1$s\" title=\"%2$s\">%2$s</a>."
+
+msgid ""
+"You have successfully logged in as <a href=\"%1$s\" title=\"%2$s\">%2$s</a>."
+msgstr ""
+"Je bent succesvol ingelogd als <a href=\"%1$s\" title=\"%2$s\">%2$s</a>."
+
+msgid ""
+"You must be <a href=\"%1$s\" title=\"Log in\">logged in</a> to view the "
+"content of this page."
+msgstr ""
+"Je moet <a href=\"%1$s\" title=\"Log in\">ingelogd</a> zijn om de inhoud van "
+"deze pagina te bekijken."
+
+msgid ""
+"If you're not currently a member, please take a moment to <a href=\"%1$s\" "
+"title=\"Register\">register</a>."
+msgstr ""
+"Als je momenteel nog geen lid bent, neem dan een ogenblikje tijd om je te <a "
+"href=\"%1$s\" title=\"Register\">registreren</a>."
+
+msgid "You must enter a post title."
+msgstr "Je moet een titel voor het bericht invoeren."
+
+msgid "You must write something."
+msgstr "Je moet hier iets schrijven."
+
+msgid "Write"
+msgstr "Schrijf"
+
+msgid "Tags"
+msgstr "Tags"
+
+msgid "Publish"
+msgstr "Publiceer"
+
+msgid "You don't have the appropriate capabilities to publish posts."
+msgstr "Je hebt niet de nodige rechten om berichten te publiceren."
+
+msgid ""
+"You must be <a href=\"%1$s\" title=\"Log in\">logged in</a> with appropriate "
+"user capabilities to publish posts."
+msgstr ""
+"Je moet <a href=\"%1$s\" title=\"Log in\">ingelogd</a> zijn met de nodige "
+"gebruikersrechten om berichten te kunnen publiceren."
+
+msgid "A username is required for registration."
+msgstr "Om te registreren is een gebruikersnaam nodig."
+
+msgid "You must enter an email address."
+msgstr "Je moet een email-adres invoeren."
+
+msgid "You must enter a password."
+msgstr "Je moet een wachtwoord invoeren."
+
+msgid "You must enter your password twice."
+msgstr "Je moet je wachtwoord tweemaal invoeren."
+
+msgid "You must enter the same password twice."
+msgstr "Je moet tweemaal hetzelfde wachtwoord invoeren."
+
+msgid "User registration failed.  Please try again."
+msgstr "Gebruikersregistratie mislukt.  Probeer opnieuw."
+
+msgid ""
+"You are logged in as <a href=\"%1$s\" title=\"%2$s\">%2$s</a>.  You don't "
+"need another account."
+msgstr ""
+"Je bent ingelogd als <a href=\"%1$s\" title=\"%2$s\">%2$s</a>.  Je hebt geen "
+"bijkomend account nodig."
+
+msgid "Thank you for registering, %1$s."
+msgstr "Bedankt voor je registratie, %1$s."
+
+msgid "Users can register themselves or you can manually create users here."
+msgstr ""
+"Gebruikers kunnen zichzelf registreren of je kan hier handmatig "
+"gebruikersaccounts aanmaken."
+
+msgid ""
+"Users cannot currently register themselves, but you can manually create "
+"users here."
+msgstr ""
+"Gebruikers kunnen zichzelf niet registreren, maar je kan hier wel handmatig "
+"gebruikersaccounts aanmaken."
+
+msgid "Required fields are marked <span class=\"required\">*</span>"
+msgstr ""
+"Verplichte velden zijn aangeduid met <span class=\"required\">*</span>."
+
+msgid "Last Name"
+msgstr "Naam"
+
+msgid "Biographical Information"
+msgstr "Biografische informatie"
+
+msgid "You are browsing the search results for &quot;%1$s&quot;"
+msgstr "Je bekijkt hier de zoekresultaten voor  &quot;%1$s&quot;"
+
+msgid "Maybe you'd like to try inputting different search terms."
+msgstr "Misschien wil je andere zoektermen invoeren."
+
+msgid "You are browsing the %1$s tag archive."
+msgstr "Je bekijkt het archief voor de tag %1$s"
+
+msgid "Sorry, there are no posts tagged %1$s."
+msgstr "Sorry, er zijn geen berichten met de tag %1$s."
+
+msgid "Sorry, no documents matched your criteria."
+msgstr "Sorry, er zijn geen documenten die met je criteria overeenkomen."
+
+msgid "Sorry, no videos matched your criteria."
+msgstr "Sorry, er zijn geen video's die met je criteria overeenkomen."
+
+msgid "Widget Template"
+msgstr "Widget Template"
+
+msgid "About This Theme"
+msgstr "Over dit Thema"
+
+msgid "Get support for this theme"
+msgstr "Ondersteuning voor dit thema"
+
+msgid "Select your theme settings"
+msgstr "Selecteer de settings voor je thema"
+
+msgid ""
+"Select this if you want your primary widget inserts to default to the home "
+"insert when nothing else is selected."
+msgstr ""
+"Seleccione esta opción si quieres que tu widget primario inserte por defecto "
+"al inicio del sitio cuando no hay nada más seleccionado."
+
+msgid ""
+"Select this if you want your secondary widget inserts to default to the home "
+"insert when nothing else is selected."
+msgstr ""
+"Seleccione esta opción si quieres que tu widget secundario inserte por "
+"defecto al inicio del sitio cuando no hay nada más seleccionado."
+
+msgid "Stylesheets:"
+msgstr "Stijlbladen (CSS)"
+
+msgid "Select this to have the theme automatically include a print stylesheet."
+msgstr ""
+"Selecteer dit als je wil dat het thema automatisch een 'print' stijlblad "
+"insluit."
+
+msgid "JavaScript:"
+msgstr "JavaScript:"
+
+msgid "Include the pull quote JavaScript."
+msgstr "Inclusief pull quote JavaScript."
+
+msgid "Feeds:"
+msgstr "Feeds:"
+
+msgid ""
+"If you have a an alternate feed address, such as one from <a href=\"http://"
+"feedburner.com\" title=\"Feedburner\">Feedburner</a>, you can enter it here "
+"to have the theme set your feed URL link.  If blank, the theme will default "
+"to your WordPress RSS feed."
+msgstr ""
+"Wanneer je over een alternatief feed-adres beschikt, zoals van <a href="
+"\"http://feedburner.com\" title=\"Feedburner\">Feedburner</a>, kan je dat "
+"hier invoeren om het door het thema te laten gebruiken.  Als je dit blanco "
+"laat, wordt de standaard WordPress RSS feed gebruikt."
+
+msgid "Title &amp; Meta:"
+msgstr "Titel &amp; Meta"
+
+msgid "Use category slugs on single posts for your meta keywords?"
+msgstr ""
+"Gebruik categorie 'slug' als meta keywoord voor afzonderlijke berichten."
+
+msgid "Use tag slugs on single posts for your meta keywords?"
+msgstr "Gebruik tag 'slug' als meta keywoord voor afzonderlijke berichten."
+
+msgid "Use the excerpt on single posts for your meta description?"
+msgstr ""
+"Uittreksel als meta-omschrijving gebruiken voor afzonderlijke berichten?"
+
+msgid "Use the author bio on author archives for your meta description?"
+msgstr ""
+"Auteurs biografie als meta-omschrijving gebruiken voor afzonderlijke "
+"berichten?"
+
+msgid ""
+"Use the category description on category archives for your meta description?"
+msgstr ""
+"Rubriek-omschrijving als meta-omschrijving gebruiken voor afzonderlijke "
+"berichten?"
+
+msgid "Use the author's name on pages and posts as the meta author?"
+msgstr "Naam van de auteur als meta-auteur gebruiken op pagina's en berichten?"
+
+msgid "Append site title to the end of the page name?"
+msgstr "Site-naam toevoegen aan het eind van de pagina-naam?"
+
+msgid ""
+"You can change these settings in the box labeled <em>Hybrid Settings</em> "
+"when writing a post or page."
+msgstr ""
+"Je kan deze settings aanpassen in het vak <em>Hybrid Settings</em> wanneer "
+"je een bericht of pagina bewerkt."
+
+msgid ""
+"The <a href=\"%1$s\" title=\"All-In-One SEO Pack\">All-In-One SEO Pack</a> "
+"and <a href=\"%2$s\" title=\"Headspace2\">Headspace2</a> plugins will "
+"override these settings and the Indexing settings."
+msgstr ""
+"De <a href=\"%1$s\" title=\"All-In-One SEO Pack\">All-In-One SEO Pack</a> en "
+"<a href=\"%2$s\" title=\"Headspace2\">Headspace2</a> plugins zullen deze en "
+"de indexeringssettings overschrijven."
+
+msgid "Indexing:"
+msgstr "Indexeren:"
+
+msgid ""
+"Choose which pages of your blog get indexed by the search engines. Only "
+"selected pages will be indexed.  If not selected, those pages will be "
+"blocked."
+msgstr ""
+"Kies welke pagina's van je blog door zoekmachines kunnen ge&iuml;ndexeerd "
+"worden.  Alleen de geselecteerde pagina's worden ge&iuml;ndexeerd.  Niet "
+"geselecteerde pagina's worden geblokkeerd."
+
+msgid ""
+"Note: Some of these settings will render the Title &amp; Meta settings "
+"moot.  Also, setting your site to privacy mode will override these controls."
+msgstr ""
+"Let op: Sommige van deze settings kunnen conflicteren met de Titel &amp; "
+"Meta settings.  Ook wanneer je je site in een beveiligde modus omzet, worden "
+"deze settings overschreven."
+
+msgid "Home page"
+msgstr "Homepage"
+
+msgid "Single posts"
+msgstr "Afzonderlijke berichten"
+
+msgid "Attachments"
+msgstr "Bijlages"
+
+msgid "Pages"
+msgstr "Pagina's"
+
+msgid "Date-based archives"
+msgstr "Datum-gebaseerd archief"
+
+msgid "Category archives"
+msgstr "Archief per rubriek"
+
+msgid "Tag archives"
+msgstr "Archief op tags"
+
+msgid "Author archives"
+msgstr "Archief op auteur"
+
+msgid "Search"
+msgstr "Zoek"
+
+msgid "404"
+msgstr "404"
+
+msgid "Avatars:"
+msgstr "Avatars:"
+
+msgid ""
+"You can set a default avatar for users without one if you don't like the "
+"choices WordPress offers you. Simply add the full path to the image file."
+msgstr ""
+"Je kan een standaard-avatar instellen voor gebruikers zonder avatar, wanneer "
+"de keuze van WordPress je niet bevalt.  Voer daartoe hier het complete pad "
+"naar de afbeelding in."
+
+msgid "Comments:"
+msgstr "Reacties:"
+
+msgid "Check to use the comments popup window instead of regular comments."
+msgstr ""
+"Aanvinken om een popup-scherm voor reacties te gebruiken in plaats van het "
+"gebruikelijke commentaarscherm."
+
+msgid "WP 2.7+ only."
+msgstr "Enkel voor WP 2.7+"
+
+msgid "Footer Insert:"
+msgstr "Inserts voor Footer:"
+
+msgid ""
+"You can place XHTML and JavaScript here to have it inserted automatically "
+"into your theme.  If you have a script, such as one from Google Analytics, "
+"this could be useful."
+msgstr ""
+"Je kan hier XHTML en Javascript plaatsen dat automatisch in de footer van je "
+"thema wordt ingevoerd.  Dit kan van pas komen als je een script hebt zoals "
+"dat van Google Analytics."
+
+msgid ""
+"Check this if you want the theme to auto-generate your site's copyright and "
+"title in the footer."
+msgstr ""
+"Aanvinken wanneer je wil dat het thema automatisch een copyright voor je "
+"site in de footer invoert."
+
+msgid ""
+"Want to show your love of WordPress?  Check this and a link will be added to "
+"your footer back to WordPress.org."
+msgstr ""
+"Wil je laten zien hoezeer je WordPress waardeert? Vink dit aan om "
+"automatisch een link naar WordPress.org aan de footer toe te voegen."
+
+msgid ""
+"Check this to have a link back to Theme Hybrid automatically appended to "
+"your footer.  This is totally optional.  Really."
+msgstr ""
+"Aanvinken om automatisch een link naar Theme Hybrid aan je footer toe te "
+"voegen.  Dit volkomen vrijwillig, echt waar!"
+
+msgid ""
+"For testing purposes, this will append a database query counter and page "
+"load timer to your footer."
+msgstr ""
+"Voor test-doeleinden wordt hiermee een database-query teller en de laadtijd "
+"van de pagina aan je footer toegevoegd."
+
+msgid "Add a title that will be seen by search engines."
+msgstr "Voeg een titel toe die door zoekmachines gezien wordt."
+
+msgid "Add a description that will be seen by search engines."
+msgstr "Voeg een beschrijving toe die door zoekmachines gezien wordt."
+
+msgid "Keywords:"
+msgstr "Trefwoorden:"
+
+msgid "Add keywords that will be seen by search engines."
+msgstr "Voeg trefwoorden toe die door zoekmachines gezien worden."
+
+msgid "Series:"
+msgstr "Series:"
+
+msgid "Post the title of your series of articles here."
+msgstr "Post hier de titel van je artikelseries."
+
+msgid "Thumbnail:"
+msgstr "Thumbnail:"
+
+msgid "Add an image URL here."
+msgstr "Voeg hier de URL van een afbeelding toe."
+
+msgid "Page Navigation:"
+msgstr "Pagina Navigatie:"
+
+msgid "Settings saved."
+msgstr "Settings opgeslagen."
+
+msgid "Browse:"
+msgstr "Blader:"
+
+msgid "Home"
+msgstr "Home"
+
+msgid "Search results for &quot;%1$s&quot"
+msgstr "Zoekresultaten voor &quot;%1$s&quot"
+
+msgid "m"
+msgstr "m"
+
+msgid "F"
+msgstr "F"
+
+msgid "j"
+msgstr "j"
+
+msgid "404 Not Found"
+msgstr "404 Niet Gevonden"
+
+msgid "Log in to reply."
+msgstr "Log in op te reageren."
+
+msgid "This function has been removed or replaced by another function."
+msgstr "Deze functie is verwijderd of vervangen door een andere functie."
+
+msgid ""
+"You can use these <acronym title=\"Extensible Hypertext Markup Language"
+"\">XHTML</acronym> tags&#58;"
+msgstr ""
+"Je kan deze <acronym title=\"Extensible Hypertext Markup Language\">XHTML</"
+"acronym> tags&#58; gebruiken."
+
+msgid "Search this site..."
+msgstr "Doorzoek deze site"
+
+msgid "Copyright"
+msgstr "Copyright"
+
+msgid "Powered by"
+msgstr "Aangedreven door "
+
+msgid ""
+"Powered by WordPress, state-of-the-art semantic personal publishing platform"
+msgstr ""
+"Aangedreven door WordPress, het state-of-the-art semantische platform voor "
+"iedereen."
+
+msgid "WordPress"
+msgstr "WordPress"
+
+msgid "and"
+msgstr "en"
+
+msgid "Hybrid Theme Framework"
+msgstr "Hybrid Theme Framework"
+
+msgid "Articles in this series"
+msgstr "Artikelen in deze serie"
+
+msgid ""
+"You have encountered an error. This is usually because you've changed "
+"something in the core Hybrid theme files. Try undoing your last edit to "
+"correct this issue. If this doesn't resolve it, head over to the support "
+"forums for help."
+msgstr ""
+"Er is een fout opgetreden.  Dit gebeurt gewoonlijk nadat je iets hebt "
+"gewijzigd in de kernbestanden van het Hybrid-thema.  Probeer je laatste "
+"wijzigingen ongedaan te maken om dit op te lossen.  Als dat niet lukt, kan "
+"je je tot de support forums richten voor hulp."
+
+msgid "This page loaded in %1$s seconds with %2$s database queries."
+msgstr "Deze pagina laadde in %1$s seconden met %2$s database queries."
+
+msgid ": Page %1$s"
+msgstr ":Pagina %1$s"
+
+msgid "Search results for &quot;%1$s.&quot;"
+msgstr "Zoekresultaten voor &quot;%1$s.&quot;"
+
+msgid "Archive for %1$s"
+msgstr "Archief voor %1$s"
+
+msgid "Archive for week %1$s of %2$s"
+msgstr "Archief voor week %1$s van %2$s"
+
+msgid "Comment on &quot;%1$s&quot;"
+msgstr "Reactie op &quot;%1$s&quot;"
+
+msgid "Primary Home"
+msgstr "Primair Home"
+
+msgid "Primary Author"
+msgstr "Primaire Auteur"
+
+msgid "Primary Category"
+msgstr "Primaire Rubriek"
+
+msgid "Primary Date"
+msgstr "Primaire Datum"
+
+msgid "Primary Page"
+msgstr "Primaire Pagina"
+
+msgid "Primary Search"
+msgstr "Primaire Zoekresultaten"
+
+msgid "Primary Tag"
+msgstr "Primaire Tag"
+
+msgid "Primary 404"
+msgstr "Primaire 404"
+
+msgid "Secondary Home"
+msgstr "Secundaire Home"
+
+msgid "Secondary Author"
+msgstr "Secundaire Auteur"
+
+msgid "Secondary Category"
+msgstr "Secundaire Rubriek"
+
+msgid "Secondary Date"
+msgstr "Secundaire Datum "
+
+msgid "Secondary Page"
+msgstr "Secundaire Pagina"
+
+msgid "Secondary Search"
+msgstr "Secundaire Zoekresultaten"
+
+msgid "Secondary Single"
+msgstr "Secundaire EnkelvoudigBericht"
+
+msgid "Secondary Tag"
+msgstr "Secundaire Tag"
+
+msgid "Secondary 404"
+msgstr "Secundaire 404"
+
+msgid "Subsidiary Default"
+msgstr "Bijkomende Standaard"
+
+msgid "RSS 2.0"
+msgstr "RSS 2.0"
+
+msgid "RSS .92"
+msgstr "RSS .92"
+
+msgid "Atom 0.3"
+msgstr "Atom 0.3"
+
+msgid "Subsidiary Home"
+msgstr "Subsidiair Home"
+
+msgid "Previous Page"
+msgstr "Vorige pagina"
+
+msgid "Next Page"
+msgstr "Volgende pagina"
+
+msgid "Related Posts"
+msgstr "Gerelateerde berichten"
+
+msgid "Logout"
+msgstr "Afmelden"
+
+msgid "Select Year"
+msgstr "Selecteer jaar"
+
+msgid "Select Week"
+msgstr "Selecteer week"
+
+msgid "Select Day"
+msgstr "Selecteer dag"
+
+msgid "Select Post"
+msgstr "Selecteer bericht"
+
+msgid "Type:"
+msgstr "Type:"
+
+msgid "Format:"
+msgstr "Format:"
+
+msgid "Before:"
+msgstr "Voor:"
+
+msgid "After:"
+msgstr "Na:"
+
+msgid "Bookmarks"
+msgstr "Favorieten"
+
+msgid "Categories:"
+msgstr "Rubrieken:"
+
+msgid "Exclude Categories:"
+msgstr "Uit te sluiten rubrieken:"
+
+msgid "Category:"
+msgstr "Rubriek:"
+
+msgid "Category Order:"
+msgstr "Rubriek volgorde:"
+
+msgid "Bookmarks Order:"
+msgstr "Favorieten volgorde:"
+
+msgid "Between (Bookmark/Description):"
+msgstr "Tussen (Favoriet/beschrijving)"
+
+msgid "Categorize?"
+msgstr "Rubriceer?"
+
+msgid "Hide invisible bookmarks?"
+msgstr "Onzichtbare favorieten verbergen?"
+
+msgid "Show private categories?"
+msgstr "Private rubrieken tonen?"
+
+msgid "Show rating?"
+msgstr "Waardering tonen?"
+
+msgid "Show images?"
+msgstr "Afbeeldingen tonen?"
+
+msgid "RSS"
+msgstr "RSS"
+
+msgid "Depth:"
+msgstr "Diepte:"
+
+msgid "Number:"
+msgstr "Aantal:"
+
+msgid "Child Of:"
+msgstr "'Child' van :"
+
+msgid "Hierarchical?"
+msgstr "Hierarchisch?"
+
+msgid "Show RSS feed?"
+msgstr "Toon RSS feed?"
+
+msgid "Use description for title?"
+msgstr "Omschrijving gebruiken voor de titel?"
+
+msgid "Hide empty?"
+msgstr "Lege verbergen?"
+
+msgid "Categories"
+msgstr "Rubrieken"
+
+msgid "Meta Key:"
+msgstr "Meta Key:"
+
+msgid "Meta Value:"
+msgstr "Meta Value:"
+
+msgid "Search Text:"
+msgstr "Zoek tekst:"
+
+msgid "Use theme's search form?"
+msgstr "Zoekformulier van thema gebruiken?"
+
+msgid "Largest:"
+msgstr "Grootste:"
+
+msgid "Smallest:"
+msgstr "Kleinste:"
+
+msgid "Unit:"
+msgstr "Eenheid:"
+
+#, fuzzy
+#~ msgid "Password:"
+#~ msgstr "Contraseña"
+
+#, fuzzy
+#~ msgid "Activate"
+#~ msgstr "Activo"
+
+#~ msgid "Active"
+#~ msgstr "Activo"
+
+#~ msgid "Inactive"
+#~ msgstr "Inactivo"
+
+#~ msgid "Username Label:"
+#~ msgstr "Etiqueta del nombre de usuario:"
+
+#~ msgid "Password Label:"
+#~ msgstr "Etiqueta de la contraseña:"
+
+#~ msgid "Submit Text:"
+#~ msgstr "Enviar texto:"
+
+#~ msgid "Remember User Text:"
+#~ msgstr "Texto para recordar al usuario:"
+
+#~ msgid ""
+#~ "An advanced widget that gives you total control over the output of your "
+#~ "user lists."
+#~ msgstr ""
+#~ "Un widget avanzado que proporciona un control total sobre el resultado de "
+#~ "las listas de tus usuarios."
+
+#~ msgid "Limit:"
+#~ msgstr "Límite:"
+
+#~ msgid "Order:"
+#~ msgstr "Orden:"
+
+#~ msgid "Order By:"
+#~ msgstr "Ordenar por:"
+
+#~ msgid "Include:"
+#~ msgstr "Incluir:"
+
+#~ msgid "Exclude:"
+#~ msgstr "Excluir:"
+
+#~ msgid "Show full name?"
+#~ msgstr "¿Quieres mostrar el nombre completo?"
+
+#, fuzzy
+#~ msgid "New user role has been added."
+#~ msgstr "El rol %s ha sido creado."
+
+#, fuzzy
+#~ msgid "Posted in"
+#~ msgstr "Número de artículos"
+
+#, fuzzy
+#~ msgid "Email %1$s"
+#~ msgstr "Email"
+
+#, fuzzy
+#~ msgid "Email:"
+#~ msgstr "Email"
+
+#, fuzzy
+#~ msgid "Submit"
+#~ msgstr "Enviar texto:"
+
+#, fuzzy
+#~ msgid "Password Protected"
+#~ msgstr "Contraseña"
+
+#, fuzzy
+#~ msgid "Title"
+#~ msgstr "Título:"
+
+#, fuzzy
+#~ msgid "E-mail *"
+#~ msgstr "Email"
+
+#, fuzzy
+#~ msgid "Repeat Password *"
+#~ msgstr "Contraseña"
+
+#, fuzzy
+#~ msgid "Theme Description:"
+#~ msgstr "Descripción:"
+
+#, fuzzy
+#~ msgid "Theme Documentation:"
+#~ msgstr "Documentación"
+
+#, fuzzy
+#~ msgid "Hybrid Theme Settings"
+#~ msgstr "Configuración del plugin Members"
+
+#, fuzzy
+#~ msgid "Show post count?"
+#~ msgstr "Número de artículos"
+
+#, fuzzy
+#~ msgid ""
+#~ "An advanced widget that gives you total control over the output of your "
+#~ "archives."
+#~ msgstr ""
+#~ "Un widget avanzado que proporciona un control total sobre el resultado de "
+#~ "las listas de tus usuarios."
+
+#, fuzzy
+#~ msgid "Order Categories By:"
+#~ msgstr "Ordenar por:"
+
+#, fuzzy
+#~ msgid "Include Bookmarks:"
+#~ msgstr "Incluir:"
+
+#, fuzzy
+#~ msgid "Exclude Bookmarks:"
+#~ msgstr "Excluir:"
+
+#, fuzzy
+#~ msgid "Order Bookmarks By:"
+#~ msgstr "Ordenar por:"
+
+#, fuzzy
+#~ msgid "Show description?"
+#~ msgstr "Descripción:"
+
+#, fuzzy
+#~ msgid ""
+#~ "An advanced widget that gives you total control over the output of your "
+#~ "bookmarks (links)."
+#~ msgstr ""
+#~ "Un widget avanzado que proporciona un control total sobre el resultado de "
+#~ "las listas de tus usuarios."
+
+#, fuzzy
+#~ msgid "Show last updated?"
+#~ msgstr "Rol actualizado."
+
+#, fuzzy
+#~ msgid "Show count?"
+#~ msgstr "¿Quieres mostrar el nombre completo?"
+
+#, fuzzy
+#~ msgid ""
+#~ "An advanced widget that gives you total control over the output of your "
+#~ "category links."
+#~ msgstr ""
+#~ "Un widget avanzado que proporciona un control total sobre el resultado de "
+#~ "las listas de tus usuarios."
+
+#, fuzzy
+#~ msgid "Sort Order:"
+#~ msgstr "Orden:"
+
+#, fuzzy
+#~ msgid "Show home?"
+#~ msgstr "¿Quieres mostrar el nombre completo?"
+
+#, fuzzy
+#~ msgid "Show date?"
+#~ msgstr "¿Quieres mostrar el nombre completo?"
+
+#, fuzzy
+#~ msgid ""
+#~ "An advanced widget that gives you total control over the output of your "
+#~ "search form."
+#~ msgstr ""
+#~ "Un widget avanzado que proporciona un control total sobre el resultado de "
+#~ "las listas de tus usuarios."
+
+#, fuzzy
+#~ msgid ""
+#~ "An advanced widget that gives you total control over the output of your "
+#~ "tags."
+#~ msgstr ""
+#~ "Un widget avanzado que proporciona un control total sobre el resultado de "
+#~ "las listas de tus usuarios."
+
+#~ msgctxt "meta box"
+#~ msgid "Role Manager"
+#~ msgstr "Gestor de roles"
+
+#~ msgctxt "meta box"
+#~ msgid "Content Permissions"
+#~ msgstr "Permisos de contenido"
+
+#~ msgctxt "meta box"
+#~ msgid "Sidebar Widgets"
+#~ msgstr "Widgets de las barras laterales"
+
+#~ msgid ""
+#~ "No role currently has the <code>restrict_content</code> capability.  To "
+#~ "use the <em>Content Permissions</em> component, at least one role must "
+#~ "have this capability."
+#~ msgstr ""
+#~ "En este momento no hay ningún rol que tenga la capacidad "
+#~ "<code>restrict_content</code>. Para utilizar el componente <em>Permisos "
+#~ "de contenido</em>, al menos un rol debe tener esta capacidad."
+
+#~ msgid ""
+#~ "<strong>Roles:</strong> Restrict the content to these roles on the front "
+#~ "end of the site.  If all boxes are left unchecked, everyone can view the "
+#~ "content."
+#~ msgstr ""
+#~ "<strong>Roles:</strong> restringir el contenido a estos roles en el "
+#~ "frontend del sitio. Si todas las casillas se dejan sin marcar, cualquiera "
+#~ "podrá ver el contenido."
+
+#~ msgid "New Role"
+#~ msgstr "Nuevo rol"
+
+#~ msgid ""
+#~ "No role currently has the <code>edit_roles</code> capability.  Please add "
+#~ "this to each role that should be able to manage/edit roles. If you do not "
+#~ "change this, any user that has the <code>edit_users</code> capability "
+#~ "will be able to edit roles."
+#~ msgstr ""
+#~ "En este momento, ningún rol tiene la capacidad <code>edit_roles</code>. "
+#~ "Por favor, añade esta capacidad a todos los roles que deban ser capaces "
+#~ "de gestionar o editar roles. Si no cambias esto, cualquier usuario que "
+#~ "tenga la capacidad <code>edit_users</code> podrá editar roles."
+
+#~ msgid ""
+#~ "To create new roles, you must give the <code>create_roles</code> "
+#~ "capability to at least one role."
+#~ msgstr ""
+#~ "Para crear nuevos roles, debes otorgar la capacidad <code>create_roles</"
+#~ "code> al menos a un rol."
+
+#~ msgid "Edit the %1$s role"
+#~ msgstr "Editar el rol %1$s"
+
+#~ msgid "<strong>Role:</strong> %1$s"
+#~ msgstr "<strong>Rol:</strong> %1$s"
+
+#~ msgid ""
+#~ "Select which capabilities this role should have. Make sure you understand "
+#~ "what the capability does before giving it to just any role. This is a "
+#~ "powerful feature, but it can cause you some grief if you give regular ol' "
+#~ "Joe more capabilities than yourself."
+#~ msgstr ""
+#~ "Selecciona qué capacidades debe tener este rol. Asegúrate de qué "
+#~ "entiendes lo que hace esta capacidad antes de dársela a cualquier rol. "
+#~ "Esta es una funcionalidad muy potente, que puede darte problemas si "
+#~ "otorgas capacidades indebidas a los usuarios."
+
+#~ msgid "New Capabilities"
+#~ msgstr "Nuevas capacidades"
+
+#~ msgid ""
+#~ "Add up to six new capabilities with this form for this role (more can be "
+#~ "added later). Please only use letters, numbers, and underscores."
+#~ msgstr ""
+#~ "Añade a este rol hasta seis nuevas capacidades, mediante el presente "
+#~ "formulario (se pueden añadir otras más tarde). Por favor, utilizar solo "
+#~ "letras, números y guiones bajos."
+
+#~ msgid "Edit Active Roles"
+#~ msgstr "Editar roles activos"
+
+#~ msgid "Edit Inactive Roles"
+#~ msgstr "Editar roles inactivos"
+
+#~ msgid "Edit Roles"
+#~ msgstr "Editar roles"
+
+#~ msgid "Delete the %1$s role"
+#~ msgstr "Borrar el rol %1$s "
+
+#~ msgid "View all users with the %1$s role"
+#~ msgstr "Ver todos los usuarios con el rol %1$s "
+
+#~ msgid "%1$s Users"
+#~ msgstr "%1$s usuarios"
+
+#~ msgid "1 User"
+#~ msgstr "1 usuario"
+
+#~ msgid "No users have this role."
+#~ msgstr "No hay ningún usuario que tenga este rol."
+
+#~ msgid "%1$s Capabilities"
+#~ msgstr "%1$s capacidades"
+
+#~ msgid "1 Capability"
+#~ msgstr "1 capacidad"
+
+#~ msgid "This role has no capabilities"
+#~ msgstr "Este rol no tiene ninguna capacidad"
+
+#~ msgid "Add a new user role"
+#~ msgstr "Añadir un nuevo rol de usuario"
+
+#~ msgid "The %1$s role has been created."
+#~ msgstr "El rol %1$s ha sido creado."
+
+#~ msgid "Create a new user role"
+#~ msgstr "Crear un nuevo rol de usuario"
+
+#~ msgid "About:"
+#~ msgstr "Acerca de:"
+
+#~ msgid ""
+#~ "Here you can create as many new roles as you'd like.  Roles are a way of "
+#~ "grouping your users.  You can give individual users a role from the <a "
+#~ "href=\"%1$s\" title=\"Manage Users\">user management</a> screen.  This "
+#~ "will allow you to do specific things for users with a specific role.  "
+#~ "Once you've created a new role, you can manage it with the <em>Edit "
+#~ "Roles</em> component."
+#~ msgstr ""
+#~ "Aquí puedes crear tantos roles como necesites. Los roles son una forma de "
+#~ "agrupar a tus usuarios. Puedes darles a los usuarios individuales un rol "
+#~ "desde la página de <a href=\"%1$s\" title=\"Gestionar usuarios\">gestión "
+#~ "de usuarios</a>. Esto te pemitirá que los usuarios con un rol específico "
+#~ "puedan llevar a cabo tareas específicas. Una vez que hayas creado un "
+#~ "nuevo rol, puedes gestionarlo desde el componente <em>Editar Roles</em>."
+
+#~ msgid "Role:"
+#~ msgstr "Rol:"
+
+#~ msgid ""
+#~ "<strong>Required:</strong> Enter the name of your role.  This is a unique "
+#~ "key that should only contain numbers, letters, and underscores.  Please "
+#~ "don't add spaces or other odd characters."
+#~ msgstr ""
+#~ "<strong>Obligatorio:</strong> escribe el nombre de tu rol. Es una clave "
+#~ "única que solo puede contener números, letras y guiones bajos. Por favor, "
+#~ "no añadas espacios u otros caracteres extraños."
+
+#~ msgid "Role Label:"
+#~ msgstr "Etiqueta del rol:"
+
+#~ msgid ""
+#~ "<strong>Required:</strong> Enter a label your role.  This will be the "
+#~ "title that is displayed in most cases."
+#~ msgstr ""
+#~ "<strong>Obligatorio:</strong> escribe una etiqueta para tu rol. Esto será "
+#~ "el título que se mostrará en la mayoría de los casos."
+
+#~ msgid "Capabilities:"
+#~ msgstr "Capacidades:"
+
+#~ msgid ""
+#~ "<strong>Optional:</strong> Select which capabilities your new role should "
+#~ "have.  These may be changed later using the <em>Edit Roles</em> component."
+#~ msgstr ""
+#~ "<strong>Opcional:</strong> selecciona qué capacidades debe tener tu nuevo "
+#~ "rol. Se pueden cambiar más adelante, utilizando el componente <em>Editar "
+#~ "roles</em>."
+
+#~ msgid "Create Role"
+#~ msgstr "Crear rol"
+
+#~ msgid "Members Statistics"
+#~ msgstr "Estadísticas del plugin Members"
+
+#~ msgid "Members Stats"
+#~ msgstr "Estadísticas del plugin Members"
+
+#~ msgid "Statistics"
+#~ msgstr "Estadísticas"
+
+#~ msgid "Stats"
+#~ msgstr "Estadísticas"
+
+#~ msgid "View stats for the %1$s role"
+#~ msgstr "Ver estadísticas del rol %1$s"
+
+#~ msgid "View the yearly stats for the %1$s role"
+#~ msgstr "Ver las estadísticas anuales del rol %1$s"
+
+#~ msgid "Yearly"
+#~ msgstr "Anual"
+
+#~ msgid "View the monthly stats for the %1$s role"
+#~ msgstr "Ver las estadísticas mensuales del rol %1$s"
+
+#~ msgid "Monthly"
+#~ msgstr "Mensual"
+
+#~ msgid "View the daily stats for the %1$s role"
+#~ msgstr "Ver las estadísticas diarias del rol %1$s"
+
+#~ msgid "Daily"
+#~ msgstr "Diario"
+
+#~ msgid "Date"
+#~ msgstr "Fecha"
+
+#~ msgid "Username:"
+#~ msgstr "Usuario:"
+
+#~ msgid "Remember me?"
+#~ msgstr "¿Recordarme?"
