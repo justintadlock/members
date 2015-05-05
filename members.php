@@ -200,5 +200,3 @@ class Members_Load {
 }
 
 $members_load = new Members_Load();
-
-?>
