@@ -8,10 +8,10 @@
 
 class Members_Widget_Users extends WP_Widget {
 
-	function Members_Widget_Users() {
+	function __construct() {
 		$widget_ops = array( 'classname' => 'users', 'description' => __('An advanced widget that gives you total control over the output of your user lists.','members') );
 		$control_ops = array( 'width' => 250, 'height' => 350, 'id_base' => 'members-widget-users' );
-		$this->WP_Widget( 'members-widget-users', __('Users', 'members'), $widget_ops, $control_ops );
+		parent::__construct( 'members-widget-users', __('Users', 'members'), $widget_ops, $control_ops );
 	}
 
 	function widget( $args, $instance ) {
