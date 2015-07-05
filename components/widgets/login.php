@@ -8,10 +8,10 @@
 
 class Members_Widget_Login extends WP_Widget {
 
-	function Members_Widget_Login() {
+	function __construct() {
 		$widget_ops = array( 'classname' => 'login', 'description' => __('A widget that allows users to log into your site.', 'widgets-reloaded') );
 		$control_ops = array( 'width' => 700, 'height' => 350, 'id_base' => 'members-widget-login' );
-		$this->WP_Widget( 'members-widget-login', __('Login Form', 'widgets-reloaded'), $widget_ops, $control_ops );
+		parent::__construct( 'members-widget-login', __('Login Form', 'widgets-reloaded'), $widget_ops, $control_ops );
 	}
 
 	function widget( $args, $instance ) {
