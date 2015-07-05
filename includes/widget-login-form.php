@@ -18,7 +18,7 @@ class Members_Widget_Login extends WP_Widget {
 	 *
 	 * @since 0.1.0
 	 */
-	function Members_Widget_Login() {
+	function __construct() {
 
 		/* Set up the widget options. */
 		$widget_options = array(
@@ -34,7 +34,7 @@ class Members_Widget_Login extends WP_Widget {
 		);
 
 		/* Create the widget. */
-		$this->WP_Widget( 'members-widget-login', esc_attr__( 'Login Form', 'members' ), $widget_options, $control_options );
+		parent::__construct( 'members-widget-login', esc_attr__( 'Login Form', 'members' ), $widget_options, $control_options );
 	}
 
 	/**
