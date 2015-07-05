@@ -18,7 +18,7 @@ class Members_Widget_Users extends WP_Widget {
 	 *
 	 * @since 0.1.0
 	 */
-	function Members_Widget_Users() {
+	function __construct() {
 
 		/* Set up the widget options. */
 		$widget_options = array(
@@ -34,7 +34,7 @@ class Members_Widget_Users extends WP_Widget {
 		);
 
 		/* Create the widget. */
-		$this->WP_Widget( 'members-widget-users', esc_attr__( 'Users', 'members' ), $widget_options, $control_options );
+		parent::__construct( 'members-widget-users', esc_attr__( 'Users', 'members' ), $widget_options, $control_options );
 	}
 
 	/**
