@@ -1,1 +1,0 @@
-<?php /* Life is sweet. */ ?>

@@ -84,6 +84,7 @@ Well, that's why you really need to read the documentation for the plugin before
 #### Fixed
 
 * Deprecated old widget constructor method in favor of using `__construct()` in preparation for WP 4.3.
+* Removed old `/components` folder and files that's not used.
 
 ### Version 0.2.4
 
