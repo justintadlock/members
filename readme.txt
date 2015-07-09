@@ -79,6 +79,12 @@ Well, that's why you really need to read the documentation for the plugin before
 
 == Changelog ==
 
+### Version 0.2.5 - 2015-07-09
+
+#### Fixed
+
+* Deprecated old widget constructor method in favor of using `__construct()` in preparation for WP 4.3.
+
 ### Version 0.2.4
 
 * Fixed content permissions not saving for attachments. Note that this only protects **content** and not media files.
