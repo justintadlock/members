@@ -4,8 +4,7 @@ Contributors: greenshady
 Donate link: http://themehybrid.com/donate
 Tags: admin, role, roles, member, members, profile, shortcode, user, users, widget, widgets
 Requires at least: 3.4
-Tested up to: 3.7
-Stable tag: 0.2.4
+Stable tag: 0.2.5
 
 A user, role, and content management plugin that makes WordPress a more powerful CMS.
 
@@ -25,7 +24,7 @@ The foundation of the plugin is its extensive role and capability management sys
 
 ### Professional Support
 
-If you need professional plugin support from me, the plugin author, you can access the support forums at [Theme Hybrid](http://themehybrid.com/support), which is a professional WordPress help/support site where I handle support for all my plugins and themes for a community of 40,000+ users (and growing).
+If you need professional plugin support from me, the plugin author, you can access the support forums at [Theme Hybrid](http://themehybrid.com/support), which is a professional WordPress help/support site where I handle support for all my plugins and themes for a community of 60,000+ users (and growing).
 
 ### Plugin Development
 
@@ -78,6 +77,13 @@ Well, that's why you really need to read the documentation for the plugin before
 5. Content permissions on the edit post screen
 
 == Changelog ==
+
+### Version 0.2.5 - 2015-07-09
+
+#### Fixed
+
+* Deprecated old widget constructor method in favor of using `__construct()` in preparation for WP 4.3.
+* Removed old `/components` folder and files that's not used.
 
 ### Version 0.2.4
 
