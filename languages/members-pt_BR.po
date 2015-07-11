@@ -1,25 +1,29 @@
 # Copyright (C) 2013 Members
 # This file is distributed under the same license as the Members package.
+# Translators:
+# Rhapy <raphael.mendonca@hotmail.com>, 2014
 msgid ""
 msgstr ""
-"Project-Id-Version: Members 0.2.4\n"
+"Project-Id-Version: Members\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/members\n"
 "POT-Creation-Date: 2013-11-10 09:00:53+00:00\n"
+"PO-Revision-Date: 2014-04-01 18:10+0000\n"
+"Last-Translator: Rhapy <raphael.mendonca@hotmail.com>\n"
+"Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/wp-translations/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2013-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: pt_BR\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: admin/admin.php:44 admin/roles-list-table.php:54
 #: components/role-manager/default.php:41
 msgid "Roles"
-msgstr ""
+msgstr "Funções"
 
 #: admin/admin.php:47 admin/role-new.php:44
 msgid "Add New Role"
-msgstr ""
+msgstr "Adicionar nova função"
 
 #: admin/admin.php:135
 msgid ""
@@ -28,7 +32,7 @@ msgid ""
 "Note that changes to roles do not change settings for the Members plugin. "
 "You are literally changing data in your WordPress database. This plugin "
 "feature merely provides an interface for you to make these changes."
-msgstr ""
+msgstr "<strong>Gerenciador de Funções:</strong> Este recurso permite que você gerencie os papéis em seu site, dando-lhe a capacidade de criar, editar e excluir qualquer papel. Nota-se que alterações em funções não alteram as configurações do plugin de Membros. Você está literalmente mudando de dados em seu banco de dados WordPress. Este recurso plug-in apenas fornece uma interface para você fazer essas mudanças."
 
 #: admin/admin.php:136
 msgid ""
@@ -36,70 +40,70 @@ msgid ""
 "post edit screen that allows you to grant permissions for who can read the "
 "post content based on the user's role. Only users of roles with the "
 "<code>restrict_content</code> capability will be able to use this component."
-msgstr ""
+msgstr "<strong>Permissões de Conteúdo:</strong> Esse recurso adiciona uma caixa de meta para a tela pós edição que permite conceder permissões para que possa ler o conteúdo do post com base na função do usuário. Somente usuários de papéis com a capacidade <code>restrict_content</code> serão capaz de utilizar este componente."
 
 #: admin/admin.php:137
 msgid ""
 "<strong>Sidebar Widgets:</strong> This feature creates additional widgets "
-"for use in your theme's sidebars. You can access them by clicking Widgets in "
-"the menu."
-msgstr ""
+"for use in your theme's sidebars. You can access them by clicking Widgets in"
+" the menu."
+msgstr "<strong>Widgets da Barra Lateral:</strong> Este recurso cria widgets adicionais para a barra lateral do seu tema. Você pode acessá-los clicando no opção Widgets no menu."
 
 #: admin/admin.php:138
 msgid ""
-"<strong>Private Site:</strong> This feature allows you to redirect all users "
-"who are not logged into the site to the login page, creating an entirely "
+"<strong>Private Site:</strong> This feature allows you to redirect all users"
+" who are not logged into the site to the login page, creating an entirely "
 "private site. You may also replace your feed content with a custom error "
 "message."
-msgstr ""
+msgstr "<strong>Site Privado:</strong> Este recurso permite que você redirecione todos os usuários que não estão logados no site para a página de login, criando um site inteiramente privado. Você também pode substituir o seu conteúdo de feeds com uma mensagem de erro personalizada."
 
 #: admin/admin.php:140 admin/admin.php:166 admin/admin.php:182
 msgid "For more information:"
-msgstr ""
+msgstr "Para mais informações:"
 
 #: admin/admin.php:143 admin/admin.php:170 admin/admin.php:186
 msgid "Documentation"
-msgstr ""
+msgstr "Documentação"
 
 #: admin/admin.php:144 admin/admin.php:171 admin/admin.php:187
 msgid "Support Forums"
-msgstr ""
+msgstr "Fóruns de Suporte"
 
 #: admin/admin.php:155
 msgid ""
 "This screen allows you to edit the capabilities given to the role. You can "
 "tick the checkbox next to a capability to add the capability to the role. "
-"You can untick the checkbox next to a capability to remove a capability from "
-"the role. You can also add as many custom capabilities as you need in the "
+"You can untick the checkbox next to a capability to remove a capability from"
+" the role. You can also add as many custom capabilities as you need in the "
 "Custom Capabilities section."
-msgstr ""
+msgstr "Esta tela permite que você edite as capacidades dadas ao papel. Você pode marcar a caixa de seleção ao lado de uma capacidade de adicionar a capacidade para o papel. Você pode desmarcar a caixa de seleção ao lado de uma capacidade de remover a capacidade do papel. Você também pode adicionar tantos recursos personalizados que você precisa na seção Recursos personalizado."
 
 #: admin/admin.php:156
 msgid ""
 "Capabilities are both powerful and dangerous tools. You should not add or "
 "remove a capability to a role unless you understand what permission you are "
 "granting or removing."
-msgstr ""
+msgstr "Capacidades são ferramentas tanto poderosas e perigosas.Você não deve adicionar ou remover uma capacidade de um papel, a menos que você entenda o que você está concedendo permissão ou remoção."
 
 #: admin/admin.php:161
 msgid ""
-"This screen lists all the user roles available on this site. Roles are given "
-"to users as a way to \"group\" them. Roles are made up of capabilities "
-"(permissions), which decide what functions users of each role can perform on "
-"the site. From this screen, you can manage these roles and their "
+"This screen lists all the user roles available on this site. Roles are given"
+" to users as a way to \"group\" them. Roles are made up of capabilities "
+"(permissions), which decide what functions users of each role can perform on"
+" the site. From this screen, you can manage these roles and their "
 "capabilities."
-msgstr ""
+msgstr "Esta tela lista todas as funções de usuário disponíveis no site. As funções são dadas aos usuários, como forma de \"grupo\" deles. Roles são compostos de recursos (permissões), que decidem quais funções os usuários de cada função pode executar no site. A partir desta tela, você pode gerenciar esses papéis e as suas capacidades."
 
 #: admin/admin.php:162
 msgid ""
 "To add a role to a user, click Users in the menu. To create a new role, "
 "click the Add New button at the top of the screen or Add New Role under the "
 "Users menu."
-msgstr ""
+msgstr "Para adicionar uma função a um usuário, clique em Usuários no menu. Para criar um novo papel, clique no botão Adicionar novo no topo da tela ou Adicionar Novo Papel no menu Usuários."
 
 #: admin/admin.php:169 admin/admin.php:185
 msgid "Users, Roles, and Capabilities"
-msgstr ""
+msgstr "Usuarios, Funções e capacidades"
 
 #: admin/admin.php:179
 msgid ""
@@ -108,206 +112,206 @@ msgid ""
 "(permissions) to the new role. Capabilities are both powerful and dangerous "
 "tools. You should not add a capability to a role unless you understand what "
 "permission you are granting."
-msgstr ""
+msgstr "Esta tela permite que você crie uma nova função de usuário para o seu site. Você deve inserir um nome de função única e rótulo papel. Você também pode conceder capacidades (permissões) para a nova função. Capacidades são ferramentas tanto poderosas e perigosas. Você não deve adicionar um recurso a um papel, a menos que você entenda o que você está concedendo permissão."
 
 #: admin/admin.php:180
 msgid ""
-"To add a role to a user, click Users in the menu. To edit roles, click Roles "
-"under the Users menu."
-msgstr ""
+"To add a role to a user, click Users in the menu. To edit roles, click Roles"
+" under the Users menu."
+msgstr "Para adicionar uma função a um usuário, clique em Usuários no menu. Para editar papéis, clique em Roles sob o menu Usuários."
 
 #: admin/admin.php:201 components/role-manager/default.php:84
 msgid "Role deleted."
-msgstr ""
+msgstr "Função Encontrada"
 
 #: admin/admin.php:210 components/role-manager/default.php:93
 msgid "Selected roles deleted."
-msgstr ""
+msgstr "Funções selecionadas deletadas"
 
 #: admin/meta-box-plugin-settings.php:21
 msgctxt "meta box"
 msgid "About"
-msgstr ""
+msgstr "Sobre"
 
 #: admin/meta-box-plugin-settings.php:24
 msgctxt "meta box"
 msgid "Like this plugin?"
-msgstr ""
+msgstr "Gostou desse plugin?"
 
 #: admin/meta-box-plugin-settings.php:27
 msgctxt "meta box"
 msgid "Support"
-msgstr ""
+msgstr "Suporte"
 
 #: admin/meta-box-plugin-settings.php:30
 msgctxt "meta box"
 msgid "Role Manager"
-msgstr ""
+msgstr "Gerenciar Funções"
 
 #: admin/meta-box-plugin-settings.php:33
 msgctxt "meta box"
 msgid "Content Permissions"
-msgstr ""
+msgstr "Permissões de Conteúdo"
 
 #: admin/meta-box-plugin-settings.php:36
 msgctxt "meta box"
 msgid "Sidebar Widgets"
-msgstr ""
+msgstr "Widgets Laterais"
 
 #: admin/meta-box-plugin-settings.php:39
 msgctxt "meta box"
 msgid "Private Site"
-msgstr ""
+msgstr "Site Privado"
 
 #: admin/meta-box-plugin-settings.php:52
 msgid "Version:"
-msgstr ""
+msgstr "Versão:"
 
 #: admin/meta-box-plugin-settings.php:55
 msgid "Description:"
-msgstr ""
+msgstr "Descrição:"
 
 #: admin/meta-box-plugin-settings.php:69
 msgid "Here's how you can give back:"
-msgstr ""
+msgstr "Aqui está uma forma de você retribuir:"
 
 #: admin/meta-box-plugin-settings.php:72
 msgid "Members on the WordPress plugin repository"
-msgstr ""
+msgstr "Membros no repositório plugin do WordPress"
 
 #: admin/meta-box-plugin-settings.php:72
 msgid "Give the plugin a good rating."
-msgstr ""
+msgstr "Dê ao plugin uma boa classificação"
 
 #: admin/meta-box-plugin-settings.php:73
 msgid "Donate via PayPal"
-msgstr ""
+msgstr "Doe através do PayPal"
 
 #: admin/meta-box-plugin-settings.php:73
 msgid "Donate a few dollars."
-msgstr ""
+msgstr "Doe alguns dólares. "
 
 #: admin/meta-box-plugin-settings.php:74
 msgid "Justin Tadlock's Amazon Wish List"
-msgstr ""
+msgstr "Lista de desejos de Justin Tadlock na Amazon"
 
 #: admin/meta-box-plugin-settings.php:74
 msgid "Get me something from my wish list."
-msgstr ""
+msgstr "Dê me algo da minha lista de desejos."
 
 #: admin/meta-box-plugin-settings.php:86
 msgid ""
 "Support for this plugin is provided via the support forums at %1$s. If you "
 "need any help using it, please ask your support questions there."
-msgstr ""
+msgstr "Suporte para este plugin é fornecido através dos fóruns de suporte em %1$s. Se você precisar de alguma ajuda a usá-lo, por favor, faça suas perguntas de apoio lá."
 
 #: admin/meta-box-plugin-settings.php:86
 msgid "Theme Hybrid Support Forums"
-msgstr ""
+msgstr "Fóruns de suporte a temas hibridos"
 
 #: admin/meta-box-plugin-settings.php:86
 msgid "Theme Hybrid"
-msgstr ""
+msgstr "Tema Hibrido"
 
 #: admin/meta-box-plugin-settings.php:99
 msgid "Enable the role manager."
-msgstr ""
+msgstr "Habilitar gerenciado de função."
 
 #: admin/meta-box-plugin-settings.php:102
 msgid ""
 "Your roles and capabilities will not revert back to their previous settings "
 "after deactivating or uninstalling this plugin, so use this feature wisely."
-msgstr ""
+msgstr "Seus papéis e capacidades não irá reverter para suas configurações anteriores depois de desativar ou desinstalar este plugin, então use esse recurso com sabedoria."
 
 #: admin/meta-box-plugin-settings.php:116
 msgid "Enable the content permissions feature."
-msgstr ""
+msgstr "habilitar o recurso de permissões de conteúdo."
 
 #: admin/meta-box-plugin-settings.php:120
 msgid "Default post error message:"
-msgstr ""
+msgstr "Mensagem de erro padrão de postagem:"
 
 #: admin/meta-box-plugin-settings.php:122
 msgid ""
 "You can use <abbr title=\"Hypertext Markup Language\">HTML</abbr> and/or "
 "shortcodes to create a custom error message for users that don't have "
 "permission to view posts."
-msgstr ""
+msgstr "Você pode utilizar <abbr title=\"Hypertext Markup Language\">HTML</abbr> e/ou atalhos para criar uma mensagem de erro personalizada para usuários que não têm permissão de visualizar postagens."
 
 #: admin/meta-box-plugin-settings.php:136
 msgid "Enable the login form widget."
-msgstr ""
+msgstr "Habilitar widget formulário de login"
 
 #: admin/meta-box-plugin-settings.php:141
 msgid "Enable the users widget."
-msgstr ""
+msgstr "Habilitar o widget do usuário."
 
 #: admin/meta-box-plugin-settings.php:155
 msgid ""
-"Redirect all logged-out users to the login page before allowing them to view "
-"the site."
-msgstr ""
+"Redirect all logged-out users to the login page before allowing them to view"
+" the site."
+msgstr "Redirecionar todos os usuários registrados para fora para a página de login antes de permitir que eles para ver o site."
 
 #: admin/meta-box-plugin-settings.php:160
 msgid "Show error message for feed items."
-msgstr ""
+msgstr "Mostrar mensagens de erro para mural de itens."
 
 #: admin/meta-box-plugin-settings.php:164
 msgid "Feed error message:"
-msgstr ""
+msgstr "Mensagens de erro do mural:"
 
 #: admin/meta-box-plugin-settings.php:167
 msgid ""
 "You can use <abbr title=\"Hypertext Markup Language\">HTML</abbr> and/or "
 "shortcodes to create a custom error message to display instead of feed item "
 "content."
-msgstr ""
+msgstr "Você pode utilizar <abbr title=\"Hypertext Markup Language\">HTML</abbr> e/ou atalhos para criar uma mensagem de erro personalizada para ser exibida no lugar do   seu feed."
 
 #: admin/meta-box-post-content-permissions.php:30
 msgid "Content Permissions"
-msgstr ""
+msgstr "Permissões de Conteúdo "
 
 #: admin/meta-box-post-content-permissions.php:53
 msgid "Limit access to this post's content to users of the selected roles."
-msgstr ""
+msgstr "Limite de acesso a conteúdo desta postagem para usuários das seguintes funções."
 
 #: admin/meta-box-post-content-permissions.php:77
 msgid ""
 "If no roles are selected, everyone can view the content. The post author, "
 "any users who can edit this post, and users with the %s capability can view "
 "the content regardless of role."
-msgstr ""
+msgstr "Se nenhuma função for selecionada, todos podem ver o conteúdo. O autor post, todos os usuários que podem editar este post, e os usuários com capacidade de% s pode ver o conteúdo, independentemente do papel."
 
 #: admin/meta-box-post-content-permissions.php:81
 msgid "Custom error messsage:"
-msgstr ""
+msgstr "Mensagem de erro personalizada:"
 
 #: admin/meta-box-post-content-permissions.php:84
 msgid "Message shown to users that do no have permission to view the post."
-msgstr ""
+msgstr "Mensagem mostra para o usuário que ele não possui permissão para visualizar a postagem."
 
 #: admin/role-edit.php:67 components/role-manager/manage-roles.php:130
 #: components/role-manager/manage-roles.php:144
 msgid "Edit Role"
-msgstr ""
+msgstr "Editar Função"
 
 #: admin/role-edit.php:68 admin/roles-list-table.php:55
 msgid "Add New"
-msgstr ""
+msgstr "Adicionar Novo"
 
 #: admin/role-edit.php:71 components/role-manager/edit-role-form.php:67
 msgid "Role updated."
-msgstr ""
+msgstr "Função atualizada."
 
 #: admin/role-edit.php:71
 msgid "&larr; Back to Roles"
-msgstr ""
+msgstr "&larr; Voltar para Funções"
 
 #: admin/role-edit.php:85 admin/role-new.php:60 admin/roles-list-table.php:108
 #: components/role-manager/edit-roles.php:137
 #: components/role-manager/edit-roles.php:147
 msgid "Role Name"
-msgstr ""
+msgstr "Nome da Função"
 
 #: admin/role-edit.php:94 admin/roles-list-table.php:110
 #: admin/roles-list-table.php:120
@@ -315,79 +319,79 @@ msgstr ""
 #: components/role-manager/edit-roles.php:140
 #: components/role-manager/edit-roles.php:150
 msgid "Capabilities"
-msgstr ""
+msgstr "Capacidades"
 
 #: admin/role-edit.php:112
 msgid "Custom Capabilities"
-msgstr ""
+msgstr "Capacidades Personalizadas."
 
 #: admin/role-edit.php:117
 msgid "Add New Capability"
-msgstr ""
+msgstr "Adicionar Nova Capacidade"
 
 #: admin/role-edit.php:127 components/role-manager/edit-role-form.php:152
 msgid "Update Role"
-msgstr ""
+msgstr "Atualizar Função"
 
 #: admin/role-new.php:46
 msgid "The %s role has been created."
-msgstr ""
+msgstr "A função %s foi criada."
 
 #: admin/role-new.php:65
 msgid ""
 "<strong>Required:</strong> The role name should be unique and contain only "
 "alphanumeric characters and underscores."
-msgstr ""
+msgstr "<strong>Obrigatório:</strong> O nome da função tem que ser único e conter somente caracteres alfanuméricos e underscores."
 
 #: admin/role-new.php:71 admin/roles-list-table.php:107
 #: admin/roles-list-table.php:117
 msgid "Role Label"
-msgstr ""
+msgstr "Rótulo da Função"
 
 #: admin/role-new.php:76
 msgid ""
 "<strong>Required:</strong> The role label is used to represent your role in "
 "the WordPress admin."
-msgstr ""
+msgstr "<strong>Obrigatório:</strong> O rótulo da função é usado para representar sua função no administrador do WordPress."
 
 #: admin/role-new.php:82
 msgid "Role Capabilities"
-msgstr ""
+msgstr "Capacidades da função"
 
 #: admin/role-new.php:86
 msgid ""
 "<strong>Optional:</strong> Select the capabilities this role should have. "
 "These may be updated later."
-msgstr ""
+msgstr "<strong>Opcional:</strong> Selecionar as capacidades que essa função deve ter. Pode ser atualizado futuramente."
 
 #: admin/role-new.php:102
 msgid "Add Role"
-msgstr ""
+msgstr "Adicionar Função"
 
 #: admin/roles-list-table.php:67 components/role-manager/edit-roles.php:114
 msgid "All"
-msgstr ""
+msgstr "Todos"
 
 #: admin/roles-list-table.php:68
 msgid "Has Users"
-msgstr ""
+msgstr "Existem usuários"
 
 #: admin/roles-list-table.php:69
 msgid "No Users"
-msgstr ""
+msgstr "Sem Usuários"
 
 #: admin/roles-list-table.php:80 admin/roles-list-table.php:212
 #: components/role-manager/edit-roles.php:123
 #: components/role-manager/edit-roles.php:239
 msgid "Bulk Actions"
-msgstr ""
+msgstr "Ações em Massa"
 
 #: admin/roles-list-table.php:83 admin/roles-list-table.php:155
 #: admin/roles-list-table.php:215 components/role-manager/edit-roles.php:124
 #: components/role-manager/edit-roles.php:179
 #: components/role-manager/edit-roles.php:240
 msgid "Delete"
-msgstr ""
+msgstr "Eliminar"
 
 #: admin/roles-list-table.php:88 admin/roles-list-table.php:220
 #: components/role-manager/edit-roles.php:126
@@ -395,13 +399,13 @@ msgstr ""
 #: components/role-manager/manage-roles.php:21
 #: components/role-manager/manage-roles.php:25
 msgid "Apply"
-msgstr ""
+msgstr "Aplicar"
 
 #: admin/roles-list-table.php:95 admin/roles-list-table.php:227
 msgid "%s item"
 msgid_plural "%s items"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%s item"
+msgstr[1] "%s itens"
 
 #: admin/roles-list-table.php:109 admin/roles-list-table.php:119
 #: components/role-manager/edit-roles.php:139
@@ -413,95 +417,96 @@ msgstr[1] ""
 #: components/widgets/users.php:69 includes/widget-users.php:37
 #: includes/widget-users.php:129
 msgid "Users"
-msgstr ""
+msgstr "Usuários"
 
 #: admin/roles-list-table.php:118 components/role-manager/edit-roles.php:138
 #: components/role-manager/edit-roles.php:148
 #: components/statistics/statistics.php:97
 #: components/statistics/statistics.php:105 includes/admin-bar.php:29
 msgid "Role"
-msgstr ""
+msgstr "Função"
 
 #: admin/roles-list-table.php:143 admin/roles-list-table.php:151
 msgid "Edit the %s role"
-msgstr ""
+msgstr "Editar a função %s "
 
 #: admin/roles-list-table.php:151 components/role-manager/edit-roles.php:174
 msgid "Edit"
-msgstr ""
+msgstr "Editar"
 
 #: admin/roles-list-table.php:155
 msgid "Delete the %s role"
-msgstr ""
+msgstr "Apagar a função %s"
 
 #: admin/roles-list-table.php:159 components/role-manager/edit-roles.php:184
 msgid "Change default role"
-msgstr ""
+msgstr "Alterar função padrão"
 
 #: admin/roles-list-table.php:159 components/role-manager/edit-roles.php:184
 msgid "Default Role"
-msgstr ""
+msgstr "Função Padrão"
 
 #: admin/roles-list-table.php:163 admin/roles-list-table.php:179
 msgid "View all users with the %s role"
-msgstr ""
+msgstr "Visualizar todos os usuários com a função %s"
 
 #: admin/roles-list-table.php:163 components/role-manager/edit-roles.php:189
 #: components/statistics/statistics.php:130
 msgid "View Users"
-msgstr ""
+msgstr "Visualizar Usuários"
 
 #: admin/roles-list-table.php:179 admin/roles-list-table.php:181
 msgid "%s User"
 msgid_plural "%s Users"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%s Usuário"
+msgstr[1] "%s Usuários"
 
 #: admin/roles-list-table.php:191
 msgid "%s Capability"
 msgid_plural "%s Capabilities"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%s Capacidade"
+msgstr[1] "%s Capacidades"
 
 #: admin/settings.php:28
 msgid "Members Settings"
-msgstr ""
+msgstr "Configurações de Membros"
 
 #. #-#-#-#-#  members.pot (Members 0.2.4)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: admin/settings.php:28
 msgid "Members"
-msgstr ""
+msgstr "Membros"
 
 #: admin/settings.php:122
 msgid "Members Plugin Settings"
-msgstr ""
+msgstr "Configurações do Plugin de Usuários"
 
 #: admin/settings.php:137
 msgid "Update Settings"
-msgstr ""
+msgstr "Atualizar Configurações"
 
 #: components/content-permissions/content-permissions.php:78
 msgid ""
 "No role currently has the <code>restrict_content</code> capability.  To use "
-"the <em>Content Permissions</em> component, at least one role must have this "
-"capability."
-msgstr ""
+"the <em>Content Permissions</em> component, at least one role must have this"
+" capability."
+msgstr "Nenhuma função atualmente possui a capacidade <code>restrict_content</code>. Para utilizar o componente <em>Content Permissions</em>, pelo menos uma função deve conter essa capacidade."
 
 #: components/content-permissions/content-permissions.php:106
 #: includes/update.php:103
 msgid "Sorry, but you do not have permission to view this content."
-msgstr ""
+msgstr "Desculpe-nos, mas você não possui permissão para visualizar este conteúdo."
 
 #: components/content-permissions/meta-box.php:42
 msgid ""
-"<strong>Roles:</strong> Restrict the content to these roles on the front end "
-"of the site.  If all boxes are left unchecked, everyone can view the content."
-msgstr ""
+"<strong>Roles:</strong> Restrict the content to these roles on the front end"
+" of the site.  If all boxes are left unchecked, everyone can view the "
+"content."
+msgstr "<strong>Funções:</strong> Restringe o conteúdo dessas funções no front end do site.  Se nenhuma opção for marcada, todos podem visualizar o conteúdo."
 
 #: components/role-manager/default.php:44
 msgid "New Role"
-msgstr ""
+msgstr "Nova Função"
 
 #: components/role-manager/default.php:103
 msgid ""
@@ -509,23 +514,23 @@ msgid ""
 "this to each role that should be able to manage/edit roles. If you do not "
 "change this, any user that has the <code>edit_users</code> capability will "
 "be able to edit roles."
-msgstr ""
+msgstr "Nenhuma função atualmente possui a capacidade <code>edit_roles</code>. Por favor adicione essa capacidade para cada função que devem poder editar/gerenciar funções.  Se não mudar isso, qualquer usuário possui a capacidade de   <code>edit_users</code> podera editar funcoes."
 
 #: components/role-manager/default.php:116
 msgid ""
 "To create new roles, you must give the <code>create_roles</code> capability "
 "to at least one role."
-msgstr ""
+msgstr "Para criar novas funções, você deve dar a capacidade <code>create_roles</code>  para, pelo menos, um papel."
 
 #: components/role-manager/edit-role-form.php:65
 #: components/role-manager/edit-roles.php:171
 #: components/role-manager/edit-roles.php:174
 msgid "Edit the %1$s role"
-msgstr ""
+msgstr "Editar a função %1$s "
 
 #: components/role-manager/edit-role-form.php:79
 msgid "<strong>Role:</strong> %1$s"
-msgstr ""
+msgstr "<strong>Função:</strong> %1$s"
 
 #: components/role-manager/edit-role-form.php:91
 msgid ""
@@ -533,41 +538,41 @@ msgid ""
 "what the capability does before giving it to just any role. This is a "
 "powerful feature, but it can cause you some grief if you give regular ol' "
 "Joe more capabilities than yourself."
-msgstr ""
+msgstr "Escolha quais recursos esse papel deve ter. Certifique-se de entender o que a capacidade faz antes de dá-lo a apenas qualquer papel. Este é um recurso poderoso, mas pode causar alguma dor, se você dera um usuário comum mais recursos do que você mesmo."
 
 #: components/role-manager/edit-role-form.php:117
 msgid "New Capabilities"
-msgstr ""
+msgstr "Novas Capacidades"
 
 #: components/role-manager/edit-role-form.php:121
 msgid ""
 "Add up to six new capabilities with this form for this role (more can be "
 "added later). Please only use letters, numbers, and underscores."
-msgstr ""
+msgstr "Adicione até seis novas capacidades com esta forma para este papel (mais pode ser adicionado mais tarde). Por favor use apenas letras, números e sublinhados."
 
 #: components/role-manager/edit-roles.php:80
 msgid "Edit Active Roles"
-msgstr ""
+msgstr "Editar Funções Ativas"
 
 #: components/role-manager/edit-roles.php:87
 msgid "Edit Inactive Roles"
-msgstr ""
+msgstr "Editar Funções Inativas"
 
 #: components/role-manager/edit-roles.php:94
 msgid "Edit Roles"
-msgstr ""
+msgstr "Editar Funções"
 
 #: components/role-manager/edit-roles.php:115
 msgid "Active"
-msgstr ""
+msgstr "Ativado"
 
 #: components/role-manager/edit-roles.php:116
 msgid "Inactive"
-msgstr ""
+msgstr "Desativado"
 
 #: components/role-manager/edit-roles.php:179
 msgid "Delete the %1$s role"
-msgstr ""
+msgstr "Apagar a função%1$s "
 
 #: components/role-manager/edit-roles.php:189
 #: components/role-manager/edit-roles.php:203
@@ -576,328 +581,329 @@ msgstr ""
 #: components/statistics/statistics.php:140
 #: components/statistics/statistics.php:142
 msgid "View all users with the %1$s role"
-msgstr ""
+msgstr "Visualizar todos os usuários com a função %1$s "
 
 #: components/role-manager/edit-roles.php:203
 #: components/statistics/statistics.php:140
 msgid "%1$s Users"
-msgstr ""
+msgstr "%1$s Usuários"
 
 #: components/role-manager/edit-roles.php:205
 #: components/statistics/statistics.php:142
 msgid "1 User"
-msgstr ""
+msgstr "1 Usuário"
 
 #: components/role-manager/edit-roles.php:207
 #: components/statistics/statistics.php:144
 msgid "No users have this role."
-msgstr ""
+msgstr "Nenhum usuário possui esta função"
 
 #: components/role-manager/edit-roles.php:219
 msgid "%1$s Capabilities"
-msgstr ""
+msgstr "%1$s Capacidades"
 
 #: components/role-manager/edit-roles.php:220
 msgid "1 Capability"
-msgstr ""
+msgstr "1 Capacidade"
 
 #: components/role-manager/edit-roles.php:223
 msgid "This role has no capabilities"
-msgstr ""
+msgstr "Essa função não possui capacidades"
 
 #: components/role-manager/new-role.php:45
 msgid "Add a new user role"
-msgstr ""
+msgstr "Adicionar nova função de usuário"
 
 #: components/role-manager/new-role.php:47
 msgid "The %1$s role has been created."
-msgstr ""
+msgstr "A Função %1$s foi criada."
 
 #: components/role-manager/new-role.php:59
 msgid "Create a new user role"
-msgstr ""
+msgstr "Criar uma nova função de usuário"
 
 #: components/role-manager/new-role.php:66
 msgid "About:"
-msgstr ""
+msgstr "Sobre:"
 
 #: components/role-manager/new-role.php:69
 msgid ""
 "Here you can create as many new roles as you'd like.  Roles are a way of "
-"grouping your users.  You can give individual users a role from the <a href="
-"\"%1$s\" title=\"Manage Users\">user management</a> screen.  This will allow "
-"you to do specific things for users with a specific role.  Once you've "
-"created a new role, you can manage it with the <em>Edit Roles</em> component."
-msgstr ""
+"grouping your users.  You can give individual users a role from the <a "
+"href=\"%1$s\" title=\"Manage Users\">user management</a> screen.  This will "
+"allow you to do specific things for users with a specific role.  Once you've"
+" created a new role, you can manage it with the <em>Edit Roles</em> "
+"component."
+msgstr "Aqui você pode criar quantos papeis/funções desejar.  Papeis/Funções são uma forma de agrupar os seus usuários. Você pode disponibilizar usuários individuais para uma função a partir da tela de <a href=\"%1$s\" title=\"Manage Users\">Gerenciamento de Usuário</a> .  Isso permitira você definir atividades específicas para usuários com um papel específico.  Uma vez criada uma nova função/papel, eles podem ser gerenciados com o componente <em>Editar Funções</em> ."
 
 #: components/role-manager/new-role.php:75
 msgid "Role:"
-msgstr ""
+msgstr "Função:"
 
 #: components/role-manager/new-role.php:78
 msgid ""
 "<strong>Required:</strong> Enter the name of your role.  This is a unique "
 "key that should only contain numbers, letters, and underscores.  Please "
 "don't add spaces or other odd characters."
-msgstr ""
+msgstr "<strong>Obrigatório:</strong> Insira o nome da sua função. Este é o campo somente pode contar números, letras e sublinhados. Por favor, não adicione espaçõs ou outros caracteres estranhos."
 
 #: components/role-manager/new-role.php:86
 msgid "Role Label:"
-msgstr ""
+msgstr "Rótulo da Função:"
 
 #: components/role-manager/new-role.php:89
 msgid ""
 "<strong>Required:</strong> Enter a label your role.  This will be the title "
 "that is displayed in most cases."
-msgstr ""
+msgstr "<strong>Obrigatório:</strong>  Insira o rótulo da sua função. Este será o título exibido na maiioria das vezes."
 
 #: components/role-manager/new-role.php:97
 msgid "Capabilities:"
-msgstr ""
+msgstr "Capacidades:"
 
 #: components/role-manager/new-role.php:100
 msgid ""
 "<strong>Optional:</strong> Select which capabilities your new role should "
 "have.  These may be changed later using the <em>Edit Roles</em> component."
-msgstr ""
+msgstr "<strong>Opcional:</strong> Selecione quais capacidades sua nova função pode ter.  Isso pode ser alterado utilizando o componetne <em>Editar Funções</em> ."
 
 #: components/role-manager/new-role.php:118
 msgid "Create Role"
-msgstr ""
+msgstr "Criar Função"
 
 #: components/statistics/default.php:27
 msgid "Members Statistics"
-msgstr ""
+msgstr "Estatisticas dos Membros"
 
 #: components/statistics/default.php:27
 msgid "Members Stats"
-msgstr ""
+msgstr "Estatisticas dos Membros"
 
 #: components/statistics/statistics.php:84
 #: components/statistics/view-stats.php:23
 msgid "Statistics"
-msgstr ""
+msgstr "Estatísticas"
 
 #: components/statistics/statistics.php:99
 #: components/statistics/statistics.php:107
 #: components/statistics/statistics.php:125
 msgid "Stats"
-msgstr ""
+msgstr "Estatísticas"
 
 #: components/statistics/statistics.php:122
 #: components/statistics/statistics.php:125
 msgid "View stats for the %1$s role"
-msgstr ""
+msgstr "Visualizar as estatisticas da função %1$s"
 
 #: components/statistics/statistics.php:150
 msgid "View the yearly stats for the %1$s role"
-msgstr ""
+msgstr "Visualizar as estatísticas anuais para a função %1$s "
 
 #: components/statistics/statistics.php:150
 msgid "Yearly"
-msgstr ""
+msgstr "Anual"
 
 #: components/statistics/statistics.php:151
 msgid "View the monthly stats for the %1$s role"
-msgstr ""
+msgstr "Visualizar as estatísticas mensaispara a função %1$s "
 
 #: components/statistics/statistics.php:151
 msgid "Monthly"
-msgstr ""
+msgstr "Mensal"
 
 #: components/statistics/statistics.php:152
 msgid "View the daily stats for the %1$s role"
-msgstr ""
+msgstr "Visualizar as estatísticas diarias para a função %1$s "
 
 #: components/statistics/statistics.php:152
 msgid "Daily"
-msgstr ""
+msgstr "Diário"
 
 #: components/statistics/view-stats.php:34
 #: components/statistics/view-stats.php:41
 msgid "Date"
-msgstr ""
+msgstr "Data"
 
 #: components/widgets/login.php:12 includes/widget-login-form.php:26
 msgid "A widget that allows users to log into your site."
-msgstr ""
+msgstr "Um widget que permite que os usuários façam logon em seu site."
 
 #: components/widgets/login.php:14 includes/widget-login-form.php:37
 msgid "Login Form"
-msgstr ""
+msgstr "Formulário de Login"
 
 #: components/widgets/login.php:110 components/widgets/login.php:113
 #: includes/widget-login-form.php:158 includes/widget-login-form.php:161
 msgid "Log In"
-msgstr ""
+msgstr "Login"
 
 #: components/widgets/login.php:111
 msgid "Username:"
-msgstr ""
+msgstr "Nome de usuário:"
 
 #: components/widgets/login.php:112 includes/widget-login-form.php:160
 msgid "Password"
-msgstr ""
+msgstr "Senha"
 
 #: components/widgets/login.php:114
 msgid "Remember me?"
-msgstr ""
+msgstr "Lembrar?"
 
 #: components/widgets/login.php:116 includes/widget-login-form.php:172
 msgid "Please log into the site."
-msgstr ""
+msgstr "Faça login no site."
 
 #: components/widgets/login.php:117 includes/widget-login-form.php:173
 msgid "You are currently logged in."
-msgstr ""
+msgstr "Você já eta logado."
 
 #: components/widgets/login.php:126 components/widgets/users.php:73
 #: includes/widget-login-form.php:185 includes/widget-users.php:157
 msgid "Title:"
-msgstr ""
+msgstr "Título:"
 
 #: components/widgets/login.php:131 includes/widget-login-form.php:246
 msgid "Logged out text:"
-msgstr ""
+msgstr "Texto de saída:"
 
 #: components/widgets/login.php:136 includes/widget-login-form.php:251
 msgid "Logged in text:"
-msgstr ""
+msgstr "Texto de Entrada"
 
 #: components/widgets/login.php:145 includes/widget-login-form.php:243
 msgid "Display avatar?"
-msgstr ""
+msgstr "Mostrar avatar?"
 
 #: components/widgets/login.php:148
 msgid "Username Label:"
-msgstr ""
+msgstr "Rótulo de Nome de Usuário"
 
 #: components/widgets/login.php:152
 msgid "Password Label:"
-msgstr ""
+msgstr "Rótulo de Senha:"
 
 #: components/widgets/login.php:157
 msgid "Submit Text:"
-msgstr ""
+msgstr "Enviar Texto"
 
 #: components/widgets/login.php:161
 msgid "Remember User Text:"
-msgstr ""
+msgstr "Lembrete de texto do usuário:."
 
 #: components/widgets/users.php:12
 msgid ""
-"An advanced widget that gives you total control over the output of your user "
-"lists."
-msgstr ""
+"An advanced widget that gives you total control over the output of your user"
+" lists."
+msgstr "Uma ferramenta avançada que lhe dá controle total sobre a saída de suas listas de usuários."
 
 #: components/widgets/users.php:77
 msgid "Limit:"
-msgstr ""
+msgstr "Limite:"
 
 #: components/widgets/users.php:81
 msgid "Order:"
-msgstr ""
+msgstr "Ordem:"
 
 #: components/widgets/users.php:88
 msgid "Order By:"
-msgstr ""
+msgstr "Ordenar por:"
 
 #: components/widgets/users.php:96
 msgid "Include:"
-msgstr ""
+msgstr "Incluir:"
 
 #: components/widgets/users.php:100
 msgid "Exclude:"
-msgstr ""
+msgstr "Excluir:"
 
 #: components/widgets/users.php:105
 msgid "Show full name?"
-msgstr ""
+msgstr "Mostrar nome completo?"
 
 #: includes/update.php:104
 msgid "You must be logged into the site to view this content."
-msgstr ""
+msgstr "Você precisa estar conectado para visualizar este conteúdo."
 
 #: includes/widget-login-form.php:159
 msgid "Username"
-msgstr ""
+msgstr "Nome de utilizador"
 
 #: includes/widget-login-form.php:162
 msgid "Remember Me"
-msgstr ""
+msgstr "Lembrar"
 
 #: includes/widget-login-form.php:235
 msgid "\"Remember me\" checkbox?"
-msgstr ""
+msgstr "Caixa de Seleção \"Lembrar-me?"
 
 #: includes/widget-login-form.php:239
 msgid "Check \"remember me\"?"
-msgstr ""
+msgstr "Marcar \"Lembrar-me\" ?"
 
 #: includes/widget-users.php:26
 msgid "Provides the ability to list the users of the site."
-msgstr ""
+msgstr "Fornece a capacidade de listar os usuários do site."
 
 #: includes/widget-users.php:145
 msgid "Ascending"
-msgstr ""
+msgstr "Ascendente"
 
 #: includes/widget-users.php:145
 msgid "Descending"
-msgstr ""
+msgstr "Descendente"
 
 #: includes/widget-users.php:146
 msgid "Display Name"
-msgstr ""
+msgstr "Exibir nome"
 
 #: includes/widget-users.php:146
 msgid "Email"
-msgstr ""
+msgstr "Email"
 
 #: includes/widget-users.php:146
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #: includes/widget-users.php:146
 msgid "Nice Name"
-msgstr ""
+msgstr "Apelido"
 
 #: includes/widget-users.php:146
 msgid "Post Count"
-msgstr ""
+msgstr "Número de posts"
 
 #: includes/widget-users.php:146
 msgid "Registered"
-msgstr ""
+msgstr "Registrado"
 
 #: includes/widget-users.php:146
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 #: includes/widget-users.php:146
 msgid "Login"
-msgstr ""
+msgstr "Entrar"
 
 #: members.php:191
 msgctxt "role"
 msgid "Role Manager"
-msgstr ""
+msgstr "Gerenciar Funções"
 
 #. Plugin URI of the plugin/theme
 msgid "http://themehybrid.com/plugins/members"
-msgstr ""
+msgstr "http://themehybrid.com/plugins/members"
 
 #. Description of the plugin/theme
 msgid ""
 "A user, role, and content management plugin for controlling permissions and "
-"access. A plugin for making WordPress a more powerful <acronym title="
-"\"Content Management System\">CMS</acronym>."
-msgstr ""
+"access. A plugin for making WordPress a more powerful <acronym "
+"title=\"Content Management System\">CMS</acronym>."
+msgstr "Um usuário, função e conteúdo do plugin de gerenciamento para controlar permissões e acesso. Um plugin WordPress para fazer um mais poderoso. <acronym title=\"Content Management System\">CMS</acronym>."
 
 #. Author of the plugin/theme
 msgid "Justin Tadlock"
-msgstr ""
+msgstr "Justin Tadlock"
 
 #. Author URI of the plugin/theme
 msgid "http://justintadlock.com"
-msgstr ""
+msgstr "http://justintadlock.com"
