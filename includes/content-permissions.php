@@ -104,7 +104,7 @@ function members_get_post_error_message( $post_id ) {
 
 	/* If no error message is found, return the default message. */
 	else
-		$return = members_get_setting( 'content_permissions_error' );
+		$return = htmlspecialchars_decode(members_get_setting( 'content_permissions_error' ));
 
 	/* Return the error message. */
 	return apply_filters( 'members_post_error_message', $return );
