@@ -81,12 +81,9 @@ function members_validate_settings( $settings ) {
 	/* Check if the content permissions feature is active. */
 	$settings['content_permissions'] = ( isset( $settings['content_permissions'] ) ? 1 : 0 );
 
-	/* Set the content permissions error text and kill evil scripts. */
-	if ( current_user_can( 'unfiltered_html' ) && isset( $settings['content_permissions_error'] ) )
+	// Set the content permissions error text and kill evil scripts.
+	if ( isset( $settings['content_permissions_error'] ) )
 		$settings['content_permissions_error'] = stripslashes( wp_filter_post_kses( addslashes( $settings['content_permissions_error'] ) ) );
-
-	elseif ( isset( $settings['content_permissions_error'] ) )
-		$settings['content_permissions_error'] = $settings['content_permissions_error'];
 
 	/* Check if the login form and users widgets are active. */
 	$settings['login_form_widget'] = ( isset( $settings['login_form_widget'] ) ? 1 : 0 );
@@ -97,11 +94,8 @@ function members_validate_settings( $settings ) {
 	$settings['private_feed'] = ( isset( $settings['private_feed'] ) ? 1 : 0 );
 
 	/* Set the private feed error text and kill evil scripts. */
-	if ( current_user_can( 'unfiltered_html' ) && isset( $settings['private_feed_error'] ) )
+	if ( isset( $settings['private_feed_error'] ) )
 		$settings['private_feed_error'] = stripslashes( wp_filter_post_kses( addslashes( $settings['private_feed_error'] ) ) );
-
-	elseif ( isset( $settings['private_feed_error'] ) )
-		$settings['private_feed_error'] = $settings['private_feed_error'];
 
 	/* Return the validated/sanitized settings. */
 	return $settings;
