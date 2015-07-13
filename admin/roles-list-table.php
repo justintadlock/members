@@ -191,7 +191,7 @@ ksort( $list_roles ); ?>
 							<p>
 							<?php
 								$role_object = get_role( $role );
-								$cap_count = count( $role_object->capabilities );
+								$cap_count = count( members_remove_old_levels( array_keys( $role_object->capabilities ) ) );
 								printf( _n( '%s Capability', '%s Capabilities', $cap_count, 'members' ), $cap_count );
 							?>
 							</p>

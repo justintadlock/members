@@ -216,15 +216,12 @@ function members_get_old_levels() {
 /**
  * Get rid of levels since these are mostly useless in newer versions of WordPress.
  *
- * To remove this filter:
- * remove_filter( 'members_get_capabilities', 'members_remove_old_levels' );
- *
  * @since 0.1.0
  * @param $capabilities array All of the combined capabilities.
  * @return $capabilities array Capabilities with old user levels removed.
  */
 function members_remove_old_levels( $capabilities ) {
-	return array_diff( $capabilities, members_get_old_levels() );
+	return apply_filters( 'members_remove_old_levels', true ) ? array_diff( $capabilities, members_get_old_levels() ) : $capabilites;
 }
 
 /**
