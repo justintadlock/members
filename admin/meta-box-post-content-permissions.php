@@ -65,7 +65,7 @@ function members_content_permissions_meta_box( $object, $box ) {
 
 			<div style="width: 32%; float: left; margin: 0 0 5px 0;">
 				<label for="members_access_role-<?php echo $role; ?>">
-					<input type="checkbox" name="members_access_role[<?php echo $role; ?>]" id="members_access_role-<?php echo $role; ?>" <?php echo $checked; ?> value="<?php echo $role; ?>" /> 
+					<input type="checkbox" name="members_access_role[<?php echo $role; ?>]" id="members_access_role-<?php echo $role; ?>" <?php echo $checked; ?> value="<?php echo $role; ?>" />
 					<?php echo esc_html( $name ); ?>
 				</label>
 			</div>
@@ -135,7 +135,7 @@ function members_content_permissions_save_meta( $post_id, $post = '' ) {
 	}
 
 	$meta = array(
-		'_members_access_error' => esc_html( $_POST['members_access_error'] )
+		'_members_access_error' => stripslashes( wp_filter_post_kses( addslashes( $_POST['members_access_error'] ) ) )
 	);
 
 	foreach ( $meta as $meta_key => $new_meta_value ) {
