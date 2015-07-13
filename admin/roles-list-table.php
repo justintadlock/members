@@ -51,7 +51,7 @@ ksort( $list_roles ); ?>
 	<?php screen_icon(); ?>
 
 	<h2>
-		<?php _e( 'Roles', 'members' ); ?> 
+		<?php _e( 'Roles', 'members' ); ?>
 		<?php if ( current_user_can( 'create_roles' ) ) echo '<a href="' . admin_url( 'users.php?page=role-new' ) . '" class="add-new-h2">' . __( 'Add New', 'members' ) . '</a>'; ?>
 	</h2>
 
@@ -137,7 +137,7 @@ ksort( $list_roles ); ?>
 
 						<td class="plugin-title">
 
-							<?php $edit_link = admin_url( wp_nonce_url( "users.php?page=roles&amp;action=edit&amp;role={$role}", members_get_nonce( 'edit-roles' ) ) ); ?> 
+							<?php $edit_link = admin_url( wp_nonce_url( "users.php?page=roles&amp;action=edit&amp;role={$role}", members_get_nonce( 'edit-roles' ) ) ); ?>
 
 							<?php if ( current_user_can( 'edit_roles' ) ) { ?>
 								<a href="<?php echo esc_url( $edit_link ); ?>" title="<?php printf( esc_attr__( 'Edit the %s role', 'members' ), $name ); ?>"><strong><?php echo esc_html( $name ); ?></strong></a>
@@ -148,19 +148,23 @@ ksort( $list_roles ); ?>
 							<div class="row-actions">
 
 								<?php if ( current_user_can( 'edit_roles' ) ) { ?>
-									<a href="<?php echo esc_url( $edit_link ); ?>" title="<?php printf( esc_attr__( 'Edit the %s role', 'members' ), $name ); ?>"><?php _e( 'Edit', 'members' ); ?></a> 
+									<a href="<?php echo esc_url( $edit_link ); ?>" title="<?php printf( esc_attr__( 'Edit the %s role', 'members' ), $name ); ?>"><?php _e( 'Edit', 'members' ); ?></a>
 								<?php } ?>
+
+								<?php if ( current_user_can( 'create_roles' ) ) : ?>
+									| <a href="<?php echo esc_url( add_query_arg( array( 'page' => 'role-new', 'clone' => $role ), admin_url( 'users.php' ) ) ); ?>"><?php esc_html_e( 'Clone', 'members' ); ?></a>
+								<?php endif; ?>
 
 								<?php if ( ( is_multisite() && is_super_admin() && $role !== get_option( 'default_role' ) ) || ( current_user_can( 'delete_roles' ) && $role !== get_option( 'default_role' ) && !current_user_can( $role ) ) ) { ?>
 									| <a href="<?php echo admin_url( wp_nonce_url( "users.php?page=roles&amp;action=delete&amp;role={$role}", members_get_nonce( 'edit-roles' ) ) ); ?>" title="<?php printf( esc_attr__( 'Delete the %s role', 'members' ), $name ); ?>"><?php _e( 'Delete', 'members' ); ?></a>
 								<?php } ?>
 
 								<?php if ( current_user_can( 'manage_options' ) && $role == get_option( 'default_role' ) ) { ?>
-									| <a href="<?php echo admin_url( ( 'options-general.php' ) ); ?>" title="<?php _e( 'Change default role', 'members' ); ?>"><?php _e( 'Default Role', 'members' ); ?></a> 
+									| <a href="<?php echo admin_url( ( 'options-general.php' ) ); ?>" title="<?php _e( 'Change default role', 'members' ); ?>"><?php _e( 'Default Role', 'members' ); ?></a>
 								<?php } ?>
 
 								<?php if ( current_user_can( 'list_users' ) ) { ?>
-									| <a href="<?php echo admin_url( esc_url( "users.php?role={$role}" ) ); ?>" title="<?php printf( esc_attr__( 'View all users with the %s role', 'members' ), $name ); ?>"><?php _e( 'View Users', 'members' ); ?></a> 
+									| <a href="<?php echo admin_url( esc_url( "users.php?role={$role}" ) ); ?>" title="<?php printf( esc_attr__( 'View all users with the %s role', 'members' ), $name ); ?>"><?php _e( 'View Users', 'members' ); ?></a>
 								<?php } ?>
 
 							</div><!-- .row-actions -->

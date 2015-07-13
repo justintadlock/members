@@ -35,7 +35,12 @@ if ( current_user_can( 'create_roles' ) && isset( $_POST['role-name'] ) && isset
 
 	} // End check for role and role name
 
-} // End check for form submit ?>
+} // End check for form submit
+
+# Filters the new role default capabilities when cloning a role.
+add_filter( 'members_new_role_default_capabilities', 'members_clone_role_default_capabilities', 5 );
+
+$default_caps = members_new_role_default_capabilities(); ?>
 
 <div class="wrap">
 
@@ -89,8 +94,8 @@ if ( current_user_can( 'create_roles' ) && isset( $_POST['role-name'] ) && isset
 						<?php $i = -1; foreach ( members_get_capabilities() as $cap ) { ?>
 
 							<div class="members-role-checkbox <?php if ( ++$i % 3 == 0 ) echo 'clear'; ?>">
-								<input  type="checkbox" name="capabilities[<?php echo esc_attr( $cap ); ?>]" id="capabilities-<?php echo esc_attr( $cap ); ?>" <?php checked( true, in_array( $cap, members_new_role_default_capabilities() ) ); ?> value="true" /> 
-								<label for="capabilities-<?php echo esc_attr( $cap ); ?>" class="<?php echo ( in_array( $cap, members_new_role_default_capabilities() ) ? 'has-cap' : 'has-cap-not' ); ?>"><?php echo $cap; ?></label>
+								<input  type="checkbox" name="capabilities[<?php echo esc_attr( $cap ); ?>]" id="capabilities-<?php echo esc_attr( $cap ); ?>" <?php checked( true, in_array( $cap, members_new_role_default_capabilities() ) ); ?> value="true" />
+								<label for="capabilities-<?php echo esc_attr( $cap ); ?>" class="<?php echo ( in_array( $cap, $default_caps ) ? 'has-cap' : 'has-cap-not' ); ?>"><?php echo $cap; ?></label>
 							</div>
 
 						<?php } // Endforeach ?>

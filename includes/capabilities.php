@@ -8,8 +8,8 @@
 add_filter( 'members_get_capabilities', 'members_remove_old_levels' );
 
 /**
- * The function that makes this plugin what it is.  It returns all of our capabilities in a nicely-formatted, 
- * alphabetized array with no duplicate capabilities.  It pulls from three different functions to make sure 
+ * The function that makes this plugin what it is.  It returns all of our capabilities in a nicely-formatted,
+ * alphabetized array with no duplicate capabilities.  It pulls from three different functions to make sure
  * we get all of the capabilities that we need for use in the plugin components.
  *
  * @since 0.1.0
@@ -46,11 +46,11 @@ function members_get_capabilities() {
 }
 
 /**
- * Gets an array of capabilities according to each user role.  Each role will return its caps, which are then 
+ * Gets an array of capabilities according to each user role.  Each role will return its caps, which are then
  * added to the overall $capabilities array.
  *
- * Note that if no role has the capability, it technically no longer exists.  Since this could be a problem with 
- * folks accidentally deleting the default WordPress capabilities, the members_default_capabilities() will 
+ * Note that if no role has the capability, it technically no longer exists.  Since this could be a problem with
+ * folks accidentally deleting the default WordPress capabilities, the members_default_capabilities() will
  * return all the defaults.
  *
  * @since 0.1.0
@@ -103,12 +103,12 @@ function members_get_additional_capabilities() {
 }
 
 /**
- * Make sure we keep the default capabilities in case users screw 'em up.  A user could easily remove a 
- * useful WordPress capability from all roles.  When this happens, the capability is no longer stored in any of 
- * the roles, so it basically doesn't exist.  This function will house all of the default WordPress capabilities in 
+ * Make sure we keep the default capabilities in case users screw 'em up.  A user could easily remove a
+ * useful WordPress capability from all roles.  When this happens, the capability is no longer stored in any of
+ * the roles, so it basically doesn't exist.  This function will house all of the default WordPress capabilities in
  * case this scenario comes into play.
  *
- * For those reading this note, yes, I did "accidentally" remove all capabilities from my administrator account 
+ * For those reading this note, yes, I did "accidentally" remove all capabilities from my administrator account
  * when developing this plugin.  And yes, that was fun putting back together. ;)
  *
  * The Codex has a list of all the defaults:
@@ -202,8 +202,8 @@ function members_check_for_cap( $cap = '' ) {
 }
 
 /**
- * Old WordPress levels system.  This is mostly useful for filtering out the levels when shown in admin 
- * screen.  Plugins shouldn't rely on these levels to create permissions for users.  They should move to the 
+ * Old WordPress levels system.  This is mostly useful for filtering out the levels when shown in admin
+ * screen.  Plugins shouldn't rely on these levels to create permissions for users.  They should move to the
  * newer system of checking for a specific capability instead.
  *
  * @since 0.1.0
@@ -228,7 +228,7 @@ function members_remove_old_levels( $capabilities ) {
 }
 
 /**
- * Returns an array of capabilities that should be set on the New Role admin screen.  By default, the only 
+ * Returns an array of capabilities that should be set on the New Role admin screen.  By default, the only
  * capability checked is 'read' because it's needed for users of the role to view their profile in the admin.
  *
  * @since 0.1.0
@@ -240,6 +240,35 @@ function members_new_role_default_capabilities() {
 
 	/* Filters should return an array. */
 	return apply_filters( 'members_new_role_default_capabilities', $capabilities );
+}
+
+/**
+ * Filters `members_new_role_default_capabilities` when cloning a role in the admin.
+ *
+ * @since  1.0.0
+ * @access public
+ * @param  array  $capabilities
+ * @return array
+ */
+function members_clone_role_default_capabilities( $capabilities ) {
+
+	if ( is_admin() && isset( $_GET['clone'] ) ) {
+
+		$role = get_role( sanitize_key( $_GET['clone'] ) );
+
+		if ( $role && isset( $role->capabilities ) && is_array( $role->capabilities ) ) {
+
+			$capabilities = array();
+
+			foreach ( $role->capabilities as $cap => $grant ) {
+
+				if ( false !== $grant )
+					$capabilities[] = $cap;
+			}
+		}
+	}
+
+	return $capabilities;
 }
 
 ?>
