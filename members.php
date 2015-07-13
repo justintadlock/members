@@ -131,7 +131,7 @@ class Members_Load {
 	function i18n() {
 
 		/* Load the translation of the plugin. */
-		load_plugin_textdomain( 'members', false, 'members/languages' );
+		load_plugin_textdomain( 'members', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 	}
 
 	/**
