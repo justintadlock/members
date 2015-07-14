@@ -156,7 +156,7 @@ ksort( $list_roles ); ?>
 								<?php endif; ?>
 
 								<?php if ( ( is_multisite() && is_super_admin() && $role !== get_option( 'default_role' ) ) || ( current_user_can( 'delete_roles' ) && $role !== get_option( 'default_role' ) && !current_user_can( $role ) ) ) { ?>
-									| <a href="<?php echo admin_url( wp_nonce_url( "users.php?page=roles&amp;action=delete&amp;role={$role}", members_get_nonce( 'edit-roles' ) ) ); ?>" title="<?php printf( esc_attr__( 'Delete the %s role', 'members' ), $name ); ?>"><?php _e( 'Delete', 'members' ); ?></a>
+									| <span class="delete"><a class="members-delete-role-link" href="<?php echo admin_url( wp_nonce_url( "users.php?page=roles&amp;action=delete&amp;role={$role}", members_get_nonce( 'edit-roles' ) ) ); ?>" title="<?php printf( esc_attr__( 'Delete the %s role', 'members' ), $name ); ?>"><?php _e( 'Delete', 'members' ); ?></a></span>
 								<?php } ?>
 
 								<?php if ( current_user_can( 'manage_options' ) && $role == get_option( 'default_role' ) ) { ?>
@@ -232,6 +232,12 @@ ksort( $list_roles ); ?>
 				</div>
 
 				<br class="clear" />
+
+			<script type="text/javascript">
+				jQuery( '.members-delete-role-link' ).click( function() {
+					return window.confirm( '<?php esc_html_e( 'Are you sure you want to delete this role?', 'members' ); ?>' );
+				} );
+			</script>
 
 			</div><!-- .tablenav -->
 
