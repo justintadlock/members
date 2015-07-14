@@ -40,13 +40,15 @@ if ( current_user_can( 'create_roles' ) && isset( $_POST['role-name'] ) && isset
 # Filters the new role default capabilities when cloning a role.
 add_filter( 'members_new_role_default_capabilities', 'members_clone_role_default_capabilities', 5 );
 
+global $wp_roles;
+
 $default_caps = members_new_role_default_capabilities(); ?>
 
 <div class="wrap">
 
 	<?php screen_icon(); ?>
 
-	<h2><?php _e( 'Add New Role', 'members' ); ?></h2>
+	<h2><?php !isset( $_GET['clone'] ) ? esc_html_e( 'Add New Role', 'members' ) : printf( esc_html__( 'Clone %s Role', 'members' ), $wp_roles->role_names[ sanitize_key( $_GET['clone'] ) ] ); ?></h2>
 
 	<?php if ( !empty( $new_role_added ) ) members_admin_message( '', sprintf( __( 'The %s role has been created.', 'members' ), esc_html( $_POST['role-name'] ) ) ); ?>
 
