@@ -32,5 +32,3 @@ function members_admin_bar() {
 		);
 	}
 }
-
-?>

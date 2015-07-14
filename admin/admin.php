@@ -24,7 +24,7 @@ function members_admin_setup() {
 	if ( members_get_setting( 'role_manager' ) ) {
 
 		/**
-		 * The "Roles" page should be shown for anyone that has the 'list_roles', 'edit_roles', or 
+		 * The "Roles" page should be shown for anyone that has the 'list_roles', 'edit_roles', or
 		 * 'delete_roles' caps, so we're checking against all three.
 		 */
 
@@ -210,7 +210,7 @@ function members_message_roles_deleted() {
 }
 
 /**
- * A function for displaying messages in the admin.  It will wrap the message in the appropriate <div> with the 
+ * A function for displaying messages in the admin.  It will wrap the message in the appropriate <div> with the
  * custom class entered.  The updated class will be added if no $class is given.
  *
  * @since 0.1.0
@@ -223,7 +223,7 @@ function members_admin_message( $class = 'updated', $message = '' ) {
 }
 
 /**
- * Members plugin nonce function.  This is to help with securely making sure forms have been processed 
+ * Members plugin nonce function.  This is to help with securely making sure forms have been processed
  * from the correct place.
  *
  * @since 0.1.0
@@ -237,8 +237,8 @@ function members_get_nonce( $action = '' ) {
 }
 
 /**
- * Function for safely deleting a role and transferring the deleted role's users to the default role.  Note that 
- * this function can be extremely intensive.  Whenever a role is deleted, it's best for the site admin to assign 
+ * Function for safely deleting a role and transferring the deleted role's users to the default role.  Note that
+ * this function can be extremely intensive.  Whenever a role is deleted, it's best for the site admin to assign
  * the user's of the role to a different role beforehand.
  *
  * @since 0.2.0
@@ -290,5 +290,3 @@ function members_get_user_meta_keys() {
 
 	return $keys;
 }
-
-?>

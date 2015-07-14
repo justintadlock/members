@@ -107,5 +107,3 @@ switch( $action ) {
 		/* Break out of switch statement. */
 		break;
 }
-
-?>

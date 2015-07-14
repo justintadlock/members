@@ -107,5 +107,3 @@ function members_get_default_settings() {
 	/* Return the default settings. */
 	return $settings;
 }
-
-?>

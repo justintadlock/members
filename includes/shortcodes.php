@@ -35,7 +35,7 @@ function members_register_shortcodes() {
 }
 
 /**
- * Displays content if the user viewing it is currently logged in. This also blocks content from showing 
+ * Displays content if the user viewing it is currently logged in. This also blocks content from showing
  * in feeds.
  *
  * @since 0.1.0
@@ -72,9 +72,9 @@ function members_feed_shortcode( $attr, $content = null ) {
 }
 
 /**
- * Provide/restrict access to specific roles or capabilities. This content should not be shown in feeds.  Note that 
- * capabilities are checked first.  If a capability matches, any roles added will *not* be checked.  Users should 
- * choose between using either capabilities or roles for the check rather than both.  The best option is to always 
+ * Provide/restrict access to specific roles or capabilities. This content should not be shown in feeds.  Note that
+ * capabilities are checked first.  If a capability matches, any roles added will *not* be checked.  Users should
+ * choose between using either capabilities or roles for the check rather than both.  The best option is to always
  * use a capability
  *
  * @since 0.1.0
@@ -140,5 +140,3 @@ function members_access_check_shortcode( $attr, $content = null ) {
 function members_login_form_shortcode() {
 	return wp_login_form( array( 'echo' => false ) );
 }
-
-?>

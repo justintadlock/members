@@ -1,6 +1,6 @@
 <?php
 /**
- * Handles permissions for post content, post excerpts, and post comments.  This is based on whether a user 
+ * Handles permissions for post content, post excerpts, and post comments.  This is based on whether a user
  * has permission to view a post according to the settings provided by the plugin.
  *
  * @package Members
@@ -58,7 +58,7 @@ function members_content_permissions_protect( $content ) {
 }
 
 /**
- * Disables the comments template if a user doesn't have permission to view the post the comments are 
+ * Disables the comments template if a user doesn't have permission to view the post the comments are
  * associated with.
  *
  * @since 0.1.0
@@ -85,8 +85,8 @@ function members_content_permissions_comments( $template ) {
 }
 
 /**
- * Gets the error message to display for users who do not have access to view the given post.  The function first 
- * checks to see if a custom error message has been written for the specific post.  If not, it loads the error 
+ * Gets the error message to display for users who do not have access to view the given post.  The function first
+ * checks to see if a custom error message has been written for the specific post.  If not, it loads the error
  * message set on the plugins settings page.
  *
  * @since 0.2.0
@@ -111,8 +111,8 @@ function members_get_post_error_message( $post_id ) {
 }
 
 /**
- * Converts the meta values of the old '_role' post meta key to the newer '_members_access_role' meta 
- * key.  The reason for this change is to avoid any potential conflicts with other plugins/themes.  We're 
+ * Converts the meta values of the old '_role' post meta key to the newer '_members_access_role' meta
+ * key.  The reason for this change is to avoid any potential conflicts with other plugins/themes.  We're
  * now using a meta key that is extremely specific to the Members plugin.
  *
  * @since 0.2.0
@@ -148,5 +148,3 @@ function members_convert_old_post_meta( $post_id ) {
 	/* Return false if we get to this point. */
 	return false;
 }
-
-?>

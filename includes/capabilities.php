@@ -267,5 +267,3 @@ function members_clone_role_default_capabilities( $capabilities ) {
 
 	return $capabilities;
 }
-
-?>

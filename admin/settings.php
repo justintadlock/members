@@ -170,5 +170,3 @@ function members_settings_page_scripts() {
 		//]]>
 	</script>
 <?php }
-
-?>

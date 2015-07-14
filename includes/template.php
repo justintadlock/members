@@ -5,17 +5,17 @@
  */
 
 /**
- * Conditional tag to check if a user can view a specific post.  A user cannot view a post if their user role has 
- * not been selected in the 'Content Permissions' meta box on the edit post screen in the admin.  Non-logged in 
- * site visitors cannot view posts if roles were seletected.  If no roles were selected, all users and site visitors 
+ * Conditional tag to check if a user can view a specific post.  A user cannot view a post if their user role has
+ * not been selected in the 'Content Permissions' meta box on the edit post screen in the admin.  Non-logged in
+ * site visitors cannot view posts if roles were seletected.  If no roles were selected, all users and site visitors
  * can view the content.
  *
- * There are exceptions to this rule though.  The post author, any user with the 'restrict_content' capability, 
- * and users that have the ability to edit the post can always view the post, even if their role was not granted 
+ * There are exceptions to this rule though.  The post author, any user with the 'restrict_content' capability,
+ * and users that have the ability to edit the post can always view the post, even if their role was not granted
  * permission to view it.
  *
- * @todo See how feasible it is to just use the normal user_can() WordPress function to check against a meta 
- * capability such as 'members_view_post' while hooking into 'map_meta_cap' or 'user_has_cap' to roll custom 
+ * @todo See how feasible it is to just use the normal user_can() WordPress function to check against a meta
+ * capability such as 'members_view_post' while hooking into 'map_meta_cap' or 'user_has_cap' to roll custom
  * plugin handling for this. This would just be a wrapper tag.
  *
  * @since 0.2.0
@@ -33,7 +33,7 @@ function members_can_user_view_post( $user_id, $post_id = '' ) {
 	$can_view = true;
 
 	/**
-	 * The plugin is only going to handle permissions if the 'content permissions' feature is active.  If 
+	 * The plugin is only going to handle permissions if the 'content permissions' feature is active.  If
 	 * not active, the user can always view the post.  However, developers can roll their own handling of
 	 * this and filter 'members_can_user_view_post'.
 	 */
@@ -50,7 +50,7 @@ function members_can_user_view_post( $user_id, $post_id = '' ) {
 		if ( !empty( $roles ) && is_array( $roles ) ) {
 
 			/**
-			 * Since specific roles were given, let's assume the user can't view the post at 
+			 * Since specific roles were given, let's assume the user can't view the post at
 			 * this point.  The rest of this functionality should try to disprove this.
 			 */
 			$can_view = false;
@@ -88,7 +88,7 @@ function members_can_user_view_post( $user_id, $post_id = '' ) {
 }
 
 /**
- * Wrapper function for the members_can_user_view_post() function. This function checks if the currently 
+ * Wrapper function for the members_can_user_view_post() function. This function checks if the currently
  * logged-in user can view the content of a specific post.
  *
  * @since 0.2.0
@@ -103,5 +103,3 @@ function members_can_current_user_view_post( $post_id = '' ) {
 	/* Return the members_can_user_view_post() function, which returns true/false. */
 	return members_can_user_view_post( $current_user->ID, $post_id );
 }
-
-?>

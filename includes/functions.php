@@ -93,7 +93,7 @@ function members_get_inactive_roles() {
 }
 
 /**
- * Counts the number of users for all roles on the site and returns this as an array.  If the $user_role is input, 
+ * Counts the number of users for all roles on the site and returns this as an array.  If the $user_role is input,
  * the return value will be the count just for that particular role.
  *
  * @todo Use WP's cache API to cache this data.
@@ -170,5 +170,3 @@ function members_list_users( $args = array() ) {
 
 	echo $output;
 }
-
-?>

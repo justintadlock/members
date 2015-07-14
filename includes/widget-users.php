@@ -234,5 +234,3 @@ class Members_Widget_Users extends WP_Widget {
 	<?php
 	}
 }
-
-?>

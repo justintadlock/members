@@ -94,5 +94,3 @@ function members_get_avatar_shortcode( $attr ) {
 	/* Return the avatar. */
 	return get_avatar( $id_or_email, $size, $default, $alt );
 }
-
-?>

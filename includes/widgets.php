@@ -36,5 +36,3 @@ function members_register_widgets() {
 		register_widget( 'Members_Widget_users' );
 	}
 }
-
-?>

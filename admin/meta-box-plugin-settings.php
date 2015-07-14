@@ -95,7 +95,7 @@ function members_meta_box_display_support( $object, $box ) { ?>
 function members_meta_box_display_role_manager( $object, $box ) { ?>
 
 	<p>
-		<input type="checkbox" name="members_settings[role_manager]" id="members_settings-role_manager" value="1" <?php checked( 1, members_get_setting( 'role_manager' ) ); ?> /> 
+		<input type="checkbox" name="members_settings[role_manager]" id="members_settings-role_manager" value="1" <?php checked( 1, members_get_setting( 'role_manager' ) ); ?> />
 		<label for="members_settings-role_manager"><?php _e( 'Enable the role manager.', 'members' ); ?></label>
 	</p>
 	<p>
@@ -112,7 +112,7 @@ function members_meta_box_display_role_manager( $object, $box ) { ?>
 function members_meta_box_display_content_permissions( $object, $box ) { ?>
 
 	<p>
-		<input type="checkbox" name="members_settings[content_permissions]" id="members_settings-content_permissions" value="1" <?php checked( 1, members_get_setting( 'content_permissions' ) ); ?> /> 
+		<input type="checkbox" name="members_settings[content_permissions]" id="members_settings-content_permissions" value="1" <?php checked( 1, members_get_setting( 'content_permissions' ) ); ?> />
 		<label for="members_settings-content_permissions"><?php _e( 'Enable the content permissions feature.', 'members' ); ?></label>
 	</p>
 
@@ -132,12 +132,12 @@ function members_meta_box_display_content_permissions( $object, $box ) { ?>
 function members_meta_box_display_widgets( $object, $box ) { ?>
 
 	<p>
-		<input type="checkbox" name="members_settings[login_form_widget]" id="members_settings-login_form_widget" value="1" <?php checked( 1, members_get_setting( 'login_form_widget' ) ); ?> /> 
+		<input type="checkbox" name="members_settings[login_form_widget]" id="members_settings-login_form_widget" value="1" <?php checked( 1, members_get_setting( 'login_form_widget' ) ); ?> />
 		<label for="members_settings-login_form_widget"><?php _e( 'Enable the login form widget.', 'members' ); ?></label>
 	</p>
 
 	<p>
-		<input type="checkbox" name="members_settings[users_widget]" id="members_settings-users_widget" value="1" <?php checked( 1, members_get_setting( 'users_widget' ) ); ?> /> 
+		<input type="checkbox" name="members_settings[users_widget]" id="members_settings-users_widget" value="1" <?php checked( 1, members_get_setting( 'users_widget' ) ); ?> />
 		<label for="members_settings-users_widget"><?php _e( 'Enable the users widget.', 'members' ); ?></label>
 	</p>
 
@@ -151,12 +151,12 @@ function members_meta_box_display_widgets( $object, $box ) { ?>
 function members_meta_box_display_private_site( $object, $box ) { ?>
 
 	<p>
-		<input type="checkbox" name="members_settings[private_blog]" id="members_settings-private_blog" value="1" <?php checked( 1, members_get_setting( 'private_blog' ) ); ?> /> 
+		<input type="checkbox" name="members_settings[private_blog]" id="members_settings-private_blog" value="1" <?php checked( 1, members_get_setting( 'private_blog' ) ); ?> />
 		<label for="members_settings-private_blog"><?php _e( 'Redirect all logged-out users to the login page before allowing them to view the site.', 'members' ); ?></label>
 	</p>
 
 	<p>
-		<input type="checkbox" name="members_settings[private_feed]" id="members_settings-private_feed" value="1" <?php checked( 1, members_get_setting( 'private_feed' ) ); ?> /> 
+		<input type="checkbox" name="members_settings[private_feed]" id="members_settings-private_feed" value="1" <?php checked( 1, members_get_setting( 'private_feed' ) ); ?> />
 		<label for="members_settings-private_feed"><?php _e( 'Show error message for feed items.', 'members' ); ?></label>
 	</p>
 
@@ -168,5 +168,3 @@ function members_meta_box_display_private_site( $object, $box ) { ?>
 	</p>
 
 <?php }
-
-?>

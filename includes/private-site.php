@@ -1,7 +1,7 @@
 <?php
 /**
  * Handles the private site and private feed features of the plugin.  If private site is selected in the plugin settings,
- * the plugin will redirect all non-logged-in users to the login page.  If private feed is selected, all content is blocked 
+ * the plugin will redirect all non-logged-in users to the login page.  If private feed is selected, all content is blocked
  * from feeds from the site.
  *
  * @package Members
@@ -52,5 +52,3 @@ function members_private_feed( $content ) {
 
 	return $content;
 }
-
-?>

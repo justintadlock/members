@@ -157,5 +157,3 @@ function members_content_permissions_save_meta( $post_id, $post = '' ) {
 	}
 
 }
-
-?>
