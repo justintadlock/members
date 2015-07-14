@@ -164,7 +164,7 @@ ksort( $list_roles ); ?>
 								<?php } ?>
 
 								<?php if ( current_user_can( 'manage_options' ) && $role == get_option( 'default_role' ) ) { ?>
-									| <a href="<?php echo admin_url( ( 'options-general.php' ) ); ?>" title="<?php _e( 'Change default role', 'members' ); ?>"><?php _e( 'Default Role', 'members' ); ?></a>
+									| <a href="<?php echo admin_url( ( 'options-general.php#default_role' ) ); ?>" title="<?php _e( 'Change default role', 'members' ); ?>"><?php _e( 'Default Role', 'members' ); ?></a>
 								<?php } ?>
 
 								<?php if ( current_user_can( 'list_users' ) ) { ?>
