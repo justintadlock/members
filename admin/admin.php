@@ -66,8 +66,7 @@ function members_admin_enqueue_style( $hook_suffix ) {
 
 	$pages = array(
 		'users_page_roles',
-		'users_page_role-new',
-		'settings_page_members-settings'
+		'users_page_role-new'
 	);
 
 	if ( in_array( $hook_suffix, $pages ) )

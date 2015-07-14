@@ -148,7 +148,7 @@ class Members_Load {
 			require_once( MEMBERS_ADMIN . 'admin.php' );
 
 			/* Load the plugin settings. */
-			require_once( MEMBERS_ADMIN . 'settings.php' );
+			require_once( MEMBERS_ADMIN . 'class-settings.php' );
 		}
 	}
 
