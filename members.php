@@ -220,6 +220,7 @@ final class Members_Plugin {
 		require_once( $this->inc_dir . 'capabilities.php'        );
 		require_once( $this->inc_dir . 'content-permissions.php' );
 		require_once( $this->inc_dir . 'private-site.php'        );
+		require_once( $this->inc_dir . 'roles.php'               );
 		require_once( $this->inc_dir . 'shortcodes.php'          );
 		require_once( $this->inc_dir . 'template.php'            );
 		require_once( $this->inc_dir . 'widgets.php'             );
