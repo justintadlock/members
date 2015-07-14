@@ -125,6 +125,10 @@ ksort( $list_roles ); ?>
 
 				<?php foreach ( $list_roles as $role => $name ) { ?>
 
+					<?php // Fixes old '|User role' added to core role names.
+						$name = trim( str_replace( '|User role', '', $name ) );
+					?>
+
 					<tr valign="top" class="<?php echo ( isset( $active_roles[$role] ) ? 'active' : 'inactive' ); ?>">
 
 						<th class="manage-column column-cb check-column">
