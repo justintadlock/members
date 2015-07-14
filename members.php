@@ -28,43 +28,167 @@
  */
 
 /**
- * @since 0.2.0
+ * Singleton class for setting up the plugin.
+ *
+ * @since  1.0.0
+ * @access public
  */
-class Members_Load {
+final class Members_Plugin {
 
 	/**
-	 * PHP5 constructor method.
+	 * Plugin directory path.
 	 *
-	 * @since 0.2.0
+	 * @since  1.0.0
+	 * @access public
+	 * @var    string
 	 */
-	function __construct() {
+	public $dir_path = '';
+
+	/**
+	 * Plugin directory URI.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @var    string
+	 */
+	public $dir_uri = '';
+
+	/**
+	 * Plugin admin directory path.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @var    string
+	 */
+	public $admin_dir = '';
+
+	/**
+	 * Plugin includes directory path.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @var    string
+	 */
+	public $inc_dir = '';
+
+	/**
+	 * Plugin CSS directory URI.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @var    string
+	 */
+	public $css_uri = '';
+
+	/**
+	 * Plugin JS directory URI.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @var    string
+	 */
+	public $js_uri = '';
+
+	/**
+	 * Returns the instance.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @return object
+	 */
+	public static function get_instance() {
+
+		static $instance = null;
+
+		if ( is_null( $instance ) ) {
+			$instance = new Members_Plugin;
+			$instance->setup();
+			$instance->includes();
+			$instance->setup_actions();
+		}
+
+		return $instance;
+	}
+
+	/**
+	 * Constructor method.
+	 *
+	 * @since  1.0.0
+	 * @access private
+	 * @return void
+	 */
+	private function __construct() {}
+
+	/**
+	 * Magic method to output a string if trying to use the object as a string.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @return void
+	 */
+	public function __toString() {
+		return __( 'Members', 'members' );
+	}
+
+	/**
+	 * Magic method to keep the object from being cloned.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @return void
+	 */
+	public function __clone() {
+		_doing_it_wrong( __FUNCTION__, __( 'Whoah, partner!', 'members' ), '1.0.0' );
+	}
+
+	/**
+	 * Magic method to keep the object from being unserialized.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @return void
+	 */
+	public function __wakeup() {
+		_doing_it_wrong( __FUNCTION__, __( 'Whoah, partner!', 'members' ), '1.0.0' );
+	}
+
+	/**
+	 * Magic method to prevent a fatal error when calling a method that doesn't exist.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @return null
+	 */
+	public function __call( $method = '', $args = array() ) {
+		_doing_it_wrong( "Members_Plugin::{$method}", __( 'Method does not exist.', 'members' ), '1.0.0' );
+		unset( $method, $args );
+		return null;
+	}
+
+	/**
+	 * Sets up globals.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @return void
+	 */
+	private function setup() {
+
+		$this->dir_path = trailingslashit( plugin_dir_path( __FILE__ ) );
+		$this->dir_uri  = trailingslashit( plugin_dir_url(  __FILE__ ) );
+
+		$this->inc_dir   = trailingslashit( $this->dir_path . 'includes' );
+		$this->admin_dir = trailingslashit( $this->dir_path . 'admin'    );
+
+		$this->css_uri = trailingslashit( $this->dir_uri . 'css' );
+		$this->js_uri  = trailingslashit( $this->dir_uri . 'js'  );
+
+		/* === Deprecated === */
+
 		global $members;
 
 		/* Set up an empty class for the global $members object. */
 		$members = new stdClass;
-
-		/* Set the constants needed by the plugin. */
-		add_action( 'plugins_loaded', array( &$this, 'constants' ), 1 );
-
-		/* Internationalize the text strings used. */
-		add_action( 'plugins_loaded', array( &$this, 'i18n' ), 2 );
-
-		/* Load the functions files. */
-		add_action( 'plugins_loaded', array( &$this, 'includes' ), 3 );
-
-		/* Load the admin files. */
-		add_action( 'plugins_loaded', array( &$this, 'admin' ), 4 );
-
-		/* Register activation hook. */
-		register_activation_hook( __FILE__, array( &$this, 'activation' ) );
-	}
-
-	/**
-	 * Defines constants used by the plugin.
-	 *
-	 * @since 0.2.0
-	 */
-	function constants() {
 
 		/* Set the version number of the plugin. */
 		define( 'MEMBERS_VERSION', '0.2.5' );
@@ -73,91 +197,77 @@ class Members_Load {
 		define( 'MEMBERS_DB_VERSION', 2 );
 
 		/* Set constant path to the members plugin directory. */
-		define( 'MEMBERS_DIR', trailingslashit( plugin_dir_path( __FILE__ ) ) );
-
-		/* Set constant path to the members plugin URL. */
-		define( 'MEMBERS_URI', trailingslashit( plugin_dir_url( __FILE__ ) ) );
-
-		/* Set the constant path to the members includes directory. */
-		define( 'MEMBERS_INCLUDES', MEMBERS_DIR . trailingslashit( 'includes' ) );
-
-		/* Set the constant path to the members admin directory. */
-		define( 'MEMBERS_ADMIN', MEMBERS_DIR . trailingslashit( 'admin' ) );
+		define( 'MEMBERS_DIR',      $this->dir_path  );
+		define( 'MEMBERS_URI',      $this->dir_uri   );
+		define( 'MEMBERS_INCLUDES', $this->inc_dir   );
+		define( 'MEMBERS_ADMIN',    $this->admin_dir );
 	}
 
 	/**
-	 * Loads the initial files needed by the plugin.
+	 * Loads files needed by the plugin.
 	 *
-	 * @since 0.2.0
+	 * @since  1.0.0
+	 * @access public
+	 * @return void
 	 */
-	function includes() {
+	private function includes() {
 
-		/* Load the plugin functions file. */
-		require_once( MEMBERS_INCLUDES . 'functions.php' );
+		// Load includes files.
+		require_once( $this->inc_dir . 'functions.php'           );
+		require_once( $this->inc_dir . 'update.php'              );
+		require_once( $this->inc_dir . 'deprecated.php'          );
+		require_once( $this->inc_dir . 'admin-bar.php'           );
+		require_once( $this->inc_dir . 'capabilities.php'        );
+		require_once( $this->inc_dir . 'content-permissions.php' );
+		require_once( $this->inc_dir . 'private-site.php'        );
+		require_once( $this->inc_dir . 'shortcodes.php'          );
+		require_once( $this->inc_dir . 'template.php'            );
+		require_once( $this->inc_dir . 'widgets.php'             );
 
-		/* Load the update functionality. */
-		require_once( MEMBERS_INCLUDES . 'update.php' );
+		// Load admin files.
+		if ( is_admin() ) {
+			require_once( $this->admin_dir . 'admin.php'          );
+			require_once( $this->admin_dir . 'class-settings.php' );
+		}
+	}
 
-		/* Load the deprecated functions file. */
-		require_once( MEMBERS_INCLUDES . 'deprecated.php' );
+	/**
+	 * Sets up main plugin actions and filters.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @return void
+	 */
+	private function setup_actions() {
 
-		/* Load the admin bar functions. */
-		require_once( MEMBERS_INCLUDES . 'admin-bar.php' );
+		// Internationalize the text strings used.
+		add_action( 'plugins_loaded', array( $this, 'i18n' ), 2 );
 
-		/* Load the functions related to capabilities. */
-		require_once( MEMBERS_INCLUDES . 'capabilities.php' );
-
-		/* Load the content permissions functions. */
-		require_once( MEMBERS_INCLUDES . 'content-permissions.php' );
-
-		/* Load the private site functions. */
-		require_once( MEMBERS_INCLUDES . 'private-site.php' );
-
-		/* Load the shortcodes functions file. */
-		require_once( MEMBERS_INCLUDES . 'shortcodes.php' );
-
-		/* Load the template functions. */
-		require_once( MEMBERS_INCLUDES . 'template.php' );
-
-		/* Load the widgets functions file. */
-		require_once( MEMBERS_INCLUDES . 'widgets.php' );
+		// Register activation hook.
+		register_activation_hook( __FILE__, array( $this, 'activation' ) );
 	}
 
 	/**
 	 * Loads the translation files.
 	 *
-	 * @since 0.2.0
+	 * @since  1.0.0
+	 * @access public
+	 * @return void
 	 */
-	function i18n() {
+	public function i18n() {
 
 		/* Load the translation of the plugin. */
 		load_plugin_textdomain( 'members', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 	}
 
 	/**
-	 * Loads the admin functions and files.
-	 *
-	 * @since 0.2.0
-	 */
-	function admin() {
-
-		/* Only load files if in the WordPress admin. */
-		if ( is_admin() ) {
-
-			/* Load the main admin file. */
-			require_once( MEMBERS_ADMIN . 'admin.php' );
-
-			/* Load the plugin settings. */
-			require_once( MEMBERS_ADMIN . 'class-settings.php' );
-		}
-	}
-
-	/**
 	 * Method that runs only when the plugin is activated.
 	 *
-	 * @since 0.2.0
+	 * @since  1.0.0
+	 * @access public
+	 * @return void
 	 */
-	function activation() {
+	public function activation() {
 
 		/* Get the administrator role. */
 		$role = get_role( 'administrator' );
@@ -190,7 +300,7 @@ class Members_Load {
 				'members_role_manager',
 				_x( 'Role Manager', 'role', 'members' ),
 				array(
-					'read' => true,
+					'read'       => true,
 					'list_roles' => true,
 					'edit_roles' => true
 				)
@@ -199,4 +309,17 @@ class Members_Load {
 	}
 }
 
-$members_load = new Members_Load();
+/**
+ * Gets the instance of the Members_Plugin class.  This function is useful for quickly grabbing data
+ * used throughout the plugin.
+ *
+ * @since  1.0.0
+ * @access public
+ * @return object
+ */
+function members_plugin() {
+	return Members_Plugin::get_instance();
+}
+
+// Let's roll!
+members_plugin();
