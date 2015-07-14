@@ -137,7 +137,7 @@ ksort( $list_roles ); ?>
 
 						<td class="plugin-title">
 
-							<?php $edit_link = admin_url( wp_nonce_url( "users.php?page=roles&amp;action=edit&amp;role={$role}", members_get_nonce( 'edit-roles' ) ) ); ?>
+							<?php $edit_link = members_get_edit_role_url( $role ); ?>
 
 							<?php if ( current_user_can( 'edit_roles' ) ) { ?>
 								<a href="<?php echo esc_url( $edit_link ); ?>" title="<?php printf( esc_attr__( 'Edit the %s role', 'members' ), $name ); ?>"><strong><?php echo esc_html( $name ); ?></strong></a>
