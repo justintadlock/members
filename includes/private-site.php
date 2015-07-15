@@ -12,9 +12,18 @@
 add_action( 'template_redirect', 'members_please_log_in', 1 );
 
 /* Disable content in feeds if the feed should be private. */
-add_filter( 'the_content_feed', 'members_private_feed' );
-add_filter( 'the_excerpt_rss', 'members_private_feed' );
-add_filter( 'comment_text_rss', 'members_private_feed' );
+add_filter( 'the_content_feed', 'members_private_feed', 95 );
+add_filter( 'the_excerpt_rss',  'members_private_feed', 95 );
+add_filter( 'comment_text_rss', 'members_private_feed', 95 );
+
+add_filter( 'members_feed_error_message', array( $GLOBALS['wp_embed'], 'run_shortcode' ),   5 );
+add_filter( 'members_feed_error_message', array( $GLOBALS['wp_embed'], 'autoembed'     ),   5 );
+add_filter( 'members_feed_error_message',                              'wptexturize',       10 );
+add_filter( 'members_feed_error_message',                              'convert_smilies',   15 );
+add_filter( 'members_feed_error_message',                              'convert_chars',     20 );
+add_filter( 'members_feed_error_message',                              'wpautop',           25 );
+add_filter( 'members_feed_error_message',                              'do_shortcode',      30 );
+add_filter( 'members_feed_error_message',                              'shortcode_unautop', 35 );
 
 /**
  * Redirects users that are not logged in to the 'wp-login.php' page.
@@ -48,7 +57,7 @@ function members_please_log_in() {
 function members_private_feed( $content ) {
 
 	if ( members_get_setting( 'private_feed' ) )
-		$content = members_get_setting( 'private_feed_error' );
+		$content = apply_filters( 'members_feed_error_message', members_get_setting( 'private_feed_error' ) );
 
 	return $content;
 }

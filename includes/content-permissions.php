@@ -16,27 +16,30 @@ add_action( 'after_setup_theme', 'members_enable_content_permissions', 1 );
  * @since 0.2.0
  */
 function members_enable_content_permissions() {
+	global $wp_embed;
 
 	/* Only add filters if the content permissions feature is enabled and we're not in the admin. */
 	if ( members_get_setting( 'content_permissions' ) && !is_admin() ) {
 
 		/* Filter the content and exerpts. */
-		add_filter( 'the_content', 'members_content_permissions_protect' );
-		add_filter( 'get_the_excerpt', 'members_content_permissions_protect' );
-		add_filter( 'the_excerpt', 'members_content_permissions_protect' );
-		add_filter( 'the_content_feed', 'members_content_permissions_protect' );
-		add_filter( 'comment_text_rss', 'members_content_permissions_protect' );
+		add_filter( 'the_content',      'members_content_permissions_protect', 95 );
+		add_filter( 'get_the_excerpt',  'members_content_permissions_protect', 95 );
+		add_filter( 'the_excerpt',      'members_content_permissions_protect', 95 );
+		add_filter( 'the_content_feed', 'members_content_permissions_protect', 95 );
+		add_filter( 'comment_text_rss', 'members_content_permissions_protect', 95 );
 
 		/* Filter the comments template to make sure comments aren't shown to users without access. */
-		add_filter( 'comments_template', 'members_content_permissions_comments' );
+		add_filter( 'comments_template', 'members_content_permissions_comments', 95 );
 
 		/* Use WP formatting filters on the post error message. */
-		add_filter( 'members_post_error_message', 'wptexturize' );
-		add_filter( 'members_post_error_message', 'convert_smilies' );
-		add_filter( 'members_post_error_message', 'convert_chars' );
-		add_filter( 'members_post_error_message', 'wpautop' );
-		add_filter( 'members_post_error_message', 'shortcode_unautop' );
-		add_filter( 'members_post_error_message', 'do_shortcode' );
+		add_filter( 'members_post_error_message', array( $wp_embed, 'run_shortcode' ),   5 );
+		add_filter( 'members_post_error_message', array( $wp_embed, 'autoembed'     ),   5 );
+		add_filter( 'members_post_error_message',                   'wptexturize',       10 );
+		add_filter( 'members_post_error_message',                   'convert_smilies',   15 );
+		add_filter( 'members_post_error_message',                   'convert_chars',     20 );
+		add_filter( 'members_post_error_message',                   'wpautop',           25 );
+		add_filter( 'members_post_error_message',                   'do_shortcode',      30 );
+		add_filter( 'members_post_error_message',                   'shortcode_unautop', 35 );
 	}
 }
 
@@ -107,7 +110,7 @@ function members_get_post_error_message( $post_id ) {
 		$return = members_get_setting( 'content_permissions_error' );
 
 	/* Return the error message. */
-	return apply_filters( 'members_post_error_message', $return );
+	return apply_filters( 'members_post_error_message', sprintf( '<div class="members-access-error">%s</div>', $return ) );
 }
 
 /**
