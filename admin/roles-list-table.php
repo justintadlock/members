@@ -12,19 +12,32 @@ $roles_count = members_count_roles();
 /* Get all of the active and inactive roles. */
 $active_roles = members_get_active_roles();
 $inactive_roles = members_get_inactive_roles();
+$editable_roles = members_get_editable_role_names();
+$uneditable_roles = members_get_uneditable_role_names();
 
 /* Get a count of the active and inactive roles. */
 $active_roles_count = count( $active_roles );
 $inactive_roles_count = count( $inactive_roles );
+$editable_count = count( $editable_roles );
+$uneditable_count = count( $uneditable_roles );
 
 /* If we're viewing 'active' or 'inactive' roles. */
-if ( !empty( $_GET['role_status'] ) && in_array( $_GET['role_status'], array( 'active', 'inactive' ) ) ) {
+if ( !empty( $_GET['role_status'] ) && in_array( $_GET['role_status'], array( 'active', 'inactive', 'editable', 'uneditable' ) ) ) {
 
 	/* Get the role status ('active' or 'inactive'). */
 	$role_status = esc_attr( $_GET['role_status'] );
 
 	/* Set up the roles array. */
-	$list_roles = ( ( 'active' == $role_status ) ? $active_roles : $inactive_roles );
+	$list_roles = $active_roles;
+
+	if ( 'inactive' === $role_status )
+		$list_roles = $inactive_roles;
+
+	elseif ( 'editable' === $role_status )
+		$list_roles = $editable_roles;
+
+	elseif ( 'uneditable' === $role_status )
+		$list_roles = $uneditable_roles;
 
 	/* Set the current page URL. */
 	$current_page = admin_url( "users.php?page=roles&role_status={$role_status}" );
@@ -66,7 +79,24 @@ ksort( $list_roles ); ?>
 			<ul class="subsubsub">
 				<li><a <?php if ( 'all' == $role_status ) echo 'class="current"'; ?> href="<?php echo admin_url( esc_url( 'users.php?page=roles' ) ); ?>"><?php _e( 'All', 'members' ); ?> <span class="count">(<span id="all_count"><?php echo $roles_count; ?></span>)</span></a> | </li>
 				<li><a <?php if ( 'active' == $role_status ) echo 'class="current"'; ?> href="<?php echo admin_url( esc_url( 'users.php?page=roles&amp;role_status=active' ) ); ?>"><?php _e( 'Has Users', 'members' ); ?> <span class="count">(<span id="active_count"><?php echo $active_roles_count; ?></span>)</span></a> | </li>
-				<li><a <?php if ( 'inactive' == $role_status ) echo 'class="current"'; ?> href="<?php echo admin_url( esc_url( 'users.php?page=roles&amp;role_status=inactive' ) ); ?>"><?php _e( 'No Users', 'members' ); ?> <span class="count">(<span id="inactive_count"><?php echo $inactive_roles_count; ?></span>)</span></a></li>
+				<li><a <?php if ( 'inactive' == $role_status ) echo 'class="current"'; ?> href="<?php echo admin_url( esc_url( 'users.php?page=roles&amp;role_status=inactive' ) ); ?>"><?php _e( 'No Users', 'members' ); ?> <span class="count">(<span id="inactive_count"><?php echo $inactive_roles_count; ?></span>)</span></a> |</li>
+
+				<?php printf(
+					'<li><a href="%s"%s>%s <span class="count">(<span id="editable_count">%s</span>)</a> |</li>',
+					esc_url( add_query_arg( array( 'page' => 'roles', 'role_status' => 'editable' ), admin_url( 'users.php' ) ) ),
+					'editable' === $role_status ? ' class="current"' : '',
+					esc_html__( 'Editable', 'members' ),
+					$editable_count
+				); ?>
+
+				<?php printf(
+					'<li><a href="%s"%s>%s <span class="count">(<span id="uneditable_count">%s</span>)</a></li>',
+					esc_url( add_query_arg( array( 'page' => 'roles', 'role_status' => 'uneditable' ), admin_url( 'users.php' ) ) ),
+					'uneditable' === $role_status ? ' class="current"' : '',
+					esc_html__( 'Uneditable', 'members' ),
+					$uneditable_count
+				); ?>
+
 			</ul><!-- .subsubsub -->
 
 			<div class="tablenav">
@@ -133,9 +163,13 @@ ksort( $list_roles ); ?>
 
 						<th class="manage-column column-cb check-column">
 
+							<?php if ( !array_key_exists( $role, members_get_uneditable_role_names() ) ) : ?>
+
 							<?php if ( ( is_multisite() && is_super_admin() && $role !== get_option( 'default_role' ) ) || ( !current_user_can( $role ) && $role !== get_option( 'default_role' ) ) ) { ?>
 								<input type="checkbox" name="roles[<?php echo esc_attr( $role ); ?>]" id="<?php echo esc_attr( $role ); ?>" value="<?php echo esc_attr( $role ); ?>" />
 							<?php } ?>
+
+							<?php endif; ?>
 
 						</th><!-- .manage-column .column-cb .check-column -->
 
@@ -143,7 +177,7 @@ ksort( $list_roles ); ?>
 
 							<?php $edit_link = members_get_edit_role_url( $role ); ?>
 
-							<?php if ( current_user_can( 'edit_roles' ) ) { ?>
+							<?php if ( current_user_can( 'edit_roles' ) && !array_key_exists( $role, members_get_uneditable_role_names() ) ) { ?>
 								<a href="<?php echo esc_url( $edit_link ); ?>" title="<?php printf( esc_attr__( 'Edit the %s role', 'members' ), $name ); ?>"><strong><?php echo esc_html( $name ); ?></strong></a>
 							<?php } else { ?>
 								<strong><?php echo esc_html( $name ); ?></strong>
@@ -151,7 +185,9 @@ ksort( $list_roles ); ?>
 
 							<div class="row-actions">
 
-								<?php if ( current_user_can( 'edit_roles' ) ) { ?>
+								<?php if ( !array_key_exists( $role, members_get_uneditable_role_names() ) ) : ?>
+
+								<?php if ( current_user_can( 'edit_roles' ) && !array_key_exists( $role, members_get_uneditable_role_names() ) ) { ?>
 									<a href="<?php echo esc_url( $edit_link ); ?>" title="<?php printf( esc_attr__( 'Edit the %s role', 'members' ), $name ); ?>"><?php _e( 'Edit', 'members' ); ?></a>
 								<?php } ?>
 
@@ -162,6 +198,8 @@ ksort( $list_roles ); ?>
 								<?php if ( ( is_multisite() && is_super_admin() && $role !== get_option( 'default_role' ) ) || ( current_user_can( 'delete_roles' ) && $role !== get_option( 'default_role' ) && !current_user_can( $role ) ) ) { ?>
 									| <span class="delete"><a class="members-delete-role-link" href="<?php echo admin_url( wp_nonce_url( "users.php?page=roles&amp;action=delete&amp;role={$role}", members_get_nonce( 'edit-roles' ) ) ); ?>" title="<?php printf( esc_attr__( 'Delete the %s role', 'members' ), $name ); ?>"><?php _e( 'Delete', 'members' ); ?></a></span>
 								<?php } ?>
+
+								<?php endif; ?>
 
 								<?php if ( current_user_can( 'manage_options' ) && $role == get_option( 'default_role' ) ) { ?>
 									| <a href="<?php echo admin_url( ( 'options-general.php#default_role' ) ); ?>" title="<?php _e( 'Change default role', 'members' ); ?>"><?php _e( 'Default Role', 'members' ); ?></a>
