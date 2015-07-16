@@ -45,7 +45,7 @@ switch( $action ) {
 		}
 
 		/* Load the edit roles page. */
-		require_once( MEMBERS_ADMIN . 'roles-list-table.php' );
+		require_once( MEMBERS_ADMIN . 'class-role-list-table.php' );
 
 		/* Break out of switch statement. */
 		break;
@@ -71,7 +71,7 @@ switch( $action ) {
 		}
 
 		/* Load the edit roles page. */
-		require_once( MEMBERS_ADMIN . 'roles-list-table.php' );
+		require_once( MEMBERS_ADMIN . 'class-role-list-table.php' );
 
 		/* Break out of switch statement. */
 		break;
@@ -92,7 +92,7 @@ switch( $action ) {
 		/* If the user can't edit roles. */
 		else {
 			/* Load the edit roles page.*/
-			require_once( MEMBERS_ADMIN . 'roles-list-table.php' );
+			require_once( MEMBERS_ADMIN . 'class-role-list-table.php' );
 		}
 
 		/* Break out of switch statement. */
@@ -102,7 +102,7 @@ switch( $action ) {
 	default :
 
 		/* Load the edit roles page.*/
-		require_once( MEMBERS_ADMIN . 'roles-list-table.php' );
+		require_once( MEMBERS_ADMIN . 'class-role-list-table.php' );
 
 		/* Break out of switch statement. */
 		break;
