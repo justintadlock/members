@@ -1,5 +1,13 @@
 <?php
 
+function members_sanitize_role( $role ) {
+	return apply_filters( 'members_sanitize_role', str_replace( '-', '_', sanitize_key( $role ) ), $role );
+}
+
+function members_edit_roles_url() {
+	return esc_url( add_query_arg( 'page', 'roles', admin_url( 'users.php' ) ) );
+}
+
 function members_get_user_role_names( $user_id ) {
 
 	$user = new WP_User( $user_id );
