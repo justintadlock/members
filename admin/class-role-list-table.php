@@ -1,62 +1,84 @@
 <?php
 
-	//	require_once( 'class-cfm-list-table.php' );
-
-		$table = new Members_Role_List_Table(); ?>
-
-		<div class="wrap">
-			<h2>
-				<?php esc_html_e( 'Roles', 'members' ); ?>
-				<?php if ( current_user_can( 'create_roles' ) ) : ?>
-					<a href="<?php echo esc_url( add_query_arg( 'page', 'role-new', admin_url( 'users.php' ) ) ); ?>" class="add-new-h2"><?php esc_html_e( 'Add New', 'members' ); ?></a>
-				<?php endif; ?>
-			</h2>
-
-			<?php $table->prepare_items(); ?>
-			<?php $table->display(); ?>
-		</div>
-
-<?php
+/**
+ * Role list table for the roles management page in the admin. Extends the core `WP_List_Table`
+ * class in the admin.
+ *
+ * @since  1.0.0
+ * @access public
+ */
 class Members_Role_List_Table extends WP_List_Table {
 
-	public $meta_type = 'post';
-	public $meta_post = array();
-	public $meta_key = '';
-	public $meta_comment = array();
-	public $meta_user = array();
-	public $admin_url = '';
-	public $post_id = '';
-
+	/**
+	 * The current view.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @var    string
+	 */
 	public $role_view = 'all';
+
+	/**
+	 * Allowed role views.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @var    array
+	 */
+	public $allowed_role_views = array( 'all', 'mine', 'active', 'inactive', 'editable', 'uneditable' );
+
+	/**
+	 * The default role.  This will be assigned the value of `get_option( 'default_role' )`.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @var    string
+	 */
 	public $default_role = 'subscriber';
 
+	/**
+	 * The current user object.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @var    object
+	 */
 	public $current_user = '';
 
+	/**
+	 * Sets up the list table.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @return void
+	 */
 	public function __construct() {
-
 		parent::__construct();
 
-		$this->admin_url = esc_url( add_query_arg( 'page', 'roles', admin_url( 'users.php' ) ) );
-
+		// Get the current user object.
 		$this->current_user = new WP_User( get_current_user_id() );
 
-		$this->default_role = get_option( 'default_role' );
+		// Get the defined default role.
+		$this->default_role = get_option( 'default_role', $this->default_role );
 
-		if ( isset( $_GET['role_view'] ) && in_array( $_GET['role_view'], array( 'all', 'mine', 'active', 'inactive', 'editable', 'uneditable' ) ) )
+		// Allow plugin devs to alter the allowed views.
+		$this->allowed_role_views = apply_filters( 'members_allowed_role_views', $this->allowed_role_views );
+
+		// Get the current view.
+		if ( isset( $_GET['role_view'] ) && in_array( $_GET['role_view'], $this->allowed_role_views ) )
 			$this->role_view = $_GET['role_view'];
 	}
 
-	function prepare_items() {
+	/**
+	 * Sets up the items (roles) to list.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @return void
+	 */
+	public function prepare_items() {
 
-		$columns  = $this->get_columns();
-		$hidden   = array();
-		$sortable = $this->get_sortable_columns();
-
-		$this->_column_headers = array( $columns, $hidden, $sortable, 'title' );
-
-		$per_page = 30;
-		$current_page = $this->get_pagenum();
-
+		// Get the correct roles array based on the view.
 		if ( 'mine' === $this->role_view )
 			$roles = members_get_user_role_names( $this->current_user->ID );
 
@@ -77,7 +99,7 @@ class Members_Role_List_Table extends WP_List_Table {
 
 		if ( isset( $_GET['orderby'] ) && isset( $_GET['order'] ) ) {
 
-			if ( 'role_name' === $_GET['orderby'] && 'desc' === $_GET['order'] ) {
+			if ( 'title' === $_GET['orderby'] && 'desc' === $_GET['order'] ) {
 				arsort( $roles );
 			} else {
 				asort( $roles );
@@ -87,107 +109,162 @@ class Members_Role_List_Table extends WP_List_Table {
 			asort( $roles );
 		}
 
-			$_values = array_keys( $roles );
+		// Ste up some variables we need.
+		$option     = $this->screen->get_option( 'per_page', 'option' );
 
-
-			$total_items = count( $_values );
-
-			$found = array_slice(
-				$_values,
-				( $current_page - 1 ) * $per_page,
-				$per_page
-			);
-
-
-		$this->set_pagination_args(
-			array(
-				'total_items' => $total_items,
-				'per_page'    => $per_page
-			)
-		);
-
-		$this->items = $found;
-	}
-
-
-	function get_columns() {
-
-		$columns = array(
-			'cb'         => '<input type="checkbox" />',
-			'title'      => esc_html__( 'Role Name', 'members' ),
-			'role'       => esc_html__( 'Role', 'members' ),
-			'users'      => esc_html__( 'Users', 'members' ),
-			'caps'       => esc_html__( 'Capabilities', 'members' )
-		);
-
-		return $columns;
-	}
-
-	public function column_default( $role, $column ) {
-
-		switch( $column ) {
-
-			case 'title' :
-
-				$states = array();
-				$role_states = '';
-
-				if ( $role == get_option( 'default_role' ) )
-					$states[] = esc_html__( 'Default Role', 'members' );
-
-				if ( in_array( $role, $this->current_user->roles ) )
-					$states[] = esc_html__( 'Your Role', 'members' );
-
-				$states = apply_filters( 'members_role_states', $states );
-
-				if ( !empty( $states ) ) {
-
-					foreach ( $states as $state )
-						$role_states .= sprintf( '<span class="role-state">%s</span>', $state );
-
-					$role_states = ' &ndash; ' . $role_states;
-				}
-
-				$edit_link = members_get_edit_role_url( $role ); ?>
-
-				<?php if ( current_user_can( 'edit_roles' ) && members_is_role_editable( $role ) ) { ?>
-					<strong><a class="row-title" href="<?php echo esc_url( $edit_link ); ?>"><?php members_role_name( $role ); ?></a><?php echo $role_states; ?></strong>
-				<?php } else { ?>
-					<strong><?php members_role_name( $role ); ?><?php echo $role_states; ?></strong>
-				<?php }
-
-				break;
-
-			case 'role' :
-
-				echo $role;
-
-				break;
-			case 'users' :
-
-				echo members_get_role_user_count( $role );
-
-				break;
-			case 'caps' :
-
-				echo count( members_remove_old_levels( array_keys( get_role( $role )->capabilities ) ) );
-
-				break;
-			default :
-				return '';
-				break;
+		if ( ! $option ) {
+			$option = str_replace( '-', '_', "{$this->screen->id}_per_page" );
 		}
+
+		$per_page = (int) get_user_option( $option );
+		if ( empty( $per_page ) || $per_page < 1 ) {
+			$per_page = $this->screen->get_option( 'per_page', 'default' );
+			if ( ! $per_page ) {
+				$per_page = 20;
+			}
+		}
+
+		$current_page = $this->get_pagenum();
+		$items        = array_keys( $roles );
+		$total_count  = count( $items );
+
+		// Set the current page items.
+		$this->items = array_slice( $items, ( $current_page - 1 ) * $per_page, $per_page );
+
+		// Set the pagination arguments.
+		$this->set_pagination_args( array( 'total_items' => $total_count, 'per_page' => $per_page ) );
 	}
 
+	/**
+	 * Returns an array of columns to show.
+	 *
+	 * @see    members_manage_roles_columns()
+	 * @since  1.0.0
+	 * @access public
+	 * @return array
+	 */
+	public function get_columns() {
+		return get_column_headers( $this->screen );
+	}
+
+	/**
+	 * The checkbox column callback.
+	 *
+	 * @since  1.0.0
+	 * @access protected
+	 * @param  string     $role
+	 * @return string
+	 */
+	protected function column_cb( $role ) {
+
+		if ( $role == get_option( 'default_role' ) || in_array( $role, $this->current_user->roles ) || ! members_is_role_editable( $role ) )
+			$out = '';
+
+		else
+			$out = sprintf( '<input type="checkbox" name="roles[%1$s]" value="%1$s" />', esc_attr( $role ) );
+
+		return apply_filters( 'members_manage_roles_column_cb', $out, $role );
+	}
+
+	/**
+	 * The role name column callback.
+	 *
+	 * @since  1.0.0
+	 * @access protected
+	 * @param  string     $role
+	 * @return string
+	 */
+	protected function column_title( $role ) {
+
+		$states = array();
+		$role_states = '';
+
+		if ( $role == get_option( 'default_role' ) )
+			$states[] = esc_html__( 'Default Role', 'members' );
+
+		if ( in_array( $role, $this->current_user->roles ) )
+			$states[] = esc_html__( 'Your Role', 'members' );
+
+		$states = apply_filters( 'members_role_states', $states );
+
+		if ( !empty( $states ) ) {
+
+			foreach ( $states as $state )
+				$role_states .= sprintf( '<span class="role-state">%s</span>', $state );
+
+			$role_states = ' &ndash; ' . $role_states;
+		}
+
+		$url = current_user_can( 'edit_roles' ) && members_is_role_editable( $role ) ? members_get_edit_role_url( $role ) : members_get_view_role_url( $role );
+
+		$out = sprintf( '<strong><a class="row-title" href="%s">%s</a>%s</strong>', $url, members_get_role_name( $role ), $role_states );
+
+		return apply_filters( 'members_manage_roles_column_role_name', $out, $role );
+
+	}
+
+	/**
+	 * The role column callback.
+	 *
+	 * @since  1.0.0
+	 * @access protected
+	 * @param  string     $role
+	 * @return string
+	 */
+	protected function column_role( $role ) {
+		return apply_filters( 'members_manage_roles_column_role', members_sanitize_role( $role ), $role );
+	}
+
+	/**
+	 * The users column callback.
+	 *
+	 * @since  1.0.0
+	 * @access protected
+	 * @param  string     $role
+	 * @return string
+	 */
+	protected function column_users( $role ) {
+		return apply_filters( 'members_manage_roles_column_users', members_get_role_user_count( $role ), $role );
+	}
+
+	/**
+	 * The caps column callback.
+	 *
+	 * @since  1.0.0
+	 * @access protected
+	 * @param  string     $role
+	 * @return string
+	 */
+	protected function column_caps( $role ) {
+		return apply_filters( 'members_manage_roles_column_caps', members_get_role_capability_count( $role ), $role );
+	}
+
+	/**
+	 * Returns the name of the primary column.
+	 *
+	 * @since  1.0.0
+	 * @access protected
+	 * @return string
+	 */
 	protected function get_default_primary_column_name() {
 		return( 'title' );
 	}
 
+	/**
+	 * Handles the row actions.
+	 *
+	 * @since  1.0.0
+	 * @access protected
+	 * @param  string     $role
+	 * @param  string     $column_name
+	 * @param  string     $primary
+	 * @return array
+	 */
 	protected function handle_row_actions( $role, $column_name, $primary ) {
 
 		$actions = array();
 
-		if ( 'title' === $column_name ) {
+		if ( $primary === $column_name ) {
 
 			if ( members_is_role_editable( $role ) ) {
 
@@ -195,8 +272,9 @@ class Members_Role_List_Table extends WP_List_Table {
 					$actions['edit'] = sprintf( '<a href="%s">%s</a>', members_get_edit_role_url( $role ), esc_html__( 'Edit', 'members' ) );
 
 				if ( ( is_multisite() && is_super_admin() && $role !== $this->default_role ) || ( current_user_can( 'delete_roles' ) && $role !== $this->default_role && !current_user_can( $role ) ) )
-					$actions['delete'] = sprintf( '<a href="%s">%s</a>', members_get_delete_role_url( $role ), esc_html__( 'Delete', 'members' ) );
-
+					$actions['delete'] = sprintf( '<a class="members-delete-role-link" href="%s">%s</a>', members_get_delete_role_url( $role ), esc_html__( 'Delete', 'members' ) );
+			} else {
+				$actions['view'] = sprintf( '<a href="%s">%s</a>', members_get_view_role_url( $role ), esc_html__( 'View', 'members' ) );
 			}
 
 			if ( current_user_can( 'create_roles' ) )
@@ -206,19 +284,26 @@ class Members_Role_List_Table extends WP_List_Table {
 				$actions['default_role'] = sprintf( '<a href="%s">%s</a>', esc_url( admin_url( 'options-general.php#default_role' ) ), esc_html__( 'Change Default', 'members' ) );
 
 			if ( current_user_can( 'list_users' ) )
-				$actions['view_users'] = sprintf( '<a href="%s">%s</a>', members_get_role_users_url( $role ), esc_html__( 'View Users', 'members' ) );
+				$actions['users'] = sprintf( '<a href="%s">%s</a>', members_get_role_users_url( $role ), esc_html__( 'Users', 'members' ) );
 
 			$actions = apply_filters( 'members_roles_row_actions', $actions, $role );
-
-			return $this->row_actions( $actions );
 		}
+
+		return $this->row_actions( $actions );
 	}
 
-	public function get_sortable_columns() {
+	/**
+	 * Returns an array of sortable columns.
+	 *
+	 * @since  1.0.0
+	 * @access protected
+	 * @return array
+	 */
+	protected function get_sortable_columns() {
 
 		$columns = array(
-			'title' => array( 'role_name',  true  ),
-			'role'  => array( 'role',       false ),
+			'title' => array( 'title',  true  ),
+			'role'      => array( 'role',       false ),
 		//	'users' => array( 'user_count', false ),
 		//	'caps'  => array( 'cap_count',  false )
 		);
@@ -226,18 +311,16 @@ class Members_Role_List_Table extends WP_List_Table {
 		return $columns;
 	}
 
-	public function column_cb( $role ) {
-
-		if ( $role == get_option( 'default_role' ) || in_array( $role, $this->current_user->roles ) || ! members_is_role_editable( $role ) )
-			return '';
-
-		return sprintf( '<input type="checkbox" name="roles[%1$s]" value="%1$s" />', esc_attr( $role ) );
-	}
-
-	public function get_views() {
+	/**
+	 * Returns an array of views for the list table.
+	 *
+	 * @since  1.0.0
+	 * @access protected
+	 * @return array
+	 */
+	protected function get_views() {
 
 		$views   = array();
-
 		$current = ' class="current"';
 
 		$all_url        = esc_url( add_query_arg( array( 'page' => 'roles'                              ), admin_url( 'users.php' ) ) );
@@ -263,32 +346,39 @@ class Members_Role_List_Table extends WP_List_Table {
 			'uneditable' => array( 'url' => $uneditable_url, 'label' => sprintf( _n( 'Uneditable %s', 'Uneditable %s', $uneditable_count, 'members' ), sprintf( '<span class="count">(%s)</span>', number_format_i18n( $uneditable_count ) ) ) )
 		);
 
-
 		foreach ( $_views as $view => $view_args )
 			$views[ $view ] = sprintf( '<a%s href="%s">%s</a>', $view === $this->role_view ? $current : '', $view_args['url'], $view_args['label'] );
 
-		return $views;
+		return apply_filters( 'members_manage_roles_views', $views );
 	}
 
+	/**
+	 * Displays the list table.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @return void
+	 */
 	public function display() {
-
-		$this->display_breadcrumbs();
 
 		$this->views();
 
 		parent::display();
 	}
 
-
-	public function display_breadcrumbs() {
-	}
-
+	/**
+	 * Returns an array of bulk actions available.
+	 *
+	 * @since  1.0.0
+	 * @access protected
+	 * @return array
+	 */
 	protected function get_bulk_actions() {
 		$actions = array();
 
 		if ( current_user_can( 'delete_roles' ) )
 			$actions['delete'] = esc_html__( 'Delete', 'members' );
 
-		return $actions;
+		return apply_filters( 'members_manage_roles_bulk_actions', $actions );
 	}
 }

@@ -6,6 +6,30 @@
  * @subpackage Admin
  */
 
+
+add_action( 'current_screen', 'members_current_screen', 5 );
+
+function members_current_screen( $screen ) {
+
+	if ( 'users_page_roles' === $screen->id )
+		$screen->add_option( 'per_page' );
+}
+
+add_filter( 'manage_users_page_roles_columns', 'members_manage_roles_columns', 5 );
+
+function members_manage_roles_columns( $columns ) {
+
+	$columns = array(
+		'cb'     => '<input type="checkbox" />',
+		'title'  => esc_html__( 'Role Name',    'members' ),
+		'role'   => esc_html__( 'Role',         'members' ),
+		'users'  => esc_html__( 'Users',        'members' ),
+		'caps'   => esc_html__( 'Capabilities', 'members' )
+	);
+
+	return apply_filters( 'members_manage_roles_columns', $columns );
+}
+
 /* Set up the administration functionality. */
 add_action( 'admin_menu', 'members_admin_setup' );
 

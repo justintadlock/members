@@ -4,8 +4,16 @@ function members_sanitize_role( $role ) {
 	return apply_filters( 'members_sanitize_role', str_replace( '-', '_', sanitize_key( $role ) ), $role );
 }
 
+function members_get_role_capability_count( $role ) {
+	return count( members_remove_old_levels( array_keys( get_role( $role )->capabilities ) ) );
+}
+
 function members_edit_roles_url() {
 	return esc_url( add_query_arg( 'page', 'roles', admin_url( 'users.php' ) ) );
+}
+
+function members_get_new_role_url() {
+	return esc_url( add_query_arg( 'page', 'role-new', admin_url( 'users.php' ) ) );
 }
 
 function members_get_user_role_names( $user_id ) {
@@ -113,6 +121,20 @@ function members_get_edit_role_url( $role ) {
 			),
 			members_get_nonce( 'edit-roles' )
 		)
+	);
+}
+
+function members_get_view_role_url( $role ) {
+
+	return esc_url(
+			add_query_arg(
+				array(
+					'page'   => 'roles',
+					'action' => 'view',
+					'role'   => $role
+				),
+				admin_url( 'users.php' )
+			)
 	);
 }
 

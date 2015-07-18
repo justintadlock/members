@@ -45,7 +45,7 @@ switch( $action ) {
 		}
 
 		/* Load the edit roles page. */
-		require_once( MEMBERS_ADMIN . 'class-role-list-table.php' );
+		require_once( MEMBERS_ADMIN . 'page-roles.php' );
 
 		/* Break out of switch statement. */
 		break;
@@ -71,7 +71,7 @@ switch( $action ) {
 		}
 
 		/* Load the edit roles page. */
-		require_once( MEMBERS_ADMIN . 'class-role-list-table.php' );
+		require_once( MEMBERS_ADMIN . 'page-roles.php' );
 
 		/* Break out of switch statement. */
 		break;
@@ -92,7 +92,22 @@ switch( $action ) {
 		/* If the user can't edit roles. */
 		else {
 			/* Load the edit roles page.*/
-			require_once( MEMBERS_ADMIN . 'class-role-list-table.php' );
+			require_once( MEMBERS_ADMIN . 'page-roles.php' );
+		}
+
+		/* Break out of switch statement. */
+		break;
+
+	/* If a role has been selected to be viewed. */
+	case 'view' :
+
+		if ( current_user_can( 'edit_roles' ) || current_user_can( 'list_roles' ) || current_user_can( 'delete_roles' ) ) {
+
+			require_once( MEMBERS_ADMIN . 'role-view.php' );
+		}
+
+		else {
+			require_once( MEMBERS_ADMIN . 'page-roles.php' );
 		}
 
 		/* Break out of switch statement. */
@@ -102,7 +117,7 @@ switch( $action ) {
 	default :
 
 		/* Load the edit roles page.*/
-		require_once( MEMBERS_ADMIN . 'class-role-list-table.php' );
+		require_once( MEMBERS_ADMIN . 'page-roles.php' );
 
 		/* Break out of switch statement. */
 		break;
