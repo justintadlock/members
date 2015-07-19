@@ -13,6 +13,9 @@ function members_current_screen( $screen ) {
 
 	if ( 'users_page_roles' === $screen->id )
 		$screen->add_option( 'per_page', array( 'default' => 30 ) );
+
+	elseif ( 'users_page_capabilities' === $screen->id )
+		$screen->add_option( 'per_page', array( 'default' => 30 ) );
 }
 
 add_filter( 'manage_users_page_roles_columns', 'members_manage_roles_columns', 5 );
@@ -28,6 +31,19 @@ function members_manage_roles_columns( $columns ) {
 	);
 
 	return apply_filters( 'members_manage_roles_columns', $columns );
+}
+
+add_filter( 'manage_users_page_capabilities_columns', 'members_manage_capabilities_columns', 5 );
+
+function members_manage_capabilities_columns( $columns ) {
+
+	$columns = array(
+		'cb'     => '<input type="checkbox" />',
+		'title'  => esc_html__( 'Capability',    'members' ),
+		'role'   => esc_html__( 'Roles',         'members' ),
+	);
+
+	return apply_filters( 'members_manage_capabilities_columns', $columns );
 }
 
 /* Set up the administration functionality. */
@@ -70,6 +86,10 @@ function members_admin_setup() {
 		/* Create the New Role page. */
 		$members->new_roles_page = add_submenu_page( 'users.php', esc_attr__( 'Add New Role', 'members' ), esc_attr__( 'Add New Role', 'members' ), 'create_roles', 'role-new', 'members_new_role_page' );
 	}
+
+	//if ( current_user_can( 'delete_capabilities' ) )
+		$members->edit_capabilities_page = add_submenu_page( 'users.php', esc_attr__( 'Capabilities', 'members' ), esc_attr__( 'Capabilities', 'members' ), 'manage_options', 'capabilities', 'members_edit_capabilities_page' );
+
 
 	/* Load post meta boxes on the post editing screen. */
 	add_action( 'load-post.php', 'members_admin_load_post_meta_boxes' );
@@ -133,6 +153,10 @@ function members_admin_load_post_meta_boxes() {
  */
 function members_edit_roles_page() {
 	require_once( MEMBERS_ADMIN . 'roles.php' );
+}
+
+function members_edit_capabilities_page() {
+	require_once( members_plugin()->admin_dir . 'page-capabilities.php' );
 }
 
 /**
