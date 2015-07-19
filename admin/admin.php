@@ -12,7 +12,7 @@ add_action( 'current_screen', 'members_current_screen', 5 );
 function members_current_screen( $screen ) {
 
 	if ( 'users_page_roles' === $screen->id )
-		$screen->add_option( 'per_page' );
+		$screen->add_option( 'per_page', array( 'default' => 30 ) );
 }
 
 add_filter( 'manage_users_page_roles_columns', 'members_manage_roles_columns', 5 );
