@@ -11,43 +11,38 @@
 $action = isset( $_REQUEST['action'] ) ? esc_attr( $_REQUEST['action'] ) : false;
 
 /* If the bulk delete has been selected. */
-if ( ( isset( $_POST['bulk-action'] ) && 'delete' == $_POST['bulk-action'] ) || ( isset( $_POST['bulk-action-2'] ) && 'delete' == $_POST['bulk-action-2'] ) )
+if ( ( isset( $_POST['action'] ) && 'delete' == $_POST['action'] ) || ( isset( $_POST['action2'] ) && 'delete' == $_POST['action2'] ) )
 	$action = 'bulk-delete';
 
 /* Choose which actions to perform and pages to load according to the $action variable. */
 switch( $action ) {
 
-	/* If the bulk delete was selected. */
+	// If the bulk delete was selected.
 	case 'bulk-delete' :
 
-		/* Get all roles checked for deletion. */
-		$delete_roles = $_POST['roles'];
+		// If roles were selected, let's delete some roles.
+		if ( current_user_can( 'delete_roles' ) && isset( $_POST['roles'] ) && is_array( $_POST['roles'] ) ) {
 
-		/* If roles were selected, let's delete some roles. */
-		if ( current_user_can( 'delete_roles' ) && is_array( $delete_roles ) ) {
+			// Verify the nonce. Nonce created via `WP_List_Table::display_tablenav()`.
+			check_admin_referer( 'bulk-roles' );
 
-			/* Verify the nonce. */
-			check_admin_referer( members_get_nonce( 'edit-roles' ) );
-
-			/* Send through roles deleted message. */
+			// Send through roles deleted message.
 			add_action( 'members_pre_edit_roles_form', 'members_message_roles_deleted' );
 
-			/* Loop through each of the selected roles. */
-			foreach ( $delete_roles as $role ) {
+			// Loop through each of the selected roles.
+			foreach ( $_POST['roles'] as $role ) {
 
-				/* Get the role we want to delete. */
-				$role = esc_attr( strip_tags( $role ) );
+				$role = members_sanitize_role( $role );
 
-				/* Delete the role and move its users to the default role. */
-				if ( !empty( $role ) )
+				if ( members_role_exists( $role ) )
 					members_delete_role( $role );
 			}
 		}
 
-		/* Load the edit roles page. */
+		// Load the edit roles page.
 		require_once( MEMBERS_ADMIN . 'page-roles.php' );
 
-		/* Break out of switch statement. */
+		// Break out of switch statement.
 		break;
 
 	/* If a single role has been chosen to be deleted. */

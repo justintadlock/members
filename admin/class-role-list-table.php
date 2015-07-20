@@ -53,7 +53,13 @@ class Members_Role_List_Table extends WP_List_Table {
 	 * @return void
 	 */
 	public function __construct() {
-		parent::__construct();
+
+		$args = array(
+			'plural' => 'roles',
+			'singular' => 'role',
+		);
+
+		parent::__construct( $args );
 
 		// Get the current user object.
 		$this->current_user = new WP_User( get_current_user_id() );

@@ -14,9 +14,7 @@
 
 	<div id="poststuff">
 
-		<form id="roles" action="<?php echo $current_page; ?>" method="post">
-
-			<?php wp_nonce_field( members_get_nonce( 'edit-roles' ) ); ?>
+		<form id="roles" action="<?php echo members_get_edit_roles_url(); ?>" method="post">
 
 			<?php $table = new Members_Role_List_Table(); ?>
 			<?php $table->prepare_items(); ?>
