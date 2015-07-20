@@ -332,8 +332,8 @@ class Members_Role_List_Table extends WP_List_Table {
 
 		$all_count        = count( members_get_role_names()            );
 		$mine_count       = count( $this->current_user->roles          );
-		$active_count     = count( members_get_active_roles()          );
-		$inactive_count   = count( members_get_inactive_roles()        );
+		$active_count     = count( members_get_active_role_names()          );
+		$inactive_count   = count( members_get_inactive_role_names()        );
 		$editable_count   = count( members_get_editable_role_names()   );
 		$uneditable_count = count( members_get_uneditable_role_names() );
 

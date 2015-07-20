@@ -44,6 +44,15 @@ $capabilities = members_get_capabilities(); ?>
 
 				<tr>
 					<th>
+						<?php esc_html_e( 'Role Name', 'members' ); ?>
+					</th>
+					<td>
+						<input type="text" disabled="disabled" readonly="readonly" value="<?php echo esc_attr( members_get_role_name( $role->name ) ); ?>" />
+					</td>
+				</tr>
+
+				<tr>
+					<th>
 						<?php esc_html_e( 'Capabilities', 'members' ); ?>
 					</th>
 

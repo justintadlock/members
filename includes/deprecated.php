@@ -7,6 +7,33 @@
  */
 
 /**
+ * @since 0.2.0
+ * @deprecated 1.0.0
+ */
+function members_get_active_roles() {
+	_deprecated_function( __FUNCTION__, '1.0.0', 'members_get_active_role_names' );
+	return members_get_active_role_names();
+}
+
+/**
+ * @since 0.2.0
+ * @deprecated 1.0.0
+ */
+function members_get_inactive_roles() {
+	_deprecated_function( __FUNCTION__, '1.0.0', 'members_get_inactive_role_names' );
+	return members_get_inactive_role_names();
+}
+
+/**
+ * @since 0.2.0
+ * @deprecated 1.0.0
+ */
+function members_count_roles() {
+	_deprecated_function( __FUNCTION__, '1.0.0', 'members_get_role_count' );
+	return members_get_role_count();
+}
+
+/**
  * @since 0.1.0
  * @deprecated 0.2.0 This is theme functionality. Let's just leave it to themes.
  */

@@ -73,14 +73,14 @@ if ( isset( $_POST['role-caps'] ) || isset( $_POST['new-cap'] ) ) {
 <div class="wrap">
 
 	<h2>
-		<?php _e( 'Edit Role', 'members' ); ?>
-		<?php if ( current_user_can( 'create_roles' ) ) echo '<a href="' . admin_url( 'users.php?page=role-new' ) . '" class="add-new-h2">' . __( 'Add New', 'members' ) . '</a>'; ?>
+		<?php esc_html_e( 'Edit Role', 'members' ); ?>
+		<?php if ( current_user_can( 'create_roles' ) ) printf( '<a class="add-new-h2" href="%s">%s</a>', members_get_new_role_url(), esc_html__( 'Add New', 'members' ) ); ?>
 	</h2>
 
 	<?php if ( $role_updated ) : ?>
 		<div class="updated">
-			<p><strong><?php esc_html_e( 'Role updated.', 'members' ); ?></strong></p>
-			<p><?php printf( '<a href="%s">%s</a>', members_edit_roles_url(), esc_html__( '&larr; Back to roles screen', 'members' ) ); ?>
+			<p><strong><?php printf( esc_html__( '%s role updated.', 'members' ), members_get_role_name( $role->name ) ); ?></strong></p>
+			<p><?php printf( '<a href="%s">%s</a>', members_get_edit_roles_url(), esc_html__( '&larr; Back to roles screen', 'members' ) ); ?>
 		</div>
 	<?php endif; ?>
 
@@ -96,10 +96,19 @@ if ( isset( $_POST['role-caps'] ) || isset( $_POST['new-cap'] ) ) {
 
 				<tr>
 					<th>
-						<?php esc_html_e( 'Role Name', 'members' ); ?>
+						<?php esc_html_e( 'Role', 'members' ); ?>
 					</th>
 					<td>
 						<input type="text" disabled="disabled" readonly="readonly" value="<?php echo esc_attr( $role->name ); ?>" />
+					</td>
+				</tr>
+
+				<tr>
+					<th>
+						<?php esc_html_e( 'Role Name', 'members' ); ?>
+					</th>
+					<td>
+						<input type="text" disabled="disabled" readonly="readonly" value="<?php echo esc_attr( members_get_role_name( $role->name ) ); ?>" />
 					</td>
 				</tr>
 

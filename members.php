@@ -90,6 +90,16 @@ final class Members_Plugin {
 	public $js_uri = '';
 
 	/**
+	 * User count of all roles.
+	 *
+	 * @see    members_get_role_user_count()
+	 * @since  1.0.0
+	 * @access public
+	 * @var    array
+	 */
+	public $role_user_count = array();
+
+	/**
 	 * Returns the instance.
 	 *
 	 * @since  1.0.0
@@ -224,6 +234,8 @@ final class Members_Plugin {
 		require_once( $this->inc_dir . 'shortcodes.php'          );
 		require_once( $this->inc_dir . 'template.php'            );
 		require_once( $this->inc_dir . 'widgets.php'             );
+		require_once( $this->inc_dir . 'class-role.php'             );
+		require_once( $this->inc_dir . 'class-role-factory.php'             );
 
 		// Load admin files.
 		if ( is_admin() ) {
