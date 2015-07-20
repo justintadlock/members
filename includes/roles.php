@@ -136,6 +136,19 @@ function members_role_exists( $role ) {
 }
 
 /**
+ * Gets a Members role object.
+ *
+ * @see    Members_Role
+ * @since  1.0.0
+ * @access public
+ * @param  string
+ * @return object
+ */
+function members_get_role( $role ) {
+	return members_role_factory()->get_role( $role );
+}
+
+/**
  * Sanitizes a role name.  This is a wrapper for the `sanitize_key()` WordPress function.  Only
  * alphanumeric characters and underscores are allowed.  Hyphens are also replaced with underscores.
  *
