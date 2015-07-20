@@ -25,7 +25,7 @@ class Members_Role_List_Table extends WP_List_Table {
 	 * @access public
 	 * @var    array
 	 */
-	public $allowed_role_views = array( 'all', 'mine', 'active', 'inactive', 'editable', 'uneditable' );
+	public $allowed_role_views = array();
 
 	/**
 	 * The default role.  This will be assigned the value of `get_option( 'default_role' )`.
@@ -68,7 +68,7 @@ class Members_Role_List_Table extends WP_List_Table {
 		$this->default_role = get_option( 'default_role', $this->default_role );
 
 		// Allow plugin devs to alter the allowed views.
-		$this->allowed_role_views = apply_filters( 'members_allowed_role_views', $this->allowed_role_views );
+		$this->allowed_role_views = array_keys( $this->get_views() );
 
 		// Get the current view.
 		if ( isset( $_GET['role_view'] ) && in_array( $_GET['role_view'], $this->allowed_role_views ) )
@@ -84,29 +84,36 @@ class Members_Role_List_Table extends WP_List_Table {
 	 */
 	public function prepare_items() {
 
+		$roles = array();
+
 		// Get the correct roles array based on the view.
 		if ( 'mine' === $this->role_view )
-			$roles = members_get_user_role_names( $this->current_user->ID );
+			$roles = array_keys( members_get_user_role_names( $this->current_user->ID ) );
 
 		elseif ( 'active' === $this->role_view )
-			$roles = members_get_active_role_names();
+			$roles = array_keys( members_get_active_role_names() );
 
 		elseif ( 'inactive' === $this->role_view )
-			$roles = members_get_inactive_role_names();
+			$roles = array_keys( members_get_inactive_role_names() );
 
 		elseif ( 'editable' === $this->role_view )
-			$roles = members_get_editable_role_names();
+			$roles = array_keys( members_get_editable_role_names() );
 
 		elseif ( 'uneditable' === $this->role_view )
-			$roles = members_get_uneditable_role_names();
+			$roles = array_keys( members_get_uneditable_role_names() );
 
-		else
-			$roles = members_get_role_names();
+		$roles = apply_filters( 'members_manage_roles_items', $roles, $this->role_view );
+
+		$roles = ! empty( $roles ) ? $roles : array_keys( members_get_role_names() );
 
 		if ( isset( $_GET['orderby'] ) && isset( $_GET['order'] ) ) {
 
 			if ( 'title' === $_GET['orderby'] && 'desc' === $_GET['order'] ) {
 				arsort( $roles );
+			} elseif ( 'role' === $_GET['orderby'] && 'asc' === $_GET['order'] ) {
+				ksort( $roles );
+			} elseif ( 'role' === $_GET['orderby'] && 'desc' === $_GET['order'] ) {
+				krsort( $roles );
 			} else {
 				asort( $roles );
 			}
@@ -131,7 +138,7 @@ class Members_Role_List_Table extends WP_List_Table {
 		}
 
 		$current_page = $this->get_pagenum();
-		$items        = array_keys( $roles );
+		$items        = $roles;
 		$total_count  = count( $items );
 
 		// Set the current page items.
@@ -355,7 +362,7 @@ class Members_Role_List_Table extends WP_List_Table {
 		foreach ( $_views as $view => $view_args )
 			$views[ $view ] = sprintf( '<a%s href="%s">%s</a>', $view === $this->role_view ? $current : '', $view_args['url'], $view_args['label'] );
 
-		return apply_filters( 'members_manage_roles_views', $views );
+		return apply_filters( 'members_manage_roles_views', $views, $this->role_view );
 	}
 
 	/**
