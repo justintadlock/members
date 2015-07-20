@@ -7,6 +7,19 @@
  */
 
 /**
+ * Validates a value as a boolean.  This way, strings such as "true" or "false" will be converted
+ * to their correct boolean values.
+ *
+ * @since  1.0.0
+ * @access public
+ * @param  mixed   $val
+ * @return bool
+ */
+function members_validate_boolean( $val ) {
+	return filter_var( $val, FILTER_VALIDATE_BOOLEAN );
+}
+
+/**
  * Gets a setting from from the plugin settings in the database.
  *
  * @since 0.2.0
