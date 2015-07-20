@@ -41,6 +41,10 @@ class Members_Role {
 
 		foreach ( $_role->capabilities as $cap => $grant ) {
 
+			$grant = members_validate_boolean( $grant );
+
+			$this->caps[ $cap ] = $grant;
+
 			if ( true === $grant )
 				$this->granted_caps[] = $cap;
 
