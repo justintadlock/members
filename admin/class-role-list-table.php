@@ -195,9 +195,9 @@ class Members_Role_List_Table extends WP_List_Table {
 			$role_states = ' &ndash; ' . $role_states;
 		}
 
-		$url = current_user_can( 'edit_roles' ) && members_is_role_editable( $role ) ? members_get_edit_role_url( $role ) : members_get_view_role_url( $role );
+		//$label = current_user_can( 'edit_roles' ) && members_is_role_editable( $role ) ? members_get_edit_role_url( $role ) : members_get_view_role_url( $role );
 
-		$out = sprintf( '<strong><a class="row-title" href="%s">%s</a>%s</strong>', $url, members_get_role_name( $role ), $role_states );
+		$out = sprintf( '<strong><a class="row-title" href="%s">%s</a>%s</strong>', members_get_edit_role_url( $role ), members_get_role_name( $role ), $role_states );
 
 		return apply_filters( 'members_manage_roles_column_role_name', $out, $role );
 
@@ -274,7 +274,7 @@ class Members_Role_List_Table extends WP_List_Table {
 				if ( ( is_multisite() && is_super_admin() && $role !== $this->default_role ) || ( current_user_can( 'delete_roles' ) && $role !== $this->default_role && !current_user_can( $role ) ) )
 					$actions['delete'] = sprintf( '<a class="members-delete-role-link" href="%s">%s</a>', members_get_delete_role_url( $role ), esc_html__( 'Delete', 'members' ) );
 			} else {
-				$actions['view'] = sprintf( '<a href="%s">%s</a>', members_get_view_role_url( $role ), esc_html__( 'View', 'members' ) );
+				$actions['view'] = sprintf( '<a href="%s">%s</a>', members_get_edit_role_url( $role ), esc_html__( 'View', 'members' ) );
 			}
 
 			if ( current_user_can( 'create_roles' ) )

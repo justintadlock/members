@@ -20,11 +20,14 @@ if ( is_null( $role ) )
 // Get all the capabilities.
 $capabilities = members_get_capabilities();
 
+// Is the role editable?
+$is_editable = members_is_role_editable( $role->name );
+
 // Set the `$role_updated` variable.
 $role_updated = false;
 
 // Check if the form has been submitted.
-if ( isset( $_POST['role-caps'] ) || isset( $_POST['new-cap'] ) ) {
+if ( $is_editable && ( isset( $_POST['role-caps'] ) || isset( $_POST['new-cap'] ) ) ) {
 
 	// Verify the nonce.
 	check_admin_referer( members_get_nonce( 'edit-roles' ) );
@@ -84,6 +87,12 @@ if ( isset( $_POST['role-caps'] ) || isset( $_POST['new-cap'] ) ) {
 		</div>
 	<?php endif; ?>
 
+	<?php if ( ! $is_editable ) : ?>
+		<div class="error">
+			<p><?php printf( esc_html__( 'The %s role is not editable. This means that it is most likely added via a third-party plugin that has a special use case for it or that you do not have permission to edit it.', 'members' ), members_get_role_name( $role->name ) ); ?></p>
+		</div>
+	<?php endif; ?>
+
 	<?php do_action( 'members_pre_edit_role_form' ); //Available pre-form hook for displaying messages. ?>
 
 	<div id="poststuff">
@@ -118,12 +127,17 @@ if ( isset( $_POST['role-caps'] ) || isset( $_POST['new-cap'] ) ) {
 					</th>
 
 					<td>
-						<?php $i = -1; foreach ( $capabilities as $cap ) : ?>
+						<?php
+							$i = -1;
+							$disabled = $is_editable ? '' : ' disabled="disabled" readonly="readonly"';
+						?>
+
+						<?php foreach ( $capabilities as $cap ) : ?>
 
 							<div class="members-role-checkbox <?php if ( ++$i % 3 == 0 ) echo 'clear'; ?>">
 								<?php $has_cap = $role->has_cap( $cap ) ? true : false; // Note: $role->has_cap() returns a string intead of TRUE. ?>
 								<label class="<?php echo ( $has_cap ? 'has-cap' : 'has-cap-not' ); ?>">
-									<input type="checkbox" name="<?php echo esc_attr( "role-caps[{$role->name}-{$cap}]" ); ?>" <?php checked( true, $has_cap ); ?> value="true" />
+									<input type="checkbox" name="<?php echo esc_attr( "role-caps[{$role->name}-{$cap}]" ); ?>" <?php checked( true, $has_cap ); ?> value="true"<?php echo $disabled; ?> />
 									<?php echo esc_html( $cap ); ?>
 								</label>
 							</div>
@@ -131,6 +145,8 @@ if ( isset( $_POST['role-caps'] ) || isset( $_POST['new-cap'] ) ) {
 						<?php endforeach; ?>
 					</td>
 				</tr>
+
+				<?php if ( $is_editable ) : ?>
 
 				<tr>
 					<th>
@@ -147,9 +163,11 @@ if ( isset( $_POST['role-caps'] ) || isset( $_POST['new-cap'] ) ) {
 					</td>
 				</tr>
 
+				<?php endif; ?>
+
 			</table><!-- .form-table -->
 
-			<?php submit_button( esc_attr__( 'Update Role', 'members' ) ); ?>
+			<?php if ( $is_editable ) submit_button( esc_attr__( 'Update Role', 'members' ) ); ?>
 
 		</form>
 

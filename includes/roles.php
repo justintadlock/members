@@ -287,19 +287,6 @@ function members_get_edit_role_url( $role ) {
 }
 
 /**
- * Returns the URL for the view role admin screen.
- *
- * @since  1.0.0
- * @access public
- * @param  string  $role
- * @return string
- */
-function members_get_view_role_url( $role ) {
-
-	return esc_url( add_query_arg( array( 'action' => 'view', 'role' => $role ), members_get_edit_roles_url() ) );
-}
-
-/**
  * Returns the URL to permanently delete a role (edit roles screen).
  *
  * @since  1.0.0
