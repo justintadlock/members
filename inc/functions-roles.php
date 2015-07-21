@@ -285,6 +285,61 @@ function members_get_edit_roles_url() {
 }
 
 /**
+ * Returns the URL for the edit "mine" roles admin screen.
+ *
+ * @since  1.0.0
+ * @access public
+ * @return string
+ */
+function members_get_my_roles_url() {
+	return esc_url( add_query_arg( 'role_view', 'mine', members_get_edit_roles_url() ) );
+}
+
+/**
+ * Returns the URL for the edit "active" roles admin screen.
+ *
+ * @since  1.0.0
+ * @access public
+ * @return string
+ */
+function members_get_active_roles_url() {
+	return esc_url( add_query_arg( 'role_view', 'active', members_get_edit_roles_url() ) );
+}
+
+/**
+ * Returns the URL for the edit "inactive" roles admin screen.
+ *
+ * @since  1.0.0
+ * @access public
+ * @return string
+ */
+function members_get_inactive_roles_url() {
+	return esc_url( add_query_arg( 'role_view', 'inactive', members_get_edit_roles_url() ) );
+}
+
+/**
+ * Returns the URL for the edit "editable" roles admin screen.
+ *
+ * @since  1.0.0
+ * @access public
+ * @return string
+ */
+function members_get_editable_roles_url() {
+	return esc_url( add_query_arg( 'role_view', 'editable', members_get_edit_roles_url() ) );
+}
+
+/**
+ * Returns the URL for the edit "uneditable" roles admin screen.
+ *
+ * @since  1.0.0
+ * @access public
+ * @return string
+ */
+function members_get_uneditable_roles_url() {
+	return esc_url( add_query_arg( 'role_view', 'uneditable', members_get_edit_roles_url() ) );
+}
+
+/**
  * Returns the URL for the edit role admin screen.
  *
  * @since  1.0.0

@@ -336,17 +336,17 @@ class Members_Role_List_Table extends WP_List_Table {
 		$views   = array();
 		$current = ' class="current"';
 
-		$all_url        = esc_url( add_query_arg( array( 'page' => 'roles'                              ), admin_url( 'users.php' ) ) );
-		$mine_url       = esc_url( add_query_arg( array( 'page' => 'roles', 'role_view' => 'mine'       ), admin_url( 'users.php' ) ) );
-		$active_url     = esc_url( add_query_arg( array( 'page' => 'roles', 'role_view' => 'active'     ), admin_url( 'users.php' ) ) );
-		$inactive_url   = esc_url( add_query_arg( array( 'page' => 'roles', 'role_view' => 'inactive'   ), admin_url( 'users.php' ) ) );
-		$editable_url   = esc_url( add_query_arg( array( 'page' => 'roles', 'role_view' => 'editable'   ), admin_url( 'users.php' ) ) );
-		$uneditable_url = esc_url( add_query_arg( array( 'page' => 'roles', 'role_view' => 'uneditable' ), admin_url( 'users.php' ) ) );
+		$all_url        = members_get_edit_roles_url();
+		$mine_url       = members_get_my_roles_url();
+		$active_url     = members_get_active_roles_url();
+		$inactive_url   = members_get_inactive_roles_url();
+		$editable_url   = members_get_editable_roles_url();
+		$uneditable_url = members_get_uneditable_roles_url();
 
 		$all_count        = count( members_get_role_names()            );
 		$mine_count       = count( $this->current_user->roles          );
-		$active_count     = count( members_get_active_role_names()          );
-		$inactive_count   = count( members_get_inactive_role_names()        );
+		$active_count     = count( members_get_active_role_names()     );
+		$inactive_count   = count( members_get_inactive_role_names()   );
 		$editable_count   = count( members_get_editable_role_names()   );
 		$uneditable_count = count( members_get_uneditable_role_names() );
 
@@ -362,7 +362,7 @@ class Members_Role_List_Table extends WP_List_Table {
 		foreach ( $_views as $view => $view_args )
 			$views[ $view ] = sprintf( '<a%s href="%s">%s</a>', $view === $this->role_view ? $current : '', $view_args['url'], $view_args['label'] );
 
-		return apply_filters( 'members_manage_roles_views', $views, $this->role_view );
+		return apply_filters( 'members_manage_roles_views', $views, $this->role_view, $all_url );
 	}
 
 	/**
