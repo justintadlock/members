@@ -72,6 +72,15 @@ final class Members_Plugin {
 	public $inc_dir = '';
 
 	/**
+	 * Plugin templates directory path.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @var    string
+	 */
+	public $templates_dir = '';
+
+	/**
 	 * Plugin CSS directory URI.
 	 *
 	 * @since  1.0.0
@@ -187,8 +196,9 @@ final class Members_Plugin {
 		$this->dir_path = trailingslashit( plugin_dir_path( __FILE__ ) );
 		$this->dir_uri  = trailingslashit( plugin_dir_url(  __FILE__ ) );
 
-		$this->inc_dir   = trailingslashit( $this->dir_path . 'inc'   );
-		$this->admin_dir = trailingslashit( $this->dir_path . 'admin' );
+		$this->inc_dir       = trailingslashit( $this->dir_path . 'inc'       );
+		$this->admin_dir     = trailingslashit( $this->dir_path . 'admin'     );
+		$this->templates_dir = trailingslashit( $this->dir_path . 'templates' );
 
 		$this->css_uri = trailingslashit( $this->dir_uri . 'css' );
 		$this->js_uri  = trailingslashit( $this->dir_uri . 'js'  );

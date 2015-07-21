@@ -192,10 +192,12 @@ class Members_Role_List_Table extends WP_List_Table {
 		$states = array();
 		$role_states = '';
 
+		// If the role is the default role.
 		if ( $role == get_option( 'default_role' ) )
 			$states[] = esc_html__( 'Default Role', 'members' );
 
-		if ( in_array( $role, $this->current_user->roles ) )
+		// If the current user has this role.
+		if ( members_current_user_has_role( $role ) )
 			$states[] = esc_html__( 'Your Role', 'members' );
 
 		$states = apply_filters( 'members_role_states', $states );
@@ -208,11 +210,9 @@ class Members_Role_List_Table extends WP_List_Table {
 			$role_states = ' &ndash; ' . $role_states;
 		}
 
-		//$label = current_user_can( 'edit_roles' ) && members_is_role_editable( $role ) ? members_get_edit_role_url( $role ) : members_get_view_role_url( $role );
+		$title = sprintf( '<strong><a class="row-title" href="%s">%s</a>%s</strong>', members_get_edit_role_url( $role ), members_get_role_name( $role ), $role_states );
 
-		$out = sprintf( '<strong><a class="row-title" href="%s">%s</a>%s</strong>', members_get_edit_role_url( $role ), members_get_role_name( $role ), $role_states );
-
-		return apply_filters( 'members_manage_roles_column_role_name', $out, $role );
+		return apply_filters( 'members_manage_roles_column_role_name', $title, $role );
 
 	}
 
