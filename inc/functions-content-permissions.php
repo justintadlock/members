@@ -77,7 +77,7 @@ function members_content_permissions_comments( $template ) {
 		$has_template = locate_template( array( 'comments-no-access.php' ) );
 
 		/* If the template was found, use it.  Otherwise, fall back to the Members comments.php template. */
-		$template = ( !empty( $has_template ) ? $has_template : MEMBERS_INCLUDES . 'comments.php' );
+		$template = ( !empty( $has_template ) ? $has_template : MEMBERS_INCLUDES . 'template-comments.php' );
 
 		/* Allow devs to overwrite the comments template. */
 		$template = apply_filters( 'members_comments_template', $template );

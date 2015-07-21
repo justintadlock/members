@@ -222,20 +222,24 @@ final class Members_Plugin {
 	 */
 	private function includes() {
 
+		// Load class files.
+		require_once( $this->inc_dir . 'class-role.php'         );
+		require_once( $this->inc_dir . 'class-role-factory.php' );
+
 		// Load includes files.
-		require_once( $this->inc_dir . 'functions.php'           );
-		require_once( $this->inc_dir . 'update.php'              );
-		require_once( $this->inc_dir . 'deprecated.php'          );
-		require_once( $this->inc_dir . 'admin-bar.php'           );
-		require_once( $this->inc_dir . 'capabilities.php'        );
-		require_once( $this->inc_dir . 'content-permissions.php' );
-		require_once( $this->inc_dir . 'private-site.php'        );
-		require_once( $this->inc_dir . 'roles.php'               );
-		require_once( $this->inc_dir . 'shortcodes.php'          );
-		require_once( $this->inc_dir . 'template.php'            );
-		require_once( $this->inc_dir . 'widgets.php'             );
-		require_once( $this->inc_dir . 'class-role.php'             );
-		require_once( $this->inc_dir . 'class-role-factory.php'             );
+		require_once( $this->inc_dir . 'functions.php'                     );
+		require_once( $this->inc_dir . 'functions-admin-bar.php'           );
+		require_once( $this->inc_dir . 'functions-capabilities.php'        );
+		require_once( $this->inc_dir . 'functions-content-permissions.php' );
+		require_once( $this->inc_dir . 'functions-deprecated.php'          );
+		require_once( $this->inc_dir . 'functions-private-site.php'        );
+		require_once( $this->inc_dir . 'functions-roles.php'               );
+		require_once( $this->inc_dir . 'functions-shortcodes.php'          );
+		require_once( $this->inc_dir . 'functions-update.php'              );
+		require_once( $this->inc_dir . 'functions-widgets.php'             );
+
+		// Load template files.
+		require_once( $this->inc_dir . 'template.php' );
 
 		// Load admin files.
 		if ( is_admin() ) {

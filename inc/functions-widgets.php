@@ -20,7 +20,7 @@ function members_register_widgets() {
 	if ( members_get_setting( 'login_form_widget' ) ) {
 
 		/* Load the login form widget file. */
-		require_once( MEMBERS_INCLUDES . 'widget-login-form.php' );
+		require_once( MEMBERS_INCLUDES . 'class-widget-login.php' );
 
 		/* Register the login form widget. */
 		register_widget( 'Members_Widget_Login' );
@@ -30,7 +30,7 @@ function members_register_widgets() {
 	if ( members_get_setting( 'users_widget' ) ) {
 
 		/* Load the users widget file. */
-		require_once( MEMBERS_INCLUDES . 'widget-users.php' );
+		require_once( MEMBERS_INCLUDES . 'class-widgt-users.php' );
 
 		/* Register the users widget. */
 		register_widget( 'Members_Widget_users' );
