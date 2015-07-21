@@ -187,8 +187,8 @@ final class Members_Plugin {
 		$this->dir_path = trailingslashit( plugin_dir_path( __FILE__ ) );
 		$this->dir_uri  = trailingslashit( plugin_dir_url(  __FILE__ ) );
 
-		$this->inc_dir   = trailingslashit( $this->dir_path . 'includes' );
-		$this->admin_dir = trailingslashit( $this->dir_path . 'admin'    );
+		$this->inc_dir   = trailingslashit( $this->dir_path . 'inc'   );
+		$this->admin_dir = trailingslashit( $this->dir_path . 'admin' );
 
 		$this->css_uri = trailingslashit( $this->dir_uri . 'css' );
 		$this->js_uri  = trailingslashit( $this->dir_uri . 'js'  );
