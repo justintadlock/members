@@ -383,6 +383,35 @@ function members_get_role_users_url( $role ) {
 /* ====== User-specific role functions ====== */
 
 /**
+ * Conditional tag to check whether a user has a specific role.
+ *
+ * @since  1.0.0
+ * @access public
+ * @param  int     $user_id
+ * @param  string  $role
+ * @return bool
+ */
+function members_user_has_role( $user_id, $role ) {
+
+	$user = new WP_User( $user_id );
+
+	return in_array( $role, (array) $user->roles );
+}
+
+/**
+ * Conditional tag to check whether the currently logged-in user has a specific role.
+ *
+ * @since  1.0.0
+ * @access public
+ * @param  string  $role
+ * @return bool
+ */
+function members_current_user_has_role( $role ) {
+
+	return is_user_logged_in() ? members_user_has_role( get_current_user_id(), $role ) : false;
+}
+
+/**
  * Returns an array of the role names a user has.
  *
  * @since  1.0.0
