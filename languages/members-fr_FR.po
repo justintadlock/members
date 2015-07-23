@@ -1,0 +1,910 @@
+# Copyright (C) 2013 Members
+# This file is distributed under the same license as the Members package.
+# Translators:
+# Francois-Xavier Bénard <fxb@wp-translations.org>, 2013-2014
+# jcbrebion <pro@jcbrebion.com>, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: Members\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/members\n"
+"POT-Creation-Date: 2013-11-10 09:00:53+00:00\n"
+"PO-Revision-Date: 2014-04-01 12:13+0000\n"
+"Last-Translator: Francois-Xavier Bénard <fxb@wp-translations.org>\n"
+"Language-Team: French (France) (http://www.transifex.com/projects/p/wp-translations/language/fr_FR/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fr_FR\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: admin/admin.php:44 admin/roles-list-table.php:54
+#: components/role-manager/default.php:41
+msgid "Roles"
+msgstr "Rôles"
+
+#: admin/admin.php:47 admin/role-new.php:44
+msgid "Add New Role"
+msgstr "Ajouter un nouveau rôle"
+
+#: admin/admin.php:135
+msgid ""
+"<strong>Role Manager:</strong> This feature allows you to manage roles on "
+"your site by giving you the ability to create, edit, and delete any role. "
+"Note that changes to roles do not change settings for the Members plugin. "
+"You are literally changing data in your WordPress database. This plugin "
+"feature merely provides an interface for you to make these changes."
+msgstr "<strong>Gestion de Rôle :</strong> Cette fonctionnalité vous permet de gérer les rôles sur votre site en vous donnant la possibilité de créer, modifier et supprimer n'importe quel rôle. Notez que les changements de rôles ne modifient pas les paramètres de l'extension Members. Vous changez littéralement les données dans votre base de données WordPress. Cette extension vous fournit une interface simple pour effectuer ces changements."
+
+#: admin/admin.php:136
+msgid ""
+"<strong>Content Permissions:</strong> This feature adds a meta box to the "
+"post edit screen that allows you to grant permissions for who can read the "
+"post content based on the user's role. Only users of roles with the "
+"<code>restrict_content</code> capability will be able to use this component."
+msgstr "<strong>Droits d'accès au contenu :</strong> Cette fonctionnalité ajoute une boîte de méta à l'écran d'édition d'article qui vous permet d'accorder des autorisations pour déterminer qui pourra lire le contenu en fonction du rôle de l'utilisateur. Seuls les utilisateurs dont le rôle possède la capacité <code>restrict_content</code> seront en mesure d'utiliser ce composant."
+
+#: admin/admin.php:137
+msgid ""
+"<strong>Sidebar Widgets:</strong> This feature creates additional widgets "
+"for use in your theme's sidebars. You can access them by clicking Widgets in"
+" the menu."
+msgstr "<strong>Widgets de colonne latérale :</strong> Cette fonctionnalité crée des widgets supplémentaires pour une utilisation dans les colonnes latérales de votre thème. Vous pouvez y accéder en cliquant sur le menu Widgets."
+
+#: admin/admin.php:138
+msgid ""
+"<strong>Private Site:</strong> This feature allows you to redirect all users"
+" who are not logged into the site to the login page, creating an entirely "
+"private site. You may also replace your feed content with a custom error "
+"message."
+msgstr "<strong>Site privé :</strong> Cette fonctionnalité vous permet de rediriger tous les utilisateurs qui ne sont pas connectés au site vers la page de connexion, créant ainsi un site entièrement privé. Vous pouvez aussi remplacer le contenu des flux par un message d'erreur personnalisé."
+
+#: admin/admin.php:140 admin/admin.php:166 admin/admin.php:182
+msgid "For more information:"
+msgstr "Pour plus d'informations :"
+
+#: admin/admin.php:143 admin/admin.php:170 admin/admin.php:186
+msgid "Documentation"
+msgstr "Documentation"
+
+#: admin/admin.php:144 admin/admin.php:171 admin/admin.php:187
+msgid "Support Forums"
+msgstr "Forums de support"
+
+#: admin/admin.php:155
+msgid ""
+"This screen allows you to edit the capabilities given to the role. You can "
+"tick the checkbox next to a capability to add the capability to the role. "
+"You can untick the checkbox next to a capability to remove a capability from"
+" the role. You can also add as many custom capabilities as you need in the "
+"Custom Capabilities section."
+msgstr "Cet écran vous permet de modifier les capacités données aux rôles. Vous pouvez cocher la case correspondant à une capacité pour ajouter la capacité à ce rôle. Vous pouvez décocher la case à côté d'une capacité pour retirer une capacité de ce rôle. Vous pouvez également ajouter autant de nouvelles capacités que nécessaire dans la section Capacités personnalisées."
+
+#: admin/admin.php:156
+msgid ""
+"Capabilities are both powerful and dangerous tools. You should not add or "
+"remove a capability to a role unless you understand what permission you are "
+"granting or removing."
+msgstr "Les capacités sont à la fois des outils puissants et dangereux. Vous ne devriez pas ajouter ou supprimer une capacité à un rôle avant de comprendre les permissions que vous donnez ou retirez."
+
+#: admin/admin.php:161
+msgid ""
+"This screen lists all the user roles available on this site. Roles are given"
+" to users as a way to \"group\" them. Roles are made up of capabilities "
+"(permissions), which decide what functions users of each role can perform on"
+" the site. From this screen, you can manage these roles and their "
+"capabilities."
+msgstr "Cet écran répertorie tous les rôles utilisateur disponibles sur ce site. Les rôles sont donnés aux utilisateurs afin de les \"grouper\" entre eux. Les rôles sont constitués de capacités (autorisations), qui décident des fonctions que les utilisateurs de chaque rôle peuvent effectuer sur le site. Depuis cet écran, vous pouvez gérer ces rôles et leurs capacités."
+
+#: admin/admin.php:162
+msgid ""
+"To add a role to a user, click Users in the menu. To create a new role, "
+"click the Add New button at the top of the screen or Add New Role under the "
+"Users menu."
+msgstr "Pour ajouter un rôle à un utilisateur, cliquez sur Utilisateurs dans le menu. Pour créer un nouveau rôle, cliquez sur le bouton Ajouter en haut de l'écran ou Ajouter un nouveau rôle dans le menu Utilisateurs."
+
+#: admin/admin.php:169 admin/admin.php:185
+msgid "Users, Roles, and Capabilities"
+msgstr "Utilisateurs, Rôles et Capacités"
+
+#: admin/admin.php:179
+msgid ""
+"This screen allows you to create a new user role for your site. You must "
+"input a unique role name and role label. You can also grant capabilities "
+"(permissions) to the new role. Capabilities are both powerful and dangerous "
+"tools. You should not add a capability to a role unless you understand what "
+"permission you are granting."
+msgstr "Cet écran vous permet de créer un nouveau rôle utilisateur pour votre site. Vous devez entrer un nom unique et un libellé pour le rôle. Vous pouvez également accorder des capacités (autorisations) à ce nouveau rôle. Les capacités sont à la fois des outils puissants et dangereux. Vous ne devez ajouter une capacité à un rôle que si vous comprenez la permission que vous lui accordez."
+
+#: admin/admin.php:180
+msgid ""
+"To add a role to a user, click Users in the menu. To edit roles, click Roles"
+" under the Users menu."
+msgstr "Pour ajouter un rôle à un utilisateur, cliquez sur Utilisateurs dans le menu. Pour modifier les rôles, cliquez sur Rôles dans le menu Utilisateurs."
+
+#: admin/admin.php:201 components/role-manager/default.php:84
+msgid "Role deleted."
+msgstr "Rôle supprimé."
+
+#: admin/admin.php:210 components/role-manager/default.php:93
+msgid "Selected roles deleted."
+msgstr "Rôles sélectionnés supprimés."
+
+#: admin/meta-box-plugin-settings.php:21
+msgctxt "meta box"
+msgid "About"
+msgstr "À propos"
+
+#: admin/meta-box-plugin-settings.php:24
+msgctxt "meta box"
+msgid "Like this plugin?"
+msgstr "Vous aimez cette extension &nbsp;?"
+
+#: admin/meta-box-plugin-settings.php:27
+msgctxt "meta box"
+msgid "Support"
+msgstr "Aide"
+
+#: admin/meta-box-plugin-settings.php:30
+msgctxt "meta box"
+msgid "Role Manager"
+msgstr "Gestionnaire de rôles"
+
+#: admin/meta-box-plugin-settings.php:33
+msgctxt "meta box"
+msgid "Content Permissions"
+msgstr "Droits d'accès au contenu"
+
+#: admin/meta-box-plugin-settings.php:36
+msgctxt "meta box"
+msgid "Sidebar Widgets"
+msgstr "Widgets de colonne"
+
+#: admin/meta-box-plugin-settings.php:39
+msgctxt "meta box"
+msgid "Private Site"
+msgstr "Site privé"
+
+#: admin/meta-box-plugin-settings.php:52
+msgid "Version:"
+msgstr "Version :"
+
+#: admin/meta-box-plugin-settings.php:55
+msgid "Description:"
+msgstr "Description :"
+
+#: admin/meta-box-plugin-settings.php:69
+msgid "Here's how you can give back:"
+msgstr "Voici comment vous pouvez remercier :"
+
+#: admin/meta-box-plugin-settings.php:72
+msgid "Members on the WordPress plugin repository"
+msgstr "Members dans le dépôt d'extension WordPress"
+
+#: admin/meta-box-plugin-settings.php:72
+msgid "Give the plugin a good rating."
+msgstr "Donner à l'extension une bonne appréciation."
+
+#: admin/meta-box-plugin-settings.php:73
+msgid "Donate via PayPal"
+msgstr "Faire un don via Paypal"
+
+#: admin/meta-box-plugin-settings.php:73
+msgid "Donate a few dollars."
+msgstr "Donner quelques dollars."
+
+#: admin/meta-box-plugin-settings.php:74
+msgid "Justin Tadlock's Amazon Wish List"
+msgstr "Liste de voeux sur Amazon de Justin Tadlock"
+
+#: admin/meta-box-plugin-settings.php:74
+msgid "Get me something from my wish list."
+msgstr "Offrez moi quelque chose de ma liste de voeux."
+
+#: admin/meta-box-plugin-settings.php:86
+msgid ""
+"Support for this plugin is provided via the support forums at %1$s. If you "
+"need any help using it, please ask your support questions there."
+msgstr "Le support de cette extension est fourni via les forums de support de %1$s. Si vous avez besoin d'aide, n'hésitez pas à y poser votre question."
+
+#: admin/meta-box-plugin-settings.php:86
+msgid "Theme Hybrid Support Forums"
+msgstr "Forums de support de Thème Hybrid"
+
+#: admin/meta-box-plugin-settings.php:86
+msgid "Theme Hybrid"
+msgstr "Thème Hybrid"
+
+#: admin/meta-box-plugin-settings.php:99
+msgid "Enable the role manager."
+msgstr "Activer le gestionnaire de rôles."
+
+#: admin/meta-box-plugin-settings.php:102
+msgid ""
+"Your roles and capabilities will not revert back to their previous settings "
+"after deactivating or uninstalling this plugin, so use this feature wisely."
+msgstr "Vos rôles et capacités ne reviendront pas à leurs réglages précédents après la désactivation ou la désinstallation de l'extension, utilisez donc cette fonctionnalité avec prudence."
+
+#: admin/meta-box-plugin-settings.php:116
+msgid "Enable the content permissions feature."
+msgstr "Activez la fonctionnalité de droits d'accès au contenu."
+
+#: admin/meta-box-plugin-settings.php:120
+msgid "Default post error message:"
+msgstr "Message d'erreur par défaut de l'article :"
+
+#: admin/meta-box-plugin-settings.php:122
+msgid ""
+"You can use <abbr title=\"Hypertext Markup Language\">HTML</abbr> and/or "
+"shortcodes to create a custom error message for users that don't have "
+"permission to view posts."
+msgstr "Vous pouvez utiliser <abbr title=\"Hypertext Markup Language\">HTML</abbr> et/ou des raccourcis pour créer un message d'erreur personnalisé à afficher pour les utilisateurs qui n'ont pas l'autorisation d'afficher les messages."
+
+#: admin/meta-box-plugin-settings.php:136
+msgid "Enable the login form widget."
+msgstr "Activer le widget du formulaire de connexion."
+
+#: admin/meta-box-plugin-settings.php:141
+msgid "Enable the users widget."
+msgstr "Activer le widget utilisateurs."
+
+#: admin/meta-box-plugin-settings.php:155
+msgid ""
+"Redirect all logged-out users to the login page before allowing them to view"
+" the site."
+msgstr "Rediriger tous les utilisateurs déconnectés vers la page de connexion avant de leur permettre de visualiser le site."
+
+#: admin/meta-box-plugin-settings.php:160
+msgid "Show error message for feed items."
+msgstr "Afficher le message d'erreur pour les éléments du flux."
+
+#: admin/meta-box-plugin-settings.php:164
+msgid "Feed error message:"
+msgstr "Message d'erreur du flux :"
+
+#: admin/meta-box-plugin-settings.php:167
+msgid ""
+"You can use <abbr title=\"Hypertext Markup Language\">HTML</abbr> and/or "
+"shortcodes to create a custom error message to display instead of feed item "
+"content."
+msgstr "Vous pouvez utiliser <abbr title=\"Hypertext Markup Language\">HTML</abbr> et/ou des raccourcis pour créer un message d'erreur personnalisé à afficher à la place d'élément du flux."
+
+#: admin/meta-box-post-content-permissions.php:30
+msgid "Content Permissions"
+msgstr "Droits d'accès au contenu"
+
+#: admin/meta-box-post-content-permissions.php:53
+msgid "Limit access to this post's content to users of the selected roles."
+msgstr "Limiter l'accès au contenu de cet article aux utilisateurs des rôles sélectionnés."
+
+#: admin/meta-box-post-content-permissions.php:77
+msgid ""
+"If no roles are selected, everyone can view the content. The post author, "
+"any users who can edit this post, and users with the %s capability can view "
+"the content regardless of role."
+msgstr "Si aucun rôle n'est sélectionné, tout le monde peut afficher le contenu. L'auteur de l'article, les utilisateurs qui peuvent modifier cet article, et les utilisateurs avec des capacités %s peuvent afficher le contenu indépendamment du rôle."
+
+#: admin/meta-box-post-content-permissions.php:81
+msgid "Custom error messsage:"
+msgstr "Message d'erreur personnalisé :"
+
+#: admin/meta-box-post-content-permissions.php:84
+msgid "Message shown to users that do no have permission to view the post."
+msgstr "Le message affiché aux utilisateurs qui n'ont pas la permission de voir l'article."
+
+#: admin/role-edit.php:67 components/role-manager/manage-roles.php:130
+#: components/role-manager/manage-roles.php:144
+msgid "Edit Role"
+msgstr "Modifier le rôle"
+
+#: admin/role-edit.php:68 admin/roles-list-table.php:55
+msgid "Add New"
+msgstr "Ajouter"
+
+#: admin/role-edit.php:71 components/role-manager/edit-role-form.php:67
+msgid "Role updated."
+msgstr "Rôle mis à jour."
+
+#: admin/role-edit.php:71
+msgid "&larr; Back to Roles"
+msgstr "&larr; Retour aux Rôles"
+
+#: admin/role-edit.php:85 admin/role-new.php:60 admin/roles-list-table.php:108
+#: components/role-manager/edit-roles.php:137
+#: components/role-manager/edit-roles.php:147
+msgid "Role Name"
+msgstr "Nom du rôle"
+
+#: admin/role-edit.php:94 admin/roles-list-table.php:110
+#: admin/roles-list-table.php:120
+#: components/role-manager/edit-role-form.php:87
+#: components/role-manager/edit-roles.php:140
+#: components/role-manager/edit-roles.php:150
+msgid "Capabilities"
+msgstr "Capacités"
+
+#: admin/role-edit.php:112
+msgid "Custom Capabilities"
+msgstr "Capacités personnalisées"
+
+#: admin/role-edit.php:117
+msgid "Add New Capability"
+msgstr "Ajouter une nouvelle capacité"
+
+#: admin/role-edit.php:127 components/role-manager/edit-role-form.php:152
+msgid "Update Role"
+msgstr "Mise à jour du rôle"
+
+#: admin/role-new.php:46
+msgid "The %s role has been created."
+msgstr "Le rôle %s a été créé."
+
+#: admin/role-new.php:65
+msgid ""
+"<strong>Required:</strong> The role name should be unique and contain only "
+"alphanumeric characters and underscores."
+msgstr "<strong>Requis :</strong> Le nom du rôle doit être unique et ne contenir que des caractères alphanumeriques et des underscores."
+
+#: admin/role-new.php:71 admin/roles-list-table.php:107
+#: admin/roles-list-table.php:117
+msgid "Role Label"
+msgstr "Libellé du Rôle"
+
+#: admin/role-new.php:76
+msgid ""
+"<strong>Required:</strong> The role label is used to represent your role in "
+"the WordPress admin."
+msgstr "<strong>Requis :</strong> Le libellé du rôle est utiliser pour représenter votre rôle dans l'administration de WordPress."
+
+#: admin/role-new.php:82
+msgid "Role Capabilities"
+msgstr "Capacités du Rôle"
+
+#: admin/role-new.php:86
+msgid ""
+"<strong>Optional:</strong> Select the capabilities this role should have. "
+"These may be updated later."
+msgstr "<strong>Facultatif :</ strong> Sélectionner les capacités que ce rôle devrait avoir. Ceux-ci peuvent être mis à jour plus tard."
+
+#: admin/role-new.php:102
+msgid "Add Role"
+msgstr "Ajouter un rôle"
+
+#: admin/roles-list-table.php:67 components/role-manager/edit-roles.php:114
+msgid "All"
+msgstr "Tous"
+
+#: admin/roles-list-table.php:68
+msgid "Has Users"
+msgstr "A des utilisateurs"
+
+#: admin/roles-list-table.php:69
+msgid "No Users"
+msgstr "Aucun utilisateur"
+
+#: admin/roles-list-table.php:80 admin/roles-list-table.php:212
+#: components/role-manager/edit-roles.php:123
+#: components/role-manager/edit-roles.php:239
+msgid "Bulk Actions"
+msgstr "Actions groupées"
+
+#: admin/roles-list-table.php:83 admin/roles-list-table.php:155
+#: admin/roles-list-table.php:215 components/role-manager/edit-roles.php:124
+#: components/role-manager/edit-roles.php:179
+#: components/role-manager/edit-roles.php:240
+msgid "Delete"
+msgstr "Supprimer"
+
+#: admin/roles-list-table.php:88 admin/roles-list-table.php:220
+#: components/role-manager/edit-roles.php:126
+#: components/role-manager/edit-roles.php:242
+#: components/role-manager/manage-roles.php:21
+#: components/role-manager/manage-roles.php:25
+msgid "Apply"
+msgstr "Appliquer"
+
+#: admin/roles-list-table.php:95 admin/roles-list-table.php:227
+msgid "%s item"
+msgid_plural "%s items"
+msgstr[0] "%s élément"
+msgstr[1] "%s éléments"
+
+#: admin/roles-list-table.php:109 admin/roles-list-table.php:119
+#: components/role-manager/edit-roles.php:139
+#: components/role-manager/edit-roles.php:149
+#: components/statistics/statistics.php:98
+#: components/statistics/statistics.php:106
+#: components/statistics/view-stats.php:35
+#: components/statistics/view-stats.php:42 components/widgets/users.php:14
+#: components/widgets/users.php:69 includes/widget-users.php:37
+#: includes/widget-users.php:129
+msgid "Users"
+msgstr "Utilisateurs"
+
+#: admin/roles-list-table.php:118 components/role-manager/edit-roles.php:138
+#: components/role-manager/edit-roles.php:148
+#: components/statistics/statistics.php:97
+#: components/statistics/statistics.php:105 includes/admin-bar.php:29
+msgid "Role"
+msgstr "Rôle"
+
+#: admin/roles-list-table.php:143 admin/roles-list-table.php:151
+msgid "Edit the %s role"
+msgstr "Modifier le rôle %s"
+
+#: admin/roles-list-table.php:151 components/role-manager/edit-roles.php:174
+msgid "Edit"
+msgstr "Modifier"
+
+#: admin/roles-list-table.php:155
+msgid "Delete the %s role"
+msgstr "Supprimer le rôle %s"
+
+#: admin/roles-list-table.php:159 components/role-manager/edit-roles.php:184
+msgid "Change default role"
+msgstr "Changer le rôle par défaut"
+
+#: admin/roles-list-table.php:159 components/role-manager/edit-roles.php:184
+msgid "Default Role"
+msgstr " Rôle par défaut"
+
+#: admin/roles-list-table.php:163 admin/roles-list-table.php:179
+msgid "View all users with the %s role"
+msgstr "Afficher tous les utilisateurs avec le rôle %s"
+
+#: admin/roles-list-table.php:163 components/role-manager/edit-roles.php:189
+#: components/statistics/statistics.php:130
+msgid "View Users"
+msgstr "Afficher les Utilisateurs"
+
+#: admin/roles-list-table.php:179 admin/roles-list-table.php:181
+msgid "%s User"
+msgid_plural "%s Users"
+msgstr[0] "%s utilisateur"
+msgstr[1] "%s utilisateurs"
+
+#: admin/roles-list-table.php:191
+msgid "%s Capability"
+msgid_plural "%s Capabilities"
+msgstr[0] "%s capacité"
+msgstr[1] "%s capacités"
+
+#: admin/settings.php:28
+msgid "Members Settings"
+msgstr "Réglages de Members"
+
+#. #-#-#-#-#  members.pot (Members 0.2.4)  #-#-#-#-#
+#. Plugin Name of the plugin/theme
+#: admin/settings.php:28
+msgid "Members"
+msgstr "Members"
+
+#: admin/settings.php:122
+msgid "Members Plugin Settings"
+msgstr "Réglages de l'extension Members"
+
+#: admin/settings.php:137
+msgid "Update Settings"
+msgstr "Mise à jour des réglages"
+
+#: components/content-permissions/content-permissions.php:78
+msgid ""
+"No role currently has the <code>restrict_content</code> capability.  To use "
+"the <em>Content Permissions</em> component, at least one role must have this"
+" capability."
+msgstr "Aucun rôle ne possède la capacité <code>restrict_content</code>. Pour utiliser le composant <em>Droits d'accès au contenu</em>, un rôle au moins doit posséder cette capacité."
+
+#: components/content-permissions/content-permissions.php:106
+#: includes/update.php:103
+msgid "Sorry, but you do not have permission to view this content."
+msgstr "Désolé, vous n'avez pas les permissions pour voir ce contenu."
+
+#: components/content-permissions/meta-box.php:42
+msgid ""
+"<strong>Roles:</strong> Restrict the content to these roles on the front end"
+" of the site.  If all boxes are left unchecked, everyone can view the "
+"content."
+msgstr "<strong>Rôles&nbsp;:</strong> Restreindre le contenu à ces rôles sur la partie publique du site. Si toutes les cases sont décochées, le contenu sera accessible à l'ensemble des visiteurs."
+
+#: components/role-manager/default.php:44
+msgid "New Role"
+msgstr "Nouveau Rôle"
+
+#: components/role-manager/default.php:103
+msgid ""
+"No role currently has the <code>edit_roles</code> capability.  Please add "
+"this to each role that should be able to manage/edit roles. If you do not "
+"change this, any user that has the <code>edit_users</code> capability will "
+"be able to edit roles."
+msgstr "Pour le moment, aucune rôle ne possède la capacité <code>edit_roles</code>. Veuillez l'ajouter à chacun des rôles nécessitant un accès à la gestion/édition des rôles. Si vous ne le faites pas, tous les utilisateurs qui possèdent la capacité <code>edit_users</code> seront capables de modifier les rôles."
+
+#: components/role-manager/default.php:116
+msgid ""
+"To create new roles, you must give the <code>create_roles</code> capability "
+"to at least one role."
+msgstr "Pour créer de nouveaux rôles, vous devez donner la capacité <code>create_roles</code> à au moins un rôle."
+
+#: components/role-manager/edit-role-form.php:65
+#: components/role-manager/edit-roles.php:171
+#: components/role-manager/edit-roles.php:174
+msgid "Edit the %1$s role"
+msgstr "Modifier le rôle %1$s"
+
+#: components/role-manager/edit-role-form.php:79
+msgid "<strong>Role:</strong> %1$s"
+msgstr "<strong>Rôle :</strong> %1$s"
+
+#: components/role-manager/edit-role-form.php:91
+msgid ""
+"Select which capabilities this role should have. Make sure you understand "
+"what the capability does before giving it to just any role. This is a "
+"powerful feature, but it can cause you some grief if you give regular ol' "
+"Joe more capabilities than yourself."
+msgstr "Sélectionnez les capacités associées à ce rôle. Prenez le temps de bien identifier ce que fait une capacité avant de l'affecter à un rôle. C'est une fonctionnalité puissante, donc pour éviter les soucis, prenez garde à ne donner que les capacités nécessaires à vos utilisateurs."
+
+#: components/role-manager/edit-role-form.php:117
+msgid "New Capabilities"
+msgstr "Nouvelles Capacités"
+
+#: components/role-manager/edit-role-form.php:121
+msgid ""
+"Add up to six new capabilities with this form for this role (more can be "
+"added later). Please only use letters, numbers, and underscores."
+msgstr "Ajoutez jusqu'à six nouvelles capacités à ce rôle (d'autres pourront être ajoutées ultérieurement). Veuillez utilisez uniquement des lettres, chiffres et tirets bas."
+
+#: components/role-manager/edit-roles.php:80
+msgid "Edit Active Roles"
+msgstr "Modifier les rôles activés"
+
+#: components/role-manager/edit-roles.php:87
+msgid "Edit Inactive Roles"
+msgstr "Modifier les rôles inactivés"
+
+#: components/role-manager/edit-roles.php:94
+msgid "Edit Roles"
+msgstr "Modifier Rôle"
+
+#: components/role-manager/edit-roles.php:115
+msgid "Active"
+msgstr "Actif"
+
+#: components/role-manager/edit-roles.php:116
+msgid "Inactive"
+msgstr "Inactif"
+
+#: components/role-manager/edit-roles.php:179
+msgid "Delete the %1$s role"
+msgstr "Supprimer le rôle %1$s"
+
+#: components/role-manager/edit-roles.php:189
+#: components/role-manager/edit-roles.php:203
+#: components/role-manager/edit-roles.php:205
+#: components/statistics/statistics.php:130
+#: components/statistics/statistics.php:140
+#: components/statistics/statistics.php:142
+msgid "View all users with the %1$s role"
+msgstr "Afficher tous les utilisateurs avec le rôle %1$s"
+
+#: components/role-manager/edit-roles.php:203
+#: components/statistics/statistics.php:140
+msgid "%1$s Users"
+msgstr "%1$s Utilisateurs"
+
+#: components/role-manager/edit-roles.php:205
+#: components/statistics/statistics.php:142
+msgid "1 User"
+msgstr "1 Utilisateur"
+
+#: components/role-manager/edit-roles.php:207
+#: components/statistics/statistics.php:144
+msgid "No users have this role."
+msgstr "Aucun utilisateur n'a ce rôle."
+
+#: components/role-manager/edit-roles.php:219
+msgid "%1$s Capabilities"
+msgstr "%1$s Capacités"
+
+#: components/role-manager/edit-roles.php:220
+msgid "1 Capability"
+msgstr "1 Capacité"
+
+#: components/role-manager/edit-roles.php:223
+msgid "This role has no capabilities"
+msgstr "Ce rôle n'a aucune capacité"
+
+#: components/role-manager/new-role.php:45
+msgid "Add a new user role"
+msgstr "Ajouter un nouveau rôle d'utilisateur"
+
+#: components/role-manager/new-role.php:47
+msgid "The %1$s role has been created."
+msgstr "Le rôle %1$s a été crée."
+
+#: components/role-manager/new-role.php:59
+msgid "Create a new user role"
+msgstr "Créer un nouveau rôle d'utilisateur"
+
+#: components/role-manager/new-role.php:66
+msgid "About:"
+msgstr "À propos :"
+
+#: components/role-manager/new-role.php:69
+msgid ""
+"Here you can create as many new roles as you'd like.  Roles are a way of "
+"grouping your users.  You can give individual users a role from the <a "
+"href=\"%1$s\" title=\"Manage Users\">user management</a> screen.  This will "
+"allow you to do specific things for users with a specific role.  Once you've"
+" created a new role, you can manage it with the <em>Edit Roles</em> "
+"component."
+msgstr "Créez ici autant de rôles que vous le souhaitez. Les rôles permettent de regrouper vos utilisateurs. Vous pouvez affecter un rôle à vos utilisateurs à partir de l'écran de <a href=\"%1$s\" title=\"Manage Users\">gestion des utilisateurs</a>. Ceci vous permettra de faire des choses spécifiques aux utilisateurs ayant un rôle en particulier. Une fois le rôle créé, vous pouvez le modifier avec le composant <em>Modifier les rôles</em>."
+
+#: components/role-manager/new-role.php:75
+msgid "Role:"
+msgstr "Rôle&nbsp;:"
+
+#: components/role-manager/new-role.php:78
+msgid ""
+"<strong>Required:</strong> Enter the name of your role.  This is a unique "
+"key that should only contain numbers, letters, and underscores.  Please "
+"don't add spaces or other odd characters."
+msgstr "<strong>Requis:</strong> Entrez le nom du rôle. C'est un identifiant unique qui doit contenir uniquement des lettres, chiffres et tirets bas. Les espaces et autres caractères spéciaux ne sont pas autorisés."
+
+#: components/role-manager/new-role.php:86
+msgid "Role Label:"
+msgstr "Libellé du Rôle :"
+
+#: components/role-manager/new-role.php:89
+msgid ""
+"<strong>Required:</strong> Enter a label your role.  This will be the title "
+"that is displayed in most cases."
+msgstr "<strong>Requis:</strong> Entrez un libellé pour le rôle. Celui-ci sera le titre affiché la plupart du temps."
+
+#: components/role-manager/new-role.php:97
+msgid "Capabilities:"
+msgstr "Capacités :"
+
+#: components/role-manager/new-role.php:100
+msgid ""
+"<strong>Optional:</strong> Select which capabilities your new role should "
+"have.  These may be changed later using the <em>Edit Roles</em> component."
+msgstr "<strong>Facultatif :</strong> Sélectionner les capacités que ce nouveau rôle devrait avoir. Cela peut-être mis à jour plus tard en utilisant le composant <em>Modifier Rôle</em>."
+
+#: components/role-manager/new-role.php:118
+msgid "Create Role"
+msgstr "Créer Rôle"
+
+#: components/statistics/default.php:27
+msgid "Members Statistics"
+msgstr "Statistiques des membres"
+
+#: components/statistics/default.php:27
+msgid "Members Stats"
+msgstr "Stats des membres"
+
+#: components/statistics/statistics.php:84
+#: components/statistics/view-stats.php:23
+msgid "Statistics"
+msgstr "Statistiques"
+
+#: components/statistics/statistics.php:99
+#: components/statistics/statistics.php:107
+#: components/statistics/statistics.php:125
+msgid "Stats"
+msgstr "Stats"
+
+#: components/statistics/statistics.php:122
+#: components/statistics/statistics.php:125
+msgid "View stats for the %1$s role"
+msgstr "Afficher les stats du rôle %1$s"
+
+#: components/statistics/statistics.php:150
+msgid "View the yearly stats for the %1$s role"
+msgstr "Afficher les stats annuelles du rôle %1$s"
+
+#: components/statistics/statistics.php:150
+msgid "Yearly"
+msgstr "Annuel"
+
+#: components/statistics/statistics.php:151
+msgid "View the monthly stats for the %1$s role"
+msgstr "Afficher les stats mensuelles du rôle %1$s"
+
+#: components/statistics/statistics.php:151
+msgid "Monthly"
+msgstr "Mensuel"
+
+#: components/statistics/statistics.php:152
+msgid "View the daily stats for the %1$s role"
+msgstr "Afficher les stats journalières du rôle %1$s"
+
+#: components/statistics/statistics.php:152
+msgid "Daily"
+msgstr "Quotidien"
+
+#: components/statistics/view-stats.php:34
+#: components/statistics/view-stats.php:41
+msgid "Date"
+msgstr "Date"
+
+#: components/widgets/login.php:12 includes/widget-login-form.php:26
+msgid "A widget that allows users to log into your site."
+msgstr "Un widget qui permet aux utilisateurs de se connecter à votre site."
+
+#: components/widgets/login.php:14 includes/widget-login-form.php:37
+msgid "Login Form"
+msgstr "Formulaire de connexion"
+
+#: components/widgets/login.php:110 components/widgets/login.php:113
+#: includes/widget-login-form.php:158 includes/widget-login-form.php:161
+msgid "Log In"
+msgstr "Se connecter"
+
+#: components/widgets/login.php:111
+msgid "Username:"
+msgstr "Identifiant&nbsp;:"
+
+#: components/widgets/login.php:112 includes/widget-login-form.php:160
+msgid "Password"
+msgstr "Mot de passe"
+
+#: components/widgets/login.php:114
+msgid "Remember me?"
+msgstr "Se souvenir de moi"
+
+#: components/widgets/login.php:116 includes/widget-login-form.php:172
+msgid "Please log into the site."
+msgstr "Merci de se connecter au site."
+
+#: components/widgets/login.php:117 includes/widget-login-form.php:173
+msgid "You are currently logged in."
+msgstr "Vous êtes actuelement connecté(e)."
+
+#: components/widgets/login.php:126 components/widgets/users.php:73
+#: includes/widget-login-form.php:185 includes/widget-users.php:157
+msgid "Title:"
+msgstr "Titre&nbsp;:"
+
+#: components/widgets/login.php:131 includes/widget-login-form.php:246
+msgid "Logged out text:"
+msgstr "Texte de deconnexion :"
+
+#: components/widgets/login.php:136 includes/widget-login-form.php:251
+msgid "Logged in text:"
+msgstr "Texte de connexion :"
+
+#: components/widgets/login.php:145 includes/widget-login-form.php:243
+msgid "Display avatar?"
+msgstr "Afficher l'avatar ?"
+
+#: components/widgets/login.php:148
+msgid "Username Label:"
+msgstr "Libellé de l'identifiant&nbsp;:"
+
+#: components/widgets/login.php:152
+msgid "Password Label:"
+msgstr "Libellé du mot de passe&nbsp;:"
+
+#: components/widgets/login.php:157
+msgid "Submit Text:"
+msgstr "Texte de l'envoi :"
+
+#: components/widgets/login.php:161
+msgid "Remember User Text:"
+msgstr "Texte «Se souvenir de moi»&nbsp;:"
+
+#: components/widgets/users.php:12
+msgid ""
+"An advanced widget that gives you total control over the output of your user"
+" lists."
+msgstr "Un widget avancé qui vous donne un contrôle total sur l'affichage de vos listes d'utilisateurs."
+
+#: components/widgets/users.php:77
+msgid "Limit:"
+msgstr "Limite&nbsp;:"
+
+#: components/widgets/users.php:81
+msgid "Order:"
+msgstr "Ordre&nbsp;:"
+
+#: components/widgets/users.php:88
+msgid "Order By:"
+msgstr "Trier par&nbsp;:"
+
+#: components/widgets/users.php:96
+msgid "Include:"
+msgstr "Inclure&nbsp;:"
+
+#: components/widgets/users.php:100
+msgid "Exclude:"
+msgstr "Exclure&nbsp;:"
+
+#: components/widgets/users.php:105
+msgid "Show full name?"
+msgstr "Afficher le nom complet&nbsp;?"
+
+#: includes/update.php:104
+msgid "You must be logged into the site to view this content."
+msgstr "Vous devez être connecté au site pour voir ce contenu."
+
+#: includes/widget-login-form.php:159
+msgid "Username"
+msgstr "Identifiant"
+
+#: includes/widget-login-form.php:162
+msgid "Remember Me"
+msgstr "Se souvenir de moi"
+
+#: includes/widget-login-form.php:235
+msgid "\"Remember me\" checkbox?"
+msgstr "\"Se souvenir de moi \" case à cocher&nbsp;?"
+
+#: includes/widget-login-form.php:239
+msgid "Check \"remember me\"?"
+msgstr "Cocher \"Se souvenir de moi \"&nbsp;:?"
+
+#: includes/widget-users.php:26
+msgid "Provides the ability to list the users of the site."
+msgstr "Donne la capacité de lister les utilisateurs du site."
+
+#: includes/widget-users.php:145
+msgid "Ascending"
+msgstr "Croissant"
+
+#: includes/widget-users.php:145
+msgid "Descending"
+msgstr "Décroissant"
+
+#: includes/widget-users.php:146
+msgid "Display Name"
+msgstr "Nom affiché"
+
+#: includes/widget-users.php:146
+msgid "Email"
+msgstr "E-mail"
+
+#: includes/widget-users.php:146
+msgid "ID"
+msgstr "ID"
+
+#: includes/widget-users.php:146
+msgid "Nice Name"
+msgstr "Joli nom"
+
+#: includes/widget-users.php:146
+msgid "Post Count"
+msgstr "Nombre d'article"
+
+#: includes/widget-users.php:146
+msgid "Registered"
+msgstr "Enregistré"
+
+#: includes/widget-users.php:146
+msgid "URL"
+msgstr "URL"
+
+#: includes/widget-users.php:146
+msgid "Login"
+msgstr "Connexion"
+
+#: members.php:191
+msgctxt "role"
+msgid "Role Manager"
+msgstr "Gestionnaire de rôles"
+
+#. Plugin URI of the plugin/theme
+msgid "http://themehybrid.com/plugins/members"
+msgstr "http://themehybrid.com/plugins/members"
+
+#. Description of the plugin/theme
+msgid ""
+"A user, role, and content management plugin for controlling permissions and "
+"access. A plugin for making WordPress a more powerful <acronym "
+"title=\"Content Management System\">CMS</acronym>."
+msgstr "Un plugin de gestion des rôles utilisateurs et des droits d'accès au contenu. Un plugin qui fait de WordPress un <acronym title=\"Content Management System\">CMS</acronym> plus performant."
+
+#. Author of the plugin/theme
+msgid "Justin Tadlock"
+msgstr "Justin Tadlock"
+
+#. Author URI of the plugin/theme
+msgid "http://justintadlock.com"
+msgstr "http://justintadlock.com"
