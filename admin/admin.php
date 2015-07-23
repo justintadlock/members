@@ -12,7 +12,7 @@ add_action( 'current_screen', 'members_current_screen', 5 );
 function members_current_screen( $screen ) {
 
 	if ( 'users_page_roles' === $screen->id )
-		$screen->add_option( 'per_page', array( 'default' => 30 ) );
+		$screen->add_option( 'per_page', array( 'default' => 20 ) );
 
 	elseif ( 'users_page_capabilities' === $screen->id )
 		$screen->add_option( 'per_page', array( 'default' => 30 ) );
