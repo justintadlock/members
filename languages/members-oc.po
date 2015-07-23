@@ -1,0 +1,909 @@
+# Copyright (C) 2013 Members
+# This file is distributed under the same license as the Members package.
+# Translators:
+# Cedric31 <cvalmary@yahoo.fr>, 2013
+msgid ""
+msgstr ""
+"Project-Id-Version: Members\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/members\n"
+"POT-Creation-Date: 2013-11-10 09:00:53+00:00\n"
+"PO-Revision-Date: 2014-03-26 13:44+0000\n"
+"Last-Translator: Cedric31 <cvalmary@yahoo.fr>\n"
+"Language-Team: Occitan (post 1500) (http://www.transifex.com/projects/p/wp-translations/language/oc/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: oc\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: admin/admin.php:44 admin/roles-list-table.php:54
+#: components/role-manager/default.php:41
+msgid "Roles"
+msgstr "Ròtles"
+
+#: admin/admin.php:47 admin/role-new.php:44
+msgid "Add New Role"
+msgstr "Apondre un novèl ròtle"
+
+#: admin/admin.php:135
+msgid ""
+"<strong>Role Manager:</strong> This feature allows you to manage roles on "
+"your site by giving you the ability to create, edit, and delete any role. "
+"Note that changes to roles do not change settings for the Members plugin. "
+"You are literally changing data in your WordPress database. This plugin "
+"feature merely provides an interface for you to make these changes."
+msgstr "<strong>Gestion de Ròtle :</strong> Aquesta foncionalitat vos permet de gerir los ròtles sus vòstre site en vos donant la possibilitat de crear, modificar e suprimir quin ròtle que siá. Notatz que los cambiaments de ròtles modifican pas los paramètres de l'extension Members. Cambiatz literalament las donadas dins vòstra banca de donadas WordPress. Aquesta extension vos provesís una interfàcia simpla per far aqueles changements."
+
+#: admin/admin.php:136
+msgid ""
+"<strong>Content Permissions:</strong> This feature adds a meta box to the "
+"post edit screen that allows you to grant permissions for who can read the "
+"post content based on the user's role. Only users of roles with the "
+"<code>restrict_content</code> capability will be able to use this component."
+msgstr "<strong>Autorizacions de Contengut :</strong> Aquesta foncionalitat apond una bóstia de mèta a l'ecran d'edicion d'article que vos permet d'acordar d'autorizacions per qual poirà legir lo contengut en foncion del ròtle de l'utilizaire. Sols los utilizaires de ròtles amb la capacitat <code> restrict_content</code> serànt en mesura d'utilizar aqueste component."
+
+#: admin/admin.php:137
+msgid ""
+"<strong>Sidebar Widgets:</strong> This feature creates additional widgets "
+"for use in your theme's sidebars. You can access them by clicking Widgets in"
+" the menu."
+msgstr "<strong>Widgets de colomna laterala :</strong> Aquesta foncion crèa de widgets suplementaris per una utilizacion dins las colomnas lateralas de vòstre tèma. I podètz accedir en clicant sul menú Widgets."
+
+#: admin/admin.php:138
+msgid ""
+"<strong>Private Site:</strong> This feature allows you to redirect all users"
+" who are not logged into the site to the login page, creating an entirely "
+"private site. You may also replace your feed content with a custom error "
+"message."
+msgstr "<strong>Site privat :</strong> Aquesta foncionalitat vos permet de redirigir totes los utilizaires que son pas connectats al site cap a la pagina de connexion, en creant atal un site entièrament privat. Podètz tanben remplaçar lo contengut dels fluxes per un messatge d'error personalizat."
+
+#: admin/admin.php:140 admin/admin.php:166 admin/admin.php:182
+msgid "For more information:"
+msgstr "Mai d&rsquo;informacions&nbsp;:"
+
+#: admin/admin.php:143 admin/admin.php:170 admin/admin.php:186
+msgid "Documentation"
+msgstr "Documentacion"
+
+#: admin/admin.php:144 admin/admin.php:171 admin/admin.php:187
+msgid "Support Forums"
+msgstr "Forums d'ajuda"
+
+#: admin/admin.php:155
+msgid ""
+"This screen allows you to edit the capabilities given to the role. You can "
+"tick the checkbox next to a capability to add the capability to the role. "
+"You can untick the checkbox next to a capability to remove a capability from"
+" the role. You can also add as many custom capabilities as you need in the "
+"Custom Capabilities section."
+msgstr "Aqueste ecran vos permet de modificar las capacitats donadas als ròtles. Podètz marcar la casa que correspond a una capacitat per apondre la capacitat a aqueste ròtle. Podètz desmarcar la case al costat d'una capacitat per suprimir una capacitat a aqueste ròtle. Podètz tanben apondre autant de foncionalitats personalizadas coma n'avètz besonh dins la seccion Capacitats personalizadas."
+
+#: admin/admin.php:156
+msgid ""
+"Capabilities are both powerful and dangerous tools. You should not add or "
+"remove a capability to a role unless you understand what permission you are "
+"granting or removing."
+msgstr "Las capacitats son a l'encòp d'aisinas poderosas e dangierosas. Vos caldriá pas apondre o suprimir una capacitat a un ròtle que se comprenètz l'autorizacion qu'i acordatz o que ne tiratz."
+
+#: admin/admin.php:161
+msgid ""
+"This screen lists all the user roles available on this site. Roles are given"
+" to users as a way to \"group\" them. Roles are made up of capabilities "
+"(permissions), which decide what functions users of each role can perform on"
+" the site. From this screen, you can manage these roles and their "
+"capabilities."
+msgstr "Aqueste ecran repertòria totes los ròtles d'utilizaire disponibles sus aqueste site. Los ròtles son donats als utilizaires coma un mejan de los \"agropar\" entre eles. Los ròtles son constituits de capacitats (autorizacions), que decidisson de las foncions que los utilizaires de cada ròtle pòdon efectuar sul site. Dempuèi aqueste ecran, podètz gerir aqueles ròtles e lors capacitats."
+
+#: admin/admin.php:162
+msgid ""
+"To add a role to a user, click Users in the menu. To create a new role, "
+"click the Add New button at the top of the screen or Add New Role under the "
+"Users menu."
+msgstr "Per apondre un ròtle a un utilizaire, clicatz sus Utilizaires dins lo menú. Per crear un novèl ròtle, clicatz sul boton Apondre Novèl en naut de l'ecran o Apondre un novèl ròtle dins lo menú Utilizaires."
+
+#: admin/admin.php:169 admin/admin.php:185
+msgid "Users, Roles, and Capabilities"
+msgstr "Utilizaires, Ròtles e Capacitats"
+
+#: admin/admin.php:179
+msgid ""
+"This screen allows you to create a new user role for your site. You must "
+"input a unique role name and role label. You can also grant capabilities "
+"(permissions) to the new role. Capabilities are both powerful and dangerous "
+"tools. You should not add a capability to a role unless you understand what "
+"permission you are granting."
+msgstr "Aqueste ecran vos permet de crear un novèl ròtle d'utilizaire per vòstre site. Vos cal entrar un nom unic e un libellat de ròtle unic. Podètz tanben acordar de capacitats (autorizacions) a aqueste novèl ròtle. Las capacitats son a l'encòp d'aisinas poderosas e dangierosas. Vos cal apondre una capacitat a un ròtle que se comprenètz la permission que li acordatz."
+
+#: admin/admin.php:180
+msgid ""
+"To add a role to a user, click Users in the menu. To edit roles, click Roles"
+" under the Users menu."
+msgstr "Per apondre un ròtle a un utilizaire, clicatz sus Utilizaires dins lo menú. Per modificar los ròtles, clicatz sus Ròtles dins lo menú Utilizaires."
+
+#: admin/admin.php:201 components/role-manager/default.php:84
+msgid "Role deleted."
+msgstr "Ròtle suprimit."
+
+#: admin/admin.php:210 components/role-manager/default.php:93
+msgid "Selected roles deleted."
+msgstr "Ròtles seleccionats suprimits."
+
+#: admin/meta-box-plugin-settings.php:21
+msgctxt "meta box"
+msgid "About"
+msgstr "A prepaus"
+
+#: admin/meta-box-plugin-settings.php:24
+msgctxt "meta box"
+msgid "Like this plugin?"
+msgstr "Vos agrada aquesta extension &nbsp;?"
+
+#: admin/meta-box-plugin-settings.php:27
+msgctxt "meta box"
+msgid "Support"
+msgstr "Ajuda"
+
+#: admin/meta-box-plugin-settings.php:30
+msgctxt "meta box"
+msgid "Role Manager"
+msgstr "Gestionari de ròtles"
+
+#: admin/meta-box-plugin-settings.php:33
+msgctxt "meta box"
+msgid "Content Permissions"
+msgstr "Dreches d'accès al contengut"
+
+#: admin/meta-box-plugin-settings.php:36
+msgctxt "meta box"
+msgid "Sidebar Widgets"
+msgstr "Widgets de colomna"
+
+#: admin/meta-box-plugin-settings.php:39
+msgctxt "meta box"
+msgid "Private Site"
+msgstr "Site privat"
+
+#: admin/meta-box-plugin-settings.php:52
+msgid "Version:"
+msgstr "Version :"
+
+#: admin/meta-box-plugin-settings.php:55
+msgid "Description:"
+msgstr "Descripcion :"
+
+#: admin/meta-box-plugin-settings.php:69
+msgid "Here's how you can give back:"
+msgstr "Aquí cossí podètz mercejar :"
+
+#: admin/meta-box-plugin-settings.php:72
+msgid "Members on the WordPress plugin repository"
+msgstr "Members dins lo depaus d'extension WordPress"
+
+#: admin/meta-box-plugin-settings.php:72
+msgid "Give the plugin a good rating."
+msgstr "Donar a l'extension una bona notacion."
+
+#: admin/meta-box-plugin-settings.php:73
+msgid "Donate via PayPal"
+msgstr "Far un don via Paypal"
+
+#: admin/meta-box-plugin-settings.php:73
+msgid "Donate a few dollars."
+msgstr "Donar qualques dollars."
+
+#: admin/meta-box-plugin-settings.php:74
+msgid "Justin Tadlock's Amazon Wish List"
+msgstr "Lista de vòts sus Amazon de Justin Tadlock"
+
+#: admin/meta-box-plugin-settings.php:74
+msgid "Get me something from my wish list."
+msgstr "Ofrissètz-me quicòm de ma lista de vòts."
+
+#: admin/meta-box-plugin-settings.php:86
+msgid ""
+"Support for this plugin is provided via the support forums at %1$s. If you "
+"need any help using it, please ask your support questions there."
+msgstr "L'ajuda per aquesta extension es provesida via lo forum d'ajuda de %1$s. Per tota question, pausatz-i vòstra question."
+
+#: admin/meta-box-plugin-settings.php:86
+msgid "Theme Hybrid Support Forums"
+msgstr "Forums d'ajudas de Tèma Hybrid"
+
+#: admin/meta-box-plugin-settings.php:86
+msgid "Theme Hybrid"
+msgstr "Tèma Hybrid"
+
+#: admin/meta-box-plugin-settings.php:99
+msgid "Enable the role manager."
+msgstr "Activar lo gestionari de ròtles."
+
+#: admin/meta-box-plugin-settings.php:102
+msgid ""
+"Your roles and capabilities will not revert back to their previous settings "
+"after deactivating or uninstalling this plugin, so use this feature wisely."
+msgstr "Vòstres ròtles e capacitats tornaràn pas a lors reglatges precedents aprèp la desactivacion o la desinstallacion de l'extension, utilizatz doncas aquesta foncionalitat intelligentament."
+
+#: admin/meta-box-plugin-settings.php:116
+msgid "Enable the content permissions feature."
+msgstr "Activatz la foncion d'autorizacion de contengut."
+
+#: admin/meta-box-plugin-settings.php:120
+msgid "Default post error message:"
+msgstr "Messatge d'error per defaut de l'article :"
+
+#: admin/meta-box-plugin-settings.php:122
+msgid ""
+"You can use <abbr title=\"Hypertext Markup Language\">HTML</abbr> and/or "
+"shortcodes to create a custom error message for users that don't have "
+"permission to view posts."
+msgstr "Podètz utilizar <abbr title=\"Hypertext Markup Language\">HTML</abbr> e/o d'acorchis per crear un messatge d'error personalizat a afichar pels utilizaires qu'an pas l'autorizacion d'afichar los messatges."
+
+#: admin/meta-box-plugin-settings.php:136
+msgid "Enable the login form widget."
+msgstr "Activar lo widget del formulari de connexion."
+
+#: admin/meta-box-plugin-settings.php:141
+msgid "Enable the users widget."
+msgstr "Activar lo widget utilizaires."
+
+#: admin/meta-box-plugin-settings.php:155
+msgid ""
+"Redirect all logged-out users to the login page before allowing them to view"
+" the site."
+msgstr "Redirigir totes los utilizaires desconnectats cap a la pagina de connexion abans de lor permetre de visualizar lo site."
+
+#: admin/meta-box-plugin-settings.php:160
+msgid "Show error message for feed items."
+msgstr "Afichar lo messatge d'error pels elements del flux."
+
+#: admin/meta-box-plugin-settings.php:164
+msgid "Feed error message:"
+msgstr "Messatge d'error del flux :"
+
+#: admin/meta-box-plugin-settings.php:167
+msgid ""
+"You can use <abbr title=\"Hypertext Markup Language\">HTML</abbr> and/or "
+"shortcodes to create a custom error message to display instead of feed item "
+"content."
+msgstr "Podètz utilizar <abbr title=\"Hypertext Markup Language\">HTML</abbr> e/o d'acorchis per crear un messatge d'error personalizat a afichar a la plaça d'element del flux."
+
+#: admin/meta-box-post-content-permissions.php:30
+msgid "Content Permissions"
+msgstr "Dreches d'accès al contengut"
+
+#: admin/meta-box-post-content-permissions.php:53
+msgid "Limit access to this post's content to users of the selected roles."
+msgstr "Limitar l'accès al contengut d'aqueste article als utilizaires dels ròtles seleccionats."
+
+#: admin/meta-box-post-content-permissions.php:77
+msgid ""
+"If no roles are selected, everyone can view the content. The post author, "
+"any users who can edit this post, and users with the %s capability can view "
+"the content regardless of role."
+msgstr "Se cap de ròtle es seleccionat, tot lo monde pòt afichar lo contengut. L'autor de l'article, los utilizaires que pòdon modificar aqueste article, e los utilizaires amb de capacitats %s pòdon afichar lo contengut independentament del ròtle."
+
+#: admin/meta-box-post-content-permissions.php:81
+msgid "Custom error messsage:"
+msgstr "Messatge d'error personalizat :"
+
+#: admin/meta-box-post-content-permissions.php:84
+msgid "Message shown to users that do no have permission to view the post."
+msgstr "Lo messatge qu'apareis pels utilizaires qu'an pas la permission de veire l'article."
+
+#: admin/role-edit.php:67 components/role-manager/manage-roles.php:130
+#: components/role-manager/manage-roles.php:144
+msgid "Edit Role"
+msgstr "Modificar Ròtle"
+
+#: admin/role-edit.php:68 admin/roles-list-table.php:55
+msgid "Add New"
+msgstr "Apondre Novèl"
+
+#: admin/role-edit.php:71 components/role-manager/edit-role-form.php:67
+msgid "Role updated."
+msgstr "Ròtle mes a jorn."
+
+#: admin/role-edit.php:71
+msgid "&larr; Back to Roles"
+msgstr "&larr; Retorn als Ròtles"
+
+#: admin/role-edit.php:85 admin/role-new.php:60 admin/roles-list-table.php:108
+#: components/role-manager/edit-roles.php:137
+#: components/role-manager/edit-roles.php:147
+msgid "Role Name"
+msgstr "Nom del Ròtle"
+
+#: admin/role-edit.php:94 admin/roles-list-table.php:110
+#: admin/roles-list-table.php:120
+#: components/role-manager/edit-role-form.php:87
+#: components/role-manager/edit-roles.php:140
+#: components/role-manager/edit-roles.php:150
+msgid "Capabilities"
+msgstr "*Capacitats"
+
+#: admin/role-edit.php:112
+msgid "Custom Capabilities"
+msgstr "Capacitats personalizadas"
+
+#: admin/role-edit.php:117
+msgid "Add New Capability"
+msgstr "Apondre una novèla capacitat"
+
+#: admin/role-edit.php:127 components/role-manager/edit-role-form.php:152
+msgid "Update Role"
+msgstr "Mesa a jorn del Ròtle"
+
+#: admin/role-new.php:46
+msgid "The %s role has been created."
+msgstr "Lo ròtle %s es estat creat."
+
+#: admin/role-new.php:65
+msgid ""
+"<strong>Required:</strong> The role name should be unique and contain only "
+"alphanumeric characters and underscores."
+msgstr "<strong>Requesit :</strong> Lo nom del ròtle deu èsser unic e conténer pas que de caractèrs alfanumerics e d'underscores."
+
+#: admin/role-new.php:71 admin/roles-list-table.php:107
+#: admin/roles-list-table.php:117
+msgid "Role Label"
+msgstr "Libellat del Ròtle"
+
+#: admin/role-new.php:76
+msgid ""
+"<strong>Required:</strong> The role label is used to represent your role in "
+"the WordPress admin."
+msgstr "<strong>Requesit :</strong> Lo libellat del ròtle es utilizat per representar vòstre ròtle dins l'administracion de WordPress."
+
+#: admin/role-new.php:82
+msgid "Role Capabilities"
+msgstr "Capacitats del Ròtle"
+
+#: admin/role-new.php:86
+msgid ""
+"<strong>Optional:</strong> Select the capabilities this role should have. "
+"These may be updated later."
+msgstr "<strong>Facultatiu :</ strong> Seleccionar las capacitats qu'aqueste ròtle deuriá aver. Aqueles pòdon èsser meses a jorn pus tard."
+
+#: admin/role-new.php:102
+msgid "Add Role"
+msgstr "Apondre Ròtle"
+
+#: admin/roles-list-table.php:67 components/role-manager/edit-roles.php:114
+msgid "All"
+msgstr "Totes"
+
+#: admin/roles-list-table.php:68
+msgid "Has Users"
+msgstr "A d'utilizaires"
+
+#: admin/roles-list-table.php:69
+msgid "No Users"
+msgstr "Pas cap d'utilizaire"
+
+#: admin/roles-list-table.php:80 admin/roles-list-table.php:212
+#: components/role-manager/edit-roles.php:123
+#: components/role-manager/edit-roles.php:239
+msgid "Bulk Actions"
+msgstr "Accions gropadas"
+
+#: admin/roles-list-table.php:83 admin/roles-list-table.php:155
+#: admin/roles-list-table.php:215 components/role-manager/edit-roles.php:124
+#: components/role-manager/edit-roles.php:179
+#: components/role-manager/edit-roles.php:240
+msgid "Delete"
+msgstr "Suprimir"
+
+#: admin/roles-list-table.php:88 admin/roles-list-table.php:220
+#: components/role-manager/edit-roles.php:126
+#: components/role-manager/edit-roles.php:242
+#: components/role-manager/manage-roles.php:21
+#: components/role-manager/manage-roles.php:25
+msgid "Apply"
+msgstr "Aplicar"
+
+#: admin/roles-list-table.php:95 admin/roles-list-table.php:227
+msgid "%s item"
+msgid_plural "%s items"
+msgstr[0] "%s element"
+msgstr[1] "%s elements"
+
+#: admin/roles-list-table.php:109 admin/roles-list-table.php:119
+#: components/role-manager/edit-roles.php:139
+#: components/role-manager/edit-roles.php:149
+#: components/statistics/statistics.php:98
+#: components/statistics/statistics.php:106
+#: components/statistics/view-stats.php:35
+#: components/statistics/view-stats.php:42 components/widgets/users.php:14
+#: components/widgets/users.php:69 includes/widget-users.php:37
+#: includes/widget-users.php:129
+msgid "Users"
+msgstr "Utilizaires"
+
+#: admin/roles-list-table.php:118 components/role-manager/edit-roles.php:138
+#: components/role-manager/edit-roles.php:148
+#: components/statistics/statistics.php:97
+#: components/statistics/statistics.php:105 includes/admin-bar.php:29
+msgid "Role"
+msgstr "Ròtle"
+
+#: admin/roles-list-table.php:143 admin/roles-list-table.php:151
+msgid "Edit the %s role"
+msgstr "Modificar lo ròtle %s"
+
+#: admin/roles-list-table.php:151 components/role-manager/edit-roles.php:174
+msgid "Edit"
+msgstr "Modificar"
+
+#: admin/roles-list-table.php:155
+msgid "Delete the %s role"
+msgstr "Suprimir lo ròtle %s"
+
+#: admin/roles-list-table.php:159 components/role-manager/edit-roles.php:184
+msgid "Change default role"
+msgstr "Cambiar lo ròtle per defaut"
+
+#: admin/roles-list-table.php:159 components/role-manager/edit-roles.php:184
+msgid "Default Role"
+msgstr "Ròtle per defaut"
+
+#: admin/roles-list-table.php:163 admin/roles-list-table.php:179
+msgid "View all users with the %s role"
+msgstr "Afichar totes los utilizaires amb lo ròtle %s"
+
+#: admin/roles-list-table.php:163 components/role-manager/edit-roles.php:189
+#: components/statistics/statistics.php:130
+msgid "View Users"
+msgstr "Afichar los Utilizaires"
+
+#: admin/roles-list-table.php:179 admin/roles-list-table.php:181
+msgid "%s User"
+msgid_plural "%s Users"
+msgstr[0] "%s utilizaire"
+msgstr[1] "%s utilizaires"
+
+#: admin/roles-list-table.php:191
+msgid "%s Capability"
+msgid_plural "%s Capabilities"
+msgstr[0] "%s capacitat"
+msgstr[1] "%s capacitats"
+
+#: admin/settings.php:28
+msgid "Members Settings"
+msgstr "Reglatges de Members"
+
+#. #-#-#-#-#  members.pot (Members 0.2.4)  #-#-#-#-#
+#. Plugin Name of the plugin/theme
+#: admin/settings.php:28
+msgid "Members"
+msgstr "Members"
+
+#: admin/settings.php:122
+msgid "Members Plugin Settings"
+msgstr "Reglatges de l'extension Members"
+
+#: admin/settings.php:137
+msgid "Update Settings"
+msgstr "Mesa a jorn dels reglatges"
+
+#: components/content-permissions/content-permissions.php:78
+msgid ""
+"No role currently has the <code>restrict_content</code> capability.  To use "
+"the <em>Content Permissions</em> component, at least one role must have this"
+" capability."
+msgstr ""
+
+#: components/content-permissions/content-permissions.php:106
+#: includes/update.php:103
+msgid "Sorry, but you do not have permission to view this content."
+msgstr "O planhèm, avètz pas las permissions per veire aqueste contengut."
+
+#: components/content-permissions/meta-box.php:42
+msgid ""
+"<strong>Roles:</strong> Restrict the content to these roles on the front end"
+" of the site.  If all boxes are left unchecked, everyone can view the "
+"content."
+msgstr ""
+
+#: components/role-manager/default.php:44
+msgid "New Role"
+msgstr "Ròtle Novèl"
+
+#: components/role-manager/default.php:103
+msgid ""
+"No role currently has the <code>edit_roles</code> capability.  Please add "
+"this to each role that should be able to manage/edit roles. If you do not "
+"change this, any user that has the <code>edit_users</code> capability will "
+"be able to edit roles."
+msgstr ""
+
+#: components/role-manager/default.php:116
+msgid ""
+"To create new roles, you must give the <code>create_roles</code> capability "
+"to at least one role."
+msgstr ""
+
+#: components/role-manager/edit-role-form.php:65
+#: components/role-manager/edit-roles.php:171
+#: components/role-manager/edit-roles.php:174
+msgid "Edit the %1$s role"
+msgstr "Modificar lo ròtle %1$s"
+
+#: components/role-manager/edit-role-form.php:79
+msgid "<strong>Role:</strong> %1$s"
+msgstr "<strong>Ròtle :</strong> %1$s"
+
+#: components/role-manager/edit-role-form.php:91
+msgid ""
+"Select which capabilities this role should have. Make sure you understand "
+"what the capability does before giving it to just any role. This is a "
+"powerful feature, but it can cause you some grief if you give regular ol' "
+"Joe more capabilities than yourself."
+msgstr ""
+
+#: components/role-manager/edit-role-form.php:117
+msgid "New Capabilities"
+msgstr "Capacitats Novèlas"
+
+#: components/role-manager/edit-role-form.php:121
+msgid ""
+"Add up to six new capabilities with this form for this role (more can be "
+"added later). Please only use letters, numbers, and underscores."
+msgstr ""
+
+#: components/role-manager/edit-roles.php:80
+msgid "Edit Active Roles"
+msgstr "Modificar los ròtles activats"
+
+#: components/role-manager/edit-roles.php:87
+msgid "Edit Inactive Roles"
+msgstr "Modificar los ròtles inactivats"
+
+#: components/role-manager/edit-roles.php:94
+msgid "Edit Roles"
+msgstr "Modificar Ròtle"
+
+#: components/role-manager/edit-roles.php:115
+msgid "Active"
+msgstr "Actiu"
+
+#: components/role-manager/edit-roles.php:116
+msgid "Inactive"
+msgstr "Inactiu"
+
+#: components/role-manager/edit-roles.php:179
+msgid "Delete the %1$s role"
+msgstr "Suprimir lo ròtle %1$s"
+
+#: components/role-manager/edit-roles.php:189
+#: components/role-manager/edit-roles.php:203
+#: components/role-manager/edit-roles.php:205
+#: components/statistics/statistics.php:130
+#: components/statistics/statistics.php:140
+#: components/statistics/statistics.php:142
+msgid "View all users with the %1$s role"
+msgstr "Afichar totes los utilizaires amb lo ròtle %1$s"
+
+#: components/role-manager/edit-roles.php:203
+#: components/statistics/statistics.php:140
+msgid "%1$s Users"
+msgstr "%1$s Utilizaires"
+
+#: components/role-manager/edit-roles.php:205
+#: components/statistics/statistics.php:142
+msgid "1 User"
+msgstr "1 Utilizaire"
+
+#: components/role-manager/edit-roles.php:207
+#: components/statistics/statistics.php:144
+msgid "No users have this role."
+msgstr "Cap d'utilizaire a pas aqueste ròtle."
+
+#: components/role-manager/edit-roles.php:219
+msgid "%1$s Capabilities"
+msgstr "%1$s Capacitats"
+
+#: components/role-manager/edit-roles.php:220
+msgid "1 Capability"
+msgstr "1 Capacitat"
+
+#: components/role-manager/edit-roles.php:223
+msgid "This role has no capabilities"
+msgstr "Aqueste ròtle a pas cap de capacitat"
+
+#: components/role-manager/new-role.php:45
+msgid "Add a new user role"
+msgstr "Apondre un novèl ròtle d'utilizaire"
+
+#: components/role-manager/new-role.php:47
+msgid "The %1$s role has been created."
+msgstr "Lo ròtle %1$s es estat creat."
+
+#: components/role-manager/new-role.php:59
+msgid "Create a new user role"
+msgstr "Crear un novèl ròtle d'utilizaire"
+
+#: components/role-manager/new-role.php:66
+msgid "About:"
+msgstr "A prepaus :"
+
+#: components/role-manager/new-role.php:69
+msgid ""
+"Here you can create as many new roles as you'd like.  Roles are a way of "
+"grouping your users.  You can give individual users a role from the <a "
+"href=\"%1$s\" title=\"Manage Users\">user management</a> screen.  This will "
+"allow you to do specific things for users with a specific role.  Once you've"
+" created a new role, you can manage it with the <em>Edit Roles</em> "
+"component."
+msgstr ""
+
+#: components/role-manager/new-role.php:75
+msgid "Role:"
+msgstr "Ròtle&nbsp;:"
+
+#: components/role-manager/new-role.php:78
+msgid ""
+"<strong>Required:</strong> Enter the name of your role.  This is a unique "
+"key that should only contain numbers, letters, and underscores.  Please "
+"don't add spaces or other odd characters."
+msgstr ""
+
+#: components/role-manager/new-role.php:86
+msgid "Role Label:"
+msgstr "Libellat del Ròtle :"
+
+#: components/role-manager/new-role.php:89
+msgid ""
+"<strong>Required:</strong> Enter a label your role.  This will be the title "
+"that is displayed in most cases."
+msgstr ""
+
+#: components/role-manager/new-role.php:97
+msgid "Capabilities:"
+msgstr "Capacitats :"
+
+#: components/role-manager/new-role.php:100
+msgid ""
+"<strong>Optional:</strong> Select which capabilities your new role should "
+"have.  These may be changed later using the <em>Edit Roles</em> component."
+msgstr "<strong>Facultatiu :</strong> Seleccionar las capacitats qu'aqueste novèl ròtle deuriá aver. Aquò pòt èsser mes a jorn pus tard en utilizant lo component <em>Modificar Ròtle</em>."
+
+#: components/role-manager/new-role.php:118
+msgid "Create Role"
+msgstr "Crear Ròtle"
+
+#: components/statistics/default.php:27
+msgid "Members Statistics"
+msgstr "Estatisticas dels membres"
+
+#: components/statistics/default.php:27
+msgid "Members Stats"
+msgstr "Estatisticas dels membres"
+
+#: components/statistics/statistics.php:84
+#: components/statistics/view-stats.php:23
+msgid "Statistics"
+msgstr "Estatisticas"
+
+#: components/statistics/statistics.php:99
+#: components/statistics/statistics.php:107
+#: components/statistics/statistics.php:125
+msgid "Stats"
+msgstr "Estatisticas"
+
+#: components/statistics/statistics.php:122
+#: components/statistics/statistics.php:125
+msgid "View stats for the %1$s role"
+msgstr "Afichar las estatisticas del ròtle %1$s"
+
+#: components/statistics/statistics.php:150
+msgid "View the yearly stats for the %1$s role"
+msgstr "Afichar las estatisticas annadièras del ròtle %1$s"
+
+#: components/statistics/statistics.php:150
+msgid "Yearly"
+msgstr "Annadièr"
+
+#: components/statistics/statistics.php:151
+msgid "View the monthly stats for the %1$s role"
+msgstr "Afichar las estatisticas mesadièras del ròtle %1$s"
+
+#: components/statistics/statistics.php:151
+msgid "Monthly"
+msgstr "Mesadièr"
+
+#: components/statistics/statistics.php:152
+msgid "View the daily stats for the %1$s role"
+msgstr "Afichar las estatisticas jornalièras del ròtle %1$s"
+
+#: components/statistics/statistics.php:152
+msgid "Daily"
+msgstr "Quotidian"
+
+#: components/statistics/view-stats.php:34
+#: components/statistics/view-stats.php:41
+msgid "Date"
+msgstr "Data"
+
+#: components/widgets/login.php:12 includes/widget-login-form.php:26
+msgid "A widget that allows users to log into your site."
+msgstr "Un widget que permet als utilizaires de se connectar a vòstre site."
+
+#: components/widgets/login.php:14 includes/widget-login-form.php:37
+msgid "Login Form"
+msgstr "Formulari de connexion"
+
+#: components/widgets/login.php:110 components/widgets/login.php:113
+#: includes/widget-login-form.php:158 includes/widget-login-form.php:161
+msgid "Log In"
+msgstr "Se connectar"
+
+#: components/widgets/login.php:111
+msgid "Username:"
+msgstr "Identificant&nbsp;:"
+
+#: components/widgets/login.php:112 includes/widget-login-form.php:160
+msgid "Password"
+msgstr "Senhal"
+
+#: components/widgets/login.php:114
+msgid "Remember me?"
+msgstr "Se remembrar de ieu"
+
+#: components/widgets/login.php:116 includes/widget-login-form.php:172
+msgid "Please log into the site."
+msgstr "Mercé de se connectar al site."
+
+#: components/widgets/login.php:117 includes/widget-login-form.php:173
+msgid "You are currently logged in."
+msgstr "Actualament sètz connectat(ada)."
+
+#: components/widgets/login.php:126 components/widgets/users.php:73
+#: includes/widget-login-form.php:185 includes/widget-users.php:157
+msgid "Title:"
+msgstr "Títol&nbsp;:"
+
+#: components/widgets/login.php:131 includes/widget-login-form.php:246
+msgid "Logged out text:"
+msgstr "Tèxte de deconnexion :"
+
+#: components/widgets/login.php:136 includes/widget-login-form.php:251
+msgid "Logged in text:"
+msgstr "Tèxte de connexion :"
+
+#: components/widgets/login.php:145 includes/widget-login-form.php:243
+msgid "Display avatar?"
+msgstr "Afichar l'avatar ?"
+
+#: components/widgets/login.php:148
+msgid "Username Label:"
+msgstr "Libellat de l'identificant&nbsp;:"
+
+#: components/widgets/login.php:152
+msgid "Password Label:"
+msgstr "Libellat del senhal&nbsp;:"
+
+#: components/widgets/login.php:157
+msgid "Submit Text:"
+msgstr "Tèxte del mandadís :"
+
+#: components/widgets/login.php:161
+msgid "Remember User Text:"
+msgstr ""
+
+#: components/widgets/users.php:12
+msgid ""
+"An advanced widget that gives you total control over the output of your user"
+" lists."
+msgstr "Un widget avançat que vos dona un contraròtle total sus l'afichatge de vòstras listas d'utilizaires."
+
+#: components/widgets/users.php:77
+msgid "Limit:"
+msgstr "Limit&nbsp;:"
+
+#: components/widgets/users.php:81
+msgid "Order:"
+msgstr "Òrdre&nbsp;:"
+
+#: components/widgets/users.php:88
+msgid "Order By:"
+msgstr "Triar per&nbsp;:"
+
+#: components/widgets/users.php:96
+msgid "Include:"
+msgstr "Inclure&nbsp;:"
+
+#: components/widgets/users.php:100
+msgid "Exclude:"
+msgstr "Exclure&nbsp;:"
+
+#: components/widgets/users.php:105
+msgid "Show full name?"
+msgstr "Afichar lo nom complet&nbsp;?"
+
+#: includes/update.php:104
+msgid "You must be logged into the site to view this content."
+msgstr "Vos cal èsser connectat al site per veire aqueste contengut."
+
+#: includes/widget-login-form.php:159
+msgid "Username"
+msgstr "Identificant"
+
+#: includes/widget-login-form.php:162
+msgid "Remember Me"
+msgstr "Se remembrar de ieu"
+
+#: includes/widget-login-form.php:235
+msgid "\"Remember me\" checkbox?"
+msgstr "\"Se remembrar de ieu \" casa de marcar&nbsp;?"
+
+#: includes/widget-login-form.php:239
+msgid "Check \"remember me\"?"
+msgstr "Marcar \"Se remembrar de ieu \"&nbsp;:?"
+
+#: includes/widget-users.php:26
+msgid "Provides the ability to list the users of the site."
+msgstr "Dona la capacitat de listar los utilizaires del site."
+
+#: includes/widget-users.php:145
+msgid "Ascending"
+msgstr "Creissent"
+
+#: includes/widget-users.php:145
+msgid "Descending"
+msgstr "Descreissent"
+
+#: includes/widget-users.php:146
+msgid "Display Name"
+msgstr "Nom afichat"
+
+#: includes/widget-users.php:146
+msgid "Email"
+msgstr "E-mail"
+
+#: includes/widget-users.php:146
+msgid "ID"
+msgstr "ID"
+
+#: includes/widget-users.php:146
+msgid "Nice Name"
+msgstr "Polit nom"
+
+#: includes/widget-users.php:146
+msgid "Post Count"
+msgstr "Nombre d'articles"
+
+#: includes/widget-users.php:146
+msgid "Registered"
+msgstr "Enregistrat"
+
+#: includes/widget-users.php:146
+msgid "URL"
+msgstr "URL"
+
+#: includes/widget-users.php:146
+msgid "Login"
+msgstr "Connexion"
+
+#: members.php:191
+msgctxt "role"
+msgid "Role Manager"
+msgstr "Gestionari de ròtles"
+
+#. Plugin URI of the plugin/theme
+msgid "http://themehybrid.com/plugins/members"
+msgstr "http://themehybrid.com/plugins/members"
+
+#. Description of the plugin/theme
+msgid ""
+"A user, role, and content management plugin for controlling permissions and "
+"access. A plugin for making WordPress a more powerful <acronym "
+"title=\"Content Management System\">CMS</acronym>."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Justin Tadlock"
+msgstr "Justin Tadlock"
+
+#. Author URI of the plugin/theme
+msgid "http://justintadlock.com"
+msgstr "http://justintadlock.com"
