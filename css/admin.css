@@ -54,6 +54,8 @@
 		width:      100px;
 		text-align: center;
 	}
+
+	.users_page_capabilities .column-roles { width: 25%; }
 }
 
 .users_page_role-new .role-checkboxes {

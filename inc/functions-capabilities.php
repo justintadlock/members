@@ -8,6 +8,55 @@
 add_filter( 'members_get_capabilities', 'members_remove_old_levels' );
 
 /**
+ * Checks if a capability is editable.  A capability is editable if it's not one of the core WP roles
+ * and doesn't belong to an uneditable role.
+ *
+ * @since  1.0.0
+ * @access public
+ * @param  string  $cap
+ * @return bool
+ */
+function members_is_cap_editable( $cap ) {
+
+	$uneditable = array_keys( members_get_uneditable_role_names() );
+
+	return ! in_array( $cap, members_get_default_capabilities() ) && ! array_intersect( $uneditable, members_get_cap_roles( $cap ) );
+}
+
+/**
+ * Returns an array of roles that have a capability.
+ *
+ * @since  1.0.0
+ * @access public
+ * @param  string  $cap
+ * @return array
+ */
+function members_get_cap_roles( $cap ) {
+	global $wp_roles;
+
+	$_roles = array();
+
+	foreach ( $wp_roles->role_objects as $role ) {
+
+		if ( $role->has_cap( $cap ) )
+			$_roles[] = $role->name;
+	}
+
+	return $_roles;
+}
+
+/**
+ * Returns the URL for the edit caps admin screen.
+ *
+ * @since  1.0.0
+ * @access public
+ * @return string
+ */
+function members_get_edit_caps_url() {
+	return esc_url( add_query_arg( 'page', 'capabilities', admin_url( 'users.php' ) ) );
+}
+
+/**
  * The function that makes this plugin what it is.  It returns all of our capabilities in a nicely-formatted,
  * alphabetized array with no duplicate capabilities.  It pulls from three different functions to make sure
  * we get all of the capabilities that we need for use in the plugin components.

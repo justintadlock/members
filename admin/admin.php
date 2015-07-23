@@ -40,7 +40,7 @@ function members_manage_capabilities_columns( $columns ) {
 	$columns = array(
 		'cb'     => '<input type="checkbox" />',
 		'title'  => esc_html__( 'Capability',    'members' ),
-		'role'   => esc_html__( 'Roles',         'members' ),
+		'roles'  => esc_html__( 'Roles',         'members' ),
 	);
 
 	return apply_filters( 'members_manage_capabilities_columns', $columns );
@@ -110,7 +110,8 @@ function members_admin_enqueue_style( $hook_suffix ) {
 
 	$pages = array(
 		'users_page_roles',
-		'users_page_role-new'
+		'users_page_role-new',
+		'users_page_capabilities'
 	);
 
 	if ( in_array( $hook_suffix, $pages ) )

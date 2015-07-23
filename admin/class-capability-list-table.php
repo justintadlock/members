@@ -89,6 +89,11 @@ class Members_Capability_List_Table extends WP_List_Table {
 		elseif ( 'members' === $this->cap_view )
 			$caps = members_get_additional_capabilities();
 
+		if ( isset( $_GET['role'] ) ) {
+			$role = members_sanitize_role( $_GET['role'] );
+			$caps = array_keys( get_role( $role )->capabilities );
+		}
+
 		if ( isset( $_GET['orderby'] ) && isset( $_GET['order'] ) ) {
 
 			if ( 'title' === $_GET['orderby'] && 'desc' === $_GET['order'] ) {
@@ -149,7 +154,7 @@ class Members_Capability_List_Table extends WP_List_Table {
 	 */
 	protected function column_cb( $cap ) {
 
-		if ( in_array( $cap, members_get_default_capabilities() ) )
+		if ( ! members_is_cap_editable( $cap ) )
 			$out = '';
 
 		else
@@ -200,6 +205,29 @@ class Members_Capability_List_Table extends WP_List_Table {
 	protected function column_roles( $cap ) {
 		global $wp_roles;
 
+//wp_die( var_dump( $wp_roles ) );
+
+		$_roles = array();
+/*
+	$role['administrator'] = array(
+		'name' => 'Admin',
+		'capabilities' => array()
+	);
+*/
+		$can_edit = current_user_can( 'edit_roles' );
+
+		foreach ( $wp_roles->role_objects as $role ) {
+
+			if ( $role->has_cap( $cap ) )
+				$_roles[ $role->name ] = sprintf( '<a href="%s">%s</a>', esc_url( add_query_arg( array( 'page' => 'capabilities', 'role' => $role->name ), 'users.php' ) ), members_get_role_name( $role->name ) );
+
+			//if ( array_key_exists( $cap, $args['capabilities'] ) )
+			//	$_roles[ $role] = $role->name;
+		}
+
+		ksort( $_roles );
+
+		return join( ', ', $_roles );
 
 
 		return apply_filters( 'members_manage_roles_column_role', members_sanitize_role( $cap ), $cap );
@@ -301,6 +329,37 @@ class Members_Capability_List_Table extends WP_List_Table {
 	}
 
 	/**
+	 * Extra controls to be displayed between bulk actions and pagination
+	 *
+	 * @since  1.0.0
+	 * @access protected
+	 * @param  string    $which  top|bottom
+	 * @return void
+	 */
+	protected function extra_tablenav( $which ) {
+
+		if ( 'top' !== $which )
+			return;
+
+		$_role   = isset( $_GET['role'] ) ? members_sanitize_role( $_GET['role'] ) : '';
+		$roles = members_get_role_names(); ?>
+
+		<select name="members_role" class="postform">
+
+			<option value="" <?php selected( '', $_role ); ?>><?php esc_html_e( 'View all roles', 'members' ); ?></option>
+
+			<?php foreach ( $roles as $role => $name ) : ?>
+
+				<option value="<?php echo esc_attr( $role ); ?>" <?php selected( $role, $_role ); ?>><?php echo esc_html( $name ); ?></option>
+
+			<?php endforeach; ?>
+
+		</select>
+
+		<?php submit_button( esc_attr__( 'Filter', 'members' ), 'button', 'filter_action', false ); ?>
+	<?php }
+
+	/**
 	 * Displays the list table.
 	 *
 	 * @since  1.0.0
@@ -324,9 +383,9 @@ class Members_Capability_List_Table extends WP_List_Table {
 	protected function get_bulk_actions() {
 		$actions = array();
 
-	//	if ( current_user_can( 'delete_roles' ) )
-	//		$actions['delete'] = esc_html__( 'Delete', 'members' );
+		if ( current_user_can( 'edit_roles' ) )
+			$actions['delete'] = esc_html__( 'Delete', 'members' );
 
-		return apply_filters( 'members_manage_roles_bulk_actions', $actions );
+		return apply_filters( 'members_manage_caps_bulk_actions', $actions );
 	}
 }
