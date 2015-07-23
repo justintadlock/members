@@ -83,6 +83,19 @@ function members_can_user_view_post( $user_id, $post_id = '' ) {
 		}
 	}
 
+	// Set the check for the parent post based on whether we have permissions for this post.
+	$check_parent = empty( $roles ) && $can_view;
+
+	// Set to FALSE to avoid hierarchical checking.
+	if ( apply_filters( 'members_check_parent_post_permission', $check_parent, $post_id, $user_id ) ) {
+
+		$parent_id = get_post( $post_id )->post_parent;
+
+		// If the post has a parent, check if the user has permission to view it.
+		if ( 0 < $parent_id )
+			$can_view = members_can_user_view_post( $user_id, $parent_id );
+	}
+
 	/* Allow developers to overwrite the final return value. */
 	return apply_filters( 'members_can_user_view_post', $can_view, $user_id, $post_id );
 }
