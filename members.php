@@ -3,26 +3,26 @@
  * Plugin Name: Members
  * Plugin URI: http://themehybrid.com/plugins/members
  * Description: A user, role, and content management plugin for controlling permissions and access. A plugin for making WordPress a more powerful <acronym title="Content Management System">CMS</acronym>.
- * Version: 0.2.4
+ * Version: 0.2.5
  * Author: Justin Tadlock
  * Author URI: http://justintadlock.com
  *
- * The members plugin was created because the WordPress community is lacking a solid permissions 
- * plugin that is both open source and works completely within the confines of the APIs in WordPress.  
- * But, the plugin is so much more than just a plugin to control permissions.  It is meant to extend 
+ * The members plugin was created because the WordPress community is lacking a solid permissions
+ * plugin that is both open source and works completely within the confines of the APIs in WordPress.
+ * But, the plugin is so much more than just a plugin to control permissions.  It is meant to extend
  * WordPress by making user, role, and content management as simple as using WordPress itself.
  *
- * This program is free software; you can redistribute it and/or modify it under the terms of the GNU 
- * General Public License version 2, as published by the Free Software Foundation.  You may NOT assume 
+ * This program is free software; you can redistribute it and/or modify it under the terms of the GNU
+ * General Public License version 2, as published by the Free Software Foundation.  You may NOT assume
  * that you can use any other version of the GPL.
  *
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without 
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
  * even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
  * @package Members
- * @version 0.2.4
+ * @version 0.2.5
  * @author Justin Tadlock <justin@justintadlock.com>
- * @copyright Copyright (c) 2009 - 2013, Justin Tadlock
+ * @copyright Copyright (c) 2009 - 2015, Justin Tadlock
  * @link http://justintadlock.com/archives/2009/09/17/members-wordpress-plugin
  * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
@@ -67,7 +67,7 @@ class Members_Load {
 	function constants() {
 
 		/* Set the version number of the plugin. */
-		define( 'MEMBERS_VERSION', '0.2.4' );
+		define( 'MEMBERS_VERSION', '0.2.5' );
 
 		/* Set the database version number of the plugin. */
 		define( 'MEMBERS_DB_VERSION', 2 );
@@ -176,10 +176,10 @@ class Members_Load {
 		}
 
 		/**
-		 * If the administrator role does not exist for some reason, we have a bit of a problem 
-		 * because this is a role management plugin and requires that someone actually be able to 
-		 * manage roles.  So, we're going to create a custom role here.  The site administrator can 
-		 * assign this custom role to any user they wish to work around this problem.  We're only 
+		 * If the administrator role does not exist for some reason, we have a bit of a problem
+		 * because this is a role management plugin and requires that someone actually be able to
+		 * manage roles.  So, we're going to create a custom role here.  The site administrator can
+		 * assign this custom role to any user they wish to work around this problem.  We're only
 		 * doing this for single-site installs of WordPress.  The 'super admin' has permission to do
 		 * pretty much anything on a multisite install.
 		 */

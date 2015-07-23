@@ -16,9 +16,9 @@ class Members_Widget_Users extends WP_Widget {
 	/**
 	 * Set up the widget's unique name, ID, class, description, and other options.
 	 *
-	 * @since 0.1.0
+	 * @since 0.2.5
 	 */
-	function Members_Widget_Users() {
+	public function __construct() {
 
 		/* Set up the widget options. */
 		$widget_options = array(
@@ -34,7 +34,17 @@ class Members_Widget_Users extends WP_Widget {
 		);
 
 		/* Create the widget. */
-		$this->WP_Widget( 'members-widget-users', esc_attr__( 'Users', 'members' ), $widget_options, $control_options );
+		parent::__construct( 'members-widget-users', esc_attr__( 'Users', 'members' ), $widget_options, $control_options );
+	}
+
+	/**
+	 * Set up the widget's unique name, ID, class, description, and other options.
+	 *
+	 * @since 0.1.0
+	 * @deprecated 0.2.5
+	 */
+	function Members_Widget_Users() {
+		$this->__construct();
 	}
 
 	/**
@@ -158,7 +168,7 @@ class Members_Widget_Users extends WP_Widget {
 			<input type="text" class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" value="<?php echo esc_attr( $instance['title'] ); ?>" />
 		</p>
 		<p>
-			<label for="<?php echo $this->get_field_id( 'orderby' ); ?>"><code>orderby</code></label> 
+			<label for="<?php echo $this->get_field_id( 'orderby' ); ?>"><code>orderby</code></label>
 			<select class="widefat" id="<?php echo $this->get_field_id( 'orderby' ); ?>" name="<?php echo $this->get_field_name( 'orderby' ); ?>">
 				<?php foreach ( $orderby as $option_value => $option_label ) { ?>
 					<option value="<?php echo esc_attr( $option_value ); ?>" <?php selected( $instance['orderby'], $option_value ); ?>><?php echo esc_html( $option_label ); ?></option>
@@ -166,7 +176,7 @@ class Members_Widget_Users extends WP_Widget {
 			</select>
 		</p>
 		<p>
-			<label for="<?php echo $this->get_field_id( 'order' ); ?>"><code>order</code></label> 
+			<label for="<?php echo $this->get_field_id( 'order' ); ?>"><code>order</code></label>
 			<select class="widefat" id="<?php echo $this->get_field_id( 'order' ); ?>" name="<?php echo $this->get_field_name( 'order' ); ?>">
 				<?php foreach ( $order as $option_value => $option_label ) { ?>
 					<option value="<?php echo esc_attr( $option_value ); ?>" <?php selected( $instance['order'], $option_value ); ?>><?php echo esc_html( $option_label ); ?></option>
@@ -174,7 +184,7 @@ class Members_Widget_Users extends WP_Widget {
 			</select>
 		</p>
 		<p>
-			<label for="<?php echo $this->get_field_id( 'role' ); ?>"><code>role</code></label> 
+			<label for="<?php echo $this->get_field_id( 'role' ); ?>"><code>role</code></label>
 			<select class="widefat" id="<?php echo $this->get_field_id( 'role' ); ?>" name="<?php echo $this->get_field_name( 'role' ); ?>">
 				<?php foreach ( $roles as $role => $name ) { ?>
 					<option value="<?php echo esc_attr( $role ); ?>" <?php selected( $instance['role'], $role ); ?>><?php echo esc_html( $name ); ?></option>
@@ -206,7 +216,7 @@ class Members_Widget_Users extends WP_Widget {
 			<input type="text" class="widefat code" id="<?php echo $this->get_field_id( 'search' ); ?>" name="<?php echo $this->get_field_name( 'search' ); ?>" value="<?php echo esc_attr( $instance['search'] ); ?>" />
 		</p>
 		<p>
-			<label for="<?php echo $this->get_field_id( 'meta_key' ); ?>"><code>meta_key</code></label> 
+			<label for="<?php echo $this->get_field_id( 'meta_key' ); ?>"><code>meta_key</code></label>
 			<select class="widefat" id="<?php echo $this->get_field_id( 'meta_key' ); ?>" name="<?php echo $this->get_field_name( 'meta_key' ); ?>">
 				<?php foreach ( $meta_key as $meta ) { ?>
 					<option value="<?php echo esc_attr( $meta ); ?>" <?php selected( $instance['meta_key'], $meta ); ?>><?php echo esc_html( $meta ); ?></option>
