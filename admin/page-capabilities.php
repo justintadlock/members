@@ -6,7 +6,7 @@
 		<?php esc_html_e( 'Capabilities', 'members' ); ?>
 
 		<?php if ( current_user_can( 'create_roles' ) ) : ?>
-			<a href="<?php echo members_get_new_role_url(); ?>" class="add-new-h2"><?php esc_html_e( 'Add New', 'members' ); ?></a>
+			<a href="<?php echo members_get_new_cap_url(); ?>" class="add-new-h2"><?php esc_html_e( 'Add New', 'members' ); ?></a>
 		<?php endif; ?>
 	</h2>
 

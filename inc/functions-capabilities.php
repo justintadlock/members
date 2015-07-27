@@ -7,6 +7,10 @@
 /* Disables the old levels from being seen. If you need them, use remove_filter() to add display back. */
 add_filter( 'members_get_capabilities', 'members_remove_old_levels' );
 
+function members_sanitize_cap( $cap ) {
+	return apply_filters( 'members_sanitize_cap', sanitize_key( $cap ) );
+}
+
 /**
  * Checks if a capability is editable.  A capability is editable if it's not one of the core WP roles
  * and doesn't belong to an uneditable role.
@@ -43,6 +47,17 @@ function members_get_cap_roles( $cap ) {
 	}
 
 	return $_roles;
+}
+
+/**
+ * Returns the URL for the add-new capability admin screen.
+ *
+ * @since  1.0.0
+ * @access public
+ * @return string
+ */
+function members_get_new_cap_url() {
+	return esc_url( add_query_arg( 'page', 'capability-new', admin_url( 'users.php' ) ) );
 }
 
 /**

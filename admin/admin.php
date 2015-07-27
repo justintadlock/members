@@ -88,7 +88,9 @@ function members_admin_setup() {
 	}
 
 	//if ( current_user_can( 'delete_capabilities' ) )
-		$members->edit_capabilities_page = add_submenu_page( 'users.php', esc_attr__( 'Capabilities', 'members' ), esc_attr__( 'Capabilities', 'members' ), 'manage_options', 'capabilities', 'members_edit_capabilities_page' );
+		$members->edit_capabilities_page = add_submenu_page( 'users.php', esc_attr__( 'Capabilities', 'members' ), esc_attr__( 'Capabilities', 'members' ), 'edit_roles', 'capabilities', 'members_edit_capabilities_page' );
+
+		$members->new_capabilities_page = add_submenu_page( 'users.php', esc_attr__( 'Add New Capability', 'members' ), esc_attr__( 'Add New Capability', 'members' ), 'edit_roles', 'capability-new', 'members_new_capability_page' );
 
 
 	/* Load post meta boxes on the post editing screen. */
@@ -167,6 +169,16 @@ function members_edit_capabilities_page() {
  */
 function members_new_role_page() {
 	require_once( MEMBERS_ADMIN . 'role-new.php' );
+}
+
+
+/**
+ * Loads the New Role page.
+ *
+ * @since 1.0.0
+ */
+function members_new_capability_page() {
+	require_once( members_plugin()->admin_dir . 'page-capability-new.php' );
 }
 
 /**
