@@ -255,6 +255,8 @@ final class Members_Plugin {
 		if ( is_admin() ) {
 			require_once( $this->admin_dir . 'admin.php'          );
 			require_once( $this->admin_dir . 'class-settings.php' );
+
+			require_once( $this->admin_dir . 'page-capabilities.php' );
 		}
 	}
 

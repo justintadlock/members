@@ -88,7 +88,7 @@ function members_admin_setup() {
 	}
 
 	//if ( current_user_can( 'delete_capabilities' ) )
-		$members->edit_capabilities_page = add_submenu_page( 'users.php', esc_attr__( 'Capabilities', 'members' ), esc_attr__( 'Capabilities', 'members' ), 'edit_roles', 'capabilities', 'members_edit_capabilities_page' );
+	//	$members->edit_capabilities_page = add_submenu_page( 'users.php', esc_attr__( 'Capabilities', 'members' ), esc_attr__( 'Capabilities', 'members' ), 'edit_roles', 'capabilities', 'members_edit_capabilities_page' );
 
 		$members->new_capabilities_page = add_submenu_page( 'users.php', esc_attr__( 'Add New Capability', 'members' ), esc_attr__( 'Add New Capability', 'members' ), 'edit_roles', 'capability-new', 'members_new_capability_page' );
 

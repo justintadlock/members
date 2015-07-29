@@ -260,10 +260,10 @@ class Members_Capability_List_Table extends WP_List_Table {
 
 		if ( $primary === $column_name ) {
 
-			//if ( current_user_can( 'delete_capabilities' ) )
-				$actions['delete'] = sprintf( '<a class="members-delete-role-link" href="%s">%s</a>', '', esc_html__( 'Delete', 'members' ) );
+			if ( current_user_can( 'edit_roles' ) && members_is_cap_editable( $cap ) )
+				$actions['delete'] = sprintf( '<a class="members-delete-cap-link" href="%s">%s</a>', members_get_delete_cap_url( $cap ), esc_html__( 'Delete', 'members' ) );
 
-			//if ( current_user_can( 'create_roles' ) )
+			//if ( current_user_can( 'edit_roles' ) )
 			//	$actions['clone'] = sprintf( '<a href="%s">%s</a>', members_get_clone_role_url( $cap ), esc_html__( 'Clone', 'members' ) );
 
 			$actions = apply_filters( 'members_capabilities_row_actions', $actions, $cap );
