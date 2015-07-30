@@ -42,3 +42,6 @@ function members_author_profile() {}
 function members_login_form() {}
 function members_get_login_form() {}
 function members_get_avatar_shortcode() {}
+function members_version_check() {}
+function members_install() {}
+function members_update() {}

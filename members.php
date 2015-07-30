@@ -246,7 +246,6 @@ final class Members_Plugin {
 		require_once( $this->inc_dir . 'functions-private-site.php'        );
 		require_once( $this->inc_dir . 'functions-roles.php'               );
 		require_once( $this->inc_dir . 'functions-shortcodes.php'          );
-		require_once( $this->inc_dir . 'functions-update.php'              );
 		require_once( $this->inc_dir . 'functions-widgets.php'             );
 
 		// Load template files.
