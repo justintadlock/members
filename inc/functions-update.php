@@ -80,30 +80,3 @@ function members_update() {
 	/* Update the plugin settings. */
 	update_option( 'members_settings', $settings );
 }
-
-/**
- * Returns an array of the default plugin settings.  These are only used on initial setup.
- *
- * @since 0.2.0
- */
-function members_get_default_settings() {
-
-	/* Set up the default plugin settings. */
-	$settings = array(
-
-		// Version 0.1.0
-		'role_manager' => 1,
-		'content_permissions' => 1,
-		'private_blog' => 0,
-
-		// Version 0.2.0
-		'private_feed' => 0,
-		'login_form_widget' => 0,
-		'users_widget' => 0,
-		'content_permissions_error' => '<p class="restricted">' . __( 'Sorry, but you do not have permission to view this content.', 'members' ) . '</p>',
-		'private_feed_error' => '<p class="restricted">' . __( 'You must be logged into the site to view this content.', 'members' ) . '</p>',
-	);
-
-	/* Return the default settings. */
-	return $settings;
-}

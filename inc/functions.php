@@ -20,26 +20,6 @@ function members_validate_boolean( $val ) {
 }
 
 /**
- * Gets a setting from from the plugin settings in the database.
- *
- * @since 0.2.0
- */
-function members_get_setting( $option = '' ) {
-	global $members;
-
-	if ( !$option )
-		return false;
-
-	if ( !isset( $members->settings ) )
-		$members->settings = get_option( 'members_settings' );
-
-	if ( !is_array( $members->settings ) || empty( $members->settings[$option] ) )
-		return false;
-
-	return $members->settings[$option];
-}
-
-/**
  * Function for listing users like the WordPress function currently uses for authors.
  *
  * Eventually, I hope to remove this function in favor of wp_list_users():

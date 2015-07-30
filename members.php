@@ -242,6 +242,7 @@ final class Members_Plugin {
 		require_once( $this->inc_dir . 'functions-capabilities.php'        );
 		require_once( $this->inc_dir . 'functions-content-permissions.php' );
 		require_once( $this->inc_dir . 'functions-deprecated.php'          );
+		require_once( $this->inc_dir . 'functions-options.php'             );
 		require_once( $this->inc_dir . 'functions-private-site.php'        );
 		require_once( $this->inc_dir . 'functions-roles.php'               );
 		require_once( $this->inc_dir . 'functions-shortcodes.php'          );
