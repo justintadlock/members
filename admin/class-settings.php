@@ -75,13 +75,14 @@ final class Members_Settings_Page {
 		register_setting( 'members_settings', 'members_settings', array( $this, 'validate_settings' ) );
 
 		// Add settings sections.
-		add_settings_section( 'role_manager',        esc_html__( 'Role Manager',        'members' ), array( $this, 'section_role_manager'        ), $this->settings_page );
-		add_settings_section( 'content_permissions', esc_html__( 'Content Permissions', 'members' ), array( $this, 'section_content_permissions' ), $this->settings_page );
-		add_settings_section( 'sidebar_widgets',     esc_html__( 'Sidebar Widgets',     'members' ), array( $this, 'section_sidebar_widgets'     ), $this->settings_page );
-		add_settings_section( 'private_site',        esc_html__( 'Private Site',        'members' ), array( $this, 'section_private_site'        ), $this->settings_page );
+		add_settings_section( 'roles_caps',          esc_html__( 'Role and Capabilities', 'members' ), array( $this, 'section_roles_caps'          ), $this->settings_page );
+		add_settings_section( 'content_permissions', esc_html__( 'Content Permissions',   'members' ), array( $this, 'section_content_permissions' ), $this->settings_page );
+		add_settings_section( 'sidebar_widgets',     esc_html__( 'Sidebar Widgets',       'members' ), array( $this, 'section_sidebar_widgets'     ), $this->settings_page );
+		add_settings_section( 'private_site',        esc_html__( 'Private Site',          'members' ), array( $this, 'section_private_site'        ), $this->settings_page );
 
 		// Add settings fields.
-		add_settings_field( 'enable_role_manager', esc_html__( 'Enable Manager', 'members' ), array( $this, 'field_enable_role_manager' ), $this->settings_page, 'role_manager' );
+		add_settings_field( 'enable_role_manager', esc_html__( 'Role Manager',       'members' ), array( $this, 'field_enable_role_manager' ), $this->settings_page, 'roles_caps' );
+		add_settings_field( 'enable_cap_manager',  esc_html__( 'Capability Manager', 'members' ), array( $this, 'field_enable_cap_manager'  ), $this->settings_page, 'roles_caps' );
 
 		add_settings_field( 'enable_content_permissions', esc_html__( 'Enable Permissions', 'members' ), array( $this, 'field_enable_content_permissions' ), $this->settings_page, 'content_permissions' );
 		add_settings_field( 'content_permissions_error',  esc_html__( 'Error Message',              'members' ), array( $this, 'field_content_permissions_error'  ), $this->settings_page, 'content_permissions' );
@@ -107,6 +108,7 @@ final class Members_Settings_Page {
 
 		// Validate true/false checkboxes.
 		$settings['role_manager']        = isset( $settings['role_manager'] )        ? 1 : 0;
+		$settings['cap_manager']         = isset( $settings['cap_manager'] )         ? true: false;
 		$settings['content_permissions'] = isset( $settings['content_permissions'] ) ? 1 : 0;
 		$settings['login_form_widget']   = isset( $settings['login_form_widget'] )   ? 1 : 0;
 		$settings['users_widget']        = isset( $settings['users_widget'] )        ? 1 : 0;
@@ -121,7 +123,7 @@ final class Members_Settings_Page {
 		return $settings;
 	}
 
-	public function section_role_manager() { ?>
+	public function section_roles_caps() { ?>
 		<p class="description">
 			<?php esc_html_e( 'Your roles and capabilities will not revert back to their previous settings after deactivating or uninstalling this plugin, so use this feature wisely.', 'members' ); ?>
 		</p>
@@ -136,6 +138,15 @@ final class Members_Settings_Page {
 			<label>
 				<input type="checkbox" name="members_settings[role_manager]" value="1" <?php checked( 1, members_get_setting( 'role_manager' ) ); ?> />
 				<?php esc_html_e( 'Enable the role manager.', 'members' ); ?>
+			</label>
+		</p>
+	<?php }
+
+	public function field_enable_cap_manager() { ?>
+		<p>
+			<label>
+				<input type="checkbox" name="members_settings[cap_manager]" value="true" <?php checked( members_cap_manager_enabled() ); ?> />
+				<?php esc_html_e( 'Enable the capability manager.', 'members' ); ?>
 			</label>
 		</p>
 	<?php }

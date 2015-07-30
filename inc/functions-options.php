@@ -1,5 +1,9 @@
 <?php
 
+function members_cap_manager_enabled() {
+	return apply_filters( 'members_cap_manager_enabled', members_get_setting( 'cap_manager' ) );
+}
+
 /**
  * Gets a setting from from the plugin settings in the database.
  *
@@ -40,6 +44,6 @@ function members_get_default_settings() {
 		'private_feed_error'        => esc_html__( 'You must be logged into the site to view this content.',      'members' ),
 
 		// @since 1.0.0
-		'cap_manager' => 1,
+		'cap_manager' => false,
 	);
 }

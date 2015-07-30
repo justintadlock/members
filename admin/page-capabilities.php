@@ -28,7 +28,9 @@ final class Members_Admin_Edit_Caps {
 	 * @return void
 	 */
 	public function __construct() {
-		add_action( 'admin_menu', array( $this, 'add_settings_page' ) );
+
+		if ( members_cap_manager_enabled() )
+			add_action( 'admin_menu', array( $this, 'add_settings_page' ) );
 	}
 
 	/**
