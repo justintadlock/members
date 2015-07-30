@@ -349,9 +349,7 @@ function members_get_uneditable_roles_url() {
  */
 function members_get_edit_role_url( $role ) {
 
-	$url = add_query_arg( array( 'action' => 'edit', 'role' => $role ), members_get_edit_roles_url() );
-
-	return esc_url( wp_nonce_url( $url, members_get_nonce( 'edit-roles' ) ) );
+	return esc_url( add_query_arg( array( 'action' => 'edit', 'role' => $role ), members_get_edit_roles_url() ) );
 }
 
 /**
@@ -365,7 +363,7 @@ function members_get_edit_role_url( $role ) {
 function members_get_delete_role_url( $role ) {
 	$url = add_query_arg( array( 'action' => 'delete', 'role' => $role ), members_get_edit_roles_url() );
 
-	return esc_url( wp_nonce_url( $url, members_get_nonce( 'edit-roles' ) ) );
+	return esc_url( wp_nonce_url( $url, 'delete_role', 'members_delete_role_nonce' ) );
 }
 
 /**

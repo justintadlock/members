@@ -11,26 +11,8 @@ add_action( 'current_screen', 'members_current_screen', 5 );
 
 function members_current_screen( $screen ) {
 
-	if ( 'users_page_roles' === $screen->id )
-		$screen->add_option( 'per_page', array( 'default' => 20 ) );
-
-	elseif ( 'users_page_capabilities' === $screen->id )
+	if ( 'users_page_capabilities' === $screen->id )
 		$screen->add_option( 'per_page', array( 'default' => 30 ) );
-}
-
-add_filter( 'manage_users_page_roles_columns', 'members_manage_roles_columns', 5 );
-
-function members_manage_roles_columns( $columns ) {
-
-	$columns = array(
-		'cb'     => '<input type="checkbox" />',
-		'title'  => esc_html__( 'Role Name',    'members' ),
-		'role'   => esc_html__( 'Role',         'members' ),
-		'users'  => esc_html__( 'Users',        'members' ),
-		'caps'   => esc_html__( 'Capabilities', 'members' )
-	);
-
-	return apply_filters( 'members_manage_roles_columns', $columns );
 }
 
 add_filter( 'manage_users_page_capabilities_columns', 'members_manage_capabilities_columns', 5 );
@@ -62,26 +44,6 @@ function members_admin_setup() {
 
 	/* If the role manager feature is active, add its admin pages. */
 	if ( members_get_setting( 'role_manager' ) ) {
-
-		/**
-		 * The "Roles" page should be shown for anyone that has the 'list_roles', 'edit_roles', or
-		 * 'delete_roles' caps, so we're checking against all three.
-		 */
-
-		/* If the current user can 'edit_roles'. */
-		if ( current_user_can( 'edit_roles' ) )
-			$edit_roles_cap = 'edit_roles';
-
-		/* If the current user can 'delete_roles'. */
-		elseif ( current_user_can( 'delete_roles' ) )
-			$edit_roles_cap = 'delete_roles';
-
-		/* Else, set the cap to the default, 'list_roles'. */
-		else
-			$edit_roles_cap = 'list_roles';
-
-		/* Create the Manage Roles page. */
-		$members->edit_roles_page = add_submenu_page( 'users.php', esc_attr__( 'Roles', 'members' ), esc_attr__( 'Roles', 'members' ), $edit_roles_cap, 'roles', 'members_edit_roles_page' );
 
 		/* Create the New Role page. */
 		$members->new_roles_page = add_submenu_page( 'users.php', esc_attr__( 'Add New Role', 'members' ), esc_attr__( 'Add New Role', 'members' ), 'create_roles', 'role-new', 'members_new_role_page' );
