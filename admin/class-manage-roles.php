@@ -20,9 +20,14 @@ final class Members_Admin_Manage_Roles {
 	 */
 	public $page = '';
 
+	/**
+	 * The page object to show.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @var    object
+	 */
 	public $page_obj = '';
-
-	public $is_edit_page = false;
 
 	/**
 	 * Sets up our initial actions.
@@ -62,21 +67,21 @@ final class Members_Admin_Manage_Roles {
 		// Create the Manage Roles page.
 		$this->page = add_submenu_page( 'users.php', esc_html__( 'Roles', 'members' ), esc_html__( 'Roles', 'members' ), $edit_roles_cap, 'roles', array( $this, 'page' ) );
 
+		// Let's roll if we have a page.
 		if ( $this->page ) {
 
-			if ( isset( $_REQUEST['action'] ) && 'edit' === $_REQUEST['action'] && current_user_can( 'edit_roles' ) ) {
+			// If viewing the edit role page.
+			if ( isset( $_REQUEST['action'] ) && 'edit' === $_REQUEST['action'] && current_user_can( 'edit_roles' ) )
 				$this->page_obj = new Members_Admin_Role_Edit();
 
-				$this->is_edit_page = true;
-			} else {
+			// If viewing the role list page.
+			else
 				$this->page_obj = new Members_Admin_Roles();
-			}
 
-			//if ( ! $this->is_edit_page )
-			//	add_action( 'current_screen', array( $this, 'current_screen' ) );
-
+			// Load actions.
 			add_action( "load-{$this->page}", array( $this, 'load' ) );
 
+			// Load scripts/styles.
 			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue' ) );
 		}
 	}
@@ -89,19 +94,26 @@ final class Members_Admin_Manage_Roles {
 	 * @return void
 	 */
 	public function load() {
-		$this->page_obj->load();
+
+		if ( method_exists( $this->page_obj, 'load' ) )
+			$this->page_obj->load();
 	}
 
+	/**
+	 * Loads necessary scripts/styles.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @return void
+	 */
 	public function enqueue( $hook ) {
 
 		if ( $this->page !== $hook )
 			return;
 
-		wp_enqueue_script( 'members-admin', trailingslashit( MEMBERS_URI ) . 'js/admin.js', array( 'jquery' ), '20110525', true );
-
-		wp_enqueue_style( 'members-admin', trailingslashit( MEMBERS_URI ) . 'css/admin.css', false, '20110525', 'screen' );
+		wp_enqueue_script( 'members-admin' );
+		wp_enqueue_style(  'members-admin' );
 	}
-
 
 	/**
 	 * Outputs the page.
@@ -111,7 +123,9 @@ final class Members_Admin_Manage_Roles {
 	 * @return void
 	 */
 	public function page() {
-		$this->page_obj->page();
+
+		if ( method_exists( $this->page_obj, 'page' ) )
+			$this->page_obj->page();
 	}
 
 	/**

@@ -60,9 +60,20 @@ function members_admin_setup() {
 	add_action( 'load-post.php', 'members_admin_load_post_meta_boxes' );
 	add_action( 'load-post-new.php', 'members_admin_load_post_meta_boxes' );
 
+	add_action( 'admin_enqueue_scripts', 'members_admin_register_scripts', 0 );
+	add_action( 'admin_enqueue_scripts', 'members_admin_register_styles',  0 );
+
 	/* Load stylesheets and scripts for our custom admin pages. */
 	add_action( 'admin_enqueue_scripts', 'members_admin_enqueue_style' );
 	add_action( 'admin_enqueue_scripts', 'members_admin_enqueue_scripts' );
+}
+
+function members_admin_register_scripts() {
+	wp_register_script( 'members-admin', members_plugin()->js_uri . 'admin.js', array( 'jquery' ) );
+}
+
+function members_admin_register_styles() {
+	wp_register_style( 'members-admin', members_plugin()->css_uri . 'admin.css' );
 }
 
 /**
@@ -74,13 +85,12 @@ function members_admin_setup() {
 function members_admin_enqueue_style( $hook_suffix ) {
 
 	$pages = array(
-		'users_page_roles',
 		'users_page_role-new',
 		'users_page_capabilities'
 	);
 
 	if ( in_array( $hook_suffix, $pages ) )
-		wp_enqueue_style( 'members-admin', trailingslashit( MEMBERS_URI ) . 'css/admin.css', false, '20110525', 'screen' );
+		wp_enqueue_style( 'members-admin' );
 }
 
 /**
@@ -92,12 +102,11 @@ function members_admin_enqueue_style( $hook_suffix ) {
 function members_admin_enqueue_scripts( $hook_suffix ) {
 
 	$pages = array(
-		'users_page_roles',
 		'users_page_role-new'
 	);
 
 	if ( in_array( $hook_suffix, $pages ) )
-		wp_enqueue_script( 'members-admin', trailingslashit( MEMBERS_URI ) . 'js/admin.js', array( 'jquery' ), '20110525', true );
+		wp_enqueue_script( 'members-admin' );
 }
 
 /**
