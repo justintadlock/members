@@ -122,6 +122,9 @@ final class Members_Admin_Role_Edit {
 
 		if ( ! $this->is_editable )
 			add_settings_error( 'members_edit_role', 'role_uneditable', sprintf( esc_html__( 'The %s role is not editable. This means that it is most likely added via another plugin for a special use or that you do not have permission to edit it.', 'members' ), members_get_role_name( $this->role->name ) ) );
+
+		if ( isset( $_GET['message'] ) && 'role_added' === $_GET['message'] )
+			add_settings_error( 'members_edit_role', 'role_added', sprintf( esc_html__( 'The %s role has been created.', 'members' ), members_get_role_name( $this->role->name ) ), 'updated' );
 	}
 
 	/**

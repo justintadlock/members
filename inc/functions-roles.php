@@ -280,8 +280,10 @@ function members_get_clone_role_url( $role ) {
  * @access public
  * @return string
  */
-function members_get_edit_roles_url() {
-	return esc_url( add_query_arg( 'page', 'roles', admin_url( 'users.php' ) ) );
+function members_get_edit_roles_url( $raw = false ) {
+	$url = add_query_arg( 'page', 'roles', admin_url( 'users.php' ) );
+
+	return $raw ? $url : esc_url( $url );
 }
 
 /**
@@ -291,8 +293,10 @@ function members_get_edit_roles_url() {
  * @access public
  * @return string
  */
-function members_get_my_roles_url() {
-	return esc_url( add_query_arg( 'role_view', 'mine', members_get_edit_roles_url() ) );
+function members_get_my_roles_url( $raw = false ) {
+	$url = add_query_arg( 'role_view', 'mine', members_get_edit_roles_url( $raw ) );
+
+	return $raw ? $url : esc_url( $url );
 }
 
 /**
@@ -302,8 +306,10 @@ function members_get_my_roles_url() {
  * @access public
  * @return string
  */
-function members_get_active_roles_url() {
-	return esc_url( add_query_arg( 'role_view', 'active', members_get_edit_roles_url() ) );
+function members_get_active_roles_url( $raw = false ) {
+	$url = add_query_arg( 'role_view', 'active', members_get_edit_roles_url( $raw ) );
+
+	return $raw ? $url : esc_url( $url );
 }
 
 /**
@@ -313,8 +319,10 @@ function members_get_active_roles_url() {
  * @access public
  * @return string
  */
-function members_get_inactive_roles_url() {
-	return esc_url( add_query_arg( 'role_view', 'inactive', members_get_edit_roles_url() ) );
+function members_get_inactive_roles_url( $raw = false ) {
+	$url = add_query_arg( 'role_view', 'inactive', members_get_edit_roles_url( $raw ) );
+
+	return $raw ? $url : esc_url( $url );
 }
 
 /**
@@ -324,8 +332,10 @@ function members_get_inactive_roles_url() {
  * @access public
  * @return string
  */
-function members_get_editable_roles_url() {
-	return esc_url( add_query_arg( 'role_view', 'editable', members_get_edit_roles_url() ) );
+function members_get_editable_roles_url( $raw = false ) {
+	$url = add_query_arg( 'role_view', 'editable', members_get_edit_roles_url( $raw ) );
+
+	return $raw ? $url : esc_url( $url );
 }
 
 /**
@@ -335,8 +345,11 @@ function members_get_editable_roles_url() {
  * @access public
  * @return string
  */
-function members_get_uneditable_roles_url() {
-	return esc_url( add_query_arg( 'role_view', 'uneditable', members_get_edit_roles_url() ) );
+function members_get_uneditable_roles_url( $raw = false ) {
+
+	$url = add_query_arg( 'role_view', 'uneditable', members_get_edit_roles_url( $raw ) );
+
+	return $raw ? $url : esc_url( $url );
 }
 
 /**
@@ -345,11 +358,14 @@ function members_get_uneditable_roles_url() {
  * @since  1.0.0
  * @access public
  * @param  string  $role
+ * @param  bool    $raw
  * @return string
  */
-function members_get_edit_role_url( $role ) {
+function members_get_edit_role_url( $role, $raw = false ) {
 
-	return esc_url( add_query_arg( array( 'action' => 'edit', 'role' => $role ), members_get_edit_roles_url() ) );
+	$url = add_query_arg( array( 'action' => 'edit', 'role' => $role ), members_get_edit_roles_url( $raw ) );
+
+	return $raw ? $url : esc_url( $url );
 }
 
 /**

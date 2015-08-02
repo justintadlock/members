@@ -43,11 +43,11 @@ function members_admin_setup() {
 	add_filter( 'contextual_help', 'members_admin_contextual_help', 10, 2 );
 
 	/* If the role manager feature is active, add its admin pages. */
-	if ( members_get_setting( 'role_manager' ) ) {
+	//if ( members_get_setting( 'role_manager' ) ) {
 
 		/* Create the New Role page. */
-		$members->new_roles_page = add_submenu_page( 'users.php', esc_attr__( 'Add New Role', 'members' ), esc_attr__( 'Add New Role', 'members' ), 'create_roles', 'role-new', 'members_new_role_page' );
-	}
+	//	$members->new_roles_page = add_submenu_page( 'users.php', esc_attr__( 'Add New Role', 'members' ), esc_attr__( 'Add New Role', 'members' ), 'create_roles', 'role-new', 'members_new_role_page' );
+	//}
 
 	//if ( current_user_can( 'delete_capabilities' ) )
 	//	$members->edit_capabilities_page = add_submenu_page( 'users.php', esc_attr__( 'Capabilities', 'members' ), esc_attr__( 'Capabilities', 'members' ), 'edit_roles', 'capabilities', 'members_edit_capabilities_page' );
