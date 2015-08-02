@@ -57,8 +57,19 @@ final class Members_Settings_Page {
 			array( $this, 'settings_page' )
 		);
 
-		if ( $this->settings_page )
+		if ( $this->settings_page ) {
 			add_action( 'admin_init', array( $this, 'register_settings' ) );
+
+			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue' ) );
+		}
+	}
+
+	public function enqueue( $hook_suffix ) {
+
+		if ( $this->settings_page !== $hook_suffix )
+			return;
+
+		wp_enqueue_script( 'members-admin' );
 	}
 
 	/**
