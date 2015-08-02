@@ -42,19 +42,8 @@ function members_admin_setup() {
 	/* Add contextual help to the "Help" tab for the plugin's pages in the admin. */
 	add_filter( 'contextual_help', 'members_admin_contextual_help', 10, 2 );
 
-	/* If the role manager feature is active, add its admin pages. */
-	//if ( members_get_setting( 'role_manager' ) ) {
-
-		/* Create the New Role page. */
-	//	$members->new_roles_page = add_submenu_page( 'users.php', esc_attr__( 'Add New Role', 'members' ), esc_attr__( 'Add New Role', 'members' ), 'create_roles', 'role-new', 'members_new_role_page' );
-	//}
-
-	//if ( current_user_can( 'delete_capabilities' ) )
-	//	$members->edit_capabilities_page = add_submenu_page( 'users.php', esc_attr__( 'Capabilities', 'members' ), esc_attr__( 'Capabilities', 'members' ), 'edit_roles', 'capabilities', 'members_edit_capabilities_page' );
-
 	if ( members_cap_manager_enabled() )
 		$members->new_capabilities_page = add_submenu_page( 'users.php', esc_attr__( 'Add New Capability', 'members' ), esc_attr__( 'Add New Capability', 'members' ), 'edit_roles', 'capability-new', 'members_new_capability_page' );
-
 
 	/* Load post meta boxes on the post editing screen. */
 	add_action( 'load-post.php', 'members_admin_load_post_meta_boxes' );
@@ -85,7 +74,6 @@ function members_admin_register_styles() {
 function members_admin_enqueue_style( $hook_suffix ) {
 
 	$pages = array(
-		'users_page_role-new',
 		'users_page_capabilities'
 	);
 
@@ -101,12 +89,6 @@ function members_admin_enqueue_style( $hook_suffix ) {
  */
 function members_admin_enqueue_scripts( $hook_suffix ) {
 
-	$pages = array(
-		'users_page_role-new'
-	);
-
-	if ( in_array( $hook_suffix, $pages ) )
-		wp_enqueue_script( 'members-admin' );
 }
 
 /**
@@ -117,7 +99,7 @@ function members_admin_enqueue_scripts( $hook_suffix ) {
 function members_admin_load_post_meta_boxes() {
 
 	/* If the content permissions component is active, load its post meta box. */
-	if ( members_get_setting( 'content_permissions' ) )
+	if ( members_content_permissions_enabled() )
 		require_once( MEMBERS_ADMIN . 'meta-box-post-content-permissions.php' );
 }
 
@@ -127,7 +109,6 @@ function members_admin_load_post_meta_boxes() {
  * @since 0.1.0
  */
 function members_edit_roles_page() {
-	require_once( MEMBERS_ADMIN . 'roles.php' );
 }
 
 function members_edit_capabilities_page() {
@@ -140,7 +121,6 @@ function members_edit_capabilities_page() {
  * @since 0.1.0
  */
 function members_new_role_page() {
-	require_once( MEMBERS_ADMIN . 'role-new.php' );
 }
 
 

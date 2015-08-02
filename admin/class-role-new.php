@@ -75,7 +75,7 @@ final class Members_Admin_Role_New {
 	public function __construct() {
 
 		// If the role manager is active.
-		if ( members_get_setting( 'role_manager' ) )
+		if ( members_role_manager_enabled() )
 			add_action( 'admin_menu', array( $this, 'add_admin_page' ) );
 	}
 

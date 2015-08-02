@@ -22,7 +22,7 @@ function members_enable_content_permissions() {
 	global $wp_embed;
 
 	// Only add filters if the content permissions feature is enabled and we're not in the admin.
-	if ( members_get_setting( 'content_permissions' ) && !is_admin() ) {
+	if ( members_content_permissions_enabled() && !is_admin() ) {
 
 		// Filter the content and exerpts.
 		add_filter( 'the_content',      'members_content_permissions_protect', 95 );

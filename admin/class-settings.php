@@ -107,9 +107,9 @@ final class Members_Settings_Page {
 	function validate_settings( $settings ) {
 
 		// Validate true/false checkboxes.
-		$settings['role_manager']        = isset( $settings['role_manager'] )        ? 1 : 0;
-		$settings['cap_manager']         = isset( $settings['cap_manager'] )         ? true: false;
-		$settings['content_permissions'] = isset( $settings['content_permissions'] ) ? 1 : 0;
+		$settings['role_manager']        = isset( $settings['role_manager'] )        ? true : false;
+		$settings['cap_manager']         = isset( $settings['cap_manager'] )         ? true : false;
+		$settings['content_permissions'] = isset( $settings['content_permissions'] ) ? true : false;
 		$settings['login_form_widget']   = isset( $settings['login_form_widget'] )   ? 1 : 0;
 		$settings['users_widget']        = isset( $settings['users_widget'] )        ? 1 : 0;
 		$settings['private_blog']        = isset( $settings['private_blog'] )        ? 1 : 0;
@@ -136,7 +136,7 @@ final class Members_Settings_Page {
 	public function field_enable_role_manager() { ?>
 		<p>
 			<label>
-				<input type="checkbox" name="members_settings[role_manager]" value="1" <?php checked( 1, members_get_setting( 'role_manager' ) ); ?> />
+				<input type="checkbox" name="members_settings[role_manager]" value="true" <?php checked( members_role_manager_enabled() ); ?> />
 				<?php esc_html_e( 'Enable the role manager.', 'members' ); ?>
 			</label>
 		</p>
@@ -154,7 +154,7 @@ final class Members_Settings_Page {
 	public function field_enable_content_permissions() { ?>
 		<p>
 			<label>
-				<input type="checkbox" name="members_settings[content_permissions]" value="1" <?php checked( 1, members_get_setting( 'content_permissions' ) ); ?> />
+				<input type="checkbox" name="members_settings[content_permissions]" value="true" <?php checked( members_content_permissions_enabled() ); ?> />
 				<?php esc_html_e( 'Enable the content permissions feature.', 'members' ); ?>
 			</label>
 		</p>

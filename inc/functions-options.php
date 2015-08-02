@@ -1,7 +1,15 @@
 <?php
 
+function members_role_manager_enabled() {
+	return apply_filters( 'members_role_manager_enabled', members_get_setting( 'role_manager' ) );
+}
+
 function members_cap_manager_enabled() {
 	return apply_filters( 'members_cap_manager_enabled', members_get_setting( 'cap_manager' ) );
+}
+
+function members_content_permissions_enabled() {
+	return apply_filters( 'members_content_permissions_enabled', members_get_setting( 'content_permissions' ) );
 }
 
 /**
