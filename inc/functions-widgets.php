@@ -30,7 +30,7 @@ function members_register_widgets() {
 	if ( members_get_setting( 'users_widget' ) ) {
 
 		/* Load the users widget file. */
-		require_once( MEMBERS_INCLUDES . 'class-widgt-users.php' );
+		require_once( MEMBERS_INCLUDES . 'class-widget-users.php' );
 
 		/* Register the users widget. */
 		register_widget( 'Members_Widget_users' );
