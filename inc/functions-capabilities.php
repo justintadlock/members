@@ -11,6 +11,10 @@ function members_sanitize_cap( $cap ) {
 	return apply_filters( 'members_sanitize_cap', sanitize_key( $cap ) );
 }
 
+function members_cap_exists( $cap ) {
+	return in_array( $cap, members_get_capabilities() );
+}
+
 /**
  * Checks if a capability is editable.  A capability is editable if it's not one of the core WP roles
  * and doesn't belong to an uneditable role.
@@ -57,7 +61,7 @@ function members_get_cap_roles( $cap ) {
  * @return string
  */
 function members_get_new_cap_url() {
-	return esc_url( add_query_arg( 'page', 'capability-new', admin_url( 'users.php' ) ) );
+	return esc_url( add_query_arg( 'page', 'cap-new', admin_url( 'users.php' ) ) );
 }
 
 /**

@@ -262,6 +262,7 @@ final class Members_Plugin {
 			require_once( $this->admin_dir . 'class-role-new.php'     );
 
 			require_once( $this->admin_dir . 'page-capabilities.php' );
+			require_once( $this->admin_dir . 'class-cap-new.php'     );
 		}
 	}
 

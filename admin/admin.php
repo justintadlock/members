@@ -42,9 +42,6 @@ function members_admin_setup() {
 	/* Add contextual help to the "Help" tab for the plugin's pages in the admin. */
 	add_filter( 'contextual_help', 'members_admin_contextual_help', 10, 2 );
 
-	if ( members_cap_manager_enabled() )
-		$members->new_capabilities_page = add_submenu_page( 'users.php', esc_attr__( 'Add New Capability', 'members' ), esc_attr__( 'Add New Capability', 'members' ), 'edit_roles', 'capability-new', 'members_new_capability_page' );
-
 	/* Load post meta boxes on the post editing screen. */
 	add_action( 'load-post.php', 'members_admin_load_post_meta_boxes' );
 	add_action( 'load-post-new.php', 'members_admin_load_post_meta_boxes' );
