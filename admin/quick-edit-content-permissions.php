@@ -72,7 +72,7 @@ function quick_edit_content_permissions_box( $column_name, $post_type ) {
 
 add_action( 'admin_print_scripts-edit.php', 'enqueue_members_admin_quick_edit_scripts' );
 function enqueue_members_admin_quick_edit_scripts() {
-	wp_enqueue_script( 'manage-wp-posts-using-bulk-quick-edit', trailingslashit( plugin_dir_url( __FILE__ ) ) . 'js/quick-edit.js', array( 'jquery', 'inline-edit-post' ), '', true );
+	wp_enqueue_script( 'manage-wp-posts-using-bulk-quick-edit', trailingslashit( MEMBERS_URI ) . 'js/quick-edit.js', array( 'jquery', 'inline-edit-post' ), '20150804', true );
 }
 
 add_action( 'save_post', 'save_members_quick_edit', 10, 2 );
