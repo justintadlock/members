@@ -6,7 +6,6 @@
  * @subpackage Admin
  */
 
-
 add_action( 'current_screen', 'members_current_screen', 5 );
 
 function members_current_screen( $screen ) {
@@ -37,7 +36,6 @@ add_action( 'admin_menu', 'members_admin_setup' );
  * @since 0.2.0
  */
 function members_admin_setup() {
-	global $members;
 
 	/* Add contextual help to the "Help" tab for the plugin's pages in the admin. */
 	add_filter( 'contextual_help', 'members_admin_contextual_help', 10, 2 );
@@ -79,16 +77,6 @@ function members_admin_enqueue_style( $hook_suffix ) {
 }
 
 /**
- * Loads the admin JavaScript for the required pages based off the $hook_suffix parameter.
- *
- * @since 0.2.0
- * @param string $hook_suffix The hook for the current page in the admin.
- */
-function members_admin_enqueue_scripts( $hook_suffix ) {
-
-}
-
-/**
  * Loads meta boxes for the post editing screen.
  *
  * @since 0.2.0
@@ -98,36 +86,6 @@ function members_admin_load_post_meta_boxes() {
 	/* If the content permissions component is active, load its post meta box. */
 	if ( members_content_permissions_enabled() )
 		require_once( MEMBERS_ADMIN . 'meta-box-post-content-permissions.php' );
-}
-
-/**
- * Loads the role manager main page (Roles).
- *
- * @since 0.1.0
- */
-function members_edit_roles_page() {
-}
-
-function members_edit_capabilities_page() {
-	require_once( members_plugin()->admin_dir . 'page-capabilities.php' );
-}
-
-/**
- * Loads the New Role page.
- *
- * @since 0.1.0
- */
-function members_new_role_page() {
-}
-
-
-/**
- * Loads the New Role page.
- *
- * @since 1.0.0
- */
-function members_new_capability_page() {
-	require_once( members_plugin()->admin_dir . 'page-capability-new.php' );
 }
 
 /**
@@ -199,37 +157,6 @@ function members_admin_contextual_help( $text, $screen ) {
 
 	/* Return the contextual help text. */
 	return $text;
-}
-
-/**
- * Message to show when a single role has been deleted.
- *
- * @since 0.1.0
- */
-function members_message_role_deleted() {
-	members_admin_message( '', __( 'Role deleted.', 'members' ) );
-}
-
-/**
- * Message to show when multiple roles have been deleted (bulk delete).
- *
- * @since 0.1.0
- */
-function members_message_roles_deleted() {
-	members_admin_message( '', __( 'Selected roles deleted.', 'members' ) );
-}
-
-/**
- * A function for displaying messages in the admin.  It will wrap the message in the appropriate <div> with the
- * custom class entered.  The updated class will be added if no $class is given.
- *
- * @since 0.1.0
- * @param $class string Class the <div> should have.
- * @param $message string The text that should be displayed.
- */
-function members_admin_message( $class = 'updated', $message = '' ) {
-
-	echo '<div class="' . ( !empty( $class ) ? esc_attr( $class ) : 'updated' ) . '"><p><strong>' . $message . '</strong></p></div>';
 }
 
 /**

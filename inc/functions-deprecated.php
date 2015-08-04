@@ -45,3 +45,11 @@ function members_get_avatar_shortcode() {}
 function members_version_check() {}
 function members_install() {}
 function members_update() {}
+function members_edit_roles_page() {}
+function members_edit_capabilities_page() {}
+function members_new_role_page() {}
+function members_new_capability_page() {}
+function members_message_role_deleted() {}
+function members_message_roles_deleted() {}
+function members_admin_message() {}
+function members_admin_enqueue_scripts() {}
