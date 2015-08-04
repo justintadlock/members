@@ -112,15 +112,3 @@ function save_members_quick_edit( $post_id, $post ) {
 		}
 	}
 }
-/*
-add_action( 'wp_ajax_manage_wp_posts_using_bulk_quick_save_bulk_edit', 'manage_wp_posts_using_bulk_quick_save_bulk_edit' );
-function manage_wp_posts_using_bulk_quick_save_bulk_edit() {
-	global $wp_roles;
-	
-	// we need the post IDs
-	$post_ids = ( isset( $_POST[ 'post_ids' ] ) && !empty( $_POST[ 'post_ids' ] ) ) ? $_POST[ 'post_ids' ] : NULL;
-		
-
-	add_post_meta( 43, '_members_access_role', 'sales_rep' );
-
-}*/
