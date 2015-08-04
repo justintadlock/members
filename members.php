@@ -149,6 +149,9 @@ class Members_Load {
 
 			/* Load the plugin settings. */
 			require_once( MEMBERS_ADMIN . 'settings.php' );
+			
+			/* Load the plugin settings. */
+			require_once( MEMBERS_ADMIN . 'quick-edit-content-permissions.php' );
 		}
 	}
 
