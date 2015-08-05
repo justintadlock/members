@@ -256,10 +256,11 @@ final class Members_Plugin {
 			require_once( $this->admin_dir . 'admin.php'          );
 			require_once( $this->admin_dir . 'class-settings.php' );
 
-			require_once( $this->admin_dir . 'class-manage-roles.php' );
-			require_once( $this->admin_dir . 'class-roles.php'        );
-			require_once( $this->admin_dir . 'class-role-edit.php'    );
-			require_once( $this->admin_dir . 'class-role-new.php'     );
+			require_once( $this->admin_dir . 'class-manage-roles.php'              );
+			require_once( $this->admin_dir . 'class-roles.php'                     );
+			require_once( $this->admin_dir . 'class-role-edit.php'                 );
+			require_once( $this->admin_dir . 'class-role-new.php'                  );
+			require_once( $this->admin_dir . 'quick-edit-content-permissions.php'  );
 
 			require_once( $this->admin_dir . 'page-capabilities.php' );
 			require_once( $this->admin_dir . 'class-cap-new.php'     );
