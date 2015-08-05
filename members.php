@@ -149,7 +149,7 @@ final class Members_Plugin {
 	 * @return void
 	 */
 	public function __toString() {
-		return __( 'Members', 'members' );
+		return esc_html__( 'Members', 'members' );
 	}
 
 	/**
@@ -160,7 +160,7 @@ final class Members_Plugin {
 	 * @return void
 	 */
 	public function __clone() {
-		_doing_it_wrong( __FUNCTION__, __( 'Whoah, partner!', 'members' ), '1.0.0' );
+		_doing_it_wrong( __FUNCTION__, esc_html__( 'Whoah, partner!', 'members' ), '1.0.0' );
 	}
 
 	/**
@@ -171,7 +171,7 @@ final class Members_Plugin {
 	 * @return void
 	 */
 	public function __wakeup() {
-		_doing_it_wrong( __FUNCTION__, __( 'Whoah, partner!', 'members' ), '1.0.0' );
+		_doing_it_wrong( __FUNCTION__, esc_html__( 'Whoah, partner!', 'members' ), '1.0.0' );
 	}
 
 	/**
@@ -182,7 +182,7 @@ final class Members_Plugin {
 	 * @return null
 	 */
 	public function __call( $method = '', $args = array() ) {
-		_doing_it_wrong( "Members_Plugin::{$method}", __( 'Method does not exist.', 'members' ), '1.0.0' );
+		_doing_it_wrong( "Members_Plugin::{$method}", esc_html__( 'Method does not exist.', 'members' ), '1.0.0' );
 		unset( $method, $args );
 		return null;
 	}
@@ -196,13 +196,16 @@ final class Members_Plugin {
 	 */
 	private function setup() {
 
+		// Main plugin directory path and URI.
 		$this->dir_path = trailingslashit( plugin_dir_path( __FILE__ ) );
 		$this->dir_uri  = trailingslashit( plugin_dir_url(  __FILE__ ) );
 
+		// Plugin directory paths.
 		$this->inc_dir       = trailingslashit( $this->dir_path . 'inc'       );
 		$this->admin_dir     = trailingslashit( $this->dir_path . 'admin'     );
 		$this->templates_dir = trailingslashit( $this->dir_path . 'templates' );
 
+		// Plugin directory URIs.
 		$this->css_uri = trailingslashit( $this->dir_uri . 'css' );
 		$this->js_uri  = trailingslashit( $this->dir_uri . 'js'  );
 	}
@@ -274,9 +277,7 @@ final class Members_Plugin {
 	 * @return void
 	 */
 	public function i18n() {
-
-		/* Load the translation of the plugin. */
-		load_plugin_textdomain( 'members', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
+		load_plugin_textdomain( 'members', false, trailingslashit( dirname( plugin_basename( __FILE__ ) ) ). 'languages' );
 	}
 
 	/**
@@ -288,36 +289,31 @@ final class Members_Plugin {
 	 */
 	public function activation() {
 
-		/* Get the administrator role. */
+		// Get the administrator role.
 		$role = get_role( 'administrator' );
 
-		/* If the administrator role exists, add required capabilities for the plugin. */
+		// If the administrator role exists, add required capabilities for the plugin.
 		if ( !empty( $role ) ) {
 
-			/* Role management capabilities. */
-			$role->add_cap( 'list_roles' );
-			$role->add_cap( 'create_roles' );
-			$role->add_cap( 'delete_roles' );
-			$role->add_cap( 'edit_roles' );
-
-			/* Content permissions capabilities. */
-			$role->add_cap( 'restrict_content' );
+			$role->add_cap( 'list_roles'       ); // View roles in backend.
+			$role->add_cap( 'create_roles'     ); // Create new roles.
+			$role->add_cap( 'delete_roles'     ); // Delete existing roles.
+			$role->add_cap( 'edit_roles'       ); // Edit existing roles/caps.
+			$role->add_cap( 'restrict_content' ); // Edit per-post content permissions.
 		}
 
-		/**
-		 * If the administrator role does not exist for some reason, we have a bit of a problem
-		 * because this is a role management plugin and requires that someone actually be able to
-		 * manage roles.  So, we're going to create a custom role here.  The site administrator can
-		 * assign this custom role to any user they wish to work around this problem.  We're only
-		 * doing this for single-site installs of WordPress.  The 'super admin' has permission to do
-		 * pretty much anything on a multisite install.
-		 */
+		// If the administrator role does not exist for some reason, we have a bit of a problem
+		// because this is a role management plugin and requires that someone actually be able to
+		// manage roles.  So, we're going to create a custom role here.  The site administrator can
+		// assign this custom role to any user they wish to work around this problem.  We're only
+		// doing this for single-site installs of WordPress.  The 'super admin' has permission to do
+		// pretty much anything on a multisite install.
 		elseif ( empty( $role ) && !is_multisite() ) {
 
-			/* Add the 'members_role_manager' role with limited capabilities. */
+			// Add the `members_role_manager` role with limited capabilities.
 			add_role(
 				'members_role_manager',
-				_x( 'Role Manager', 'role', 'members' ),
+				esc_html_x( 'Role Manager', 'role', 'members' ),
 				array(
 					'read'       => true,
 					'list_roles' => true,
@@ -329,7 +325,7 @@ final class Members_Plugin {
 }
 
 /**
- * Gets the instance of the Members_Plugin class.  This function is useful for quickly grabbing data
+ * Gets the instance of the `Members_Plugin` class.  This function is useful for quickly grabbing data
  * used throughout the plugin.
  *
  * @since  1.0.0
