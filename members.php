@@ -205,13 +205,6 @@ final class Members_Plugin {
 
 		$this->css_uri = trailingslashit( $this->dir_uri . 'css' );
 		$this->js_uri  = trailingslashit( $this->dir_uri . 'js'  );
-
-		/* === Deprecated === */
-
-		global $members;
-
-		/* Set up an empty class for the global $members object. */
-		$members = new stdClass;
 	}
 
 	/**
