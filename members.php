@@ -1,11 +1,11 @@
 <?php
 /**
  * Plugin Name: Members
- * Plugin URI: http://themehybrid.com/plugins/members
+ * Plugin URI:  http://themehybrid.com/plugins/members
  * Description: A user, role, and content management plugin for controlling permissions and access. A plugin for making WordPress a more powerful <acronym title="Content Management System">CMS</acronym>.
- * Version: 0.2.5
- * Author: Justin Tadlock
- * Author URI: http://justintadlock.com
+ * Version:     1.0.0-alpha-1
+ * Author:      Justin Tadlock
+ * Author URI:  http://justintadlock.com
  *
  * The members plugin was created because the WordPress community is lacking a solid permissions
  * plugin that is both open source and works completely within the confines of the APIs in WordPress.
@@ -13,18 +13,21 @@
  * WordPress by making user, role, and content management as simple as using WordPress itself.
  *
  * This program is free software; you can redistribute it and/or modify it under the terms of the GNU
- * General Public License version 2, as published by the Free Software Foundation.  You may NOT assume
- * that you can use any other version of the GPL.
+ * General Public License as published by the Free Software Foundation; either version 2 of the License,
+ * or (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
  * even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @package Members
- * @version 0.2.5
- * @author Justin Tadlock <justin@justintadlock.com>
+ * You should have received a copy of the GNU General Public License along with this program; if not,
+ * write to the Free Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
+ *
+ * @package   Members
+ * @version   1.0.0
+ * @author    Justin Tadlock <justin@justintadlock.com>
  * @copyright Copyright (c) 2009 - 2015, Justin Tadlock
- * @link http://justintadlock.com/archives/2009/09/17/members-wordpress-plugin
- * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+ * @link      http://themehybrid.com/plugins/members
+ * @license   http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
 /**
