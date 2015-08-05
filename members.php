@@ -212,18 +212,6 @@ final class Members_Plugin {
 
 		/* Set up an empty class for the global $members object. */
 		$members = new stdClass;
-
-		/* Set the version number of the plugin. */
-		define( 'MEMBERS_VERSION', '0.2.5' );
-
-		/* Set the database version number of the plugin. */
-		define( 'MEMBERS_DB_VERSION', 2 );
-
-		/* Set constant path to the members plugin directory. */
-		define( 'MEMBERS_DIR',      $this->dir_path  );
-		define( 'MEMBERS_URI',      $this->dir_uri   );
-		define( 'MEMBERS_INCLUDES', $this->inc_dir   );
-		define( 'MEMBERS_ADMIN',    $this->admin_dir );
 	}
 
 	/**

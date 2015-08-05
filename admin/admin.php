@@ -85,7 +85,7 @@ function members_admin_load_post_meta_boxes() {
 
 	/* If the content permissions component is active, load its post meta box. */
 	if ( members_content_permissions_enabled() )
-		require_once( MEMBERS_ADMIN . 'meta-box-post-content-permissions.php' );
+		require_once( members_plugin()->admin_dir . 'meta-box-post-content-permissions.php' );
 }
 
 /**
@@ -107,7 +107,7 @@ function members_admin_contextual_help( $text, $screen ) {
 		$text .= '<p><strong>' . __( 'For more information:', 'members' ) . '</strong></p>';
 
 		$text .= '<ul>';
-		$text .= '<li><a href="' . MEMBERS_URI . 'docs/readme.html">' . __( 'Documentation', 'members' ) . '</a></li>';
+		$text .= '<li><a href="' . members_plugin()->dir_uri . 'docs/readme.html">' . __( 'Documentation', 'members' ) . '</a></li>';
 		$text .= '<li><a href="http://themehybrid.com/support">' . __( 'Support Forums', 'members' ) . '</a></li>';
 		$text .= '</ul>';
 	}
@@ -134,7 +134,7 @@ function members_admin_contextual_help( $text, $screen ) {
 
 		$text .= '<ul>';
 		$text .= '<li><a href="http://justintadlock.com/archives/2009/08/30/users-roles-and-capabilities-in-wordpress">' . __( 'Users, Roles, and Capabilities', 'members' ) . '</a></li>';
-		$text .= '<li><a href="' . MEMBERS_URI . 'docs/readme.html">' . __( 'Documentation', 'members' ) . '</a></li>';
+		$text .= '<li><a href="' . members_plugin()->dir_uri . 'docs/readme.html">' . __( 'Documentation', 'members' ) . '</a></li>';
 		$text .= '<li><a href="http://themehybrid.com/support">' . __( 'Support Forums', 'members' ) . '</a></li>';
 		$text .= '</ul>';
 	}
@@ -150,7 +150,7 @@ function members_admin_contextual_help( $text, $screen ) {
 
 		$text .= '<ul>';
 		$text .= '<li><a href="http://justintadlock.com/archives/2009/08/30/users-roles-and-capabilities-in-wordpress">' . __( 'Users, Roles, and Capabilities', 'members' ) . '</a></li>';
-		$text .= '<li><a href="' . MEMBERS_URI . 'docs/readme.html">' . __( 'Documentation', 'members' ) . '</a></li>';
+		$text .= '<li><a href="' . members_plugin()->dir_uri . 'docs/readme.html">' . __( 'Documentation', 'members' ) . '</a></li>';
 		$text .= '<li><a href="http://themehybrid.com/support">' . __( 'Support Forums', 'members' ) . '</a></li>';
 		$text .= '</ul>';
 	}
