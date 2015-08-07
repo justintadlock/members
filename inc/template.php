@@ -40,7 +40,7 @@ function members_can_user_view_post( $user_id, $post_id = '' ) {
 	if ( members_get_setting( 'content_permissions' ) ) {
 
 		/* Get the roles selected by the user. */
-		$roles = get_post_meta( $post_id, '_members_access_role', false );
+		$roles = members_get_post_roles( $post_id );
 
 		/* Check if there are any old roles with the '_role' meta key. */
 		if ( empty( $roles ) )

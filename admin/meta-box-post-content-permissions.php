@@ -116,23 +116,19 @@ function members_content_permissions_save_meta( $post_id, $post = '' ) {
 	if ( 'revision' == $post->post_type )
 		return;
 
-	$meta_values = get_post_meta( $post_id, '_members_access_role', false );
+	// Get the current roles.
+	$current_roles = members_get_post_roles( $post_id );
 
-	if ( isset( $_POST['members_access_role'] ) && is_array( $_POST['members_access_role'] ) ) {
+	// Get the new roles.
+	$new_roles = isset( $_POST['members_access_role'] ) ? $_POST['members_access_role'] : '';
 
-		foreach ( $_POST['members_access_role'] as $role ) {
-			if ( !in_array( $role, $meta_values ) )
-				add_post_meta( $post_id, '_members_access_role', $role, false );
-		}
+	// If we have an array of new roles, set the roles.
+	if ( is_array( $new_roles ) )
+		members_set_post_roles( $post_id, array_map( 'members_sanitize_role', $new_roles ) );
 
-		foreach ( $wp_roles->role_names as $role => $name ) {
-			if ( !in_array( $role, $_POST['members_access_role'] ) && in_array( $role, $meta_values ) )
-				delete_post_meta( $post_id, '_members_access_role', $role );
-		}
-	}
-	elseif ( !empty( $meta_values ) ) {
-		delete_post_meta( $post_id, '_members_access_role' );
-	}
+	// Else, if we have current roles but no new roles, delete them all.
+	elseif ( !empty( $current_roles ) )
+		members_delete_post_roles( $post_id );
 
 	$meta = array(
 		'_members_access_error' => stripslashes( wp_filter_post_kses( addslashes( $_POST['members_access_error'] ) ) )

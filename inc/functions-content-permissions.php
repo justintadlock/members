@@ -11,6 +11,89 @@
 add_action( 'after_setup_theme', 'members_enable_content_permissions', 0 );
 
 /**
+ * Returns an array of the roles for a given post.
+ *
+ * @since  1.0.0
+ * @access public
+ * @param  int    $post_id
+ * @return array
+ */
+function members_get_post_roles( $post_id ) {
+	return get_post_meta( $post_id, '_members_access_role', false );
+}
+
+/**
+ * Adds a single role to a post's access roles.
+ *
+ * @since  1.0.0
+ * @access public
+ * @param  int        $post_id
+ * @param  string     $role
+ * @return int|false
+ */
+function members_add_post_role( $post_id, $role ) {
+	return add_post_meta( $post_id, '_members_access_role', $role, false );
+}
+
+/**
+ * Removes a single role from a post's access roles.
+ *
+ * @since  1.0.0
+ * @access public
+ * @param  int        $post_id
+ * @param  string     $role
+ * @return bool
+ */
+function members_remove_post_role( $post_id, $role ) {
+	return delete_post_meta( $post_id, '_members_access_role', $role );
+}
+
+/**
+ * Sets a post's access roles given an array of roles.
+ *
+ * @since  1.0.0
+ * @access public
+ * @param  int     $post_id
+ * @param  array   $roles
+ * @global object  $wp_roles
+ * @return void
+ */
+function members_set_post_roles( $post_id, $roles ) {
+	global $wp_roles;
+
+	// Get the current roles.
+	$current_roles = get_post_meta( $post_id, '_members_access_role', false );
+
+	// Loop through new roles.
+	foreach ( $roles as $role ) {
+
+		// If new role is not already one of the current roles, add it.
+		if ( ! in_array( $role, $current_roles ) )
+			members_add_post_role( $post_id, $role );
+	}
+
+	// Loop through all WP roles.
+	foreach ( $wp_roles->role_names as $role => $name ) {
+
+		// If the WP role is one of the current roles but not a new role, remove it.
+		if ( ! in_array( $role, $roles ) && in_array( $role, $current_roles ) )
+			members_remove_post_role( $post_id, $role );
+	}
+}
+
+/**
+ * Deletes all of a post's access roles.
+ *
+ * @since  1.0.0
+ * @access public
+ * @param  int     $post_id
+ * @return bool
+ */
+function members_delete_post_roles( $post_id ) {
+	return delete_post_meta( $post_id, '_members_access_role' );
+}
+
+/**
  * Adds required filters for the content permissions feature if it is active.
  *
  * @since  0.2.0
