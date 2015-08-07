@@ -188,7 +188,7 @@ function members_content_permissions_comments( $template ) {
 function members_get_post_error_message( $post_id ) {
 
 	// Get the error message for the specific post.
-	$message = get_post_meta( $post_id, '_members_access_error', true );
+	$message = members_get_post_access_message( $post_id );
 
 	// Use default error message if we don't have one for the post.
 	if ( ! $message )
@@ -196,6 +196,43 @@ function members_get_post_error_message( $post_id ) {
 
 	// Return the error message.
 	return apply_filters( 'members_post_error_message', sprintf( '<div class="members-access-error">%s</div>', $message ) );
+}
+
+/**
+ * Returns the post access message.
+ *
+ * @since  1.0.0
+ * @access public
+ * @param  int     $post_id
+ * @return string
+ */
+function members_get_post_access_message( $post_id ) {
+	return get_post_meta( $post_id, '_members_access_error', true );
+}
+
+/**
+ * Sets the post access message.
+ *
+ * @since  1.0.0
+ * @access public
+ * @param  int     $post_id
+ * @param  string  $message
+ * @return bool
+ */
+function members_set_post_access_message( $post_id, $message ) {
+	return update_post_meta( $post_id, '_members_access_error', $message );
+}
+
+/**
+ * Deletes the post access message.
+ *
+ * @since  1.0.0
+ * @access public
+ * @param  int     $post_id
+ * @return bool
+ */
+function members_delete_post_access_message( $post_id ) {
+	return delete_post_meta( $post_id, '_members_access_error' );
 }
 
 /**

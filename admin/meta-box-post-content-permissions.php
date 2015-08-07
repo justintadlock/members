@@ -91,29 +91,13 @@ function members_content_permissions_meta_box( $object, $box ) {
  * @since 0.1.0
  */
 function members_content_permissions_save_meta( $post_id, $post = '' ) {
-	global $wp_roles;
 
-	/* Fix for attachment save issue in WordPress 3.5. @link http://core.trac.wordpress.org/ticket/21963 */
+	// Fix for attachment save issue in WordPress 3.5. @link http://core.trac.wordpress.org/ticket/21963
 	if ( !is_object( $post ) )
 		$post = get_post();
 
-	/* Verify the nonce. */
-	if ( !isset( $_POST['content_permissions_meta_nonce'] ) || !wp_verify_nonce( $_POST['content_permissions_meta_nonce'], plugin_basename( __FILE__ ) ) )
-		return false;
-
-	if ( defined('DOING_AUTOSAVE') && DOING_AUTOSAVE ) return;
-	if ( defined('DOING_AJAX') && DOING_AJAX ) return;
-	if ( defined('DOING_CRON') && DOING_CRON ) return;
-
-	/* Get the post type object. */
-	$post_type = get_post_type_object( $post->post_type );
-
-	/* Check if the current user has permission to edit the post. */
-	if ( !current_user_can( $post_type->cap->edit_post, $post_id ) )
-		return $post_id;
-
-	/* Don't save if the post is only a revision. */
-	if ( 'revision' == $post->post_type )
+	// Verify the nonce.
+	if ( ! isset( $_POST['content_permissions_meta_nonce'] ) || ! wp_verify_nonce( $_POST['content_permissions_meta_nonce'], plugin_basename( __FILE__ ) ) )
 		return;
 
 	// Get the current roles.
@@ -130,26 +114,17 @@ function members_content_permissions_save_meta( $post_id, $post = '' ) {
 	elseif ( !empty( $current_roles ) )
 		members_delete_post_roles( $post_id );
 
-	$meta = array(
-		'_members_access_error' => stripslashes( wp_filter_post_kses( addslashes( $_POST['members_access_error'] ) ) )
-	);
+	// Get the old access message.
+	$old_message = members_get_post_access_message( $post_id );
 
-	foreach ( $meta as $meta_key => $new_meta_value ) {
+	// Get the new message.
+	$new_message = isset( $_POST['members_access_error'] ) ? stripslashes( wp_filter_post_kses( addslashes( $_POST['members_access_error'] ) ) ) : '';
 
-		/* Get the meta value of the custom field key. */
-		$meta_value = get_post_meta( $post_id, $meta_key, true );
+	// If we have don't have a new message but do have an old one, delete it.
+	if ( '' == $new_message && $old_message )
+		members_delete_post_access_message( $post_id );
 
-		/* If a new meta value was added and there was no previous value, add it. */
-		if ( $new_meta_value && '' == $meta_value )
-			add_post_meta( $post_id, $meta_key, $new_meta_value, true );
-
-		/* If the new meta value does not match the old value, update it. */
-		elseif ( $new_meta_value && $new_meta_value != $meta_value )
-			update_post_meta( $post_id, $meta_key, $new_meta_value );
-
-		/* If there is no new meta value but an old value exists, delete it. */
-		elseif ( '' == $new_meta_value && $meta_value )
-			delete_post_meta( $post_id, $meta_key, $meta_value );
-	}
-
+	// If the new message doesn't match the old message, set it.
+	else if ( $new_message !== $old_message )
+		members_set_post_access_message( $post_id, $new_message );
 }
