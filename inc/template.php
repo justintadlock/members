@@ -32,12 +32,10 @@ function members_can_user_view_post( $user_id, $post_id = '' ) {
 	/* Assume the user can view the post at this point. */
 	$can_view = true;
 
-	/**
-	 * The plugin is only going to handle permissions if the 'content permissions' feature is active.  If
-	 * not active, the user can always view the post.  However, developers can roll their own handling of
-	 * this and filter 'members_can_user_view_post'.
-	 */
-	if ( members_get_setting( 'content_permissions' ) ) {
+	// The plugin is only going to handle permissions if the 'content permissions' feature
+	// is active.  If not active, the user can always view the post.  However, developers
+	// can roll their own handling of this and filter `members_can_user_view_post`.
+	if ( members_content_permissions_enabled() ) {
 
 		/* Get the roles selected by the user. */
 		$roles = members_get_post_roles( $post_id );
