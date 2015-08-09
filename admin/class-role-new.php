@@ -260,8 +260,10 @@ final class Members_Admin_Role_New {
 								<?php $i = -1; foreach ( members_get_capabilities() as $cap ) : ?>
 
 									<div class="members-role-checkbox <?php if ( ++$i % 3 == 0 ) echo 'clear'; ?>">
-										<input type="checkbox" name="capabilities[<?php echo esc_attr( $cap ); ?>]" id="capabilities-<?php echo esc_attr( $cap ); ?>" <?php checked( in_array( $cap, $this->capabilities ) ); ?> />
-										<label for="capabilities-<?php echo esc_attr( $cap ); ?>" class="<?php echo in_array( $cap, $this->capabilities ) ? 'has-cap' : 'has-cap-not'; ?>"><?php echo esc_html( $cap ); ?></label>
+										<label>
+											<input type="checkbox" name="capabilities[<?php echo esc_attr( $cap ); ?>]" <?php checked( in_array( $cap, $this->capabilities ) ); ?> />
+											<?php echo esc_html( $cap ); ?>
+										</label>
 									</div>
 
 								<?php endforeach; ?>

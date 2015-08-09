@@ -189,7 +189,7 @@ final class Members_Admin_Role_Edit {
 
 									<div class="members-role-checkbox <?php if ( ++$i % 3 == 0 ) echo 'clear'; ?>">
 										<?php $has_cap = $this->role->has_cap( $cap ) ? true : false; // Note: $role->has_cap() returns a string intead of TRUE. ?>
-										<label class="<?php echo ( $has_cap ? 'has-cap' : 'has-cap-not' ); ?>">
+										<label>
 											<input type="checkbox" name="<?php echo esc_attr( "role-caps[{$this->role->name}-{$cap}]" ); ?>" <?php checked( true, $has_cap ); ?> value="true"<?php echo $disabled; ?> />
 											<?php echo esc_html( $cap ); ?>
 										</label>
