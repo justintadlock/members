@@ -87,9 +87,9 @@ final class Members_Settings_Page {
 
 		// Add settings sections.
 		add_settings_section( 'roles_caps',          esc_html__( 'Roles and Capabilities', 'members' ), array( $this, 'section_roles_caps'          ), $this->settings_page );
-		add_settings_section( 'content_permissions', esc_html__( 'Content Permissions',   'members' ), array( $this, 'section_content_permissions' ), $this->settings_page );
-		add_settings_section( 'sidebar_widgets',     esc_html__( 'Sidebar Widgets',       'members' ), array( $this, 'section_sidebar_widgets'     ), $this->settings_page );
-		add_settings_section( 'private_site',        esc_html__( 'Private Site',          'members' ), array( $this, 'section_private_site'        ), $this->settings_page );
+		add_settings_section( 'content_permissions', esc_html__( 'Content Permissions',    'members' ), array( $this, 'section_content_permissions' ), $this->settings_page );
+		add_settings_section( 'sidebar_widgets',     esc_html__( 'Sidebar Widgets',        'members' ), array( $this, 'section_sidebar_widgets'     ), $this->settings_page );
+		add_settings_section( 'private_site',        esc_html__( 'Private Site',           'members' ), array( $this, 'section_private_site'        ), $this->settings_page );
 
 		// Add settings fields.
 		add_settings_field( 'enable_role_manager', esc_html__( 'Role Manager',       'members' ), array( $this, 'field_enable_role_manager' ), $this->settings_page, 'roles_caps' );
