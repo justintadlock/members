@@ -21,7 +21,7 @@ final class Members_Settings_Page {
 	public $settings_page = '';
 
 	/**
-	 * Holds an array the plugin settings.
+	 * Holds an array of plugin settings.
 	 *
 	 * @since  1.0.0
 	 * @access public
