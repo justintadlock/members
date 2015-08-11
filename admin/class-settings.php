@@ -96,7 +96,7 @@ final class Members_Settings_Page {
 		add_settings_field( 'enable_cap_manager',  esc_html__( 'Capability Manager', 'members' ), array( $this, 'field_enable_cap_manager'  ), $this->settings_page, 'roles_caps' );
 
 		add_settings_field( 'enable_content_permissions', esc_html__( 'Enable Permissions', 'members' ), array( $this, 'field_enable_content_permissions' ), $this->settings_page, 'content_permissions' );
-		add_settings_field( 'content_permissions_error',  esc_html__( 'Error Message',              'members' ), array( $this, 'field_content_permissions_error'  ), $this->settings_page, 'content_permissions' );
+		add_settings_field( 'content_permissions_error',  esc_html__( 'Error Message',      'members' ), array( $this, 'field_content_permissions_error'  ), $this->settings_page, 'content_permissions' );
 
 		add_settings_field( 'widget_login', esc_html__( 'Login Widget', 'members' ), array( $this, 'field_widget_login' ), $this->settings_page, 'sidebar_widgets' );
 		add_settings_field( 'widget_users', esc_html__( 'Users Widget', 'members' ), array( $this, 'field_widget_users' ), $this->settings_page, 'sidebar_widgets' );
