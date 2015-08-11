@@ -86,7 +86,7 @@ final class Members_Settings_Page {
 		register_setting( 'members_settings', 'members_settings', array( $this, 'validate_settings' ) );
 
 		// Add settings sections.
-		add_settings_section( 'roles_caps',          esc_html__( 'Role and Capabilities', 'members' ), array( $this, 'section_roles_caps'          ), $this->settings_page );
+		add_settings_section( 'roles_caps',          esc_html__( 'Roles and Capabilities', 'members' ), array( $this, 'section_roles_caps'          ), $this->settings_page );
 		add_settings_section( 'content_permissions', esc_html__( 'Content Permissions',   'members' ), array( $this, 'section_content_permissions' ), $this->settings_page );
 		add_settings_section( 'sidebar_widgets',     esc_html__( 'Sidebar Widgets',       'members' ), array( $this, 'section_sidebar_widgets'     ), $this->settings_page );
 		add_settings_section( 'private_site',        esc_html__( 'Private Site',          'members' ), array( $this, 'section_private_site'        ), $this->settings_page );
