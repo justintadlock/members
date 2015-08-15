@@ -114,3 +114,42 @@ function members_can_current_user_view_post( $post_id = '' ) {
 
 	return members_can_user_view_post( get_current_user_id(), $post_id );
 }
+
+/**
+ * Function for listing users like the WordPress function currently uses for authors.
+ *
+ * @link   http://core.trac.wordpress.org/ticket/15145
+ * @since  0.1.0
+ * @access public
+ * @param  array  $args
+ * @return string
+ */
+function members_list_users( $args = array() ) {
+
+	$output = '';
+	$users = get_users( $args );
+
+	if ( ! empty( $users ) ) {
+
+		foreach ( $users as $user ) {
+
+			$url = get_author_posts_url( $author->ID, $author->user_nicename );
+
+			$class = sanitize_html_class( "user-{$user->ID}" );
+
+			if ( is_author( $user->ID ) )
+				$class .= ' current-user';
+
+			$output .= sprintf( '<li class="%s"><a href="%s">%s</a></li>', esc_attr( $class ), esc_url( $url ), esc_html( $user->display_name ) );
+		}
+
+		$output = sprintf( '<ul class="xoxo members-list-users">%s</ul>', $output );
+	}
+
+	$output = apply_filters( 'members_list_users', $output );
+
+	if ( ! $args['echo'] )
+		return $output;
+
+	echo $output;
+}
