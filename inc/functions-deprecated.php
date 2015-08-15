@@ -33,6 +33,24 @@ function members_count_roles() {
 	return members_get_role_count();
 }
 
+/**
+ * @since      0.1.0
+ * @deprecated 1.0.0
+ */
+function members_get_default_capabilities() {
+	_deprecated_function( __FUNCTION__, '1.0.0', 'members_get_wp_capabilities' );
+	return members_get_wp_capabilities();
+}
+
+/**
+ * @since      0.1.0
+ * @deprecated 1.0.0
+ */
+function members_get_additional_capabilities() {
+	_deprecated_function( __FUNCTION__, '1.0.0', 'members_get_plugin_capabilities' );
+	return members_get_plugin_capabilities();
+}
+
 /* ====== Functions removed in the 1.0 branch. ====== */
 
 if ( !function_exists( 'has_role' ) ) { function has_role() {} }
