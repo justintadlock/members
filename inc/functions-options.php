@@ -1,13 +1,44 @@
 <?php
+/**
+ * Functions for handling plugin options.
+ *
+ * @package    Members
+ * @subpackage Includes
+ * @author     Justin Tadlock <justin@justintadlock.com>
+ * @copyright  Copyright (c) 2009 - 2015, Justin Tadlock
+ * @link       http://themehybrid.com/plugins/members
+ * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+ */
 
+/**
+ * Conditional check to see if the role manager is enabled.
+ *
+ * @since  1.0.0
+ * @access public
+ * @return bool
+ */
 function members_role_manager_enabled() {
 	return apply_filters( 'members_role_manager_enabled', members_get_setting( 'role_manager' ) );
 }
 
+/**
+ * Conditional check to see if the cap manager is enabled.
+ *
+ * @since  1.0.0
+ * @access public
+ * @return bool
+ */
 function members_cap_manager_enabled() {
 	return apply_filters( 'members_cap_manager_enabled', members_get_setting( 'cap_manager' ) );
 }
 
+/**
+ * Conditional check to see if content permissions are enabled.
+ *
+ * @since  1.0.0
+ * @access public
+ * @return bool
+ */
 function members_content_permissions_enabled() {
 	return apply_filters( 'members_content_permissions_enabled', members_get_setting( 'content_permissions' ) );
 }
