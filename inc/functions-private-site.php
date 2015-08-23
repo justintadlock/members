@@ -42,6 +42,17 @@ function members_is_private_blog() {
 }
 
 /**
+ * Conditional tag to see if we have a private feed.
+ *
+ * @since  1.0.0
+ * @access public
+ * @return bool
+ */
+function members_is_private_feed() {
+	return members_get_setting( 'private_feed' );
+}
+
+/**
  * Redirects users that are not logged in to the 'wp-login.php' page.
  *
  * @since  0.1.0
@@ -73,7 +84,7 @@ function members_please_log_in() {
  */
 function members_private_feed( $content ) {
 
-	if ( members_get_setting( 'private_feed' ) )
+	if ( members_is_private_feed() )
 		$content = apply_filters( 'members_feed_error_message', members_get_setting( 'private_feed_error' ) );
 
 	return $content;
