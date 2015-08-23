@@ -22,17 +22,21 @@ add_action( 'init', 'members_register_shortcodes' );
  */
 function members_register_shortcodes() {
 
-	// Add the [login-form] shortcode.
-	add_shortcode( 'login-form', 'members_login_form_shortcode' );
+	// Add the `[members_login_form]` shortcode.
+	add_shortcode( 'members_login_form', 'members_login_form_shortcode' );
+	add_shortcode( 'login-form',         'members_login_form_shortcode' ); // @deprecated 1.0.0
 
-	// Add the [access] shortcode.
-	add_shortcode( 'access', 'members_access_check_shortcode' );
+	// Add the `[members_access]` shortcode.
+	add_shortcode( 'members_access', 'members_access_check_shortcode' );
+	add_shortcode( 'access',         'members_access_check_shortcode' ); // @deprecated 1.0.0
 
-	// Add the [feed] shortcode.
-	add_shortcode( 'feed', 'members_feed_shortcode' );
+	// Add the `[members_feed]` shortcode.
+	add_shortcode( 'members_feed', 'members_feed_shortcode' );
+	add_shortcode( 'feed',         'members_feed_shortcode' ); // @deprecated 1.0.0
 
-	// Add the [is_user_logged_in] shortcode.
-	add_shortcode( 'is_user_logged_in', 'members_is_user_logged_in_shortcode' );
+	// Add the `[members_logged_in]` shortcode.
+	add_shortcode( 'members_logged_in', 'members_is_user_logged_in_shortcode' );
+	add_shortcode( 'is_user_logged_in', 'members_is_user_logged_in_shortcode' ); // @deprecated 1.0.0
 
 	// @deprecated 0.2.0.
 	add_shortcode( 'get_avatar', 'members_get_avatar_shortcode' );
@@ -51,16 +55,11 @@ function members_register_shortcodes() {
  */
 function members_is_user_logged_in_shortcode( $attr, $content = null ) {
 
-	// If it is a feed or the user is not logged in, return nothing.
-	if ( is_feed() || ! is_user_logged_in() || is_null( $content ) )
-		return '';
-
-	// Return the content.
-	return do_shortcode( $content );
+	return is_feed() || ! is_user_logged_in() || is_null( $content ) ? '' : do_shortcode( $content );
 }
 
 /**
- * Content that should only be shown in feed readers.  Can be useful for displaying 
+ * Content that should only be shown in feed readers.  Can be useful for displaying
  * feed-specific items.
  *
  * @since  0.1.0
@@ -71,18 +70,13 @@ function members_is_user_logged_in_shortcode( $attr, $content = null ) {
  */
 function members_feed_shortcode( $attr, $content = null ) {
 
-	// If not feed or no content exists, return nothing.
-	if ( ! is_feed() || is_null( $content ) )
-		return '';
-
-	// Return the content.
-	return do_shortcode( $content );
+	return ! is_feed() || is_null( $content ) ? '' : do_shortcode( $content );
 }
 
 /**
- * Provide/restrict access to specific roles or capabilities. This content should not be shown 
- * in feeds.  Note that capabilities are checked first.  If a capability matches, any roles 
- * added will *not* be checked.  Users should choose between using either capabilities or roles 
+ * Provide/restrict access to specific roles or capabilities. This content should not be shown
+ * in feeds.  Note that capabilities are checked first.  If a capability matches, any roles
+ * added will *not* be checked.  Users should choose between using either capabilities or roles
  * for the check rather than both.  The best option is to always use a capability.
  *
  * @since  0.1.0
@@ -93,6 +87,10 @@ function members_feed_shortcode( $attr, $content = null ) {
  */
 function members_access_check_shortcode( $attr, $content = null ) {
 
+	// If there's no content or if viewing a feed, return an empty string.
+	if ( is_null( $content ) || is_feed() )
+		return '';
+
 	// Set up the default attributes.
 	$defaults = array(
 		'capability' => '',  // Single capability or comma-separated multiple capabilities.
@@ -100,17 +98,13 @@ function members_access_check_shortcode( $attr, $content = null ) {
 	);
 
 	// Merge the input attributes and the defaults.
-	extract( shortcode_atts( $defaults, $attr ) );
-
-	// If there's no content or if viewing a feed, return an empty string.
-	if ( is_null( $content ) || is_feed() )
-		return '';
+	shortcode_atts( $defaults, $attr, 'members_access' );
 
 	// If the current user has the capability, show the content.
-	if ( ! empty( $capability ) ) {
+	if ( $attr['capability'] ) {
 
 		// Get the capabilities.
-		$caps = explode( ',', $capability );
+		$caps = explode( ',', $attr['capability'] );
 
 		// Loop through each capability.
 		foreach ( $caps as $cap ) {
@@ -122,16 +116,16 @@ function members_access_check_shortcode( $attr, $content = null ) {
 	}
 
 	// If the current user has the role, show the content.
-	if ( ! empty( $role ) ) {
+	if ( $attr['role'] ) {
 
 		// Get the roles.
-		$roles = explode( ',', $role );
+		$roles = explode( ',', $attr['role'] );
 
 		// Loop through each of the roles.
 		foreach ( $roles as $role ) {
 
 			// If the current user has the role, return the content.
-			if ( current_user_can( trim( $role ) ) )
+			if ( members_user_has_role( trim( $role ) ) )
 				return do_shortcode( $content );
 		}
 	}
