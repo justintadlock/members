@@ -140,12 +140,9 @@ function members_enable_content_permissions() {
  */
 function members_content_permissions_protect( $content ) {
 
-	// If the current user can view the post, return the post content.
-	if ( members_can_current_user_view_post( get_the_ID() ) )
-		return $content;
+	$post_id = get_the_ID();
 
-	// Return an error message at this point.
-	return members_get_post_error_message( get_the_ID() );
+	return members_can_current_user_view_post( $post_id ) ? $content : members_get_post_error_message( $post_id );
 }
 
 /**
@@ -159,7 +156,7 @@ function members_content_permissions_protect( $content ) {
 function members_content_permissions_comments( $template ) {
 
 	// Check if the current user has permission to view the comments' post.
-	if ( !members_can_current_user_view_post( get_the_ID() ) ) {
+	if ( ! members_can_current_user_view_post( get_the_ID() ) ) {
 
 		// Look for a 'comments-no-access.php' template in the parent and child theme.
 		$has_template = locate_template( array( 'comments-no-access.php' ) );

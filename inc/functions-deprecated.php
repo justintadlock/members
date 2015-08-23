@@ -2,8 +2,12 @@
 /**
  * Deprecated functions that are being phased out completely or should be replaced with other functions.
  *
- * @package Members
- * @subpackage Functions
+ * @package    Members
+ * @subpackage Includes
+ * @author     Justin Tadlock <justin@justintadlock.com>
+ * @copyright  Copyright (c) 2009 - 2015, Justin Tadlock
+ * @link       http://themehybrid.com/plugins/members
+ * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
 /**

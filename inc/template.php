@@ -129,7 +129,7 @@ function members_can_current_user_view_post( $post_id = '' ) {
 function members_list_users( $args = array() ) {
 
 	$output = '';
-	$users = get_users( $args );
+	$users  = get_users( $args );
 
 	if ( ! empty( $users ) ) {
 
@@ -150,7 +150,7 @@ function members_list_users( $args = array() ) {
 
 	$output = apply_filters( 'members_list_users', $output );
 
-	if ( ! $args['echo'] )
+	if ( empty( $args['echo'] ) )
 		return $output;
 
 	echo $output;
