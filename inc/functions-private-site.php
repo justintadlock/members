@@ -84,8 +84,17 @@ function members_please_log_in() {
  */
 function members_private_feed( $content ) {
 
-	if ( members_is_private_feed() )
-		$content = apply_filters( 'members_feed_error_message', members_get_setting( 'private_feed_error' ) );
+	return members_is_private_feed() ? members_get_private_feed_message() : $content;
+}
 
-	return $content;
+/**
+ * Returns the private feed error message.
+ *
+ * @since  1.0.0
+ * @access public
+ * @return string
+ */
+function members_get_private_feed_message() {
+
+	return apply_filters( 'members_feed_error_message', members_get_setting( 'private_feed_error' ) );
 }
