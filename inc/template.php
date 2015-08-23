@@ -77,8 +77,10 @@ function members_can_user_view_post( $user_id, $post_id = '' ) {
 				// Loop through each role and set $can_view to true if the user has one of the roles.
 				foreach ( $roles as $role ) {
 
-					if ( members_user_has_role( $user_id, $role ) )
+					if ( members_user_has_role( $user_id, $role ) ) {
 						$can_view = true;
+						break;
+					}
 				}
 			}
 		}
