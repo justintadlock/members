@@ -46,6 +46,8 @@ class Members_Role {
 	 */
 	public $is_editable = false;
 
+	public $is_wordpress_role = false;
+
 	/**
 	 * Whether the role has users.
 	 *

@@ -121,6 +121,22 @@ function members_get_uneditable_role_names() {
 	return $uneditable;
 }
 
+/**
+ * Returns an array of core WordPress role names.
+ *
+ * @since  1.0.0
+ * @access public
+ * @return array
+ */
+function members_get_wordpress_role_names() {
+	$names = array();
+
+	foreach ( members_role_factory()->wordpress as $role )
+		$names[ $role->role ] = $role->name;
+
+	return $names;
+}
+
 /* ====== Single Role Functions ====== */
 
 /**
@@ -248,6 +264,18 @@ function members_is_role_editable( $role ) {
 	return members_role_factory()->get_role( $role )->is_editable;
 }
 
+/**
+ * Conditional tag to check whether a role is a core WordPress URL.
+ *
+ * @since  1.0.0
+ * @access public
+ * @param  string  $role
+ * @return bool
+ */
+function members_is_wordpress_role( $role ) {
+	return in_array( $role, array( 'administrator', 'editor', 'author', 'contributor', 'subscriber' ) );
+}
+
 /* ====== URLs ====== */
 
 /**
@@ -348,6 +376,20 @@ function members_get_editable_roles_url( $raw = false ) {
 function members_get_uneditable_roles_url( $raw = false ) {
 
 	$url = add_query_arg( 'role_view', 'uneditable', members_get_edit_roles_url( $raw ) );
+
+	return $raw ? $url : esc_url( $url );
+}
+
+/**
+ * Returns the URL for the edit WordPress roles admin screen.
+ *
+ * @since  1.0.0
+ * @access public
+ * @return string
+ */
+function members_get_wordpress_roles_url( $raw = false ) {
+
+	$url = add_query_arg( 'role_view', 'wordpress', members_get_edit_roles_url( $raw ) );
 
 	return $raw ? $url : esc_url( $url );
 }

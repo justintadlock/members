@@ -65,6 +65,15 @@ final class Members_Role_Factory {
 	public $uneditable = array();
 
 	/**
+	 * Array of core WordPress roles.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @var    array
+	 */
+	public $wordpress = array();
+
+	/**
 	 * Private constructor method to prevent a new instance of the object.
 	 *
 	 * @since  1.0.0
@@ -100,6 +109,10 @@ final class Members_Role_Factory {
 				$this->editable[ $role ] = $this->roles[ $role ];
 			else
 				$this->uneditable[ $role ] = $this->roles[ $role ];
+
+			// Is WP role?
+			if ( members_is_wordpress_role( $role ) )
+				$this->wordpress[ $role ] = $this->roles[ $role ];
 		}
 	}
 
