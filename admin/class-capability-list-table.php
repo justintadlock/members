@@ -84,10 +84,10 @@ class Members_Capability_List_Table extends WP_List_Table {
 			$caps = $this->current_user_caps;
 
 		elseif ( 'core' === $this->cap_view )
-			$caps = members_get_default_capabilities();
+			$caps = members_get_wp_capabilities();
 
 		elseif ( 'members' === $this->cap_view )
-			$caps = members_get_additional_capabilities();
+			$caps = members_get_plugin_capabilities();
 
 		if ( isset( $_GET['role'] ) ) {
 			$role = members_sanitize_role( $_GET['role'] );
@@ -312,8 +312,8 @@ class Members_Capability_List_Table extends WP_List_Table {
 
 		$all_count        = count( members_get_capabilities()            );
 		$mine_count       = count( $this->current_user_caps );
-		$core_count       = count( members_get_default_capabilities()          );
-		$members_count     = count( members_get_additional_capabilities()          );
+		$core_count       = count( members_get_wp_capabilities()          );
+		$members_count     = count( members_get_plugin_capabilities()          );
 
 		$_views = array(
 			'all'        => array( 'url' => $all_url,        'label' => sprintf( _n( 'All %s',        'All %s',        $all_count,        'members' ), sprintf( '<span class="count">(%s)</span>', number_format_i18n( $all_count        ) ) ) ),
