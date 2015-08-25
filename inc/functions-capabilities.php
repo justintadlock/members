@@ -50,7 +50,7 @@ function members_is_cap_editable( $cap ) {
 
 	$uneditable = array_keys( members_get_uneditable_role_names() );
 
-	return ! in_array( $cap, members_get_default_capabilities() ) && ! array_intersect( $uneditable, members_get_cap_roles( $cap ) );
+	return ! in_array( $cap, members_get_wp_capabilities() ) && ! array_intersect( $uneditable, members_get_cap_roles( $cap ) );
 }
 
 /**
