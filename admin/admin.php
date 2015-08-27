@@ -227,3 +227,50 @@ function members_get_user_meta_keys() {
 
 	return $keys;
 }
+
+
+add_filter( 'manage_users_columns', 'members_manage_users_columns' );
+
+function members_manage_users_columns( $columns ) {
+
+	if ( isset( $columns['role'] ) )
+		unset( $columns['role'] );
+
+	$columns['roles'] = esc_html__( 'Roles', 'members' );
+
+	if ( isset( $columns['posts'] ) ) {
+		$p = $columns['posts'];
+		unset( $columns['posts'] );
+		$columns['posts'] = $p;
+	}
+
+	return $columns;
+}
+
+
+add_filter( 'manage_users_custom_column', 'members_manage_users_custom_column', 10, 3 );
+
+function members_manage_users_custom_column( $output, $column, $user_id ) {
+	global $wp_roles;
+
+	if ( 'roles' === $column ) {
+
+		$user = new WP_User( $user_id );
+
+		$user_roles = array();
+		$output = esc_html__( 'None', 'members' );
+
+		if ( is_array( $user->roles ) ) {
+
+			foreach ( $user->roles as $role ) {
+
+				if ( isset( $wp_roles->role_names[ $role ] ) )
+					$user_roles[] = translate_user_role( $wp_roles->role_names[ $role ] );
+			}
+
+			$output = join( ', ', $user_roles );
+		}
+	}
+
+	return $output;
+}
