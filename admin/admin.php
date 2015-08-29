@@ -233,6 +233,10 @@ add_filter( 'manage_users_columns', 'members_manage_users_columns' );
 
 function members_manage_users_columns( $columns ) {
 
+	// If multiple roles per user is not enabled, bail.
+	if ( ! members_multiple_user_roles_enabled() )
+			return $columns;
+
 	if ( isset( $columns['role'] ) )
 		unset( $columns['role'] );
 
@@ -253,7 +257,7 @@ add_filter( 'manage_users_custom_column', 'members_manage_users_custom_column', 
 function members_manage_users_custom_column( $output, $column, $user_id ) {
 	global $wp_roles;
 
-	if ( 'roles' === $column ) {
+	if ( 'roles' === $column && members_multiple_user_roles_enabled() ) {
 
 		$user = new WP_User( $user_id );
 

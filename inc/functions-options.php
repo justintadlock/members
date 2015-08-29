@@ -22,6 +22,17 @@ function members_role_manager_enabled() {
 }
 
 /**
+ * Conditional check to see if the role manager is enabled.
+ *
+ * @since  1.0.0
+ * @access public
+ * @return bool
+ */
+function members_multiple_user_roles_enabled() {
+	return apply_filters( 'members_multiple_roles_enabled', members_get_setting( 'multi_roles' ) );
+}
+
+/**
  * Conditional check to see if the cap manager is enabled.
  *
  * @since  1.0.0
@@ -83,6 +94,7 @@ function members_get_default_settings() {
 		'private_feed_error'        => esc_html__( 'You must be logged into the site to view this content.',      'members' ),
 
 		// @since 1.0.0
+		'multi_roles' => true,
 		'cap_manager' => false,
 	);
 }

@@ -92,8 +92,9 @@ final class Members_Settings_Page {
 		add_settings_section( 'private_site',        esc_html__( 'Private Site',           'members' ), array( $this, 'section_private_site'        ), $this->settings_page );
 
 		// Add settings fields.
-		add_settings_field( 'enable_role_manager', esc_html__( 'Role Manager',       'members' ), array( $this, 'field_enable_role_manager' ), $this->settings_page, 'roles_caps' );
-		add_settings_field( 'enable_cap_manager',  esc_html__( 'Capability Manager', 'members' ), array( $this, 'field_enable_cap_manager'  ), $this->settings_page, 'roles_caps' );
+		add_settings_field( 'enable_role_manager', esc_html__( 'Role Manager',        'members' ), array( $this, 'field_enable_role_manager' ), $this->settings_page, 'roles_caps' );
+		add_settings_field( 'enable_cap_manager',  esc_html__( 'Capability Manager',  'members' ), array( $this, 'field_enable_cap_manager'  ), $this->settings_page, 'roles_caps' );
+		add_settings_field( 'enable_multi_roles',  esc_html__( 'Multiple User Roles', 'members' ), array( $this, 'field_enable_multi_roles'  ), $this->settings_page, 'roles_caps' );
 
 		add_settings_field( 'enable_content_permissions', esc_html__( 'Enable Permissions', 'members' ), array( $this, 'field_enable_content_permissions' ), $this->settings_page, 'content_permissions' );
 		add_settings_field( 'content_permissions_error',  esc_html__( 'Error Message',              'members' ), array( $this, 'field_content_permissions_error'  ), $this->settings_page, 'content_permissions' );
@@ -120,6 +121,7 @@ final class Members_Settings_Page {
 		// Validate true/false checkboxes.
 		$settings['role_manager']        = isset( $settings['role_manager'] )        ? true : false;
 		$settings['cap_manager']         = isset( $settings['cap_manager'] )         ? true : false;
+		$settings['multi_roles']         = isset( $settings['multi_roles'] )         ? true : false;
 		$settings['content_permissions'] = isset( $settings['content_permissions'] ) ? true : false;
 		$settings['login_form_widget']   = isset( $settings['login_form_widget'] )   ? 1 : 0;
 		$settings['users_widget']        = isset( $settings['users_widget'] )        ? 1 : 0;
@@ -158,6 +160,15 @@ final class Members_Settings_Page {
 			<label>
 				<input type="checkbox" name="members_settings[cap_manager]" value="true" <?php checked( members_cap_manager_enabled() ); ?> />
 				<?php esc_html_e( 'Enable the capability manager.', 'members' ); ?>
+			</label>
+		</p>
+	<?php }
+
+	public function field_enable_multi_roles() { ?>
+		<p>
+			<label>
+				<input type="checkbox" name="members_settings[multi_roles]" value="true" <?php checked( members_multiple_user_roles_enabled() ); ?> />
+				<?php esc_html_e( 'Allow users to be assigned more than a single role.', 'members' ); ?>
 			</label>
 		</p>
 	<?php }

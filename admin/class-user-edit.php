@@ -20,6 +20,10 @@ final class Members_Admin_User_Edit {
 	 */
 	public function __construct() {
 
+		// If multiple roles per user is not enabled, bail.
+		if ( ! members_multiple_user_roles_enabled() )
+			return;
+
 		// Only run our customization on the 'user-edit.php' page in the admin.
 		add_action( 'load-user-edit.php', array( $this, 'load_user_edit' ) );
 	}
