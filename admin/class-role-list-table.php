@@ -251,8 +251,20 @@ class Members_Role_List_Table extends WP_List_Table {
 	 * @param  string     $role
 	 * @return string
 	 */
-	protected function column_caps( $role ) {
-		return apply_filters( 'members_manage_roles_column_caps', members_get_role_capability_count( $role ), $role );
+	protected function column_granted_caps( $role ) {
+		return apply_filters( 'members_manage_roles_column_granted_caps', members_get_role_granted_cap_count( $role ), $role );
+	}
+
+	/**
+	 * The caps column callback.
+	 *
+	 * @since  1.0.0
+	 * @access protected
+	 * @param  string     $role
+	 * @return string
+	 */
+	protected function column_denied_caps( $role ) {
+		return apply_filters( 'members_manage_roles_column_denied_caps', members_get_role_denied_cap_count( $role ), $role );
 	}
 
 	/**

@@ -229,15 +229,27 @@ function members_get_role_user_count( $role = '' ) {
 }
 
 /**
- * Returns the number of capabilities that a role has.
+ * Returns the number of granted capabilities that a role has.
  *
  * @since  1.0.0
  * @access public
  * @param  string
  * @return int
  */
-function members_get_role_capability_count( $role ) {
-	return members_role_factory()->get_role( $role )->cap_count;
+function members_get_role_granted_cap_count( $role ) {
+	return members_role_factory()->get_role( $role )->granted_cap_count;
+}
+
+/**
+ * Returns the number of denied capabilities that a role has.
+ *
+ * @since  1.0.0
+ * @access public
+ * @param  string
+ * @return int
+ */
+function members_get_role_denied_cap_count( $role ) {
+	return members_role_factory()->get_role( $role )->denied_cap_count;
 }
 
 /**

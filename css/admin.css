@@ -50,8 +50,10 @@
 
 @media only screen and ( min-width: 783px ) {
 	.users_page_roles .column-users,
-	.users_page_roles .column-caps {
-		width:      100px;
+	.users_page_roles .column-caps,
+	.users_page_roles .column-granted_caps,
+	.users_page_roles .column-denied_caps {
+		width:      125px;
 		text-align: center;
 	}
 

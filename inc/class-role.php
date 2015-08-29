@@ -82,7 +82,16 @@ class Members_Role {
 	 * @access public
 	 * @var    int
 	 */
-	public $cap_count = 0;
+	public $granted_cap_count = 0;
+
+	/**
+	 * Capability count for the role.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @var    int
+	 */
+	public $denied_cap_count = 0;
 
 	/**
 	 * Array of capabilities that the role has.
@@ -159,10 +168,11 @@ class Members_Role {
 		$this->denied_caps  = members_remove_old_levels( $this->denied_caps );
 
 		// Set the cap count.
-		$this->cap_count = count( $this->granted_caps );
+		$this->granted_cap_count = count( $this->granted_caps );
+		$this->denied_cap_count  = count( $this->denied_caps  );
 
 		// Check if we have caps.
-		$this->has_caps = 0 < $this->cap_count;
+		$this->has_caps = 0 < $this->granted_cap_count;
 
 		// Set the user count.
 		$this->user_count = members_get_role_user_count( $role );
