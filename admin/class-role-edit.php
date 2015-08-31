@@ -151,9 +151,6 @@ final class Members_Admin_Role_Edit {
 		// Enqueue scripts/styles.
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue' ) );
 		add_action( 'admin_head', array( $this, 'print_scripts' ) );
-
-		// Add meta boxes.
-		add_action( 'members_add_meta_boxes_role', array( $this, 'add_meta_boxes' ) );
 	}
 
 	public function enqueue() {
@@ -225,8 +222,8 @@ final class Members_Admin_Role_Edit {
 
 						<div id="postbox-container-1" class="post-box-container column-1 side">
 
-							<?php do_action( 'members_add_meta_boxes_role', $this->members_role->role ); ?>
-							<?php do_meta_boxes( 'members_edit_role', 'side', null ); ?>
+							<?php do_action( 'members_add_meta_boxes_role', $this->role->name ); ?>
+							<?php do_meta_boxes( 'members_edit_role', 'side', $this->role ); ?>
 
 						</div><!-- .post-box-container -->
 
@@ -390,97 +387,5 @@ final class Members_Admin_Role_Edit {
 		</table>
 
 		</div><!-- .members-tab-content -->
-	<?php }
-
-	function add_meta_boxes( $role ) {
-
-		add_meta_box(
-			'submitdiv',
-			esc_html__( 'Update Role', 'members' ),
-			array( $this, 'submit_box' ),
-			'members_edit_role',
-			'side',
-			'high'
-		);
-
-		add_meta_box(
-			'newcapdiv',
-			esc_html__( 'Custom Capability', 'members' ),
-			array( $this, 'new_cap_box' ),
-			'members_edit_role',
-			'side',
-			'core'
-		);
-	}
-
-	function submit_box() { ?>
-
-		<div class="submitbox" id="submitpost">
-
-			<div id="misc-publishing-actions">
-
-				<div class="misc-pub-section misc-pub-section-users">
-					<i class="dashicons dashicons-admin-users"></i>
-					<?php esc_html_e( 'Users:', 'members' ); ?>
-					<strong class="user-count"><?php echo members_get_role_user_count( $this->role->name ); ?></strong>
-				</div>
-
-				<div class="misc-pub-section misc-pub-section-granted">
-					<i class="dashicons dashicons-yes"></i>
-					<?php esc_html_e( 'Granted:', 'members' ); ?>
-					<strong class="granted-count"><?php echo members_get_role_granted_cap_count( $this->role->name ); ?></strong>
-				</div>
-
-				<div class="misc-pub-section misc-pub-section-denied">
-					<i class="dashicons dashicons-no"></i>
-					<?php esc_html_e( 'Denied:', 'members' ); ?>
-					<strong class="denied-count"><?php echo members_get_role_denied_cap_count( $this->role->name ); ?></strong>
-				</div>
-
-			</div><!-- #misc-publishing-actions -->
-
-			<div id="major-publishing-actions">
-
-				<div id="delete-action">
-
-					<?php if ( $this->is_editable ) : ?>
-						<a class="submitdelete deletion" href="<?php echo members_get_delete_role_url( $this->role->name ); ?>"><?php echo esc_html_x( 'Delete', 'delete role', 'members' ); ?></a>
-					<?php endif; ?>
-
-					<script type="text/javascript">
-						jQuery( '.submitdelete' ).click( function() {
-							return window.confirm( '<?php esc_html_e( 'Are you sure you want to delete this role? This is a permanent action and cannot be undone.', 'members' ); ?>' );
-						} );
-					</script>
-
-				</div>
-
-				<div id="publishing-action">
-
-					<span class="spinner"></span>
-
-					<?php if ( $this->is_editable ) : ?>
-						<?php submit_button( esc_attr__( 'Update', 'members' ), 'primary', 'publish', false, array( 'id' => 'publish' ) ); ?>
-					<?php endif; ?>
-				</div><!-- #publishing-action -->
-
-				<div class="clear"></div>
-
-			</div><!-- #major-publishing-actions -->
-
-		</div><!-- .submitbox -->
-	<?php }
-
-	function new_cap_box() { ?>
-
-<p class="description">Note: This doesn't work yet.</p>
-
-<p>
-<input type="text" class="widefat" />
-</p>
-<p>
-<a class="button-secondary" id="members-add-new-cap"><?php esc_html_e( 'Add New', 'members' ); ?></a>
-</p>
-
 	<?php }
 }
