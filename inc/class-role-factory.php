@@ -93,7 +93,7 @@ final class Members_Role_Factory {
 	public function add_role( $role ) {
 
 		// If the role exists with WP but hasn't been added.
-		if ( members_role_exists( $role ) && ! in_array( $role, $this->roles ) ) {
+		if ( members_role_exists( $role ) ) {
 
 			// Get the role object.
 			$this->roles[ $role ] = new Members_Role( $role );

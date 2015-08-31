@@ -120,6 +120,10 @@ class Members_Role {
 	 */
 	public $denied_caps = array();
 
+	public function __toString() {
+		return $this->role;
+	}
+
 	/**
 	 * Creates a new role object.
 	 *

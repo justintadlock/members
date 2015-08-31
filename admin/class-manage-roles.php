@@ -64,8 +64,13 @@ final class Members_Admin_Manage_Roles {
 		elseif ( current_user_can( 'delete_roles' ) )
 			$edit_roles_cap = 'delete_roles';
 
+		$title = esc_html__( 'Roles', 'members' );
+
+		if ( isset( $_GET['action'] ) && 'edit' === $_GET['action'] && isset( $_GET['role'] ) )
+			$title = esc_html__( 'Edit Role', 'members' );
+
 		// Create the Manage Roles page.
-		$this->page = add_submenu_page( 'users.php', esc_html__( 'Roles', 'members' ), esc_html__( 'Roles', 'members' ), $edit_roles_cap, 'roles', array( $this, 'page' ) );
+		$this->page = add_submenu_page( 'users.php', $title, esc_html__( 'Roles', 'members' ), $edit_roles_cap, 'roles', array( $this, 'page' ) );
 
 		// Let's roll if we have a page.
 		if ( $this->page ) {

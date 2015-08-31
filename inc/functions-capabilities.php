@@ -263,6 +263,133 @@ function members_get_wp_capabilities() {
 	);
 }
 
+function members_get_wp_dashboard_caps() {
+
+	return array(
+		'edit_dashboard',
+		'read',
+	);
+}
+
+function members_get_wp_theme_caps() {
+
+	return array(
+		'edit_theme_options',
+		'edit_themes',
+		'install_themes',
+		'switch_themes',
+		'update_themes',
+	);
+}
+
+function members_get_wp_plugin_caps() {
+
+	return array(
+		'activate_plugins',
+		'delete_plugins',
+		'edit_plugins',
+		'install_plugins',
+		'update_plugins',
+	);
+}
+
+function members_get_wp_user_caps() {
+
+	return array(
+		'add_users',
+		'create_users',
+		'delete_users',
+		'edit_users',
+		'list_users',
+		'promote_users',
+		'remove_users',
+	);
+}
+
+function members_get_wp_links_caps() {
+
+	return array(
+		'manage_links'
+	);
+}
+
+function members_get_wp_tools_caps() {
+
+	return array(
+		'import'
+	);
+}
+
+function members_get_wp_comments_caps() {
+
+	return array(
+		'moderate_comments'
+	);
+}
+
+function members_get_wp_general_caps() {
+
+	return array(
+		'edit_dashboard',
+		'edit_files',
+		'import',
+		'manage_links',
+		'manage_options',
+		'moderate_comments',
+		'read',
+		'unfiltered_html',
+		'update_core',
+	);
+}
+
+function members_get_post_type_caps( $post_type ) {
+
+	$obj = get_post_type_object( $post_type );
+
+	$caps = (array)$obj->cap;
+
+	// remove meta caps.
+	unset( $caps['edit_post'] );
+	unset( $caps['read_post'] );
+	unset( $caps['delete_post'] );
+
+	$caps = array_values( $caps );
+
+	if ( 'post' !== $post_type && ! $obj->hierarchical ) {
+
+		$_post_obj = get_post_type_object( 'post' );
+		$_p_caps = array_values( (array)$_post_obj->cap );
+
+		$caps = array_diff( $caps, $_p_caps );
+
+	} elseif ( 'page' !== $post_type && $obj->hierarchical ) {
+
+		$_post_obj = get_post_type_object( 'page' );
+		$_p_caps = array_values( (array)$_post_obj->cap );
+
+		$caps = array_diff( $caps, $_p_caps );
+	}
+
+	if ( 'attachment' === $post_type )
+		$caps[] = 'unfiltered_upload';
+
+	return $caps;
+}
+
+function members_get_tax_caps() {
+
+	$taxi = get_taxonomies( array(), 'objects' );
+
+	$caps = array();
+
+	foreach ( $taxi as $tax ) {
+
+		$caps = array_merge( $caps, array_values( (array)$tax->cap ) );
+	}
+
+	return array_unique( $caps );
+}
+
 /**
  * Checks if a specific capability has been given to at least one role. If it has, return true.
  * Else, return false.
