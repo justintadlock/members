@@ -90,7 +90,7 @@
 
 #tabcapsdiv { margin-top: 1em; }
 
-#tabcapsdiv > h3 { border-bottom: 1px solid #eee; }
+#tabcapsdiv > h3 { padding: 10px; border-bottom: 1px solid #eee; }
 
 #tabcapsdiv .inside {
 margin: 0;
