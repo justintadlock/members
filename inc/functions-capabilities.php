@@ -300,9 +300,13 @@ function members_get_wp_user_caps() {
 
 	return array(
 		'add_users',
+		'create_roles',
 		'create_users',
+		'delete_roles',
 		'delete_users',
+		'edit_roles',
 		'edit_users',
+		'list_roles',
 		'list_users',
 		'promote_users',
 		'remove_users',
