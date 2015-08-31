@@ -223,6 +223,7 @@ function members_get_wp_capabilities() {
 		'delete_private_posts',
 		'delete_published_pages',
 		'delete_published_posts',
+		'delete_themes',
 		'delete_users',
 		'edit_dashboard',
 		'edit_files',
@@ -238,6 +239,7 @@ function members_get_wp_capabilities() {
 		'edit_theme_options',
 		'edit_themes',
 		'edit_users',
+		'export',
 		'import',
 		'install_plugins',
 		'install_themes',
@@ -274,6 +276,7 @@ function members_get_wp_dashboard_caps() {
 function members_get_wp_theme_caps() {
 
 	return array(
+		'delete_themes',
 		'edit_theme_options',
 		'edit_themes',
 		'install_themes',
@@ -316,6 +319,7 @@ function members_get_wp_links_caps() {
 function members_get_wp_tools_caps() {
 
 	return array(
+		'export',
 		'import'
 	);
 }
@@ -332,6 +336,7 @@ function members_get_wp_general_caps() {
 	return array(
 		'edit_dashboard',
 		'edit_files',
+		'export',
 		'import',
 		'manage_links',
 		'manage_options',
