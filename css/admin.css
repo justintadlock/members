@@ -123,6 +123,7 @@ padding: 0;
 	line-height: 20px;
 }
 #tabcapsdiv table td { padding: 9px; }
+#tabcapsdiv tfoot th { border-color: #eee; }
 
 #tabcapsdiv tbody tr:last-of-type td {
 	border-bottom: none;
@@ -169,7 +170,8 @@ margin: 0;
 .members-cap-tabs .members-tab-nav li[aria-selected="true"] a {
 	    color: #555;
     position: relative;
-    background-color: #eee;
+    background-color: #e0e0e0;
+	font-weight: bold;
 }
 
 .members-cap-tabs .members-tab-wrap {
