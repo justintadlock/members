@@ -18,10 +18,24 @@ final class Members_Meta_Box_Publish_Role {
 
 	public function add_meta_boxes() {
 
-		add_meta_box( 'submitdiv', esc_html__( 'Update Role', 'members' ), array( $this, 'meta_box' ), 'members_edit_role', 'side', 'high' );
+		add_meta_box( 'submitdiv', esc_html__( 'Role', 'members' ), array( $this, 'meta_box' ), 'members_edit_role', 'side', 'high' );
 	}
 
-	public function meta_box( $role ) { ?>
+	public function meta_box( $role ) {
+
+		$is_editable = true;
+		$user_count  = 0;
+		$grant_count = 0;
+		$deny_count  = 0;
+
+		if ( $role ) {
+			$is_editable = members_is_role_editable( $role->name );
+			$user_count  = members_get_role_user_count( $role->name );
+			$grant_count = members_get_role_granted_cap_count( $role->name );
+			$deny_count  = members_get_role_denied_cap_count( $role->name );
+		}
+
+	?>
 
 		<div class="submitbox" id="submitpost">
 
@@ -30,19 +44,19 @@ final class Members_Meta_Box_Publish_Role {
 				<div class="misc-pub-section misc-pub-section-users">
 					<i class="dashicons dashicons-admin-users"></i>
 					<?php esc_html_e( 'Users:', 'members' ); ?>
-					<strong class="user-count"><?php echo members_get_role_user_count( $role->name ); ?></strong>
+					<strong class="user-count"><?php echo $user_count; ?></strong>
 				</div>
 
 				<div class="misc-pub-section misc-pub-section-granted">
 					<i class="dashicons dashicons-yes"></i>
 					<?php esc_html_e( 'Granted:', 'members' ); ?>
-					<strong class="granted-count"><?php echo members_get_role_granted_cap_count( $role->name ); ?></strong>
+					<strong class="granted-count"><?php echo $grant_count; ?></strong>
 				</div>
 
 				<div class="misc-pub-section misc-pub-section-denied">
 					<i class="dashicons dashicons-no"></i>
 					<?php esc_html_e( 'Denied:', 'members' ); ?>
-					<strong class="denied-count"><?php echo members_get_role_denied_cap_count( $role->name ); ?></strong>
+					<strong class="denied-count"><?php echo $deny_count; ?></strong>
 				</div>
 
 			</div><!-- #misc-publishing-actions -->
@@ -51,24 +65,23 @@ final class Members_Meta_Box_Publish_Role {
 
 				<div id="delete-action">
 
-					<?php if ( members_is_role_editable( $role->name ) ) : ?>
+					<?php if ( $is_editable && $role ) : ?>
 						<a class="submitdelete deletion" href="<?php echo members_get_delete_role_url( $role->name ); ?>"><?php echo esc_html_x( 'Delete', 'delete role', 'members' ); ?></a>
+
+						<script type="text/javascript">
+							jQuery( '.submitdelete' ).click( function() {
+								return window.confirm( '<?php esc_html_e( 'Are you sure you want to delete this role? This is a permanent action and cannot be undone.', 'members' ); ?>' );
+							} );
+						</script>
 					<?php endif; ?>
-
-					<script type="text/javascript">
-						jQuery( '.submitdelete' ).click( function() {
-							return window.confirm( '<?php esc_html_e( 'Are you sure you want to delete this role? This is a permanent action and cannot be undone.', 'members' ); ?>' );
-						} );
-					</script>
-
 				</div>
 
 				<div id="publishing-action">
 
 					<span class="spinner"></span>
 
-					<?php if ( members_is_role_editable( $role->name ) ) : ?>
-						<?php submit_button( esc_attr__( 'Update', 'members' ), 'primary', 'publish', false, array( 'id' => 'publish' ) ); ?>
+					<?php if ( $is_editable ) : ?>
+						<?php submit_button( $role ? esc_attr__( 'Update', 'members' ) : esc_attr__( 'Add Role', 'members' ), 'primary', 'publish', false, array( 'id' => 'publish' ) ); ?>
 					<?php endif; ?>
 
 				</div><!-- #publishing-action -->

@@ -77,15 +77,22 @@
 	margin-top: 0;
 }
 
-.members-title-div input {
-    padding: 3px 8px;
+.members-title-div #titlewrap input {
+    padding: 0 8px;
     font-size: 1.7em;
-    line-height: 100%;
+    line-height: normal;
     height: 1.7em;
     width: 100%;
     outline: none;
     margin: 0 0 3px;
     background-color: #fff;
+}
+
+.members-title-div input[name="role"] {
+font-size: 13px;
+    height: 22px;
+    margin: 0;
+    width: 16em;
 }
 
 #tabcapsdiv { margin-top: 1em; }

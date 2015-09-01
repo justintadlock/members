@@ -98,6 +98,7 @@ final class Members_Admin_Role_New {
 
 			// Load scripts/styles.
 			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue' ) );
+			add_action( "admin_head-{$this->page}", array( $this, 'print_scripts' ) );
 		}
 	}
 
@@ -121,7 +122,7 @@ final class Members_Admin_Role_New {
 		}
 
 		// Check if the current user can create roles and the form has been submitted.
-		if ( current_user_can( 'create_roles' ) && ( isset( $_POST['role-name'] ) || isset( $_POST['role-label'] ) || isset( $_POST['capabilities'] ) ) ) {
+		if ( current_user_can( 'create_roles' ) && ( isset( $_POST['role_name'] ) || isset( $_POST['role'] ) || isset( $_POST['grant-caps'] ) || isset( $_POST['deny-caps'] ) || isset( $_POST['new-cap'] ) ) ) {
 
 			// Verify the nonce.
 			check_admin_referer( 'new_role', 'members_new_role_nonce' );
@@ -130,32 +131,40 @@ final class Members_Admin_Role_New {
 			$new_role_caps = null;
 
 			// Check if any capabilities were selected.
-			if ( isset( $_POST['capabilities'] ) && is_array( $_POST['capabilities'] ) ) {
+			if ( isset( $_POST['grant-caps'] ) || isset( $_POST['deny-caps'] ) ) {
 
-				$new_role_caps = array();
+				$new_caps   = array();
+				$grant_caps = ! empty( $_POST['grant-caps'] ) ? array_unique( $_POST['grant-caps'] ) : array();
+				$deny_caps  = ! empty( $_POST['deny-caps'] )  ? array_unique( $_POST['deny-caps']  ) : array();
 
 				foreach ( members_get_capabilities() as $cap ) {
 
-					// Make sure the cap is in the whitelist.
-					if ( isset( $_POST['capabilities'][ $cap ] ) )
-						$new_role_caps[ $cap ] = true;
+					if ( in_array( $cap, $grant_caps ) )
+						$new_caps[ $cap ] = true;
+
+					else if ( in_array( $cap, $deny_caps ) )
+						$new_caps[ $cap ] = false;
 				}
 
-				if ( !empty( $new_role_caps ) )
-					$this->capabilities = array_keys( $new_role_caps );
+				if ( ! empty( $new_caps ) )
+					$this->capabilities = array_keys( $new_caps );
 			}
 
-			// Sanitize the new role, removing any unwanted characters.
-			if ( !empty( $_POST['role-name'] ) )
-				$this->role = members_sanitize_role( $_POST['role-name'] );
-
 			// Sanitize the new role name/label. We just want to strip any tags here.
-			if ( !empty( $_POST['role-label'] ) )
-				$this->role_name = strip_tags( $_POST['role-label'] );
+			if ( ! empty( $_POST['role_name'] ) )
+				$this->role_name = strip_tags( $_POST['role_name'] );
+
+			// Sanitize the new role, removing any unwanted characters.
+			if ( ! empty( $_POST['role'] ) )
+				$this->role = members_sanitize_role( $_POST['role'] );
+
+			else if ( $this->role_name )
+				$this->role = members_sanitize_role( $this->role_name );
 
 			// Add a new role with the data input.
 			if ( $this->role && $this->role_name ) {
-				add_role( $this->role, $this->role_name, $new_role_caps );
+
+				add_role( $this->role, $this->role_name, $new_caps );
 
 				// If the current user can edit roles, redirect to edit role screen.
 				if ( current_user_can( 'edit_roles' ) ) {
@@ -195,7 +204,19 @@ final class Members_Admin_Role_New {
 
 		wp_enqueue_script( 'members-admin' );
 		wp_enqueue_style(  'members-admin' );
+		wp_enqueue_script( 'common' );
+		wp_enqueue_script( 'wp-lists' );
+		wp_enqueue_script( 'postbox' );
 	}
+
+	public function print_scripts() { ?>
+		<script type="text/javascript">
+			jQuery(document).ready( function($) {
+				$('.if-js-closed').removeClass('if-js-closed').addClass('closed');
+				postboxes.add_postbox_toggles( 'members_edit_role' );
+			});
+		</script>
+	<?php }
 
 	/**
 	 * Outputs the page.
@@ -218,69 +239,47 @@ final class Members_Admin_Role_New {
 
 					<?php wp_nonce_field( 'new_role', 'members_new_role_nonce' ); ?>
 
-					<table class="form-table">
+					<div id="post-body" class="columns-2">
 
-						<tr>
-							<th>
-								<?php esc_html_e( 'Role', 'members' ); ?>
-							</th>
-							<td>
-								<input type="text" name="role-name" value="<?php echo esc_attr( $this->role ); ?>" size="30"<?php if ( $this->is_clone ) printf( 'placeholder="%s"', esc_attr( "{$this->clone_role}_clone" ) ); ?> />
+						<div id="post-body-content">
 
-								<p class="description">
-									<?php esc_html_e( 'The role should be unique and contain only alphanumeric characters and underscores.', 'members' ); ?>
-								</p>
-							</td>
-						</tr>
+							<div id="titlediv" class="members-title-div">
 
-						<tr>
-							<th>
-								<?php esc_html_e( 'Role Name', 'members' ); ?>
-							</th>
-							<td>
-								<input type="text" name="role-label" value="<?php echo esc_attr( $this->role_name ); ?>" size="30"<?php if ( $this->is_clone ) printf( 'placeholder="%s"', esc_attr( sprintf( __( '%s Clone', 'members' ), members_get_role_name( $this->clone_role ) ) ) ); ?> />
+								<div id="titlewrap">
+									<span class="screen-reader-text"><?php esc_html_e( 'Role Name', 'members' ); ?></span>
+									<input type="text" name="role_name" value="<?php echo esc_attr( $this->role_name ); ?>" placeholder="<?php esc_attr_e( 'Enter role name', 'members' ); ?>" />
+								</div><!-- #titlewrap -->
 
-								<p class="description">
-									<?php esc_html_e( 'The role name is the human-readable name of your role.', 'members' ); ?>
-								</p>
-							</td>
-						</tr>
-
-						<tr>
-							<th>
-								<?php esc_html_e( 'Capabilities', 'members' ); ?>
-							</th>
-							<td>
-								<p class="description">
-									<?php esc_html_e( 'Select the capabilities this role should have. These may be updated later.', 'members' ); ?>
-								</p>
-
-								<div class="role-checkboxes">
-
-								<?php $i = -1; foreach ( members_get_capabilities() as $cap ) : ?>
-
-									<div class="members-role-checkbox <?php if ( ++$i % 3 == 0 ) echo 'clear'; ?>">
-										<label>
-											<input type="checkbox" name="capabilities[<?php echo esc_attr( $cap ); ?>]" <?php checked( in_array( $cap, $this->capabilities ) ); ?> />
-											<?php echo esc_html( $cap ); ?>
-										</label>
+								<div class="inside">
+									<div id="edit-slug-box">
+										<strong><?php esc_html_e( 'Role:', 'members' ); ?></strong> <?php echo esc_attr( $this->role ); ?> <!-- edit box -->
+										<input type="text" name="role" value="<?php echo members_sanitize_role( $this->role ); ?>" />
 									</div>
+								</div><!-- .inside -->
 
-								<?php endforeach; ?>
+							</div><!-- .members-title-div -->
 
-								</div><!-- .role-checkboxes -->
-							</td>
-						</tr>
+							<?php $cap_tabs = new Members_Cap_Tabs(); ?>
+							<?php $cap_tabs->display(); ?>
 
-					</table><!-- .form-table -->
+						</div><!-- #post-body-content -->
 
-					<?php submit_button( esc_attr__( 'Add Role', 'members' ) ); ?>
+						<?php wp_nonce_field( 'closedpostboxes', 'closedpostboxesnonce', false ); ?>
+						<?php wp_nonce_field( 'meta-box-order', 'meta-box-order-nonce', false ); ?>
 
+						<div id="postbox-container-1" class="post-box-container column-1 side">
+
+							<?php do_action( 'members_add_meta_boxes_role', '' ); ?>
+							<?php do_meta_boxes( 'members_edit_role', 'side', '' ); ?>
+
+						</div><!-- .post-box-container -->
+
+					</div><!-- #post-body -->
 				</form>
 
 			</div><!-- #poststuff -->
 
-		</div><!-- .poststuff -->
+		</div><!-- .wrap -->
 
 	<?php }
 

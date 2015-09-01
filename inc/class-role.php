@@ -150,7 +150,7 @@ class Members_Role {
 		$this->is_editable = array_key_exists( $role, apply_filters( 'editable_roles', $wp_roles->role_names ) );
 
 		// Loop through the role's caps.
-		foreach ( $_role->capabilities as $cap => $grant ) {
+		foreach ( (array) $_role->capabilities as $cap => $grant ) {
 
 			// Validate any boolean grant/denied in case they are stored as strings.
 			$grant = members_validate_boolean( $grant );

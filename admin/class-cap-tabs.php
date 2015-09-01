@@ -7,17 +7,19 @@ final class Members_Cap_Tabs {
 	public $capabilities = array();
 	public $added_caps = array();
 
-	public function __construct( $role ) {
+	public function __construct( $role = '' ) {
 
-		$this->role = get_role( $role );
+		if ( $role ) {
+			$this->role = get_role( $role );
 
-		$this->members_role = members_get_role( $this->role->name );
+			$this->members_role = members_get_role( $this->role->name );
+		}
+
+		// Is the role editable?
+		$this->is_editable = $role ? members_is_role_editable( $this->role->name ) : true;
 
 		// Get all the capabilities.
 		$this->capabilities = members_get_capabilities();
-
-		// Is the role editable?
-		$this->is_editable = members_is_role_editable( $this->role->name );
 
 	}
 
@@ -154,8 +156,8 @@ final class Members_Cap_Tabs {
 			<?php foreach ( $caps as $cap ) : ?>
 
 				<tr class="members-cap-checklist">
-					<?php $has_cap = $this->role->has_cap( $cap ) ? true : false; // Note: $role->has_cap() returns a string intead of TRUE. ?>
-					<?php $denied_cap = in_array( $cap, $this->members_role->denied_caps ); ?>
+					<?php $has_cap = $this->role && $this->role->has_cap( $cap ) ? true : false; // Note: $role->has_cap() returns a string intead of TRUE. ?>
+					<?php $denied_cap = $this->role && in_array( $cap, $this->members_role->denied_caps ); ?>
 
 					<td class="members-cap-name">
 						<label><strong><?php echo esc_html( $cap ); ?></strong></label>

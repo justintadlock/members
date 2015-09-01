@@ -165,6 +165,7 @@ final class Members_Admin_Role_Edit {
 			});
 		</script>
 	<?php }
+
 	/**
 	 * Displays the page content.
 	 *
@@ -204,7 +205,7 @@ final class Members_Admin_Role_Edit {
 								</div><!-- #titlewrap -->
 
 								<div class="inside">
-									<div id="edit-slug-box" class="hide-if-no-js">
+									<div id="edit-slug-box">
 										<strong><?php esc_html_e( 'Role:', 'members' ); ?></strong> <?php echo esc_attr( $this->role->name ); ?> <!-- edit box -->
 									</div>
 								</div><!-- .inside -->

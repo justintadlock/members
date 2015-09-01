@@ -173,7 +173,9 @@ function members_get_role( $role ) {
  * @return int
  */
 function members_sanitize_role( $role ) {
-	return apply_filters( 'members_sanitize_role', str_replace( '-', '_', sanitize_key( $role ) ), $role );
+	$_role = strtolower( $role );
+	$_role = preg_replace( '/[^a-z0-9_\-\s]/', '', $_role );
+	return apply_filters( 'members_sanitize_role', str_replace( array( '-', ' ' ), '_', $_role ), $role );
 }
 
 /**
