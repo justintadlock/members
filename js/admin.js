@@ -99,6 +99,12 @@ jQuery( document ).ready(
 				}
 			}
 		);
+				var granted_count = jQuery( "#members-tab-all input[data-grant-cap]:checked" ).length;
+
+				var denied_count = jQuery( "#members-tab-all input[data-deny-cap]:checked" ).length;
+
+				jQuery( '#submitdiv .granted-count' ).text( granted_count );
+				jQuery( '#submitdiv .denied-count' ).text( denied_count );
 
 		jQuery( '.members-cap-checklist .members-grant-cb' ).change(
 			function() {
@@ -118,6 +124,13 @@ jQuery( document ).ready(
 
 					jQuery( 'input[data-grant-cap="' + data_grant + '"]' ).not( this ).prop( 'checked', false );
 				}
+
+				var granted_count = jQuery( "#members-tab-all input[data-grant-cap]:checked" ).length;
+
+				var denied_count = jQuery( "#members-tab-all input[data-deny-cap]:checked" ).length;
+
+				jQuery( '#submitdiv .granted-count' ).text( granted_count );
+				jQuery( '#submitdiv .denied-count' ).text( denied_count );
 
 			}
 		);
@@ -139,6 +152,13 @@ jQuery( document ).ready(
 
 					jQuery( 'input[data-deny-cap="' + data_deny + '"]' ).not( this ).prop( 'checked', false );
 				}
+
+				var granted_count = jQuery( "#members-tab-all input[data-grant-cap]:checked" ).length;
+
+				var denied_count = jQuery( "#members-tab-all input[data-deny-cap]:checked" ).length;
+
+				jQuery( '#submitdiv .granted-count' ).text( granted_count );
+				jQuery( '#submitdiv .denied-count' ).text( denied_count );
 
 			}
 		);
