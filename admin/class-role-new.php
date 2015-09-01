@@ -116,7 +116,8 @@ final class Members_Admin_Role_New {
 
 		if ( $this->is_clone ) {
 
-			add_filter( 'members_new_role_default_capabilities', array( $this, 'clone_default_caps' ) );
+			//add_filter( 'members_new_role_default_capabilities', array( $this, 'clone_default_caps' ) );
+			add_filter( 'members_new_role_default_caps', array( $this, 'clone_default_caps' ) );
 
 			$this->clone_role = members_sanitize_role( $_GET['clone'] );
 		}
@@ -187,7 +188,7 @@ final class Members_Admin_Role_New {
 
 		// If we don't have caps yet, get the new role default caps.
 		if ( empty( $this->capabilities ) )
-			$this->capabilities = members_new_role_default_capabilities();
+			$this->capabilities = members_new_role_default_caps();
 	}
 
 	/**
@@ -247,19 +248,19 @@ final class Members_Admin_Role_New {
 
 								<div id="titlewrap">
 									<span class="screen-reader-text"><?php esc_html_e( 'Role Name', 'members' ); ?></span>
-									<input type="text" name="role_name" value="<?php echo esc_attr( $this->role_name ); ?>" placeholder="<?php esc_attr_e( 'Enter role name', 'members' ); ?>" />
+									<input type="text" name="role_name" value="<?php echo ! $this->role && $this->clone_role ? esc_attr( sprintf( __( '%s Clone', 'members' ), members_get_role_name( $this->clone_role ) ) ) : esc_attr( $this->role_name ); ?>" placeholder="<?php esc_attr_e( 'Enter role name', 'members' ); ?>" />
 								</div><!-- #titlewrap -->
 
 								<div class="inside">
 									<div id="edit-slug-box">
 										<strong><?php esc_html_e( 'Role:', 'members' ); ?></strong> <?php echo esc_attr( $this->role ); ?> <!-- edit box -->
-										<input type="text" name="role" value="<?php echo members_sanitize_role( $this->role ); ?>" />
+										<input type="text" name="role" value="<?php echo ! $this->role && $this->clone_role ? esc_attr( "{$this->clone_role}_clone" ) : members_sanitize_role( $this->role ); ?>" />
 									</div>
 								</div><!-- .inside -->
 
 							</div><!-- .members-title-div -->
 
-							<?php $cap_tabs = new Members_Cap_Tabs(); ?>
+							<?php $cap_tabs = new Members_Cap_Tabs( '', $this->capabilities ); ?>
 							<?php $cap_tabs->display(); ?>
 
 						</div><!-- #post-body-content -->
@@ -297,16 +298,8 @@ final class Members_Admin_Role_New {
 
 			$role = get_role( $this->clone_role );
 
-			if ( $role && isset( $role->capabilities ) && is_array( $role->capabilities ) ) {
-
-				$capabilities = array();
-
-				foreach ( $role->capabilities as $cap => $grant ) {
-
-					if ( false !== $grant )
-						$capabilities[] = $cap;
-				}
-			}
+			if ( $role && isset( $role->capabilities ) && is_array( $role->capabilities ) )
+				$capabilities = $role->capabilities;
 		}
 
 		return $capabilities;

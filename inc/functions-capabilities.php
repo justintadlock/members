@@ -470,3 +470,17 @@ function members_new_role_default_capabilities() {
 
 	return apply_filters( 'members_new_role_default_capabilities', array( 'read' ) );
 }
+
+/**
+ * Returns an array of capabilities that should be set on the New Role admin screen.  By default,
+ * the only capability checked is 'read' because it's needed for users of the role to view their
+ * profile in the admin.
+ *
+ * @since  1.0.0
+ * @access public
+ * @return array
+ */
+function members_new_role_default_caps() {
+
+	return apply_filters( 'members_new_role_default_caps', array( 'read' => true ) );
+}
