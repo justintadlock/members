@@ -93,7 +93,7 @@ final class Members_Settings_Page {
 
 		// Add settings fields.
 		add_settings_field( 'enable_role_manager', esc_html__( 'Role Manager',        'members' ), array( $this, 'field_enable_role_manager' ), $this->settings_page, 'roles_caps' );
-		add_settings_field( 'enable_cap_manager',  esc_html__( 'Capability Manager',  'members' ), array( $this, 'field_enable_cap_manager'  ), $this->settings_page, 'roles_caps' );
+	//	add_settings_field( 'enable_cap_manager',  esc_html__( 'Capability Manager',  'members' ), array( $this, 'field_enable_cap_manager'  ), $this->settings_page, 'roles_caps' );
 		add_settings_field( 'enable_multi_roles',  esc_html__( 'Multiple User Roles', 'members' ), array( $this, 'field_enable_multi_roles'  ), $this->settings_page, 'roles_caps' );
 
 		add_settings_field( 'enable_content_permissions', esc_html__( 'Enable Permissions', 'members' ), array( $this, 'field_enable_content_permissions' ), $this->settings_page, 'content_permissions' );

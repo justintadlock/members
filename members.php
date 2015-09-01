@@ -252,8 +252,8 @@ final class Members_Plugin {
 			require_once( $this->admin_dir . 'class-meta-box-publish-role.php' );
 			require_once( $this->admin_dir . 'class-meta-box-custom-cap.php'   );
 
-			require_once( $this->admin_dir . 'page-capabilities.php' );
-			require_once( $this->admin_dir . 'class-cap-new.php'     );
+		//	require_once( $this->admin_dir . 'page-capabilities.php' );
+		//	require_once( $this->admin_dir . 'class-cap-new.php'     );
 		}
 	}
 
