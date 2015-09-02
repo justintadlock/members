@@ -252,6 +252,8 @@ final class Members_Plugin {
 			require_once( $this->admin_dir . 'class-meta-box-custom-cap.php'   );
 
 			require_once( $this->admin_dir . 'class-cap-tabs.php'          );
+			require_once( $this->admin_dir . 'class-cap-section.php'       );
+			require_once( $this->admin_dir . 'class-cap-control.php'       );
 			require_once( $this->admin_dir . 'class-cap-group.php'         );
 			require_once( $this->admin_dir . 'class-cap-group-factory.php' );
 			require_once( $this->admin_dir . 'functions-cap-groups.php'    );

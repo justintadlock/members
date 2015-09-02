@@ -31,13 +31,22 @@ final class Members_Cap_Tabs {
 	public $has_caps = array();
 
 	/**
-	 * Array of data to json encode.
+	 * Array of tab sections.
 	 *
 	 * @since  1.0.0
 	 * @access public
 	 * @var    array
 	 */
-	public $to_json = array();
+	public $sections = array();
+
+	/**
+	 * Array of single cap controls.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @var    array
+	 */
+	public $controls = array();
 
 	/**
 	 * Sets up the cap tabs.
@@ -49,9 +58,6 @@ final class Members_Cap_Tabs {
 	 * @return void
 	 */
 	public function __construct( $role = '', $has_caps = array() ) {
-
-		// Action hook to run before cap tabs are loaded.
-		do_action( 'members_pre_cap_tabs' );
 
 		// Check if there were explicit caps passed in.
 		if ( $has_caps )
@@ -65,6 +71,49 @@ final class Members_Cap_Tabs {
 			if ( ! $has_caps )
 				$this->has_caps = $this->role->capabilities;
 		}
+
+		// Add sections and controls.
+		$this->register();
+
+		// Print custom JS in the footer.
+		add_action( 'admin_footer', array( $this, 'print_scripts' ) );
+	}
+
+	/**
+	 * Adds the sections that will be used for the tab content.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @return void
+	 */
+	public function register() {
+
+		// Hook before registering.
+		do_action( 'members_pre_edit_caps_manager_register' );
+
+		// Get and loop through the available capability groups.
+		foreach ( members_get_cap_groups() as $group ) {
+
+			$caps = $group->caps;
+
+			// Remove added caps.
+			if ( $group->diff_added )
+				$caps = array_diff( $group->caps, $this->added_caps );
+
+			// Add group's caps to the added caps array.
+			if ( $group->count_added )
+				$this->added_caps = array_unique( array_merge( $this->added_caps, $caps ) );
+
+			// Create a new section.
+			$this->sections[] = new Members_Cap_Section( $this, $group->name, array( 'icon' => $group->icon, 'label' => $group->label ) );
+
+			// Create new controls for each cap.
+			foreach ( $caps as $cap )
+				$this->controls[] = new Members_Cap_Control( $this, $cap, array( 'section' => $group->name ) );
+		}
+
+		// Hook after registering.
+		do_action( 'members_edit_caps_manager_register' );
 	}
 
 	/**
@@ -91,13 +140,15 @@ final class Members_Cap_Tabs {
 
 		</div><!-- .postbox -->
 
-		<?php $this->add_tab_content(); ?>
-
-		<script type="text/html" id="<?php echo esc_attr( "tmpl-members-tab-template" ); ?>">
-			<?php $this->print_template(); ?>
+		<script type="text/html" id="tmpl-members-cap-section">
+			<?php $control = new Members_Cap_Section( $this, null ); ?>
+			<?php $control->template(); ?>
 		</script>
 
-		<?php $this->print_script(); ?>
+		<script type="text/html" id="tmpl-members-cap-control">
+			<?php $control = new Members_Cap_Control( $this, null ); ?>
+			<?php $control->template(); ?>
+		</script>
 	<?php }
 
 	/**
@@ -111,119 +162,18 @@ final class Members_Cap_Tabs {
 
 		$nav = '';
 
-		foreach ( members_get_cap_groups() as $group ) {
+		foreach ( $this->sections as $section ) {
 
 			$nav .= sprintf(
 				'<li class="members-tab-title"><a href="%s"><i class="dashicons %s"></i> %s</a></li>',
-				esc_attr( "#members-tab-{$group->name}" ),
-				sanitize_html_class( $group->icon ),
-				esc_html( $group->label )
+				esc_attr( "#members-tab-{$section->section}" ),
+				sanitize_html_class( $section->icon ),
+				esc_html( $section->label )
 			);
 		}
 
 		return sprintf( '<ul class="members-tab-nav">%s</ul>', $nav );
 	}
-
-	/**
-	 * Adds the tabs content.
-	 *
-	 * @since  1.0.0
-	 * @access public
-	 * @return void
-	 */
-	public function add_tab_content() {
-
-		foreach ( members_get_cap_groups() as $group ) {
-
-			$caps = $group->caps;
-
-			if ( $group->diff_added )
-				$caps = array_diff( $group->caps, $this->added_caps );
-
-			if ( $group->count_added )
-				$this->added_caps = array_unique( array_merge( $this->added_caps, $caps ) );
-
-			$this->to_json( $group->name, $caps );
-		}
-	}
-
-	/**
-	 * Adds the json data for an individual tab.
-	 *
-	 * @since  1.0.0
-	 * @access public
-	 * @return void
-	 */
-	public function to_json( $id, $caps ) {
-
-		$is_editable = $this->role ? members_is_role_editable( $this->role->name ) : true;
-
-		$this->to_json[] = array(
-			'id'          => sanitize_html_class( "members-tab-{$id}" ),
-			'class'       => 'members-tab-content' . ( $is_editable ? ' editable-role' : '' ),
-			'readonly'    => $is_editable ? '' : ' disabled="disabled" readonly="readonly"',
-			'has_caps'    => $this->has_caps,
-			'caps'        => $caps,
-			'label'       => array(
-				'cap'   => esc_html__( 'Capability', 'members' ),
-				'grant' => esc_html__( 'Grant',      'members' ),
-				'deny'  => esc_html__( 'Deny',       'members' )
-			)
-		);
-	}
-
-	/**
-	 * Underscore JS template for printing tab content.
-	 *
-	 * @since  1.0.0
-	 * @access public
-	 * @return void
-	 */
-	public function print_template() { ?>
-
-		<div id="{{ data.id }}" class="{{ data.class }}">
-
-		<table class="wp-list-table widefat fixed members-roles-select">
-
-			<thead>
-				<tr>
-					<th class="column-cap">{{ data.label.cap }}</th>
-					<th class="column-cb">{{ data.label.grant }}</th>
-					<th class="column-cb">{{ data.label.deny }}</th>
-				</tr>
-			</thead>
-
-			<tfoot>
-				<tr>
-					<th class="column-cap">{{ data.label.cap }}</th>
-					<th class="column-cb">{{ data.label.grant }}</th>
-					<th class="column-cb">{{ data.label.deny }}</th>
-				</tr>
-			</tfoot>
-
-			<tbody>
-
-			<# _.each( data.caps, function( cap ) { #>
-
-				<tr class="members-cap-checklist">
-					<td class="members-cap-name">
-						<label><strong>{{ cap }}</strong></label>
-					</td>
-
-					<td class="column-cb">
-						<input {{{ data.readonly }}} type="checkbox" name="grant-caps[]" data-grant-cap="{{ cap }}" value="{{ cap }}" <# if ( true === data.has_caps[ cap ] ) { #>checked="checked"<# } #> />
-					</td>
-
-					<td class="column-cb">
-						<input {{{ data.readonly }}} type="checkbox" name="deny-caps[]" data-deny-cap="{{ cap }}" value="{{ cap }}" <# if ( false === data.has_caps[ cap ] ) { #>checked="checked"<# } #> />
-					</td>
-				</tr>
-
-			<# } ) #>
-			</tbody>
-		</table>
-		</div>
-	<?php }
 
 	/**
 	 * Outputs the JS to handle the Underscore JS template.
@@ -232,16 +182,24 @@ final class Members_Cap_Tabs {
 	 * @access public
 	 * @return void
 	 */
-	public function print_script() { ?>
+	public function print_scripts() { ?>
 
 		<script type="text/javascript">
 			jQuery( document ).ready( function() {
 
-				var template = wp.template( 'members-tab-template' );
+				// Underscore JS templates.
+				var section_template = wp.template( 'members-cap-section' );
+				var control_template = wp.template( 'members-cap-control' );
 
-				<?php foreach ( $this->to_json as $data ) { ?>
+				<?php foreach ( $this->sections as $section ) { ?>
 					jQuery( '.members-tab-wrap' ).append(
-						template( <?php echo wp_json_encode( $data ); ?> )
+						section_template( <?php echo wp_json_encode( $section->json() ); ?> )
+					);
+				<?php } ?>
+
+				<?php foreach ( $this->controls as $control ) { ?>
+					jQuery( '#members-tab-<?php echo esc_attr( $control->section ); ?> tbody' ).append(
+						control_template( <?php echo wp_json_encode( $control->json() ); ?> )
 					);
 				<?php } ?>
 			} );
