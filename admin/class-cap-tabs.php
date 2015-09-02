@@ -2,35 +2,78 @@
 
 final class Members_Cap_Tabs {
 
+	/**
+	 * The role object that we're creating tabs for.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @var    object
+	 */
 	public $role;
-	public $members_role;
-	public $is_editable = true;
-	public $capabilities = array();
+
+	/**
+	 * Array of caps shown by the cap tabs.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @var    array
+	 */
 	public $added_caps = array();
+
+	/**
+	 * The caps the role has. Note that if this is a new role (new role screen), the default
+	 * new role caps will be passed in.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @var    array
+	 */
 	public $has_caps = array();
+
+	/**
+	 * Array of data to json encode.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @var    array
+	 */
 	public $to_json = array();
 
+	/**
+	 * Sets up the cap tabs.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @param  string  $role
+	 * @param  array   $has_caps
+	 * @return void
+	 */
 	public function __construct( $role = '', $has_caps = array() ) {
 
+		// Action hook to run before cap tabs are loaded.
+		do_action( 'members_pre_cap_tabs' );
+
+		// Check if there were explicit caps passed in.
 		if ( $has_caps )
 			$this->has_caps = $has_caps;
 
+		// Check if we have a role.
 		if ( $role ) {
 			$this->role = get_role( $role );
 
+			// If no explicit caps were passed in, use the role's caps.
 			if ( ! $has_caps )
 				$this->has_caps = $this->role->capabilities;
-
-			$this->members_role = members_get_role( $this->role->name );
 		}
-
-		// Is the role editable?
-		$this->is_editable = $role ? members_is_role_editable( $this->role->name ) : true;
-
-		// Get all the capabilities.
-		$this->capabilities = members_get_capabilities();
 	}
 
+	/**
+	 * Displays the cap tabs.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @return void
+	 */
 	public function display() { ?>
 
 		<div id="tabcapsdiv" class="postbox">
@@ -40,134 +83,102 @@ final class Members_Cap_Tabs {
 			<div class="inside">
 
 				<div class="members-cap-tabs">
-					<?php $this->tab_nav(); ?>
-					<?php $this->tab_wrap(); ?>
+					<?php echo $this->get_tab_nav(); ?>
+					<div class="members-tab-wrap"></div>
 				</div><!-- .members-cap-tabs -->
 
 			</div><!-- .inside -->
 
 		</div><!-- .postbox -->
 
-		<?php $this->print_tab_template(); ?>
+		<?php $this->add_tab_content(); ?>
+
+		<script type="text/html" id="<?php echo esc_attr( "tmpl-members-tab-template" ); ?>">
+			<?php $this->print_template(); ?>
+		</script>
+
 		<?php $this->print_script(); ?>
 	<?php }
 
-	public function tab_nav() {
+	/**
+	 * Returns the tab nav.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @return void
+	 */
+	public function get_tab_nav() {
 
-		$post_types = get_post_types( array(), 'objects' ); ?>
+		$nav = '';
 
-		<ul class="members-tab-nav"><?php
+		foreach ( members_get_cap_groups() as $group ) {
 
-			$this->tab_title( 'all', esc_html__( 'All', 'members' ), 'dashicons-plus' );
-			$this->tab_title( 'general', esc_html__( 'General', 'members' ), 'dashicons-wordpress' );
+			$nav .= sprintf(
+				'<li class="members-tab-title"><a href="%s"><i class="dashicons %s"></i> %s</a></li>',
+				esc_attr( "#members-tab-{$group->name}" ),
+				sanitize_html_class( $group->icon ),
+				esc_html( $group->label )
+			);
+		}
 
-			foreach ( $post_types as $type ) {
-
-				if ( in_array( $type->name, array( 'revision', 'nav_menu_item' ) ) )
-					continue;
-
-				$has_caps = members_get_post_type_caps( $type->name );
-
-				if ( empty( $has_caps ) )
-					continue;
-
-				$icon = $type->hierarchical ? 'dashicons-admin-page' : 'dashicons-admin-post';
-
-				if ( is_string( $type->menu_icon ) && preg_match( '/dashicons-/i', $type->menu_icon ) )
-					$icon = $type->menu_icon;
-				else if ( 'attachment' === $type->name )
-					$icon = 'dashicons-admin-media';
-				else if ( 'download' === $type->name )
-					$icon = 'dashicons-download'; // EDD
-				else if ( 'product' === $type->name )
-					$icon = 'dashicons-cart';
-				else if ( ! $type->hierarchical )
-					$icon = 'dashicons-admin-post';
-				else if ( $type->hierarchical )
-					$icon = 'dashicons-admin-page';
-
-				$this->tab_title( "type-{$type->name}", $type->labels->name, $icon );
-			}
-
-			$this->tab_title( 'taxonomies', esc_html__( 'Taxonomies', 'members' ), 'dashicons-tag'              );
-			$this->tab_title( 'themes',     esc_html__( 'Themes',     'members' ), 'dashicons-admin-appearance' );
-			$this->tab_title( 'plugins',    esc_html__( 'Plugins',    'members' ), 'dashicons-admin-plugins'    );
-			$this->tab_title( 'users',      esc_html__( 'Users',      'members' ), 'dashicons-admin-users'      );
-			$this->tab_title( 'custom',     esc_html__( 'Other',      'members' ), 'dashicons-admin-generic'    );
-		?></ul>
-	<?php }
-
-	public function tab_wrap() {
-
-		$post_types = get_post_types( array(), 'objects' ); ?>
-
-		<div class="members-tab-wrap"><?php
-
-			$this->tab_content( $this->capabilities, 'all', false );
-			$this->tab_content( members_get_wp_general_caps(), 'general' );
-
-			foreach ( $post_types as $type ) {
-
-				$has_caps = members_get_post_type_caps( $type->name );
-
-				if ( ! empty( $has_caps ) )
-					$this->tab_content( members_get_post_type_caps( $type->name ), "type-{$type->name}" );
-			}
-
-			$this->tab_content( array_diff( members_get_tax_caps(), $this->added_caps ), 'taxonomies' );
-			$this->tab_content( members_get_wp_theme_caps(), 'themes' );
-			$this->tab_content( members_get_wp_plugin_caps(), 'plugins' );
-			$this->tab_content( members_get_wp_user_caps(), 'users' );
-
-			$leftover_caps = array_diff( $this->capabilities, $this->added_caps );
-
-			if ( ! empty( $leftover_caps ) )
-				$this->tab_content( $leftover_caps, 'custom' );
-
-		?></div>
-	<?php }
-
-	public function tab_title( $id, $title, $icon = 'dashicons-admin-generic' ) {
-
-		printf(
-			'<li class="members-tab-title"><a href="%s"><i class="dashicons %s"></i> %s</a></li>',
-			esc_attr( "#members-tab-{$id}" ),
-			sanitize_html_class( $icon ),
-			esc_html( $title )
-		);
+		return sprintf( '<ul class="members-tab-nav">%s</ul>', $nav );
 	}
 
-	public function tab_content( $caps, $id, $add = true ) {
+	/**
+	 * Adds the tabs content.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @return void
+	 */
+	public function add_tab_content() {
 
-		if ( $add )
-			$this->added_caps = array_unique( array_merge( $this->added_caps, $caps ) );
+		foreach ( members_get_cap_groups() as $group ) {
 
-		$this->to_json( $id, $caps ); ?>
+			$caps = $group->caps;
 
-	<?php }
+			if ( $group->diff_added )
+				$caps = array_diff( $group->caps, $this->added_caps );
 
+			if ( $group->count_added )
+				$this->added_caps = array_unique( array_merge( $this->added_caps, $caps ) );
+
+			$this->to_json( $group->name, $caps );
+		}
+	}
+
+	/**
+	 * Adds the json data for an individual tab.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @return void
+	 */
 	public function to_json( $id, $caps ) {
+
+		$is_editable = $this->role ? members_is_role_editable( $this->role->name ) : true;
 
 		$this->to_json[] = array(
 			'id'          => sanitize_html_class( "members-tab-{$id}" ),
-			'class'       => 'members-tab-content' . ( $this->is_editable ? ' editable-role' : '' ),
-			'readonly'    => $this->is_editable ? '' : ' disabled="disabled" readonly="readonly"',
+			'class'       => 'members-tab-content' . ( $is_editable ? ' editable-role' : '' ),
+			'readonly'    => $is_editable ? '' : ' disabled="disabled" readonly="readonly"',
 			'has_caps'    => $this->has_caps,
 			'caps'        => $caps,
 			'label'       => array(
 				'cap'   => esc_html__( 'Capability', 'members' ),
-				'grant' => esc_html__( 'Grant', 'members' ),
-				'deny'  => esc_html__( 'Deny', 'members' )
+				'grant' => esc_html__( 'Grant',      'members' ),
+				'deny'  => esc_html__( 'Deny',       'members' )
 			)
 		);
 	}
 
-	public function print_tab_template() { ?>
-		<script type="text/html" id="<?php echo esc_attr( "tmpl-members-tab-template" ); ?>">
-			<?php $this->print_template(); ?>
-		</script>
-	<?php }
-
+	/**
+	 * Underscore JS template for printing tab content.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @return void
+	 */
 	public function print_template() { ?>
 
 		<div id="{{ data.id }}" class="{{ data.class }}">
@@ -214,6 +225,13 @@ final class Members_Cap_Tabs {
 		</div>
 	<?php }
 
+	/**
+	 * Outputs the JS to handle the Underscore JS template.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @return void
+	 */
 	public function print_script() { ?>
 
 		<script type="text/javascript">
