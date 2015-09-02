@@ -4,9 +4,11 @@ final class Members_Cap_Tabs {
 
 	public $role;
 	public $members_role;
+	public $is_editable = true;
 	public $capabilities = array();
 	public $added_caps = array();
 	public $has_caps = array();
+	public $to_json = array();
 
 	public function __construct( $role = '', $has_caps = array() ) {
 
@@ -45,6 +47,9 @@ final class Members_Cap_Tabs {
 			</div><!-- .inside -->
 
 		</div><!-- .postbox -->
+
+		<?php $this->print_tab_template(); ?>
+		<?php $this->print_script(); ?>
 	<?php }
 
 	public function tab_nav() {
@@ -137,50 +142,91 @@ final class Members_Cap_Tabs {
 		if ( $add )
 			$this->added_caps = array_unique( array_merge( $this->added_caps, $caps ) );
 
-		$disabled = $this->is_editable ? '' : ' disabled="disabled" readonly="readonly"'; ?>
+		$this->to_json( $id, $caps ); ?>
 
-		<div id="<?php echo sanitize_html_class( "members-tab-{$id}" ); ?>" class="members-tab-content">
+	<?php }
+
+	public function to_json( $id, $caps ) {
+
+		$this->to_json[] = array(
+			'id'          => sanitize_html_class( "members-tab-{$id}" ),
+			'class'       => 'members-tab-content' . ( $this->is_editable ? ' editable-role' : '' ),
+			'readonly'    => $this->is_editable ? '' : ' disabled="disabled" readonly="readonly"',
+			'has_caps'    => $this->has_caps,
+			'caps'        => $caps,
+			'label'       => array(
+				'cap'   => esc_html__( 'Capability', 'members' ),
+				'grant' => esc_html__( 'Grant', 'members' ),
+				'deny'  => esc_html__( 'Deny', 'members' )
+			)
+		);
+	}
+
+	public function print_tab_template() { ?>
+		<script type="text/html" id="<?php echo esc_attr( "tmpl-members-tab-template" ); ?>">
+			<?php $this->print_template(); ?>
+		</script>
+	<?php }
+
+	public function print_template() { ?>
+
+		<div id="{{ data.id }}" class="{{ data.class }}">
 
 		<table class="wp-list-table widefat fixed members-roles-select">
 
 			<thead>
 				<tr>
-					<th><?php esc_html_e( 'Capability', 'members' ); ?></th>
-					<th class="column-cb"><?php esc_html_e( 'Grant', 'members' ); ?></th>
-					<th class="column-cb"><?php esc_html_e( 'Deny', 'members' ); ?></th>
+					<th class="column-cap">{{ data.label.cap }}</th>
+					<th class="column-cb">{{ data.label.grant }}</th>
+					<th class="column-cb">{{ data.label.deny }}</th>
 				</tr>
 			</thead>
 
 			<tfoot>
 				<tr>
-					<th><?php esc_html_e( 'Capability', 'members' ); ?></th>
-					<th class="column-cb"><?php esc_html_e( 'Grant', 'members' ); ?></th>
-					<th class="column-cb"><?php esc_html_e( 'Deny', 'members' ); ?></th>
+					<th class="column-cap">{{ data.label.cap }}</th>
+					<th class="column-cb">{{ data.label.grant }}</th>
+					<th class="column-cb">{{ data.label.deny }}</th>
 				</tr>
 			</tfoot>
 
-			<?php foreach ( $caps as $cap ) : ?>
+			<tbody>
+
+			<# _.each( data.caps, function( cap ) { #>
 
 				<tr class="members-cap-checklist">
-					<?php $has_cap    = isset( $this->has_caps[ $cap ] ) && $this->has_caps[ $cap ]; ?>
-					<?php $denied_cap = isset( $this->has_caps[ $cap ] ) && ! $this->has_caps[ $cap ]; ?>
-
 					<td class="members-cap-name">
-						<label><strong><?php echo esc_html( $cap ); ?></strong></label>
+						<label><strong>{{ cap }}</strong></label>
 					</td>
 
 					<td class="column-cb">
-						<input class="members-grant-cb" type="checkbox" data-grant-cap="<?php echo esc_attr( $cap ); ?>" name="grant-caps[]" value="<?php echo esc_attr( $cap ); ?>" <?php checked( $has_cap ); ?><?php echo $disabled; ?> />
+						<input {{{ data.readonly }}} type="checkbox" name="grant-caps[]" data-grant-cap="{{ cap }}" value="{{ cap }}" <# if ( true === data.has_caps[ cap ] ) { #>checked="checked"<# } #> />
 					</td>
 
 					<td class="column-cb">
-						<input class="members-deny-cb" type="checkbox" data-deny-cap="<?php echo esc_attr( $cap ); ?>" name="deny-caps[]" value="<?php echo esc_attr( $cap ); ?>" <?php checked( $denied_cap ); ?><?php echo $disabled; ?> />
+						<input {{{ data.readonly }}} type="checkbox" name="deny-caps[]" data-deny-cap="{{ cap }}" value="{{ cap }}" <# if ( false === data.has_caps[ cap ] ) { #>checked="checked"<# } #> />
 					</td>
 				</tr>
 
-			<?php endforeach; ?>
+			<# } ) #>
+			</tbody>
 		</table>
+		</div>
+	<?php }
 
-		</div><!-- .members-tab-content -->
+	public function print_script() { ?>
+
+		<script type="text/javascript">
+			jQuery( document ).ready( function() {
+
+				var template = wp.template( 'members-tab-template' );
+
+				<?php foreach ( $this->to_json as $data ) { ?>
+					jQuery( '.members-tab-wrap' ).append(
+						template( <?php echo wp_json_encode( $data ); ?> )
+					);
+				<?php } ?>
+			} );
+		</script>
 	<?php }
 }

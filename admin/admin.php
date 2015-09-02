@@ -53,7 +53,7 @@ function members_admin_setup() {
 }
 
 function members_admin_register_scripts() {
-	wp_register_script( 'members-admin', members_plugin()->js_uri . 'admin.js', array( 'jquery' ) );
+	wp_register_script( 'members-admin', members_plugin()->js_uri . 'admin.js', array( 'jquery' ), '', true );
 }
 
 function members_admin_register_styles() {

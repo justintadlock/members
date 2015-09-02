@@ -61,28 +61,15 @@ jQuery( document ).ready(
 		// Show hidden stuff.
 		jQuery( '.hide-if-no-js' ).show();
 
-		/*jQuery( '.members-cap-checklist .members-grant-cb, .members-cap-checklist .members-deny-cb' ).change(
+		jQuery( '.members-cap-checklist' ).addClass( 'hello' );
 
+		jQuery( '.editable-role .members-cap-checklist label' ).click(
 			function() {
 
 				var parent = jQuery( this ).closest( '.members-cap-checklist' );
 
-				if ( this.checked ) {
-					jQuery( parent ).find( '.members-cap-name' ).addClass( 'has-cap' );
-				} else {
-					jQuery( parent ).find( '.members-cap-name' ).removeClass( 'has-cap' );
-				}
-
-			}
-		);*/
-
-		jQuery( '.members-cap-checklist label' ).click(
-			function() {
-
-				var parent = jQuery( this ).closest( '.members-cap-checklist' );
-
-				var grant = jQuery( parent ).find( '.members-grant-cb' );
-				var deny = jQuery( parent ).find( '.members-deny-cb' );
+				var grant = jQuery( parent ).find( 'input[data-grant-cap]' );
+				var deny = jQuery( parent ).find( 'input[data-deny-cap]' );
 
 				if ( jQuery( grant ).prop( 'checked' ) ) {
 
@@ -106,16 +93,12 @@ jQuery( document ).ready(
 				jQuery( '#submitdiv .granted-count' ).text( granted_count );
 				jQuery( '#submitdiv .denied-count' ).text( denied_count );
 
-		jQuery( '.members-cap-checklist .members-grant-cb' ).change(
+		jQuery( '.members-cap-checklist input[data-grant-cap]' ).change(
 			function() {
 
 				var data_grant = jQuery( this ).attr( 'data-grant-cap' );
 
 				if ( this.checked ) {
-
-					//var parent = jQuery( this ).closest( '.members-cap-checklist' );
-
-					//jQuery( parent ).find( '.members-deny-cb' ).prop( 'checked', false );
 
 					jQuery( 'input[data-grant-cap="' + data_grant + '"]' ).not( this ).prop( 'checked', true );
 					jQuery( 'input[data-deny-cap="' + data_grant + '"]' ).prop( 'checked', false );
@@ -135,15 +118,12 @@ jQuery( document ).ready(
 			}
 		);
 
-		jQuery( '.members-cap-checklist .members-deny-cb' ).change(
+		jQuery( '.members-cap-checklist input[data-grant-cap]' ).change(
 			function() {
 
 				var data_deny = jQuery( this ).attr( 'data-deny-cap' );
 
 				if ( this.checked ) {
-					//var parent = jQuery( this ).closest( '.members-cap-checklist' );
-
-					//jQuery( parent ).find( '.members-grant-cb' ).prop( 'checked', false );
 
 					jQuery( 'input[data-deny-cap="' + data_deny + '"]' ).not( this ).prop( 'checked', true );
 					jQuery( 'input[data-grant-cap="' + data_deny + '"]' ).prop( 'checked', false );

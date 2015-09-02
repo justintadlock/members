@@ -208,6 +208,8 @@ final class Members_Admin_Role_New {
 		wp_enqueue_script( 'common' );
 		wp_enqueue_script( 'wp-lists' );
 		wp_enqueue_script( 'postbox' );
+
+		wp_enqueue_script( 'wp-util' );
 	}
 
 	public function print_scripts() { ?>
