@@ -118,7 +118,7 @@ jQuery( document ).ready(
 			}
 		);
 
-		jQuery( '.members-cap-checklist input[data-grant-cap]' ).change(
+		jQuery( '.members-cap-checklist input[data-deny-cap]' ).change(
 			function() {
 
 				var data_deny = jQuery( this ).attr( 'data-deny-cap' );
