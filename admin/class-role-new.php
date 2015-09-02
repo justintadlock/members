@@ -232,7 +232,7 @@ final class Members_Admin_Role_New {
 
 		<div class="wrap">
 
-			<h2><?php ! $this->is_clone ? esc_html_e( 'Add New Role', 'members' ) : esc_html_e( 'Clone Role', 'members' ); ?></h2>
+			<h1><?php ! $this->is_clone ? esc_html_e( 'Add New Role', 'members' ) : esc_html_e( 'Clone Role', 'members' ); ?></h1>
 
 			<?php settings_errors( 'members_role_new' ); ?>
 

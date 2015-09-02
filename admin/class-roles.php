@@ -136,13 +136,13 @@ final class Members_Admin_Roles {
 
 		<div class="wrap">
 
-			<h2>
+			<h1>
 				<?php esc_html_e( 'Roles', 'members' ); ?>
 
 				<?php if ( current_user_can( 'create_roles' ) ) : ?>
 					<a href="<?php echo members_get_new_role_url(); ?>" class="page-title-action"><?php esc_html_e( 'Add New', 'members' ); ?></a>
 				<?php endif; ?>
-			</h2>
+			</h1>
 
 			<?php settings_errors( 'members_roles' ); ?>
 

@@ -179,13 +179,13 @@ final class Members_Admin_Role_Edit {
 
 		<div class="wrap">
 
-			<h2>
+			<h1>
 				<?php esc_html_e( 'Edit Role', 'members' ); ?>
 
 				<?php if ( current_user_can( 'create_roles' ) ) : ?>
 					<?php printf( '<a class="page-title-action" href="%s">%s</a>', members_get_new_role_url(), esc_html__( 'Add New', 'members' ) ); ?>
 				<?php endif; ?>
-			</h2>
+			</h1>
 
 			<?php settings_errors( 'members_edit_role' ); ?>
 
