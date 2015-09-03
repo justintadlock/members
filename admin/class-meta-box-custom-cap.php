@@ -35,53 +35,6 @@ final class Members_Meta_Box_Custom_Cap {
 		<script type="text/html" id="tmpl-members-new-cap-control">
 			<?php $this->template(); ?>
 		</script>
-
-		<script type="text/javascript">
-			jQuery( document ).ready( function() {
-
-				var new_cap_template = wp.template( 'members-new-cap-control' );
-
-				jQuery( '#members-add-new-cap' ).prop( 'disabled', true );
-
-				jQuery( '#members-new-cap-field' ).on( 'input',
-					function() {
-
-						if ( jQuery( this ).val() ) {
-
-							jQuery( '#members-add-new-cap' ).prop( 'disabled', false );
-						} else {
-							jQuery( '#members-add-new-cap' ).prop( 'disabled', true );
-						}
-					}
-				);
-
-				jQuery( '#members-add-new-cap' ).click(
-					function() {
-						var new_cap = jQuery( '#members-new-cap-field' ).val();
-
-						// Sanitize the new cap.
-						new_cap = new_cap.replace( /<.*?>/g, '' ).replace( /\s/g, '_' ).replace( /[^a-zA-Z0-9_]/g, '' );
-
-						if ( new_cap ) {
-
-							jQuery( 'a[href="#members-tab-custom"]' ).trigger( 'click' );
-
-							var data = { cap : new_cap, is_granted_cap : true, is_denied_cap : false };
-
-							jQuery( '#members-tab-custom tbody' ).prepend(
-								new_cap_template( data )
-							);
-
-							jQuery( '#members-new-cap-field' ).val( '' );
-
-							jQuery( '#members-add-new-cap' ).prop( 'disabled', true );
-
-							jQuery( '.members-cap-checklist input[data-deny-cap="' + new_cap + '"]' ).trigger( 'change' );
-						}
-					}
-				);
-			} );
-		</script>
 	<?php }
 
 	public function template() { ?>

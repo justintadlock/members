@@ -158,4 +158,63 @@ jQuery( document ).ready( function() {
 		}
 	); // on()
 
+	/* ====== New Cap Meta Box ====== */
+
+	// Create a Underscore template.
+	var new_cap_template = wp.template( 'members-new-cap-control' );
+
+	// Disable the new cap button so that it's not clicked until there's a cap.
+	jQuery( '#members-add-new-cap' ).prop( 'disabled', true );
+
+	// When the user starts typing a new cap.
+	jQuery( '#members-new-cap-field' ).on( 'input',
+		function() {
+
+			// If there's a value in the input, enable the add new button.
+			if ( jQuery( this ).val() ) {
+
+				jQuery( '#members-add-new-cap' ).prop( 'disabled', false );
+
+			// If there's no value, disable the button.
+			} else {
+				jQuery( '#members-add-new-cap' ).prop( 'disabled', true );
+			}
+		}
+	); // .on( 'input' )
+
+	// When the new cap button is clicked.
+	jQuery( '#members-add-new-cap' ).click(
+		function() {
+
+			// Get the new cap value.
+			var new_cap = jQuery( '#members-new-cap-field' ).val();
+
+			// Sanitize the new cap.
+			// Note that this will be sanitized on the PHP side as well before save.
+			new_cap = new_cap.replace( /<.*?>/g, '' ).replace( /\s/g, '_' ).replace( /[^a-zA-Z0-9_]/g, '' );
+
+			// If there's a new cap value.
+			if ( new_cap ) {
+
+				// Trigger a click event on the "custom" tab in the edit caps box.
+				jQuery( 'a[href="#members-tab-custom"]' ).trigger( 'click' );
+
+				// Set up some data to pass to our Underscore template.
+				var data = { cap : new_cap, is_granted_cap : true, is_denied_cap : false };
+
+				// Prepend our template to the "custom" edit caps tab content.
+				jQuery( '#members-tab-custom tbody' ).prepend( new_cap_template( data ) );
+
+				// Set the new cap input value to an empty string.
+				jQuery( '#members-new-cap-field' ).val( '' );
+
+				// Disable the add new cap button.
+				jQuery( '#members-add-new-cap' ).prop( 'disabled', true );
+
+				// Trigger a change on our new grant cap checkbox.
+				jQuery( '.members-cap-checklist input[data-grant-cap="' + new_cap + '"]' ).trigger( 'change' );
+			}
+		}
+	);
+
 } ); // ready()
