@@ -124,14 +124,14 @@ jQuery( document ).ready( function() {
 		}
 	); // .on( 'change' )
 
-	// When a cap label is clicked. Note that we're using `.on()` here because we're dealing
+	// When a cap button is clicked. Note that we're using `.on()` here because we're dealing
 	// with dynamically-generated HTML.
 	//
 	// Note that we only need to trigger `change()` once for our functionality.
-	jQuery( document ).on( 'click', '.editable-role .members-cap-checklist label',
+	jQuery( document ).on( 'click', '.editable-role .members-cap-checklist button',
 		function() {
 
-			// Get the label parent element.
+			// Get the button parent element.
 			var parent = jQuery( this ).closest( '.members-cap-checklist' );
 
 			// Find the grant and deny checkbox inputs.

@@ -136,6 +136,47 @@ padding: 0;
 	border-bottom: none;
 }
 
+.members-cap-tabs button {
+	display: inline;
+	margin: -4px;
+	line-height: inherit;
+	padding: 4px 8px;
+	border: 1px solid transparent;
+	background: transparent;
+	border-radius: 0;
+	outline: none;
+			-webkit-transition: all 0.5s ease-out;
+			   -moz-transition: all 0.5s ease-out;
+			      -o-transition:  all 0.5s ease-out;
+			        transition: all 0.5s ease-out;
+}
+
+.members-cap-tabs button:hover,
+.members-cap-tabs button:focus {
+	/*color: #0073aa;*/
+	border-color: #eee;
+	background: #fafafa;
+	cursor: pointer;
+}
+
+.members-cap-tabs button:active {
+	color: #0073aa;
+	border-color: #0073aa;
+}
+
+.members-cap-tabs button .dashicons {
+	display: none;
+	margin-left: -5px;
+	margin-right: -5px;
+	margin-top: 1px;
+	margin-bottom: -1px;
+}
+
+	.members-cap-tabs button:focus .dashicons,
+	.members-cap-tabs button:hover .dashicons {
+		display: inline-block;
+	}
+
 .members-cap-tabs {
 	overflow: hidden;
 	background: #fff;
@@ -187,26 +228,6 @@ float: left;
 	margin-left: -1px;
 }
 
-
-/*
-.users_page_roles .members-roles-select {
-  columns: 2;
-  -webkit-columns: 2;
-  -moz-columns: 2;
-}*/
-/*
-.users_page_roles .members-role-checkbox,
-.users_page_role-new .members-role-checkbox {
-	overflow: hidden;
-	margin: 0 0 5px 0;
-	float: left;
-	width: 32.67%;
-	width: 50%;
-	}
-.users_page_roles .clear,
-.users_page_role-new .clear {
-	clear: both;
-	}*/
 .users_page_roles td.has-cap,
 .users_page_role-new td.has-cap {
 	font-weight: bold;
