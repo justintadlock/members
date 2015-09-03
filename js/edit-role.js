@@ -72,51 +72,52 @@ jQuery( document ).ready( function() {
 	 *
 	 * @since  1.0.0
 	 * @access public
-	 * @param  string  $type
-	 * @param  string  $opposite
+	 * @param  object  $checkbox
 	 * @return void
 	 */
-	function members_check_uncheck( type, opposite ) {
+	function members_check_uncheck( checkbox ) {
+
+		var type     = 'grant';
+		var opposite = 'deny';
+
+		// If this is a deny checkbox.
+		if ( jQuery( checkbox ).attr( 'data-deny-cap' ) ) {
+
+			type     = 'deny';
+			opposite = 'grant';
+		}
 
 		// Get the capability for this checkbox.
-		var data_grant = jQuery( this ).attr( 'data-' + type + '-cap' );
+		var cap = jQuery( checkbox ).attr( 'data-' + type + '-cap' );
 
 		// If the checkbox is checked.
-		if ( this.checked ) {
+		if ( jQuery( checkbox ).prop( 'checked' ) ) {
 
 			// Check any duplicate checkboxes.
-			jQuery( 'input[data-' + type + '-cap="' + data_grant + '"]' ).not( this ).prop( 'checked', true );
+			jQuery( 'input[data-' + type + '-cap="' + cap + '"]' ).not( checkbox ).prop( 'checked', true );
 
 			// Uncheck any deny checkboxes with the same cap.
-			jQuery( 'input[data-' + opposite + '-cap="' + data_grant + '"]' ).prop( 'checked', false );
+			jQuery( 'input[data-' + opposite + '-cap="' + cap + '"]' ).prop( 'checked', false );
 
 		// If the checkbox is not checked.
 		} else {
 
 			// Uncheck any duplicate checkboxes.
-			jQuery( 'input[data-' + type + '-cap="' + data_grant + '"]' ).not( this ).prop( 'checked', false );
+			jQuery( 'input[data-' + type + '-cap="' + cap + '"]' ).not( checkbox ).prop( 'checked', false );
 		}
 	}
 
 	// Count the granted and denied caps that are checked.
 	members_count_caps();
 
-	// When a change is triggered for any grant checkbox. Note that we're using `.on()`
+	// When a change is triggered for any grant/deny checkbox. Note that we're using `.on()`
 	// here because we're dealing with dynamically-generated HTML.
 	jQuery( document ).on( 'change',
 		'.members-cap-checklist input[data-grant-cap], .members-cap-checklist input[data-deny-cap]',
 		function() {
 
-			// If this is a grant checkbox.
-			if ( jQuery( this ).attr( 'data-grant-cap' ) ) {
-
-				members_check_uncheck( 'grant', 'deny' );
-
-			// If this is a deny checkbox.
-			} else if ( jQuery( this ).attr( 'data-deny-cap' ) ) {
-
-				members_check_uncheck( 'deny', 'grant' );
-			}
+			// Check/Uncheck boxes.
+			members_check_uncheck( this );
 
 			// Count the granted and denied caps that are checked.
 			members_count_caps();
@@ -125,6 +126,8 @@ jQuery( document ).ready( function() {
 
 	// When a cap label is clicked. Note that we're using `.on()` here because we're dealing
 	// with dynamically-generated HTML.
+	//
+	// Note that we only need to trigger `change()` once for our functionality.
 	jQuery( document ).on( 'click', '.editable-role .members-cap-checklist label',
 		function() {
 
@@ -138,19 +141,19 @@ jQuery( document ).ready( function() {
 			// If the grant checkbox is checked.
 			if ( jQuery( grant ).prop( 'checked' ) ) {
 
-				jQuery( grant ).prop( 'checked', false ).trigger( 'change' );
-				jQuery( deny ).prop( 'checked', true ).trigger( 'change' );
+				jQuery( grant ).prop( 'checked', false );
+				jQuery( deny ).prop( 'checked', true ).change();
 
 			// If the deny checkbox is checked.
 			} else if ( jQuery( deny ).prop( 'checked' ) ) {
 
-				jQuery( grant ).prop( 'checked', false ).trigger( 'change' );
-				jQuery( deny ).prop( 'checked', false ).trigger( 'change' );
+				jQuery( grant ).prop( 'checked', false );
+				jQuery( deny ).prop( 'checked', false ).change();
 
 			// If neither checkbox is checked.
 			} else {
 
-				jQuery( grant ).prop( 'checked', true ).trigger( 'change' );
+				jQuery( grant ).prop( 'checked', true ).change();
 			}
 		}
 	); // on()
