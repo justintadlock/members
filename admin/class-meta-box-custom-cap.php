@@ -39,6 +39,8 @@ final class Members_Meta_Box_Custom_Cap {
 		<script type="text/javascript">
 			jQuery( document ).ready( function() {
 
+				var new_cap_template = wp.template( 'members-new-cap-control' );
+
 				jQuery( '#members-add-new-cap' ).prop( 'disabled', true );
 
 				jQuery( '#members-new-cap-field' ).on( 'input',
@@ -63,8 +65,6 @@ final class Members_Meta_Box_Custom_Cap {
 						if ( new_cap ) {
 
 							jQuery( 'a[href="#members-tab-custom"]' ).trigger( 'click' );
-
-							var new_cap_template = wp.template( 'members-new-cap-control' );
 
 							var data = { cap : new_cap, is_granted_cap : true, is_denied_cap : false };
 
