@@ -61,9 +61,7 @@ jQuery( document ).ready(
 		// Show hidden stuff.
 		jQuery( '.hide-if-no-js' ).show();
 
-		jQuery( '.members-cap-checklist' ).addClass( 'hello' );
-
-		jQuery( '.editable-role .members-cap-checklist label' ).click(
+		jQuery( document ).on( 'click', '.editable-role .members-cap-checklist label',
 			function() {
 
 				var parent = jQuery( this ).closest( '.members-cap-checklist' );
@@ -93,7 +91,7 @@ jQuery( document ).ready(
 				jQuery( '#submitdiv .granted-count' ).text( granted_count );
 				jQuery( '#submitdiv .denied-count' ).text( denied_count );
 
-		jQuery( '.members-cap-checklist input[data-grant-cap]' ).change(
+		jQuery( document ).on( 'change', '.members-cap-checklist input[data-grant-cap]',
 			function() {
 
 				var data_grant = jQuery( this ).attr( 'data-grant-cap' );
@@ -109,16 +107,18 @@ jQuery( document ).ready(
 				}
 
 				var granted_count = jQuery( "#members-tab-all input[data-grant-cap]:checked" ).length;
-
 				var denied_count = jQuery( "#members-tab-all input[data-deny-cap]:checked" ).length;
 
-				jQuery( '#submitdiv .granted-count' ).text( granted_count );
-				jQuery( '#submitdiv .denied-count' ).text( denied_count );
+				var new_granted_count = jQuery( '#members-tab-custom input[name="grant-new-caps[]"]:checked' ).length;
+				var new_denied_count  = jQuery( '#members-tab-custom input[name="deny-new-caps[]"]:checked' ).length;
+
+				jQuery( '#submitdiv .granted-count' ).text( granted_count + new_granted_count );
+				jQuery( '#submitdiv .denied-count' ).text( denied_count + new_denied_count );
 
 			}
 		);
 
-		jQuery( '.members-cap-checklist input[data-deny-cap]' ).change(
+		jQuery( document ).on( 'change', '.members-cap-checklist input[data-deny-cap]',
 			function() {
 
 				var data_deny = jQuery( this ).attr( 'data-deny-cap' );
@@ -134,11 +134,13 @@ jQuery( document ).ready(
 				}
 
 				var granted_count = jQuery( "#members-tab-all input[data-grant-cap]:checked" ).length;
+				var denied_count  = jQuery( "#members-tab-all input[data-deny-cap]:checked" ).length;
 
-				var denied_count = jQuery( "#members-tab-all input[data-deny-cap]:checked" ).length;
+				var new_granted_count = jQuery( '#members-tab-custom input[name="grant-new-caps[]"]:checked' ).length;
+				var new_denied_count  = jQuery( '#members-tab-custom input[name="deny-new-caps[]"]:checked' ).length;
 
-				jQuery( '#submitdiv .granted-count' ).text( granted_count );
-				jQuery( '#submitdiv .denied-count' ).text( denied_count );
+				jQuery( '#submitdiv .granted-count' ).text( granted_count + new_granted_count );
+				jQuery( '#submitdiv .denied-count' ).text( denied_count + new_denied_count );
 
 			}
 		);

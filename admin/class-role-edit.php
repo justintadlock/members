@@ -75,10 +75,13 @@ final class Members_Admin_Role_Edit {
 		$this->is_editable = members_is_role_editable( $this->role->name );
 
 		// Check if the form has been submitted.
-		if ( $this->is_editable && ( isset( $_POST['grant-caps'] ) || isset( $_POST['deny-caps'] ) || isset( $_POST['new-cap'] ) ) ) {
+		if ( $this->is_editable && ( isset( $_POST['grant-caps'] ) || isset( $_POST['deny-caps'] ) || isset( $_POST['grant-new-caps'] ) || isset( $_POST['deny-new-caps'] ) ) ) {
 
 			$grant_caps = ! empty( $_POST['grant-caps'] ) ? array_unique( $_POST['grant-caps'] ) : array();
 			$deny_caps  = ! empty( $_POST['deny-caps'] )  ? array_unique( $_POST['deny-caps']  ) : array();
+
+			$grant_new_caps = ! empty( $_POST['grant-new-caps'] ) ? array_unique( $_POST['grant-new-caps'] ) : array();
+			$deny_new_caps  = ! empty( $_POST['deny-new-caps'] )  ? array_unique( $_POST['deny-new-caps']  ) : array();
 
 			// Verify the nonce.
 			check_admin_referer( 'edit_role', 'members_edit_role_nonce' );
@@ -110,6 +113,22 @@ final class Members_Admin_Role_Edit {
 					$this->role->remove_cap( $cap );
 
 			} // End loop through existing capabilities.
+
+			foreach ( $grant_new_caps as $grant_new_cap ) {
+
+				$_cap = members_sanitize_cap( $grant_new_cap );
+
+				if ( ! in_array( $_cap, $this->capabilities ) )
+					$this->role->add_cap( $_cap );
+			}
+
+			foreach ( $deny_new_caps as $deny_new_cap ) {
+
+				$_cap = members_sanitize_cap( $deny_new_cap );
+
+				if ( ! in_array( $_cap, $this->capabilities ) && ! in_array( $_cap, $grant_new_caps ) )
+					$this->role->add_cap( $_cap, false );
+			}
 
 			// If new caps were added and are in an array, we need to add them.
 			if ( ! empty( $_POST['new-cap'] ) && is_array( $_POST['new-cap'] ) ) {

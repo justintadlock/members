@@ -123,18 +123,17 @@ final class Members_Admin_Role_New {
 		}
 
 		// Check if the current user can create roles and the form has been submitted.
-		if ( current_user_can( 'create_roles' ) && ( isset( $_POST['role_name'] ) || isset( $_POST['role'] ) || isset( $_POST['grant-caps'] ) || isset( $_POST['deny-caps'] ) || isset( $_POST['new-cap'] ) ) ) {
+		if ( current_user_can( 'create_roles' ) && ( isset( $_POST['role_name'] ) || isset( $_POST['role'] ) || isset( $_POST['grant-caps'] ) || isset( $_POST['deny-caps'] ) || isset( $_POST['grant-new-caps'] ) || isset( $_POST['deny-new-caps'] ) ) ) {
 
 			// Verify the nonce.
 			check_admin_referer( 'new_role', 'members_new_role_nonce' );
 
 			// Assume no caps.
-			$new_role_caps = null;
+			$new_caps = array();
 
 			// Check if any capabilities were selected.
 			if ( isset( $_POST['grant-caps'] ) || isset( $_POST['deny-caps'] ) ) {
 
-				$new_caps   = array();
 				$grant_caps = ! empty( $_POST['grant-caps'] ) ? array_unique( $_POST['grant-caps'] ) : array();
 				$deny_caps  = ! empty( $_POST['deny-caps'] )  ? array_unique( $_POST['deny-caps']  ) : array();
 
@@ -149,6 +148,27 @@ final class Members_Admin_Role_New {
 
 				if ( ! empty( $new_caps ) )
 					$this->capabilities = array_keys( $new_caps );
+			}
+
+			$grant_new_caps = ! empty( $_POST['grant-new-caps'] ) ? array_unique( $_POST['grant-new-caps'] ) : array();
+			$deny_new_caps  = ! empty( $_POST['deny-new-caps'] )  ? array_unique( $_POST['deny-new-caps']  ) : array();
+
+			$_m_caps = members_get_capabilities();
+
+			foreach ( $grant_new_caps as $grant_new_cap ) {
+
+				$_cap = members_sanitize_cap( $grant_new_cap );
+
+				if ( ! in_array( $_cap, $_m_caps ) )
+					$new_caps[ $_cap ] = true;
+			}
+
+			foreach ( $deny_new_caps as $deny_new_cap ) {
+
+				$_cap = members_sanitize_cap( $deny_new_cap );
+
+				if ( ! in_array( $_cap, $_m_caps ) )
+					$new_caps[ $_cap ] = false;
 			}
 
 			// Sanitize the new role name/label. We just want to strip any tags here.
