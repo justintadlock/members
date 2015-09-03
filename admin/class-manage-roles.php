@@ -116,7 +116,6 @@ final class Members_Admin_Manage_Roles {
 		if ( $this->page !== $hook )
 			return;
 
-		wp_enqueue_script( 'members-admin' );
 		wp_enqueue_style(  'members-admin' );
 	}
 

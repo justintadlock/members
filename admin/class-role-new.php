@@ -223,13 +223,12 @@ final class Members_Admin_Role_New {
 		if ( $this->page !== $hook )
 			return;
 
-		wp_enqueue_script( 'members-admin' );
 		wp_enqueue_style(  'members-admin' );
+
 		wp_enqueue_script( 'common' );
 		wp_enqueue_script( 'wp-lists' );
 		wp_enqueue_script( 'postbox' );
-
-		wp_enqueue_script( 'wp-util' );
+		wp_enqueue_script( 'members-edit-role' );
 	}
 
 	public function print_scripts() { ?>

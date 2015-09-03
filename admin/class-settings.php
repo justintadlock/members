@@ -69,7 +69,7 @@ final class Members_Settings_Page {
 		if ( $this->settings_page !== $hook_suffix )
 			return;
 
-		wp_enqueue_script( 'members-admin' );
+		wp_enqueue_script( 'members-settings' );
 	}
 
 	/**
