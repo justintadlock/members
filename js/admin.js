@@ -41,6 +41,7 @@ jQuery( document ).ready(
 		jQuery( '.members-cap-tabs .members-tab-content' ).hide();
 		jQuery( '.members-cap-tabs .members-tab-content:first-child' ).show();
 		jQuery( '.members-tab-nav :first-child' ).attr( 'aria-selected', 'true' );
+		jQuery( '.members-which-tab' ).text( jQuery( '.members-tab-nav :first-child a' ).text() );
 
 		jQuery( '.members-tab-nav li a' ).click(
 			function( j ) {
@@ -55,6 +56,8 @@ jQuery( document ).ready(
 				jQuery( this ).parents( '.members-cap-tabs' ).find( '.members-tab-title' ).attr( 'aria-selected', 'false' );
 
 				jQuery( this ).parent().attr( 'aria-selected', 'true' );
+
+				jQuery( '.members-which-tab' ).text( jQuery( this ).text() );
 			}
 		);
 
@@ -142,24 +145,6 @@ jQuery( document ).ready(
 				jQuery( '#submitdiv .granted-count' ).text( granted_count + new_granted_count );
 				jQuery( '#submitdiv .denied-count' ).text( denied_count + new_denied_count );
 
-			}
-		);
-
-
-		// New cap input box.
-		jQuery( '#members-add-new-cap' ).click(
-			function() {
-				jQuery( 'p.new-cap-holder' ).append( '<input type="text" class="new-cap" name="new-cap[]" value="" size="20" />' );
-			}
-		);
-
-		// Add `has-cap` class to caps the role has.
-		jQuery( '.members-role-checkbox input[type="checkbox"]:checked' ).parent( 'label' ).addClass( 'has-cap' );
-
-		// Toggle the `has-cap` class when checkbox is clicked.
-		jQuery( 'div.members-role-checkbox input[type="checkbox"]' ).click(
-			function() {
-				jQuery( this ).parent( 'label' ).toggleClass( 'has-cap' );
 			}
 		);
 	}
