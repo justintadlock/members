@@ -43,13 +43,85 @@ jQuery( document ).ready( function() {
 
 	/* ====== Capability Checkboxes (inside tab content) ====== */
 
-	// Count the granted and denied caps that are checked.
-	var granted_count = jQuery( "#members-tab-all input[data-grant-cap]:checked" ).length;
-	var denied_count  = jQuery( "#members-tab-all input[data-deny-cap]:checked" ).length;
+	/**
+	 * Counts the number of granted and denied capabilities that are checked and updates
+	 * the count in the submit role meta box.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @return void
+	 */
+	function members_count_caps() {
 
-	// Update the submit meta box cap count text.
-	jQuery( '#submitdiv .granted-count' ).text( granted_count );
-	jQuery( '#submitdiv .denied-count' ).text( denied_count );
+		// Count the granted and denied caps that are checked.
+		var granted_count = jQuery( "#members-tab-all input[data-grant-cap]:checked" ).length;
+		var denied_count  = jQuery( "#members-tab-all input[data-deny-cap]:checked" ).length;
+
+		// Count the new (added from new cap meta box) granted and denied caps that are checked.
+		var new_granted_count = jQuery( '#members-tab-custom input[name="grant-new-caps[]"]:checked' ).length;
+		var new_denied_count  = jQuery( '#members-tab-custom input[name="deny-new-caps[]"]:checked' ).length;
+
+		// Update the submit meta box cap count.
+		jQuery( '#submitdiv .granted-count' ).text( granted_count + new_granted_count );
+		jQuery( '#submitdiv .denied-count' ).text( denied_count + new_denied_count );
+	}
+
+	/**
+	 * When a grant/deny checkbox has a change, this function makes sure that any duplicates
+	 * also receive that change.  It also unchecks the grant/deny opposite checkbox if needed.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @param  string  $type
+	 * @param  string  $opposite
+	 * @return void
+	 */
+	function members_check_uncheck( type, opposite ) {
+
+		// Get the capability for this checkbox.
+		var data_grant = jQuery( this ).attr( 'data-' + type + '-cap' );
+
+		// If the checkbox is checked.
+		if ( this.checked ) {
+
+			// Check any duplicate checkboxes.
+			jQuery( 'input[data-' + type + '-cap="' + data_grant + '"]' ).not( this ).prop( 'checked', true );
+
+			// Uncheck any deny checkboxes with the same cap.
+			jQuery( 'input[data-' + opposite + '-cap="' + data_grant + '"]' ).prop( 'checked', false );
+
+		// If the checkbox is not checked.
+		} else {
+
+			// Uncheck any duplicate checkboxes.
+			jQuery( 'input[data-' + type + '-cap="' + data_grant + '"]' ).not( this ).prop( 'checked', false );
+		}
+	}
+
+	// Count the granted and denied caps that are checked.
+	members_count_caps();
+
+	// When a change is triggered for any grant checkbox. Note that we're using `.on()`
+	// here because we're dealing with dynamically-generated HTML.
+	jQuery( document ).on( 'change',
+		'.members-cap-checklist input[data-grant-cap], .members-cap-checklist input[data-deny-cap]',
+		function() {
+
+			// If this is a grant checkbox.
+			if ( jQuery( this ).attr( 'data-grant-cap' ) ) {
+
+				members_check_uncheck( 'grant', 'deny' );
+
+			// If this is a deny checkbox.
+			} else if ( jQuery( this ).attr( 'data-deny-cap' ) ) {
+
+				members_check_uncheck( 'deny', 'grant' );
+			}
+
+			// Count the granted and denied caps that are checked.
+			members_count_caps();
+		}
+	); // .on( 'change' )
 
 	// When a cap label is clicked. Note that we're using `.on()` here because we're dealing
 	// with dynamically-generated HTML.
@@ -82,81 +154,5 @@ jQuery( document ).ready( function() {
 			}
 		}
 	); // on()
-
-	// When a change is triggered for any grant checkbox. Note that we're using `.on()`
-	// here because we're dealing with dynamically-generated HTML.
-	jQuery( document ).on( 'change', '.members-cap-checklist input[data-grant-cap]',
-		function() {
-
-			// Get the capability for this checkbox.
-			var data_grant = jQuery( this ).attr( 'data-grant-cap' );
-
-			// If the checkbox is checked.
-			if ( this.checked ) {
-
-				// Check any duplicate checkboxes.
-				jQuery( 'input[data-grant-cap="' + data_grant + '"]' ).not( this ).prop( 'checked', true );
-
-				// Uncheck any deny checkboxes with the same cap.
-				jQuery( 'input[data-deny-cap="' + data_grant + '"]' ).prop( 'checked', false );
-
-			// If the checkbox is not checked.
-			} else {
-
-				// Uncheck any duplicate checkboxes.
-				jQuery( 'input[data-grant-cap="' + data_grant + '"]' ).not( this ).prop( 'checked', false );
-			}
-
-			// Count the granted and denied caps that are checked.
-			var granted_count = jQuery( "#members-tab-all input[data-grant-cap]:checked" ).length;
-			var denied_count = jQuery( "#members-tab-all input[data-deny-cap]:checked" ).length;
-
-			// Count the new (added from new cap meta box) granted and denied caps that are checked.
-			var new_granted_count = jQuery( '#members-tab-custom input[name="grant-new-caps[]"]:checked' ).length;
-			var new_denied_count  = jQuery( '#members-tab-custom input[name="deny-new-caps[]"]:checked' ).length;
-
-			// Update the submit meta box cap count.
-			jQuery( '#submitdiv .granted-count' ).text( granted_count + new_granted_count );
-			jQuery( '#submitdiv .denied-count' ).text( denied_count + new_denied_count );
-		}
-	); // .on( 'change' )
-
-	// When a change is triggered for any deny checkbox. Note that we're using `.on()`
-	// here because we're dealing with dynamically-generated HTML.
-	jQuery( document ).on( 'change', '.members-cap-checklist input[data-deny-cap]',
-		function() {
-
-			// Get the capability for this checkbox.
-			var data_deny = jQuery( this ).attr( 'data-deny-cap' );
-
-			// If the checkbox is checked.
-			if ( this.checked ) {
-
-				// Check any duplicate checkboxes.
-				jQuery( 'input[data-deny-cap="' + data_deny + '"]' ).not( this ).prop( 'checked', true );
-
-				// Uncheck any deny checkboxes with the same cap.
-				jQuery( 'input[data-grant-cap="' + data_deny + '"]' ).prop( 'checked', false );
-
-			// If the checkbox is not checked.
-			} else {
-
-				// Uncheck any duplicate checkboxes.
-				jQuery( 'input[data-deny-cap="' + data_deny + '"]' ).not( this ).prop( 'checked', false );
-			}
-
-			// Count the granted and denied caps that are checked.
-			var granted_count = jQuery( "#members-tab-all input[data-grant-cap]:checked" ).length;
-			var denied_count = jQuery( "#members-tab-all input[data-deny-cap]:checked" ).length;
-
-			// Count the new (added from new cap meta box) granted and denied caps that are checked.
-			var new_granted_count = jQuery( '#members-tab-custom input[name="grant-new-caps[]"]:checked' ).length;
-			var new_denied_count  = jQuery( '#members-tab-custom input[name="deny-new-caps[]"]:checked' ).length;
-
-			// Update the submit meta box cap count.
-			jQuery( '#submitdiv .granted-count' ).text( granted_count + new_granted_count );
-			jQuery( '#submitdiv .denied-count' ).text( denied_count + new_denied_count );
-		}
-	);
 
 } ); // ready()
