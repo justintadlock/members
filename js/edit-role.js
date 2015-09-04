@@ -168,6 +168,10 @@ jQuery( document ).ready( function() {
 	// Create a Underscore template.
 	var new_cap_template = wp.template( 'members-new-cap-control' );
 
+	// Give the meta box toggle button a type of `button` so that it doesn't submit the form
+	// when we hit the "Enter" key in our input or toggle open/close the meta box.
+	jQuery( '#newcapdiv button.handlediv' ).attr( 'type', 'button' );
+
 	// Disable the new cap button so that it's not clicked until there's a cap.
 	jQuery( '#members-add-new-cap' ).prop( 'disabled', true );
 
@@ -186,6 +190,19 @@ jQuery( document ).ready( function() {
 			}
 		}
 	); // .on( 'input' )
+
+	// Simulate clicking the add new cap button if the user presses "Enter" in the new cap field.
+	jQuery( '#members-new-cap-field' ).keypress(
+		function( e ) {
+
+			// 13 is the key code for "Enter".
+			if ( 13 === e.keyCode ) {
+				jQuery( '#members-add-new-cap' ).click();
+				e.preventDefault();
+				return false;
+			}
+		}
+	); // .keypress()
 
 	// When the new cap button is clicked.
 	jQuery( '#members-add-new-cap' ).click(
@@ -220,6 +237,6 @@ jQuery( document ).ready( function() {
 				jQuery( '.members-cap-checklist input[data-grant-cap="' + new_cap + '"]' ).trigger( 'change' );
 			}
 		}
-	);
+	); // .click()
 
 } ); // ready()
