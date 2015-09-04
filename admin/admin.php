@@ -121,20 +121,6 @@ function members_admin_contextual_help( $text, $screen ) {
 }
 
 /**
- * Members plugin nonce function.  This is to help with securely making sure forms have been processed
- * from the correct place.
- *
- * @since 0.1.0
- * @param $action string Additional action to add to the nonce.
- */
-function members_get_nonce( $action = '' ) {
-	if ( $action )
-		return "members-component-action_{$action}";
-	else
-		return "members-plugin";
-}
-
-/**
  * Function for safely deleting a role and transferring the deleted role's users to the default role.  Note that
  * this function can be extremely intensive.  Whenever a role is deleted, it's best for the site admin to assign
  * the user's of the role to a different role beforehand.
