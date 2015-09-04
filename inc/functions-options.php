@@ -33,17 +33,6 @@ function members_multiple_user_roles_enabled() {
 }
 
 /**
- * Conditional check to see if the cap manager is enabled.
- *
- * @since  1.0.0
- * @access public
- * @return bool
- */
-function members_cap_manager_enabled() {
-	return apply_filters( 'members_cap_manager_enabled', members_get_setting( 'cap_manager' ) );
-}
-
-/**
  * Conditional check to see if content permissions are enabled.
  *
  * @since  1.0.0
@@ -95,6 +84,5 @@ function members_get_default_settings() {
 
 		// @since 1.0.0
 		'multi_roles' => true,
-		'cap_manager' => false,
 	);
 }

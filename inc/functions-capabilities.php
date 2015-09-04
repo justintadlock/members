@@ -76,42 +76,6 @@ function members_get_cap_roles( $cap ) {
 }
 
 /**
- * Returns the URL for the add-new capability admin screen.
- *
- * @since  1.0.0
- * @access public
- * @return string
- */
-function members_get_new_cap_url() {
-	return esc_url( add_query_arg( 'page', 'cap-new', admin_url( 'users.php' ) ) );
-}
-
-/**
- * Returns the URL for the edit caps admin screen.
- *
- * @since  1.0.0
- * @access public
- * @return string
- */
-function members_get_edit_caps_url() {
-	return esc_url( add_query_arg( 'page', 'capabilities', admin_url( 'users.php' ) ) );
-}
-
-/**
- * Returns the URL for deleting a capability.
- *
- * @since  1.0.0
- * @access public
- * @param  string  $cap
- * @return string
- */
-function members_get_delete_cap_url( $cap ) {
-	$url = add_query_arg( array( 'action' => 'delete', 'cap' => $cap ), members_get_edit_caps_url() );
-
-	return esc_url( wp_nonce_url( $url, 'delete_cap', 'members_delete_cap_nonce' ) );
-}
-
-/**
  * The function that makes this plugin what it is.  It returns all of our capabilities in a
  * nicely-formatted, alphabetized array with no duplicate capabilities.  It pulls from three
  * different functions to make sure we get all of the capabilities that we need for use in the

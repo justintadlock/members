@@ -6,28 +6,7 @@
  * @subpackage Admin
  */
 
-add_action( 'current_screen', 'members_current_screen', 5 );
-
-function members_current_screen( $screen ) {
-
-	if ( 'users_page_capabilities' === $screen->id )
-		$screen->add_option( 'per_page', array( 'default' => 30 ) );
-}
-
-add_filter( 'manage_users_page_capabilities_columns', 'members_manage_capabilities_columns', 5 );
-
-function members_manage_capabilities_columns( $columns ) {
-
-	$columns = array(
-		'cb'     => '<input type="checkbox" />',
-		'title'  => esc_html__( 'Capability',    'members' ),
-		'roles'  => esc_html__( 'Roles',         'members' ),
-	);
-
-	return apply_filters( 'members_manage_capabilities_columns', $columns );
-}
-
-/* Set up the administration functionality. */
+# Set up the administration functionality.
 add_action( 'admin_menu', 'members_admin_setup' );
 
 /**
@@ -46,10 +25,6 @@ function members_admin_setup() {
 
 	add_action( 'admin_enqueue_scripts', 'members_admin_register_scripts', 0 );
 	add_action( 'admin_enqueue_scripts', 'members_admin_register_styles',  0 );
-
-	/* Load stylesheets and scripts for our custom admin pages. */
-	add_action( 'admin_enqueue_scripts', 'members_admin_enqueue_style' );
-	add_action( 'admin_enqueue_scripts', 'members_admin_enqueue_scripts' );
 }
 
 function members_admin_register_scripts() {
@@ -60,22 +35,6 @@ function members_admin_register_scripts() {
 
 function members_admin_register_styles() {
 	wp_register_style( 'members-admin', members_plugin()->css_uri . 'admin.css' );
-}
-
-/**
- * Loads the admin stylesheet for the required pages based off the $hook_suffix parameter.
- *
- * @since 0.2.0
- * @param string $hook_suffix The hook for the current page in the admin.
- */
-function members_admin_enqueue_style( $hook_suffix ) {
-
-	$pages = array(
-		'users_page_capabilities'
-	);
-
-	if ( in_array( $hook_suffix, $pages ) )
-		wp_enqueue_style( 'members-admin' );
 }
 
 /**
