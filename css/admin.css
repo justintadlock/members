@@ -166,10 +166,11 @@ padding: 0;
 
 .members-cap-tabs button .dashicons {
 	display: none;
-	margin-left: -5px;
-	margin-right: -5px;
+	margin-left: -3px;
+	margin-right: -3px;
 	margin-top: 1px;
 	margin-bottom: -1px;
+	line-height: inherit;
 }
 
 	.members-cap-tabs button:focus .dashicons,
@@ -213,7 +214,10 @@ margin: 0;
     border-bottom: 1px solid #eee;
 }
 
-	.members-cap-tabs .members-tab-nav li a i { margin-right: 3px; }
+	.members-cap-tabs .members-tab-nav li a .dashicons {
+		line-height: 20px;
+		margin-right: 3px;
+	}
 
 .members-cap-tabs .members-tab-nav li[aria-selected="true"] a {
 	    color: #555;
