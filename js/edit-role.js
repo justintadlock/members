@@ -158,6 +158,11 @@ jQuery( document ).ready( function() {
 		}
 	); // on()
 
+	/* ====== Meta Boxes ====== */
+
+	// Add the postbox toggle functionality.
+	postboxes.add_postbox_toggles( 'members_edit_role' );
+
 	/* ====== New Cap Meta Box ====== */
 
 	// Create a Underscore template.

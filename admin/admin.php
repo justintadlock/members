@@ -55,7 +55,7 @@ function members_admin_setup() {
 function members_admin_register_scripts() {
 
 	wp_register_script( 'members-settings',  members_plugin()->js_uri . 'settings.js',  array( 'jquery'  ), '', true );
-	wp_register_script( 'members-edit-role', members_plugin()->js_uri . 'edit-role.js', array( 'wp-util' ), '', true );
+	wp_register_script( 'members-edit-role', members_plugin()->js_uri . 'edit-role.js', array( 'postbox', 'wp-util' ), '', true );
 }
 
 function members_admin_register_styles() {

@@ -167,24 +167,13 @@ final class Members_Admin_Role_Edit {
 
 		// Enqueue scripts/styles.
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue' ) );
-		add_action( 'admin_head', array( $this, 'print_scripts' ) );
 	}
 
 	public function enqueue() {
-		wp_enqueue_script( 'common' );
-		wp_enqueue_script( 'wp-lists' );
-		wp_enqueue_script( 'postbox' );
+
+		wp_enqueue_style(  'members-admin'     );
 		wp_enqueue_script( 'members-edit-role' );
 	}
-
-	public function print_scripts() { ?>
-		<script type="text/javascript">
-			jQuery(document).ready( function($) {
-				$('.if-js-closed').removeClass('if-js-closed').addClass('closed');
-				postboxes.add_postbox_toggles( 'members_edit_role' );
-			});
-		</script>
-	<?php }
 
 	/**
 	 * Displays the page content.
