@@ -133,31 +133,30 @@ function members_delete_role( $role ) {
 	/* Get the default role. */
 	$default_role = get_option( 'default_role' );
 
-	/* Don't delete the default role. Site admins should change the default before attempting to delete the role. */
+	// Don't delete the default role. Site admins should change the default before attempting to delete the role.
 	if ( $role == $default_role )
 		return;
 
-	/* Get all users with the role to be deleted. */
+	// Get all users with the role to be deleted.
 	$users = get_users( array( 'role' => $role ) );
 
-	/* Check if there are any users with the role we're deleting. */
+	// Check if there are any users with the role we're deleting.
 	if ( is_array( $users ) ) {
 
-		/* If users are found, loop through them. */
+		// If users are found, loop through them.
 		foreach ( $users as $user ) {
 
-			/* Create a new user object. */
-			$new_user = new WP_User( $user->ID );
+			// If the user has the role and no other roles, set their role to the default.
+			if ( $user->has_cap( $role ) && 1 >= count( $user->roles ) )
+				$user->set_role( $default_role );
 
-			/* If the user has the role, remove it and set the default. Do we need this check? */
-			if ( $new_user->has_cap( $role ) ) {
-				$new_user->remove_role( $role );
-				$new_user->set_role( $default_role );
-			}
+			// Else, remove the role.
+			else if ( $user->has_cap( $role ) )
+				$user->remove_role( $role );
 		}
 	}
 
-	/* Remove the role. */
+	// Remove the role.
 	remove_role( $role );
 }
 
