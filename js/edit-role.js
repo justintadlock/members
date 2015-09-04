@@ -227,6 +227,17 @@ jQuery( document ).ready( function() {
 				// Prepend our template to the "custom" edit caps tab content.
 				jQuery( '#members-tab-custom tbody' ).prepend( new_cap_template( data ) );
 
+				// Get the new cap table row.
+				var parent = jQuery( '[data-grant-cap="' + new_cap + '"]' ).parents( '.members-cap-checklist' );
+
+				// Add the highlight class.
+				jQuery( parent ).addClass( 'members-highlight' );
+
+				// Remove the class after a set time for a highlight effect.
+				setTimeout( function() {
+					jQuery( parent ).removeClass( 'members-highlight' );
+				}, 500 );
+
 				// Set the new cap input value to an empty string.
 				jQuery( '#members-new-cap-field' ).val( '' );
 

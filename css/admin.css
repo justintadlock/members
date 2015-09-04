@@ -228,6 +228,18 @@ float: left;
 	margin-left: -1px;
 }
 
+.members-tab-content .members-highlight {
+	background-color: rgba( 0, 115, 170, 0.05 );
+}
+
+.members-tab-content tbody {
+			-webkit-transition: all 2s ease-in-out;
+			   -moz-transition: all 2s ease-in-out;
+			      -o-transition:  all 2s ease-in-out;
+			        transition: all 2s ease-in-out;
+}
+
+
 .users_page_roles td.has-cap,
 .users_page_role-new td.has-cap {
 	font-weight: bold;
