@@ -1,5 +1,86 @@
 jQuery( document ).ready( function() {
 
+	/* ====== Role Name and Slug ====== */
+
+	/**
+	 * Takes the given text and copies it to the role slug `<span>` after sanitizing it
+	 * as a role.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @param  string  $slug
+	 * @return void
+	 */
+	function members_print_role_slug( slug ) {
+
+		// Sanitize the role.
+		slug = slug.toLowerCase().replace( /<.*?>/g, '' ).replace( /\s/g, '_' ).replace( /[^a-zA-Z0-9_]/g, '' );
+
+		// Add the text.
+		jQuery( '.role-slug' ).text( slug );
+	}
+
+	// Check the role name input box for key presses.
+	jQuery( 'input[name="role_name"]' ).keyup(
+		function() {
+
+			// If there's no value stored in the role input box, print this input's
+			// value in the role slug span.
+			if ( ! jQuery( 'input[name="role"]' ).val() )
+				members_print_role_slug( this.value );
+		}
+	); // .keyup
+
+	// Hide the role input box and role OK button.
+	jQuery( 'input[name="role"], .role-ok-button' ).hide();
+
+	// When the role edit button is clicked.
+	jQuery( '.role-edit-button' ).click(
+		function() {
+
+			// Show/Hide elements.
+			jQuery( '.role-slug, .role-edit-button' ).hide();
+			jQuery( 'input[name="role"], .role-ok-button' ).show();
+
+			// Copy the role slug to the role input edit value.
+			jQuery( 'input[name="role"]' ).attr( 'value', jQuery( '.role-slug' ).text() );
+		}
+	);
+
+	// When the role OK button is pressed.
+	jQuery( '.role-ok-button' ).click(
+		function() {
+
+			// Show/Hide elements.
+			jQuery( '.role-slug, .role-edit-button' ).show();
+			jQuery( 'input[name="role"], .role-ok-button' ).hide();
+
+			// Get the role input value.
+			var role = jQuery( 'input[name="role"]' ).val();
+
+			// If we have a value, print the slug.
+			if ( role )
+				members_print_role_slug( role );
+
+			// Else, use the role name input value.
+			else
+				members_print_role_slug( jQuery( 'input[name="role_name"]' ).val() );
+		}
+	); // .click()
+
+	// Simulate clicking the OK button if the user presses "Enter" in the role field.
+	jQuery( 'input[name="role"]' ).keypress(
+		function( e ) {
+
+			// 13 is the key code for "Enter".
+			if ( 13 === e.keyCode ) {
+				jQuery( '.role-ok-button' ).click();
+				e.preventDefault();
+				return false;
+			}
+		}
+	); // .keypress()
+
 	/* ====== Tabs ====== */
 
 	// Hides the tab content.
