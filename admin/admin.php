@@ -28,6 +28,14 @@ function members_admin_register_scripts() {
 
 	wp_register_script( 'members-settings',  members_plugin()->js_uri . 'settings.js',  array( 'jquery'  ), '', true );
 	wp_register_script( 'members-edit-role', members_plugin()->js_uri . 'edit-role.js', array( 'postbox', 'wp-util' ), '', true );
+
+	// Localize our script with some text we want to pass in.
+	$i18n = array(
+		'label_grant_cap' => esc_html__( 'Grant %s capability', 'members' ),
+		'label_deny_cap'  => esc_html__( 'Deny %s capability',  'members' )
+	);
+
+	wp_localize_script( 'members-edit-role', 'i18n', $i18n );
 }
 
 /**

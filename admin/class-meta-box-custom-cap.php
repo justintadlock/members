@@ -45,10 +45,12 @@ final class Members_Meta_Box_Custom_Cap {
 			</td>
 
 			<td class="column-cb">
+				<span class="screen-reader-text">{{{ data.labels.grant_cap }}}</span>
 				<input type="checkbox" name="grant-new-caps[]" data-grant-cap="{{ data.cap }}" value="{{ data.cap }}" <# if ( data.is_granted_cap ) { #>checked="checked"<# } #> />
 			</td>
 
 			<td class="column-cb">
+				<span class="screen-reader-text">{{{ data.labels.deny_cap }}}</span>
 				<input type="checkbox" name="deny-new-caps[]" data-deny-cap="{{ data.cap }}" value="{{ data.cap }}" <# if ( data.is_denied_cap ) { #>checked="checked"<# } #> />
 			</td>
 		</tr>

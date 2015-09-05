@@ -302,8 +302,15 @@ jQuery( document ).ready( function() {
 				// Trigger a click event on the "custom" tab in the edit caps box.
 				jQuery( 'a[href="#members-tab-custom"]' ).trigger( 'click' );
 
+				// Replace text placeholder with cap.
+				i18n.label_grant_cap = i18n.label_grant_cap.replace( /%s/g, '<code>' + new_cap + '</code>' );
+				i18n.label_deny_cap  = i18n.label_deny_cap.replace( /%s/g,  '<code>' + new_cap + '</code>' );
+
+				// Set up the labels object.
+				var labels = { grant_cap : i18n.label_grant_cap, deny_cap : i18n.label_deny_cap };
+
 				// Set up some data to pass to our Underscore template.
-				var data = { cap : new_cap, is_granted_cap : true, is_denied_cap : false };
+				var data = { cap : new_cap, is_granted_cap : true, is_denied_cap : false, labels : labels };
 
 				// Prepend our template to the "custom" edit caps tab content.
 				jQuery( '#members-tab-custom tbody' ).prepend( new_cap_template( data ) );
