@@ -20,10 +20,6 @@ jQuery( document ).ready( function() {
 		jQuery( '.role-slug' ).text( slug );
 	}
 
-	// If we have a role name on load, go ahead and print it.
-	if ( jQuery( 'input[name="role_name"]' ).val() )
-		members_print_role_slug( jQuery( 'input[name="role_name"]' ).val() );
-
 	// Check the role name input box for key presses.
 	jQuery( 'input[name="role_name"]' ).keyup(
 		function() {

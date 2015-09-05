@@ -183,13 +183,11 @@ final class Members_Admin_Role_New {
 				$this->role = members_sanitize_role( $this->role_name );
 
 			// Is duplicate?
-			if ( members_role_exists( $this->role ) ) {
-				$is_duplicate = $this->role;
-				$this->role   = '';
-			}
+			if ( members_role_exists( $this->role ) )
+				$is_duplicate = true;
 
 			// Add a new role with the data input.
-			if ( $this->role && $this->role_name ) {
+			if ( $this->role && $this->role_name && ! $is_duplicate ) {
 
 				add_role( $this->role, $this->role_name, $new_caps );
 
@@ -204,12 +202,12 @@ final class Members_Admin_Role_New {
 			}
 
 			// Add error if there's no role.
-			if ( ! $this->role && ! $is_duplicate )
+			if ( ! $this->role )
 				add_settings_error( 'members_role_new', 'no_role', esc_html__( 'You must enter a valid role.', 'members' ) );
 
 			// Add error if this is a duplicate role.
 			if ( $is_duplicate )
-				add_settings_error( 'members_role_new', 'duplicate_role', sprintf( esc_html__( 'The %s role already exists.', 'members' ), $is_duplicate ) );
+				add_settings_error( 'members_role_new', 'duplicate_role', sprintf( esc_html__( 'The %s role already exists.', 'members' ), $this->role ) );
 
 			// Add error if there's no role name.
 			if ( ! $this->role_name )
