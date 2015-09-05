@@ -42,6 +42,9 @@ jQuery( document ).ready( function() {
 			jQuery( '.role-slug, .role-edit-button' ).hide();
 			jQuery( 'input[name="role"], .role-ok-button' ).show();
 
+			// Focus on the role input.
+			jQuery( 'input[name="role"]' ).trigger( 'focus' );
+
 			// Copy the role slug to the role input edit value.
 			jQuery( 'input[name="role"]' ).attr( 'value', jQuery( '.role-slug' ).text() );
 		}
