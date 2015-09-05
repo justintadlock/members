@@ -77,3 +77,4 @@ function members_admin_message() {}
 function members_admin_enqueue_scripts() {}
 function members_admin_enqueue_style() {}
 function members_get_nonce() {}
+function members_admin_load_post_meta_boxes() {}

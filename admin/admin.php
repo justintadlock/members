@@ -19,10 +19,6 @@ function members_admin_setup() {
 	/* Add contextual help to the "Help" tab for the plugin's pages in the admin. */
 	add_filter( 'contextual_help', 'members_admin_contextual_help', 10, 2 );
 
-	/* Load post meta boxes on the post editing screen. */
-	add_action( 'load-post.php', 'members_admin_load_post_meta_boxes' );
-	add_action( 'load-post-new.php', 'members_admin_load_post_meta_boxes' );
-
 	add_action( 'admin_enqueue_scripts', 'members_admin_register_scripts', 0 );
 	add_action( 'admin_enqueue_scripts', 'members_admin_register_styles',  0 );
 }
@@ -35,18 +31,6 @@ function members_admin_register_scripts() {
 
 function members_admin_register_styles() {
 	wp_register_style( 'members-admin', members_plugin()->css_uri . 'admin.css' );
-}
-
-/**
- * Loads meta boxes for the post editing screen.
- *
- * @since 0.2.0
- */
-function members_admin_load_post_meta_boxes() {
-
-	/* If the content permissions component is active, load its post meta box. */
-	if ( members_content_permissions_enabled() )
-		require_once( members_plugin()->admin_dir . 'meta-box-post-content-permissions.php' );
 }
 
 /**

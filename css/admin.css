@@ -271,3 +271,23 @@ float: left;
 .users_page_roles .hide-if-no-js {
 	display: none;
 	}
+
+
+
+/* ====== Edit Post ====== */
+
+.members-cp-role-list-wrap {
+
+    min-height: 42px;
+    max-height: 200px;
+    overflow: auto;
+    padding: 0 0.9em;
+    border: solid 1px rgb(223, 223, 223);
+    background-color: rgb(253, 253, 253);
+}
+
+
+
+
+
+

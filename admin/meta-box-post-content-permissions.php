@@ -1,130 +1,160 @@
 <?php
-/**
- * @todo Add inline styles the the admin.css stylesheet.
- *
- * @package Members
- * @subpackage Admin
- */
 
-/* Adds the content permissions meta box to the 'add_meta_boxes' hook. */
-add_action( 'add_meta_boxes', 'members_content_permissions_create_meta_box' );
+final class Members_Meta_Box_Content_Permissions {
 
-/* Saves the content permissions metabox data to a custom field. */
-add_action( 'save_post', 'members_content_permissions_save_meta', 10, 2 );
-add_action( 'add_attachment', 'members_content_permissions_save_meta' );
-add_action( 'edit_attachment', 'members_content_permissions_save_meta' );
+	/**
+	 * Holds the instances of this class.
+	 *
+	 * @since  1.0.0
+	 * @access private
+	 * @var    object
+	 */
+	private static $instance;
 
-/**
- * @since 0.1.0
- */
-function members_content_permissions_create_meta_box() {
+	protected function __construct() {
 
-	/* Only add the meta box if the current user has the 'restrict_content' capability. */
-	if ( current_user_can( 'restrict_content' ) ) {
+		// If content permissions is disabled, bail.
+		if ( ! members_content_permissions_enabled() )
+			return;
 
-		/* Get all available public post types. */
-		$post_types = get_post_types( array( 'public' => true ), 'objects' );
+		add_action( 'load-post.php',     array( $this, 'load' ) );
+		add_action( 'load-post-new.php', array( $this, 'load' ) );
+	}
 
-		/* Loop through each post type, adding the meta box for each type's post editor screen. */
-		foreach ( $post_types as $type )
-			add_meta_box( 'content-permissions-meta-box', __( 'Content Permissions', 'members' ), 'members_content_permissions_meta_box', $type->name, 'advanced', 'high' );
+	public function load() {
+
+		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue' ) );
+
+		add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ) );
+
+		add_action( 'save_post', array( $this, 'update' ), 10, 2 );
+	}
+
+	public function enqueue() {
+
+		wp_enqueue_style( 'members-admin' );
+	}
+
+	public function add_meta_boxes( $post_type ) {
+
+		// If the current user can't restrict content, bail.
+		if ( ! current_user_can( 'restrict_content' ) )
+			return;
+
+		// Get the post type object.
+		$type = get_post_type_object( $post_type );
+
+		// If this is a public post type, add the meta box.
+		// Note that we're disabling for attachments b/c users get confused between "content" and "file".
+		if ( 'attachment' !== $type->name && $type->public )
+			add_meta_box( 'members-cp', esc_html__( 'Content Permissions', 'members' ), array( $this, 'meta_box' ), $post_type, 'advanced', 'high' );
+	}
+
+	public function meta_box( $post ) {
+		global $wp_roles;
+
+		// Get roles and sort.
+		 $_wp_roles = $wp_roles->role_names;
+		asort( $_wp_roles );
+
+		// Get the roles saved for the post.
+		$roles = get_post_meta( $post->ID, '_members_access_role', false );
+
+		// Convert old post meta to the new system if no roles were found.
+		if ( empty( $roles ) )
+			$roles = members_convert_old_post_meta( $post->ID );
+
+		wp_nonce_field( 'members_cp_meta_nonce', 'members_cp_meta' ); ?>
+
+		<p>
+			<?php esc_html_e( "Limit access to this post's content to users of the selected roles.", 'members' ); ?>
+		</p>
+
+		<div class="members-cp-role-list-wrap">
+
+			<ul class="members-cp-role-list">
+
+			<?php foreach ( $_wp_roles as $role => $name ) : ?>
+				<li>
+					<label>
+						<input type="checkbox" name="members_access_role[]" <?php checked( is_array( $roles ) && in_array( $role, $roles ) ); ?> value="<?php echo esc_attr( $role ); ?>" />
+						<?php echo esc_html( translate_user_role( $name ) ); ?>
+					</label>
+				</li>
+			<?php endforeach; ?>
+
+			</ul>
+		</div>
+
+		<p class="howto">
+			<?php printf( esc_html__( 'If no roles are selected, everyone can view the content. The post author, any users who can edit this post, and users with the %s capability can view the content regardless of role.', 'members' ), '<code>restrict_content</code>' ); ?>
+		</p>
+
+		<p>
+			<label for="members_access_error"><?php esc_html_e( 'Custom error messsage:', 'members' ); ?></label>
+			<textarea class="widefat" id="members_access_error" name="members_access_error" rows="6"><?php echo esc_textarea( get_post_meta( $post->ID, '_members_access_error', true ) ); ?></textarea>
+			<span class="howto"><?php _e( 'Message shown to users that do no have permission to view the post.', 'members' ); ?></span>
+		</p>
+	<?php }
+
+	public function update( $post_id, $post = '' ) {
+
+		// Fix for attachment save issue in WordPress 3.5.
+		// @link http://core.trac.wordpress.org/ticket/21963
+		if ( ! is_object( $post ) )
+			$post = get_post();
+
+		// Verify the nonce.
+		if ( ! isset( $_POST['members_cp_meta'] ) || ! wp_verify_nonce( $_POST['members_cp_meta'], 'members_cp_meta_nonce' ) )
+			return;
+
+		/* === Roles === */
+
+		// Get the current roles.
+		$current_roles = members_get_post_roles( $post_id );
+
+		// Get the new roles.
+		$new_roles = isset( $_POST['members_access_role'] ) ? $_POST['members_access_role'] : '';
+
+		// If we have an array of new roles, set the roles.
+		if ( is_array( $new_roles ) )
+			members_set_post_roles( $post_id, array_map( 'members_sanitize_role', $new_roles ) );
+
+		// Else, if we have current roles but no new roles, delete them all.
+		elseif ( !empty( $current_roles ) )
+			members_delete_post_roles( $post_id );
+
+		/* === Error Message === */
+
+		// Get the old access message.
+		$old_message = members_get_post_access_message( $post_id );
+
+		// Get the new message.
+		$new_message = isset( $_POST['members_access_error'] ) ? stripslashes( wp_filter_post_kses( addslashes( $_POST['members_access_error'] ) ) ) : '';
+
+		// If we have don't have a new message but do have an old one, delete it.
+		if ( '' == $new_message && $old_message )
+			members_delete_post_access_message( $post_id );
+
+		// If the new message doesn't match the old message, set it.
+		else if ( $new_message !== $old_message )
+			members_set_post_access_message( $post_id, $new_message );
+	}
+
+	/**
+	 * Returns the instance.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @return object
+	 */
+	public static function get_instance() {
+
+		if ( ! self::$instance )
+			self::$instance = new self;
+
+		return self::$instance;
 	}
 }
 
-/**
- * @since 0.1.0
- */
-function members_content_permissions_meta_box( $object, $box ) {
-	global $wp_roles;
-
-	/* Get the roles saved for the post. */
-	$roles = get_post_meta( $object->ID, '_members_access_role', false );
-
-	/* Convert old post meta to the new system if no roles were found. */
-	if ( empty( $roles ) )
-		$roles = members_convert_old_post_meta( $object->ID );
-	?>
-
-	<input type="hidden" name="content_permissions_meta_nonce" value="<?php echo wp_create_nonce( plugin_basename( __FILE__ ) ); ?>" />
-
-	<div style="overflow: hidden; margin-left: 5px;">
-
-		<p>
-		<?php _e( "Limit access to this post's content to users of the selected roles.", 'members' ); ?>
-		</p>
-
-		<?php
-
-		/* Loop through each of the available roles. */
-		foreach ( $wp_roles->role_names as $role => $name ) {
-			$checked = false;
-
-			/* If the role has been selected, make sure it's checked. */
-			if ( is_array( $roles ) && in_array( $role, $roles ) )
-				$checked = ' checked="checked" '; ?>
-
-			<div style="width: 32%; float: left; margin: 0 0 5px 0;">
-				<label for="members_access_role-<?php echo $role; ?>">
-					<input type="checkbox" name="members_access_role[<?php echo $role; ?>]" id="members_access_role-<?php echo $role; ?>" <?php echo $checked; ?> value="<?php echo $role; ?>" />
-					<?php echo esc_html( $name ); ?>
-				</label>
-			</div>
-		<?php } ?>
-
-	</div>
-
-	<p style="clear: left;">
-		<span class="howto"><?php printf( __( 'If no roles are selected, everyone can view the content. The post author, any users who can edit this post, and users with the %s capability can view the content regardless of role.', 'members' ), '<code>restrict_content</code>' ); ?></span>
-	</p>
-
-	<p>
-		<label for="members_access_error"><?php _e( 'Custom error messsage:', 'members' ); ?></label>
-		<textarea id="members_access_error" name="members_access_error" cols="60" rows="2" tabindex="30" style="width: 99%;"><?php echo esc_html( get_post_meta( $object->ID, '_members_access_error', true ) ); ?></textarea>
-		<br />
-		<span class="howto"><?php _e( 'Message shown to users that do no have permission to view the post.', 'members' ); ?></span>
-	</p>
-
-<?php
-}
-
-/**
- * @since 0.1.0
- */
-function members_content_permissions_save_meta( $post_id, $post = '' ) {
-
-	// Fix for attachment save issue in WordPress 3.5. @link http://core.trac.wordpress.org/ticket/21963
-	if ( !is_object( $post ) )
-		$post = get_post();
-
-	// Verify the nonce.
-	if ( ! isset( $_POST['content_permissions_meta_nonce'] ) || ! wp_verify_nonce( $_POST['content_permissions_meta_nonce'], plugin_basename( __FILE__ ) ) )
-		return;
-
-	// Get the current roles.
-	$current_roles = members_get_post_roles( $post_id );
-
-	// Get the new roles.
-	$new_roles = isset( $_POST['members_access_role'] ) ? $_POST['members_access_role'] : '';
-
-	// If we have an array of new roles, set the roles.
-	if ( is_array( $new_roles ) )
-		members_set_post_roles( $post_id, array_map( 'members_sanitize_role', $new_roles ) );
-
-	// Else, if we have current roles but no new roles, delete them all.
-	elseif ( !empty( $current_roles ) )
-		members_delete_post_roles( $post_id );
-
-	// Get the old access message.
-	$old_message = members_get_post_access_message( $post_id );
-
-	// Get the new message.
-	$new_message = isset( $_POST['members_access_error'] ) ? stripslashes( wp_filter_post_kses( addslashes( $_POST['members_access_error'] ) ) ) : '';
-
-	// If we have don't have a new message but do have an old one, delete it.
-	if ( '' == $new_message && $old_message )
-		members_delete_post_access_message( $post_id );
-
-	// If the new message doesn't match the old message, set it.
-	else if ( $new_message !== $old_message )
-		members_set_post_access_message( $post_id, $new_message );
-}
+Members_Meta_Box_Content_Permissions::get_instance();
