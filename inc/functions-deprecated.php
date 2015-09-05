@@ -78,3 +78,6 @@ function members_admin_enqueue_scripts() {}
 function members_admin_enqueue_style() {}
 function members_get_nonce() {}
 function members_admin_load_post_meta_boxes() {}
+function members_content_permissions_create_meta_box() {}
+function members_content_permissions_meta_box() {}
+function members_content_permissions_save_meta() {}
