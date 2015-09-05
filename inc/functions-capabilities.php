@@ -346,7 +346,7 @@ function members_get_post_type_caps( $post_type ) {
 	if ( 'attachment' === $post_type )
 		$caps[] = 'unfiltered_upload';
 
-	return $caps;
+	return array_unique( $caps );
 }
 
 function members_get_tax_caps() {
