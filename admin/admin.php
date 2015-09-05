@@ -31,8 +31,10 @@ function members_admin_register_scripts() {
 
 	// Localize our script with some text we want to pass in.
 	$i18n = array(
-		'label_grant_cap' => esc_html__( 'Grant %s capability', 'members' ),
-		'label_deny_cap'  => esc_html__( 'Deny %s capability',  'members' )
+		'button_role_edit' => esc_html__( 'Edit',                'members' ),
+		'button_role_ok'   => esc_html__( 'OK',                  'members' ),
+		'label_grant_cap'  => esc_html__( 'Grant %s capability', 'members' ),
+		'label_deny_cap'   => esc_html__( 'Deny %s capability',  'members' )
 	);
 
 	wp_localize_script( 'members-edit-role', 'i18n', $i18n );

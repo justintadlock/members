@@ -35,12 +35,14 @@ jQuery( document ).ready( function() {
 	jQuery( 'input[name="role"], .role-ok-button' ).hide();
 
 	// When the role edit button is clicked.
-	jQuery( '.role-edit-button' ).click(
+	jQuery( document ).on( 'click', '.role-edit-button.closed',
 		function() {
 
-			// Show/Hide elements.
-			jQuery( '.role-slug, .role-edit-button' ).hide();
-			jQuery( 'input[name="role"], .role-ok-button' ).show();
+			// Toggle the button class and change the text.
+			jQuery( this ).removeClass( 'closed' ).addClass( 'open' ).text( i18n.button_role_ok );
+
+			// Show role input.
+			jQuery( 'input[name="role"]' ).show();
 
 			// Focus on the role input.
 			jQuery( 'input[name="role"]' ).trigger( 'focus' );
@@ -51,12 +53,14 @@ jQuery( document ).ready( function() {
 	);
 
 	// When the role OK button is pressed.
-	jQuery( '.role-ok-button' ).click(
+	jQuery( document ).on( 'click', '.role-edit-button.open',
 		function() {
 
-			// Show/Hide elements.
-			jQuery( '.role-slug, .role-edit-button' ).show();
-			jQuery( 'input[name="role"], .role-ok-button' ).hide();
+			// Toggle the button class and change the text.
+			jQuery( this ).removeClass( 'open' ).addClass( 'closed' ).text( i18n.button_role_edit );
+
+			// Hide role input.
+			jQuery( 'input[name="role"]' ).hide();
 
 			// Get the role input value.
 			var role = jQuery( 'input[name="role"]' ).val();
@@ -77,7 +81,11 @@ jQuery( document ).ready( function() {
 
 			// 13 is the key code for "Enter".
 			if ( 13 === e.keyCode ) {
-				jQuery( '.role-ok-button' ).click();
+
+				// Click the edit role button and trigger a focus.
+				jQuery( '.role-edit-button' ).click().trigger( 'focus' );
+
+				// Prevent default behavior and return false.
 				e.preventDefault();
 				return false;
 			}
