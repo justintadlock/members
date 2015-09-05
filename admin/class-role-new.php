@@ -127,8 +127,9 @@ final class Members_Admin_Role_New {
 			// Verify the nonce.
 			check_admin_referer( 'new_role', 'members_new_role_nonce' );
 
-			// Assume no caps.
-			$new_caps = array();
+			// Set up some variables.
+			$new_caps     = array();
+			$is_duplicate = false;
 
 			// Check if any capabilities were selected.
 			if ( isset( $_POST['grant-caps'] ) || isset( $_POST['deny-caps'] ) ) {
@@ -181,6 +182,12 @@ final class Members_Admin_Role_New {
 			else if ( $this->role_name )
 				$this->role = members_sanitize_role( $this->role_name );
 
+			// Is duplicate?
+			if ( members_role_exists( $this->role ) ) {
+				$is_duplicate = $this->role;
+				$this->role   = '';
+			}
+
 			// Add a new role with the data input.
 			if ( $this->role && $this->role_name ) {
 
@@ -197,8 +204,12 @@ final class Members_Admin_Role_New {
 			}
 
 			// Add error if there's no role.
-			if ( ! $this->role )
+			if ( ! $this->role && ! $is_duplicate )
 				add_settings_error( 'members_role_new', 'no_role', esc_html__( 'You must enter a valid role.', 'members' ) );
+
+			// Add error if this is a duplicate role.
+			if ( $is_duplicate )
+				add_settings_error( 'members_role_new', 'duplicate_role', sprintf( esc_html__( 'The %s role already exists.', 'members' ), $is_duplicate ) );
 
 			// Add error if there's no role name.
 			if ( ! $this->role_name )
