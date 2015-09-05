@@ -6,29 +6,37 @@
  * @subpackage Admin
  */
 
-# Set up the administration functionality.
-add_action( 'admin_menu', 'members_admin_setup' );
+# Add contextual help to the "Help" tab for the plugin's pages in the admin.
+add_filter( 'contextual_help', 'members_admin_contextual_help', 10, 2 );
+
+# Register scripts/styles.
+add_action( 'admin_enqueue_scripts', 'members_admin_register_scripts', 0 );
+add_action( 'admin_enqueue_scripts', 'members_admin_register_styles',  0 );
+
+# Custom manage users columns.
+add_filter( 'manage_users_columns',       'members_manage_users_columns',       0     );
+add_filter( 'manage_users_custom_column', 'members_manage_users_custom_column', 10, 3 );
 
 /**
- * Sets up any functionality needed in the admin.
+ * Registers custom plugin scripts.
  *
- * @since 0.2.0
+ * @since  1.0.0
+ * @access public
+ * @return void
  */
-function members_admin_setup() {
-
-	/* Add contextual help to the "Help" tab for the plugin's pages in the admin. */
-	add_filter( 'contextual_help', 'members_admin_contextual_help', 10, 2 );
-
-	add_action( 'admin_enqueue_scripts', 'members_admin_register_scripts', 0 );
-	add_action( 'admin_enqueue_scripts', 'members_admin_register_styles',  0 );
-}
-
 function members_admin_register_scripts() {
 
 	wp_register_script( 'members-settings',  members_plugin()->js_uri . 'settings.js',  array( 'jquery'  ), '', true );
 	wp_register_script( 'members-edit-role', members_plugin()->js_uri . 'edit-role.js', array( 'postbox', 'wp-util' ), '', true );
 }
 
+/**
+ * Registers custom plugin scripts.
+ *
+ * @since  1.0.0
+ * @access public
+ * @return void
+ */
 function members_admin_register_styles() {
 	wp_register_style( 'members-admin', members_plugin()->css_uri . 'admin.css' );
 }
@@ -105,16 +113,18 @@ function members_admin_contextual_help( $text, $screen ) {
 }
 
 /**
- * Function for safely deleting a role and transferring the deleted role's users to the default role.  Note that
- * this function can be extremely intensive.  Whenever a role is deleted, it's best for the site admin to assign
- * the user's of the role to a different role beforehand.
+ * Function for safely deleting a role and transferring the deleted role's users to the default
+ * role.  Note that this function can be extremely intensive.  Whenever a role is deleted, it's
+ * best for the site admin to assign the user's of the role to a different role beforehand.
  *
- * @since 0.2.0
- * @param string $role The name of the role to delete.
+ * @since  0.2.0
+ * @access public
+ * @param  string  $role
+ * @return void
  */
 function members_delete_role( $role ) {
 
-	/* Get the default role. */
+	// Get the default role.
 	$default_role = get_option( 'default_role' );
 
 	// Don't delete the default role. Site admins should change the default before attempting to delete the role.
@@ -147,31 +157,39 @@ function members_delete_role( $role ) {
 /**
  * Returns an array of all the user meta keys in the $wpdb->usermeta table.
  *
- * @since 0.2.0
- * @return array $keys The user meta keys.
+ * @since  0.2.0
+ * @access public
+ * @global object  $wpdb
+ * @return array
  */
 function members_get_user_meta_keys() {
 	global $wpdb;
 
-	$keys = $wpdb->get_col( "SELECT meta_key FROM $wpdb->usermeta GROUP BY meta_key ORDER BY meta_key" );
-
-	return $keys;
+	return $wpdb->get_col( "SELECT meta_key FROM $wpdb->usermeta GROUP BY meta_key ORDER BY meta_key" );
 }
 
-
-add_filter( 'manage_users_columns', 'members_manage_users_columns' );
-
+/**
+ * Adds custom columns to the `users.php` screen.
+ *
+ * @since  1.0.0
+ * @access public
+ * @param  array  $columns
+ * @return array
+ */
 function members_manage_users_columns( $columns ) {
 
 	// If multiple roles per user is not enabled, bail.
 	if ( ! members_multiple_user_roles_enabled() )
-			return $columns;
+		return $columns;
 
+	// Unset the core WP `role` column.
 	if ( isset( $columns['role'] ) )
 		unset( $columns['role'] );
 
+	// Add our new roles column.
 	$columns['roles'] = esc_html__( 'Roles', 'members' );
 
+	// Move the core WP `posts` column to the end.
 	if ( isset( $columns['posts'] ) ) {
 		$p = $columns['posts'];
 		unset( $columns['posts'] );
@@ -181,9 +199,17 @@ function members_manage_users_columns( $columns ) {
 	return $columns;
 }
 
-
-add_filter( 'manage_users_custom_column', 'members_manage_users_custom_column', 10, 3 );
-
+/**
+ * Handles the output of the roles column on the `users.php` screen.
+ *
+ * @since  1.0.0
+ * @access public
+ * @param  string  $output
+ * @param  string  $column
+ * @param  int     $user_id
+ * @global object  $wp_roles
+ * @return string
+ */
 function members_manage_users_custom_column( $output, $column, $user_id ) {
 	global $wp_roles;
 

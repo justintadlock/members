@@ -81,3 +81,4 @@ function members_admin_load_post_meta_boxes() {}
 function members_content_permissions_create_meta_box() {}
 function members_content_permissions_meta_box() {}
 function members_content_permissions_save_meta() {}
+function members_admin_setup() {}
