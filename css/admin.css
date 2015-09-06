@@ -68,9 +68,12 @@
 	margin-right: 300px;
 }
 
-.members-roles-select .column-cb {
-	width: 10%;
+.members-roles-select .column-grant,
+.members-roles-select .column-deny {
+	width: 10% !important;
 	text-align: center;
+	display: table-cell !important;
+	clear: none !important;
 }
 
 .members-title-div p:first-child {

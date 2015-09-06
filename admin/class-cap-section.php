@@ -135,16 +135,16 @@ final class Members_Cap_Section {
 				<thead>
 					<tr>
 						<th class="column-cap">{{ data.labels.cap }}</th>
-						<th class="column-cb">{{ data.labels.grant }}</th>
-						<th class="column-cb">{{ data.labels.deny }}</th>
+						<th class="column-grant">{{ data.labels.grant }}</th>
+						<th class="column-deny">{{ data.labels.deny }}</th>
 					</tr>
 				</thead>
 
 				<tfoot>
 					<tr>
 						<th class="column-cap">{{ data.labels.cap }}</th>
-						<th class="column-cb">{{ data.labels.grant }}</th>
-						<th class="column-cb">{{ data.labels.deny }}</th>
+						<th class="column-grant">{{ data.labels.grant }}</th>
+						<th class="column-deny">{{ data.labels.deny }}</th>
 					</tr>
 				</tfoot>
 

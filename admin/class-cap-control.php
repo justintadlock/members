@@ -122,16 +122,16 @@ final class Members_Cap_Control {
 	public function template() { ?>
 
 		<tr class="members-cap-checklist">
-			<td class="members-cap-name">
+			<td class="column-cap">
 				<button type="button"><strong>{{ data.cap }}</strong> <i class="dashicons <?php echo is_rtl() ? 'dashicons-arrow-left' : 'dashicons-arrow-right'; ?>"></i></button>
 			</td>
 
-			<td class="column-cb">
+			<td class="column-grant">
 				<span class="screen-reader-text">{{{ data.labels.grant_cap }}}</span>
 				<input {{{ data.readonly }}} type="checkbox" name="grant-caps[]" data-grant-cap="{{ data.cap }}" value="{{ data.cap }}" <# if ( data.is_granted_cap ) { #>checked="checked"<# } #> />
 			</td>
 
-			<td class="column-cb">
+			<td class="column-deny">
 				<span class="screen-reader-text">{{{ data.labels.deny_cap }}}</span>
 				<input {{{ data.readonly }}} type="checkbox" name="deny-caps[]" data-deny-cap="{{ data.cap }}" value="{{ data.cap }}" <# if ( data.is_denied_cap ) { #>checked="checked"<# } #> />
 			</td>
