@@ -191,11 +191,12 @@ padding: 0;
 .members-cap-tabs {
 	overflow: hidden;
 	background: #fff;
+	background: linear-gradient( 90deg, #fafafa 0%, #fafafa 20%, #fff 20%, #fff 100% );
 }
 
 .members-cap-tabs .members-tab-nav {
 	list-style: none;
-    margin: 0;
+    margin: 0 0 -1px 0;
    width: 20%;
     float: left;
     line-height: 1em;
@@ -243,6 +244,10 @@ float: left;
 }
 
 	@media only screen and ( max-width: 782px ) {
+
+		.members-cap-tabs {
+			background: linear-gradient( 90deg, #fafafa 0%, #fafafa 48px, #fff 48px, #fff 100% );
+		}
 
 		.members-cap-tabs .members-tab-nav {
 			width: 48px;
