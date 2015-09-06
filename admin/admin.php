@@ -1,9 +1,13 @@
 <?php
 /**
- * Handles the admin setup and functions for the plugin.
+ * General admin functionality.
  *
- * @package Members
+ * @package    Members
  * @subpackage Admin
+ * @author     Justin Tadlock <justin@justintadlock.com>
+ * @copyright  Copyright (c) 2009 - 2015, Justin Tadlock
+ * @link       http://themehybrid.com/plugins/members
+ * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
 # Add contextual help to the "Help" tab for the plugin's pages in the admin.

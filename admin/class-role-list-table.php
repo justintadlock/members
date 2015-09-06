@@ -1,4 +1,14 @@
 <?php
+/**
+ * Handles the roles table on the Roles admin screen.
+ *
+ * @package    Members
+ * @subpackage Admin
+ * @author     Justin Tadlock <justin@justintadlock.com>
+ * @copyright  Copyright (c) 2009 - 2015, Justin Tadlock
+ * @link       http://themehybrid.com/plugins/members
+ * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+ */
 
 /**
  * Role list table for the roles management page in the admin. Extends the core `WP_List_Table`
@@ -55,7 +65,7 @@ class Members_Role_List_Table extends WP_List_Table {
 	public function __construct() {
 
 		$args = array(
-			'plural' => 'roles',
+			'plural'   => 'roles',
 			'singular' => 'role',
 		);
 
@@ -67,7 +77,7 @@ class Members_Role_List_Table extends WP_List_Table {
 		// Get the defined default role.
 		$this->default_role = get_option( 'default_role', $this->default_role );
 
-		// Allow plugin devs to alter the allowed views.
+		// Get the role views.
 		$this->allowed_role_views = array_keys( $this->get_views() );
 
 		// Get the current view.
@@ -110,37 +120,48 @@ class Members_Role_List_Table extends WP_List_Table {
 
 		$roles = apply_filters( 'members_manage_roles_items', $roles, $this->role_view );
 
+		// Sort the roles if given something to sort by.
 		if ( isset( $_GET['orderby'] ) && isset( $_GET['order'] ) ) {
 
-			if ( 'title' === $_GET['orderby'] && 'desc' === $_GET['order'] ) {
+			// Sort by title/role name, descending.
+			if ( 'title' === $_GET['orderby'] && 'desc' === $_GET['order'] )
 				arsort( $roles );
-			} elseif ( 'role' === $_GET['orderby'] && 'asc' === $_GET['order'] ) {
-				ksort( $roles );
-			} elseif ( 'role' === $_GET['orderby'] && 'desc' === $_GET['order'] ) {
-				krsort( $roles );
-			} else {
-				asort( $roles );
-			}
 
+			// Sort by role, ascending.
+			elseif ( 'role' === $_GET['orderby'] && 'asc' === $_GET['order'] )
+				ksort( $roles );
+
+			// Sort by role, descending.
+			elseif ( 'role' === $_GET['orderby'] && 'desc' === $_GET['order'] )
+				krsort( $roles );
+
+			// Sort by title/role name, ascending.
+			else
+				asort( $roles );
+
+		// Sort by title/role name, ascending.
 		} else {
 			asort( $roles );
 		}
 
-		// Ste up some variables we need.
-		$option     = $this->screen->get_option( 'per_page', 'option' );
+		// Get the per page option name.
+		$option = $this->screen->get_option( 'per_page', 'option' );
 
-		if ( ! $option ) {
+		if ( ! $option )
 			$option = str_replace( '-', '_', "{$this->screen->id}_per_page" );
-		}
 
+		// Get the number of roles to show per page.
 		$per_page = (int) get_user_option( $option );
-		if ( empty( $per_page ) || $per_page < 1 ) {
+
+		if ( ! $per_page || $per_page < 1 ) {
+
 			$per_page = $this->screen->get_option( 'per_page', 'default' );
-			if ( ! $per_page ) {
+
+			if ( ! $per_page )
 				$per_page = 20;
-			}
 		}
 
+		// Set up some current page variables.
 		$current_page = $this->get_pagenum();
 		$items        = $roles;
 		$total_count  = count( $items );
@@ -193,7 +214,7 @@ class Members_Role_List_Table extends WP_List_Table {
 	 */
 	protected function column_title( $role ) {
 
-		$states = array();
+		$states      = array();
 		$role_states = '';
 
 		// If the role is the default role.
@@ -204,9 +225,11 @@ class Members_Role_List_Table extends WP_List_Table {
 		if ( members_current_user_has_role( $role ) )
 			$states[] = esc_html__( 'Your Role', 'members' );
 
-		$states = apply_filters( 'members_role_states', $states );
+		// Allow devs to filter the role states.
+		$states = apply_filters( 'members_role_states', $states, $role );
 
-		if ( !empty( $states ) ) {
+		// If we have states, string them together.
+		if ( ! empty( $states ) ) {
 
 			foreach ( $states as $state )
 				$role_states .= sprintf( '<span class="role-state">%s</span>', $state );
@@ -214,10 +237,10 @@ class Members_Role_List_Table extends WP_List_Table {
 			$role_states = ' &ndash; ' . $role_states;
 		}
 
+		// Add the title and role states.
 		$title = sprintf( '<strong><a class="row-title" href="%s">%s</a>%s</strong>', members_get_edit_role_url( $role ), members_get_role_name( $role ), $role_states );
 
 		return apply_filters( 'members_manage_roles_column_role_name', $title, $role );
-
 	}
 
 	/**
@@ -276,7 +299,7 @@ class Members_Role_List_Table extends WP_List_Table {
 	 * @return string
 	 */
 	protected function get_default_primary_column_name() {
-		return( 'title' );
+		return 'title';
 	}
 
 	/**
@@ -293,28 +316,40 @@ class Members_Role_List_Table extends WP_List_Table {
 
 		$actions = array();
 
+		// Only add row actions on the primary column (title/role name).
 		if ( $primary === $column_name ) {
 
+			// If the role can be edited.
 			if ( members_is_role_editable( $role ) ) {
 
+				// If the current user can edit the role, add an edit link.
 				if ( current_user_can( 'edit_roles' ) )
 					$actions['edit'] = sprintf( '<a href="%s">%s</a>', members_get_edit_role_url( $role ), esc_html__( 'Edit', 'members' ) );
 
+				// If the current user can delete the role, add a delete link.
 				if ( ( is_multisite() && is_super_admin() && $role !== $this->default_role ) || ( current_user_can( 'delete_roles' ) && $role !== $this->default_role && !current_user_can( $role ) ) )
 					$actions['delete'] = sprintf( '<a class="members-delete-role-link" href="%s">%s</a>', members_get_delete_role_url( $role ), esc_html__( 'Delete', 'members' ) );
+
+			// If the role cannot be edited.
 			} else {
+
+				// Add the view role link.
 				$actions['view'] = sprintf( '<a href="%s">%s</a>', members_get_edit_role_url( $role ), esc_html__( 'View', 'members' ) );
 			}
 
+			// If the current user can create roles, add the clone role link.
 			if ( current_user_can( 'create_roles' ) )
 				$actions['clone'] = sprintf( '<a href="%s">%s</a>', members_get_clone_role_url( $role ), esc_html__( 'Clone', 'members' ) );
 
+			// If this is the default role and the current user can manage options, add a default role change link.
 			if ( current_user_can( 'manage_options' ) && $role === $this->default_role )
 				$actions['default_role'] = sprintf( '<a href="%s">%s</a>', esc_url( admin_url( 'options-general.php#default_role' ) ), esc_html__( 'Change Default', 'members' ) );
 
+			// If the currrent user can view users, add a users link.
 			if ( current_user_can( 'list_users' ) )
 				$actions['users'] = sprintf( '<a href="%s">%s</a>', members_get_role_users_url( $role ), esc_html__( 'Users', 'members' ) );
 
+			// Allow devs to filter the row actions.
 			$actions = apply_filters( 'members_roles_row_actions', $actions, $role );
 		}
 
@@ -330,14 +365,10 @@ class Members_Role_List_Table extends WP_List_Table {
 	 */
 	protected function get_sortable_columns() {
 
-		$columns = array(
+		return array(
 			'title' => array( 'title',  true  ),
-			'role'      => array( 'role',       false ),
-		//	'users' => array( 'user_count', false ),
-		//	'caps'  => array( 'cap_count',  false )
+			'role'  => array( 'role',   false ),
 		);
-
-		return $columns;
 	}
 
 	/**
@@ -352,6 +383,7 @@ class Members_Role_List_Table extends WP_List_Table {
 		$views   = array();
 		$current = ' class="current"';
 
+		// Get the view URLs.
 		$all_url        = members_get_edit_roles_url();
 		$mine_url       = members_get_my_roles_url();
 		$active_url     = members_get_active_roles_url();
@@ -360,6 +392,7 @@ class Members_Role_List_Table extends WP_List_Table {
 		$uneditable_url = members_get_uneditable_roles_url();
 		$wordpress_url  = members_get_wordpress_roles_url();
 
+		// Get the view counts.
 		$all_count        = count( members_get_role_names()            );
 		$mine_count       = count( $this->current_user->roles          );
 		$active_count     = count( members_get_active_role_names()     );
@@ -368,6 +401,7 @@ class Members_Role_List_Table extends WP_List_Table {
 		$uneditable_count = count( members_get_uneditable_role_names() );
 		$wordpress_count  = count( members_get_wordpress_role_names()  );
 
+		// Set up an array of views.
 		$_views = array(
 			'all'        => array( 'url' => $all_url,        'label' => _n( 'All %s',        'All %s',        $all_count,        'members' ), 'count' => $all_count        ),
 			'mine'       => array( 'url' => $mine_url,       'label' => _n( 'Mine %s',       'Mine %s',       $mine_count,       'members' ), 'count' => $mine_count       ),
@@ -378,12 +412,14 @@ class Members_Role_List_Table extends WP_List_Table {
 			'wordpress'  => array( 'url' => $wordpress_url,  'label' => _n( 'WordPress %s',  'WordPress %s',  $wordpress_count,  'members' ), 'count' => $wordpress_count  )
 		);
 
+		// Loop through the views and put them into an array of links.
 		foreach ( $_views as $view => $view_args ) {
 
 			// Skip any views with 0 roles.
 			if ( 0 >= $view_args['count'] )
 				continue;
 
+			// Add the view link.
 			$views[ $view ] = sprintf(
 				'<a%s href="%s">%s</a>',
 				$view === $this->role_view ? $current : '',

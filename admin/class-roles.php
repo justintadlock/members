@@ -1,4 +1,14 @@
 <?php
+/**
+ * Roles admin screen.
+ *
+ * @package    Members
+ * @subpackage Admin
+ * @author     Justin Tadlock <justin@justintadlock.com>
+ * @copyright  Copyright (c) 2009 - 2015, Justin Tadlock
+ * @link       http://themehybrid.com/plugins/members
+ * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+ */
 
 /**
  * Class that displays the roles admin screen and handles requests for that page.
@@ -17,8 +27,10 @@ final class Members_Admin_Roles {
 	 */
 	public function __construct() {
 
+		// Set up some page options for the current screen.
 		add_action( 'current_screen', array( $this, 'current_screen' ) );
 
+		// Set up the role list table columns.
 		add_filter( 'manage_users_page_roles_columns', array( $this, 'manage_roles_columns' ), 5 );
 	}
 
@@ -46,12 +58,12 @@ final class Members_Admin_Roles {
 	public function manage_roles_columns( $columns ) {
 
 		$columns = array(
-			'cb'     => '<input type="checkbox" />',
-			'title'  => esc_html__( 'Role Name',    'members' ),
-			'role'   => esc_html__( 'Role',         'members' ),
-			'users'  => esc_html__( 'Users',        'members' ),
-			'granted_caps'   => esc_html__( 'Granted Caps', 'members' ),
-			'denied_caps'   => esc_html__( 'Denied Caps', 'members' )
+			'cb'            => '<input type="checkbox" />',
+			'title'         => esc_html__( 'Role Name',    'members' ),
+			'role'          => esc_html__( 'Role',         'members' ),
+			'users'         => esc_html__( 'Users',        'members' ),
+			'granted_caps'  => esc_html__( 'Granted Caps', 'members' ),
+			'denied_caps'   => esc_html__( 'Denied Caps',  'members' )
 		);
 
 		return apply_filters( 'members_manage_roles_columns', $columns );
@@ -81,9 +93,6 @@ final class Members_Admin_Roles {
 
 				// Verify the nonce. Nonce created via `WP_List_Table::display_tablenav()`.
 				check_admin_referer( 'bulk-roles' );
-
-				// Send through roles deleted message.
-				add_action( 'members_pre_edit_roles_form', 'members_message_roles_deleted' );
 
 				// Loop through each of the selected roles.
 				foreach ( $_POST['roles'] as $role ) {

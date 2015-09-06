@@ -1,5 +1,21 @@
 <?php
+/**
+ * Role management.  This is the base class for the Roles and Edit Role screens.
+ *
+ * @package    Members
+ * @subpackage Admin
+ * @author     Justin Tadlock <justin@justintadlock.com>
+ * @copyright  Copyright (c) 2009 - 2015, Justin Tadlock
+ * @link       http://themehybrid.com/plugins/members
+ * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+ */
 
+/**
+ * Role management class.
+ *
+ * @since  1.0.0
+ * @access public
+ */
 final class Members_Admin_Manage_Roles {
 
 	/**
@@ -64,6 +80,7 @@ final class Members_Admin_Manage_Roles {
 		elseif ( current_user_can( 'delete_roles' ) )
 			$edit_roles_cap = 'delete_roles';
 
+		// Get the page title.
 		$title = esc_html__( 'Roles', 'members' );
 
 		if ( isset( $_GET['action'] ) && 'edit' === $_GET['action'] && isset( $_GET['role'] ) )
