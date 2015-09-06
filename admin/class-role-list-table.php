@@ -369,17 +369,28 @@ class Members_Role_List_Table extends WP_List_Table {
 		$wordpress_count  = count( members_get_wordpress_role_names()  );
 
 		$_views = array(
-			'all'        => array( 'url' => $all_url,        'label' => sprintf( _n( 'All %s',        'All %s',        $all_count,        'members' ), sprintf( '<span class="count">(%s)</span>', number_format_i18n( $all_count        ) ) ) ),
-			'mine'       => array( 'url' => $mine_url,       'label' => sprintf( _n( 'Mine %s',       'Mine %s',       $mine_count,       'members' ), sprintf( '<span class="count">(%s)</span>', number_format_i18n( $mine_count       ) ) ) ),
-			'active'     => array( 'url' => $active_url,     'label' => sprintf( _n( 'Has Users %s',  'Has Users %s',  $active_count,     'members' ), sprintf( '<span class="count">(%s)</span>', number_format_i18n( $active_count     ) ) ) ),
-			'inactive'   => array( 'url' => $inactive_url,   'label' => sprintf( _n( 'No Users %s',   'No Users %s',   $inactive_count,   'members' ), sprintf( '<span class="count">(%s)</span>', number_format_i18n( $inactive_count   ) ) ) ),
-			'editable'   => array( 'url' => $editable_url,   'label' => sprintf( _n( 'Editable %s',   'Editable %s',   $editable_count,   'members' ), sprintf( '<span class="count">(%s)</span>', number_format_i18n( $editable_count   ) ) ) ),
-			'uneditable' => array( 'url' => $uneditable_url, 'label' => sprintf( _n( 'Uneditable %s', 'Uneditable %s', $uneditable_count, 'members' ), sprintf( '<span class="count">(%s)</span>', number_format_i18n( $uneditable_count ) ) ) ),
-			'wordpress'  => array( 'url' => $wordpress_url,  'label' => sprintf( _n( 'WordPress %s',  'WordPress %s',  $wordpress_count,  'members' ), sprintf( '<span class="count">(%s)</span>', number_format_i18n( $wordpress_count  ) ) ) )
+			'all'        => array( 'url' => $all_url,        'label' => _n( 'All %s',        'All %s',        $all_count,        'members' ), 'count' => $all_count        ),
+			'mine'       => array( 'url' => $mine_url,       'label' => _n( 'Mine %s',       'Mine %s',       $mine_count,       'members' ), 'count' => $mine_count       ),
+			'active'     => array( 'url' => $active_url,     'label' => _n( 'Has Users %s',  'Has Users %s',  $active_count,     'members' ), 'count' => $active_count     ),
+			'inactive'   => array( 'url' => $inactive_url,   'label' => _n( 'No Users %s',   'No Users %s',   $inactive_count,   'members' ), 'count' => $inactive_count   ),
+			'editable'   => array( 'url' => $editable_url,   'label' => _n( 'Editable %s',   'Editable %s',   $editable_count,   'members' ), 'count' => $editable_count   ),
+			'uneditable' => array( 'url' => $uneditable_url, 'label' => _n( 'Uneditable %s', 'Uneditable %s', $uneditable_count, 'members' ), 'count' => $uneditable_count ),
+			'wordpress'  => array( 'url' => $wordpress_url,  'label' => _n( 'WordPress %s',  'WordPress %s',  $wordpress_count,  'members' ), 'count' => $wordpress_count  )
 		);
 
-		foreach ( $_views as $view => $view_args )
-			$views[ $view ] = sprintf( '<a%s href="%s">%s</a>', $view === $this->role_view ? $current : '', $view_args['url'], $view_args['label'] );
+		foreach ( $_views as $view => $view_args ) {
+
+			// Skip any views with 0 roles.
+			if ( 0 >= $view_args['count'] )
+				continue;
+
+			$views[ $view ] = sprintf(
+				'<a%s href="%s">%s</a>',
+				$view === $this->role_view ? $current : '',
+				$view_args['url'],
+				sprintf( $view_args['label'], sprintf( '<span class="count">(%s)</span>', number_format_i18n( $view_args['count'] ) ) )
+			);
+		}
 
 		return apply_filters( 'members_manage_roles_views', $views, $this->role_view, $all_url );
 	}
