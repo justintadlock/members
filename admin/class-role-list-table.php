@@ -105,9 +105,10 @@ class Members_Role_List_Table extends WP_List_Table {
 		elseif ( 'wordpress' === $this->role_view )
 			$roles = array_keys( members_get_wordpress_role_names() );
 
-		$roles = apply_filters( 'members_manage_roles_items', $roles, $this->role_view );
+		else
+			$roles = array_keys( members_get_role_names() );
 
-		$roles = ! empty( $roles ) ? $roles : array_keys( members_get_role_names() );
+		$roles = apply_filters( 'members_manage_roles_items', $roles, $this->role_view );
 
 		if ( isset( $_GET['orderby'] ) && isset( $_GET['order'] ) ) {
 
