@@ -1,7 +1,30 @@
 <?php
+/**
+ * Class for handling a capability group object.
+ *
+ * @package    Members
+ * @subpackage Admin
+ * @author     Justin Tadlock <justin@justintadlock.com>
+ * @copyright  Copyright (c) 2009 - 2015, Justin Tadlock
+ * @link       http://themehybrid.com/plugins/members
+ * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+ */
 
+/**
+ * Capability group object class.
+ *
+ * @since  1.0.0
+ * @access public
+ */
 final class Members_Cap_Group {
 
+	/**
+	 * Stores the properties for the object.
+	 *
+	 * @since  1.0.0
+	 * @access protected
+	 * @var    array
+	 */
 	protected $args = array();
 
 	/**
@@ -74,9 +97,11 @@ final class Members_Cap_Group {
 	 * @access public
 	 * @param  string  $name
 	 * @param  array   $args  {
-	 *     @type string  $label
-	 *     @type string  $icon
-	 *     @type array   $caps
+	 *     @type string  $label        Internationalized text label.
+	 *     @type string  $icon         Dashicon icon in the form of `dashicons-icon-name`.
+	 *     @type array   $caps         Array of capabilities in the group.
+	 *     @type bool    $merge_added  Whether to merge this caps into the added caps array.
+	 *     @type bool    $diff_added   Whether to remove previously-added caps from this group.
 	 * }
 	 * @return void
 	 */

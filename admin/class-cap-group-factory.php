@@ -1,5 +1,21 @@
 <?php
+/**
+ * Singleton factory class for storying capability group objects.
+ *
+ * @package    Members
+ * @subpackage Admin
+ * @author     Justin Tadlock <justin@justintadlock.com>
+ * @copyright  Copyright (c) 2009 - 2015, Justin Tadlock
+ * @link       http://themehybrid.com/plugins/members
+ * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+ */
 
+/**
+ * Capability group factory class.
+ *
+ * @since  1.0.0
+ * @access public
+ */
 final class Members_Cap_Group_Factory {
 
 	/**
