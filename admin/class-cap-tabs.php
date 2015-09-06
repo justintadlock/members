@@ -188,18 +188,16 @@ final class Members_Cap_Tabs {
 	 * @access public
 	 * @return void
 	 */
-	public function print_templates() { ?>
+	public function print_templates() {
 
-		<script type="text/html" id="tmpl-members-cap-section">
-			<?php $section = new Members_Cap_Section( $this, null ); ?>
-			<?php $section->template(); ?>
-		</script>
+		// Print section template.
+		$section = new Members_Cap_Section( $this, null );
+		$section->print_template();
 
-		<script type="text/html" id="tmpl-members-cap-control">
-			<?php $control = new Members_Cap_Control( $this, null ); ?>
-			<?php $control->template(); ?>
-		</script>
-	<?php }
+		// Print control template.
+		$control = new Members_Cap_Control( $this, null );
+		$control->print_template();
+	}
 
 	/**
 	 * Outputs the JS to handle the Underscore JS template.

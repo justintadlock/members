@@ -152,4 +152,18 @@ final class Members_Cap_Section {
 			</table>
 		</div>
 	<?php }
+
+	/**
+	 * Prints the Underscore JS `<script>` wrapper and template.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @return void
+	 */
+	public function print_template() { ?>
+
+		<script type="text/html" id="tmpl-members-cap-section">
+			<?php $this->template(); ?>
+		</script>
+	<?php }
 }
