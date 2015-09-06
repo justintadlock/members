@@ -70,7 +70,7 @@
 
 .members-roles-select .column-grant,
 .members-roles-select .column-deny {
-	width: 10% !important;
+	width: 70px !important;
 	text-align: center;
 	display: table-cell !important;
 	clear: none !important;
@@ -135,6 +135,13 @@ padding: 0;
 #tabcapsdiv table td { padding: 9px; }
 #tabcapsdiv tfoot th { border-color: #eee; }
 
+	@media only screen and ( max-width: 782px ) {
+#tabcapsdiv table td,
+#tabcapsdiv table th {
+		line-height: 24px;
+}
+	}
+
 #tabcapsdiv tbody tr:last-of-type td {
 	border-bottom: none;
 }
@@ -189,7 +196,7 @@ padding: 0;
 .members-cap-tabs .members-tab-nav {
 	list-style: none;
     margin: 0;
-    width: 20%;
+   width: 20%;
     float: left;
     line-height: 1em;
     padding: 0;
@@ -231,9 +238,41 @@ margin: 0;
 
 .members-cap-tabs .members-tab-wrap {
 float: left;
-    width: 80%;
+	width: 80%;
 	margin-left: -1px;
 }
+
+	@media only screen and ( max-width: 782px ) {
+
+		.members-cap-tabs .members-tab-nav {
+			width: 48px;
+		}
+
+		.members-cap-tabs .members-tab-nav li a .dashicons {
+			font-size: 24px;
+			line-height: 24px;
+			width: 24px;
+			height: 24px;
+		}
+
+			.members-tab-nav li .dashicons::before {
+				width: 24px;
+				height: 24px;
+			}
+
+		.members-cap-tabs .members-tab-wrap {
+			width: calc( 100% - 48px );
+		}
+
+		.members-tab-nav li .label {
+			position: absolute;
+		    left: -1000em;
+		    top: -1000em;
+		    height: 1px;
+		    width: 1px;
+		    overflow: hidden;
+		}
+	}
 
 .members-tab-content .members-highlight {
 	background-color: rgba( 0, 115, 170, 0.05 );

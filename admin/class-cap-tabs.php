@@ -173,7 +173,7 @@ final class Members_Cap_Tabs {
 		<?php foreach ( $this->sections as $section ) : ?>
 
 			<li class="members-tab-title">
-				<a href="<?php echo esc_attr( "#members-tab-{$section->section}" ); ?>"><i class="dashicons <?php echo sanitize_html_class( $section->icon ); ?>"></i> <?php echo esc_html( $section->label ); ?></a>
+				<a href="<?php echo esc_attr( "#members-tab-{$section->section}" ); ?>"><i class="dashicons <?php echo sanitize_html_class( $section->icon ); ?>"></i> <span class="label"><?php echo esc_html( $section->label ); ?></span></a>
 			</li>
 
 		<?php endforeach; ?>
