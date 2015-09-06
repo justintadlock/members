@@ -317,35 +317,33 @@ function members_get_wp_general_caps() {
 
 function members_get_post_type_caps( $post_type ) {
 
-	$obj = get_post_type_object( $post_type );
-
-	$caps = (array)$obj->cap;
+	// Get the post type caps.
+	$caps = (array) get_post_type_object( $post_type )->cap;
 
 	// remove meta caps.
-	unset( $caps['edit_post'] );
-	unset( $caps['read_post'] );
+	unset( $caps['edit_post']   );
+	unset( $caps['read_post']   );
 	unset( $caps['delete_post'] );
 
+	// Get the cap names only.
 	$caps = array_values( $caps );
 
-	if ( 'post' !== $post_type && ! $obj->hierarchical ) {
+	// If this is not a core post/page post type.
+	if ( ! in_array( $post_type, array( 'post', 'page' ) ) ) {
 
-		$_post_obj = get_post_type_object( 'post' );
-		$_p_caps = array_values( (array)$_post_obj->cap );
+		// Get the post and page caps.
+		$post_caps = array_values( (array) get_post_type_object( 'post' )->cap );
+		$page_caps = array_values( (array) get_post_type_object( 'page' )->cap );
 
-		$caps = array_diff( $caps, $_p_caps );
-
-	} elseif ( 'page' !== $post_type && $obj->hierarchical ) {
-
-		$_post_obj = get_post_type_object( 'page' );
-		$_p_caps = array_values( (array)$_post_obj->cap );
-
-		$caps = array_diff( $caps, $_p_caps );
+		// Remove post/page caps from the current post type caps.
+		$caps = array_diff( $caps, $post_caps, $page_caps );
 	}
 
+	// If attachment post type, add the `unfiltered_upload` cap.
 	if ( 'attachment' === $post_type )
 		$caps[] = 'unfiltered_upload';
 
+	// Make sure there are no duplicates and return.
 	return array_unique( $caps );
 }
 
