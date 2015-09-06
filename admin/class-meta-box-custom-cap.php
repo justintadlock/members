@@ -41,7 +41,8 @@ final class Members_Meta_Box_Custom_Cap {
 
 		<tr class="members-cap-checklist">
 			<td class="column-cap">
-				<button type="button"><strong>{{ data.cap }}</strong> <i class="dashicons <?php echo is_rtl() ? 'dashicons-arrow-left' : 'dashicons-arrow-right'; ?>"></i></button>
+				<button type="button"><strong>{{ data.cap }}</strong></button>
+				<i class="dashicons <?php echo is_rtl() ? 'dashicons-arrow-left' : 'dashicons-arrow-right'; ?>"></i>
 			</td>
 
 			<td class="column-grant">

@@ -174,13 +174,21 @@ padding: 0;
 	border-color: #0073aa;
 }
 
-.members-cap-tabs button .dashicons {
+.members-cap-tabs button + .dashicons {
 	display: none;
-	margin-left: -3px;
-	margin-right: -3px;
+}
+.members-cap-tabs button + .dashicons {
+	display: none;
+/*	margin-left: -3px;
+	margin-right: -3px;*/
 	margin-top: 1px;
 	margin-bottom: -1px;
 	line-height: inherit;
+}
+
+.members-cap-tabs button:hover + .dashicons,
+.members-cap-tabs button:focus + .dashicons {
+	display: inline-block;
 }
 
 	.members-cap-tabs button:focus .dashicons,

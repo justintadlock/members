@@ -250,6 +250,13 @@ jQuery( document ).ready( function() {
 		}
 	); // on()
 
+	// Remove focus from button when hovering another button.
+	jQuery( document ).on( 'hover', '.editable-role .members-cap-checklist button',
+		function() {
+			jQuery( '.members-cap-checklist button:focus' ).not( this ).blur();
+		}
+	);
+
 	/* ====== Meta Boxes ====== */
 
 	// Add the postbox toggle functionality.
