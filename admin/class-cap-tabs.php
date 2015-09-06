@@ -1,5 +1,21 @@
 <?php
+/**
+ * Edit Capabilities tab section on the edit/new role screen.
+ *
+ * @package    Members
+ * @subpackage Admin
+ * @author     Justin Tadlock <justin@justintadlock.com>
+ * @copyright  Copyright (c) 2009 - 2015, Justin Tadlock
+ * @link       http://themehybrid.com/plugins/members
+ * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+ */
 
+/**
+ * Handles building the edit caps tabs.
+ *
+ * @since  1.0.0
+ * @access public
+ */
 final class Members_Cap_Tabs {
 
 	/**
@@ -76,11 +92,13 @@ final class Members_Cap_Tabs {
 		$this->register();
 
 		// Print custom JS in the footer.
-		add_action( 'admin_footer', array( $this, 'print_scripts' ) );
+		add_action( 'admin_footer', array( $this, 'print_templates' ) );
+		add_action( 'admin_footer', array( $this, 'print_scripts'   ) );
 	}
 
 	/**
-	 * Adds the sections that will be used for the tab content.
+	 * Registers the sections (and each section's controls) that will be used for
+	 * the tab content.
 	 *
 	 * @since  1.0.0
 	 * @access public
@@ -132,17 +150,49 @@ final class Members_Cap_Tabs {
 			<div class="inside">
 
 				<div class="members-cap-tabs">
-					<?php echo $this->get_tab_nav(); ?>
+					<?php $this->tab_nav(); ?>
 					<div class="members-tab-wrap"></div>
 				</div><!-- .members-cap-tabs -->
 
 			</div><!-- .inside -->
 
 		</div><!-- .postbox -->
+	<?php }
+
+	/**
+	 * Outputs the tab nav.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @return void
+	 */
+	public function tab_nav() { ?>
+
+		<ul class="members-tab-nav">
+
+		<?php foreach ( $this->sections as $section ) : ?>
+
+			<li class="members-tab-title">
+				<a href="<?php echo esc_attr( "#members-tab-{$section->section}" ); ?>"><i class="dashicons <?php echo sanitize_html_class( $section->icon ); ?>"></i> <?php echo esc_html( $section->label ); ?></a>
+			</li>
+
+		<?php endforeach; ?>
+
+		</ul><!-- .members-tab-nav -->
+	<?php }
+
+	/**
+	 * Outputs the Underscore JS templates.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @return void
+	 */
+	public function print_templates() { ?>
 
 		<script type="text/html" id="tmpl-members-cap-section">
-			<?php $control = new Members_Cap_Section( $this, null ); ?>
-			<?php $control->template(); ?>
+			<?php $section = new Members_Cap_Section( $this, null ); ?>
+			<?php $section->template(); ?>
 		</script>
 
 		<script type="text/html" id="tmpl-members-cap-control">
@@ -150,30 +200,6 @@ final class Members_Cap_Tabs {
 			<?php $control->template(); ?>
 		</script>
 	<?php }
-
-	/**
-	 * Returns the tab nav.
-	 *
-	 * @since  1.0.0
-	 * @access public
-	 * @return void
-	 */
-	public function get_tab_nav() {
-
-		$nav = '';
-
-		foreach ( $this->sections as $section ) {
-
-			$nav .= sprintf(
-				'<li class="members-tab-title"><a href="%s"><i class="dashicons %s"></i> %s</a></li>',
-				esc_attr( "#members-tab-{$section->section}" ),
-				sanitize_html_class( $section->icon ),
-				esc_html( $section->label )
-			);
-		}
-
-		return sprintf( '<ul class="members-tab-nav">%s</ul>', $nav );
-	}
 
 	/**
 	 * Outputs the JS to handle the Underscore JS template.
