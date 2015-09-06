@@ -119,7 +119,7 @@ final class Members_Cap_Tabs {
 				$caps = array_diff( $group->caps, $this->added_caps );
 
 			// Add group's caps to the added caps array.
-			if ( $group->count_added )
+			if ( $group->merge_added )
 				$this->added_caps = array_unique( array_merge( $this->added_caps, $caps ) );
 
 			// Create a new section.

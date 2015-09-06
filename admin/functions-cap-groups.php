@@ -24,7 +24,7 @@ function members_cap_groups() {
  */
 function members_register_cap_groups() {
 
-	members_register_cap_group( 'all', array( 'label' =>  esc_html__( 'All', 'members' ), 'caps' => members_get_capabilities(), 'icon' => 'dashicons-plus', 'count_added' => false ) );
+	members_register_cap_group( 'all', array( 'label' =>  esc_html__( 'All', 'members' ), 'caps' => members_get_capabilities(), 'icon' => 'dashicons-plus', 'merge_added' => false ) );
 
 	members_register_cap_group( 'general', array( 'label' => esc_html__( 'General', 'members' ), 'caps' => members_get_wp_general_caps(), 'icon' => 'dashicons-wordpress' ) );
 

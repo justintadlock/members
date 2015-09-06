@@ -88,7 +88,7 @@ final class Members_Cap_Group {
 			'label'       => '',
 			'icon'        => '',
 			'caps'        => array( 'read' ),
-			'count_added' => true,
+			'merge_added' => true,
 			'diff_added'  => false,
 		);
 
