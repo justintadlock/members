@@ -145,8 +145,9 @@ final class Members_Admin_Role_New {
 			check_admin_referer( 'new_role', 'members_new_role_nonce' );
 
 			// Set up some variables.
-			$new_caps     = array();
-			$is_duplicate = false;
+			$this->capabilities = array();
+			$new_caps           = array();
+			$is_duplicate       = false;
 
 			// Check if any capabilities were selected.
 			if ( isset( $_POST['grant-caps'] ) || isset( $_POST['deny-caps'] ) ) {
@@ -162,9 +163,6 @@ final class Members_Admin_Role_New {
 					else if ( in_array( $cap, $deny_caps ) )
 						$new_caps[ $cap ] = false;
 				}
-
-				if ( ! empty( $new_caps ) )
-					$this->capabilities = array_keys( $new_caps );
 			}
 
 			$grant_new_caps = ! empty( $_POST['grant-new-caps'] ) ? array_unique( $_POST['grant-new-caps'] ) : array();
@@ -217,6 +215,10 @@ final class Members_Admin_Role_New {
 				// Add role added message.
 				add_settings_error( 'members_role_new', 'role_added', sprintf( esc_html__( 'The %s role has been created.', 'members' ), $this->role_name ), 'updated' );
 			}
+
+			// If there are new caps, let's assign them.
+			if ( ! empty( $new_caps ) )
+				$this->capabilities = $new_caps;
 
 			// Add error if there's no role.
 			if ( ! $this->role )
