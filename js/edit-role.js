@@ -269,6 +269,7 @@ jQuery( document ).ready( function() {
 	/* ====== Meta Boxes ====== */
 
 	// Add the postbox toggle functionality.
+	// Note: `pagenow` is a global variable set by WordPress.
 	postboxes.add_postbox_toggles( pagenow );
 
 	/* ====== New Cap Meta Box ====== */
