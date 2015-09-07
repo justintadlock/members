@@ -86,7 +86,12 @@ function members_get_roles() {
  * @return array
  */
 function members_get_role_names() {
-	return $GLOBALS['wp_roles']->role_names;
+	$roles = array();
+
+	foreach ( members_role_factory()->roles as $role )
+		$roles[ $role->role ] = $role->name;
+
+	return $roles;
 }
 
 /**

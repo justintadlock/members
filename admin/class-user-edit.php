@@ -97,7 +97,7 @@ final class Members_Admin_User_Edit {
 						<li>
 							<label>
 								<input type="checkbox" name="members_user_roles[]" value="<?php echo esc_attr( $role ); ?>" <?php checked( in_array( $role, $user_roles ) ); ?> />
-								<?php echo esc_html( translate_user_role( $name ) ); ?>
+								<?php echo esc_html( $name ); ?>
 							</label>
 						</li>
 					<?php endforeach; ?>
