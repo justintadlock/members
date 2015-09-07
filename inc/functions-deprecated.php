@@ -11,7 +11,7 @@
  */
 
 /**
- * @since 0.2.0
+ * @since      0.2.0
  * @deprecated 1.0.0
  */
 function members_get_active_roles() {
@@ -20,7 +20,7 @@ function members_get_active_roles() {
 }
 
 /**
- * @since 0.2.0
+ * @since      0.2.0
  * @deprecated 1.0.0
  */
 function members_get_inactive_roles() {
@@ -29,7 +29,7 @@ function members_get_inactive_roles() {
 }
 
 /**
- * @since 0.2.0
+ * @since      0.2.0
  * @deprecated 1.0.0
  */
 function members_count_roles() {
@@ -57,8 +57,8 @@ function members_get_additional_capabilities() {
 
 /* ====== Functions removed in the 1.0 branch. ====== */
 
-if ( !function_exists( 'has_role' ) ) { function has_role() {} }
-if ( !function_exists( 'current_user_has_role' ) ) { function current_user_has_role() {} }
+if ( ! function_exists( 'has_role' ) ) { function has_role() {} }
+if ( ! function_exists( 'current_user_has_role' ) ) { function current_user_has_role() {} }
 
 function members_author_profile() {}
 function members_login_form() {}

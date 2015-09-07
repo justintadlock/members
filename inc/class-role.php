@@ -46,6 +46,13 @@ class Members_Role {
 	 */
 	public $is_editable = false;
 
+	/**
+	 * Whether the role is a core WP role.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @var    bool
+	 */
 	public $is_wordpress_role = false;
 
 	/**
@@ -120,6 +127,13 @@ class Members_Role {
 	 */
 	public $denied_caps = array();
 
+	/**
+	 * Return the role string in attempts to use the object as a string.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @return string
+	 */
 	public function __toString() {
 		return $this->role;
 	}
