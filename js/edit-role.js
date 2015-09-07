@@ -1,5 +1,14 @@
 jQuery( document ).ready( function() {
 
+	/* ====== Delete Role Link (on Roles and Edit Role screens) ====== */
+
+	// When the delete role link is clicked, give a "AYS?" popup to confirm.
+	jQuery( '.members-delete-role-link' ).click(
+		function() {
+			return window.confirm( i18n.ays_delete_role );
+		}
+	);
+
 	/* ====== Role Name and Slug ====== */
 
 	/**

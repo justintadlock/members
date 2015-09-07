@@ -105,13 +105,7 @@ final class Members_Meta_Box_Publish_Role {
 				<div id="delete-action">
 
 					<?php if ( $is_editable && $role ) : ?>
-						<a class="submitdelete deletion" href="<?php echo members_get_delete_role_url( $role->name ); ?>"><?php echo esc_html_x( 'Delete', 'delete role', 'members' ); ?></a>
-
-						<script type="text/javascript">
-							jQuery( '.submitdelete' ).click( function() {
-								return window.confirm( '<?php esc_html_e( 'Are you sure you want to delete this role? This is a permanent action and cannot be undone.', 'members' ); ?>' );
-							} );
-						</script>
+						<a class="submitdelete deletion members-delete-role-link" href="<?php echo members_get_delete_role_url( $role->name ); ?>"><?php echo esc_html_x( 'Delete', 'delete role', 'members' ); ?></a>
 					<?php endif; ?>
 				</div>
 

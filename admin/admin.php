@@ -38,7 +38,8 @@ function members_admin_register_scripts() {
 		'button_role_edit' => esc_html__( 'Edit',                'members' ),
 		'button_role_ok'   => esc_html__( 'OK',                  'members' ),
 		'label_grant_cap'  => esc_html__( 'Grant %s capability', 'members' ),
-		'label_deny_cap'   => esc_html__( 'Deny %s capability',  'members' )
+		'label_deny_cap'   => esc_html__( 'Deny %s capability',  'members' ),
+		'ays_delete_role'  => esc_html__( 'Are you sure you want to delete this role? This is a permanent action and cannot be undone.', 'members' )
 	);
 
 	wp_localize_script( 'members-edit-role', 'i18n', $i18n );

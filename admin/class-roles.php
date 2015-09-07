@@ -141,7 +141,8 @@ final class Members_Admin_Roles {
 	 */
 	public function enqueue() {
 
-		wp_enqueue_style( 'members-admin' );
+		wp_enqueue_style(  'members-admin'     );
+		wp_enqueue_script( 'members-edit-role' );
 	}
 
 	/**
@@ -176,12 +177,6 @@ final class Members_Admin_Roles {
 					<?php $table->display(); ?>
 
 				</form><!-- #roles -->
-
-				<script type="text/javascript">
-					jQuery( '.members-delete-role-link' ).click( function() {
-						return window.confirm( '<?php esc_html_e( 'Are you sure you want to delete this role? This is a permanent action and cannot be undone.', 'members' ); ?>' );
-					} );
-				</script>
 
 			</div><!-- #poststuff -->
 
