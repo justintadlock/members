@@ -149,9 +149,8 @@ class Members_Widget_Users extends WP_Widget {
 	 * @return void
 	 */
 	function form( $instance ) {
-		global $wp_roles;
 
-		/* Set up the default form values. */
+		// Set up the default form values.
 		$defaults = array(
 			'title'      => esc_attr__( 'Users', 'members' ),
 			'order'      => 'ASC',
@@ -187,7 +186,7 @@ class Members_Widget_Users extends WP_Widget {
 
 		$meta_key = array_merge( array( '' ), (array) members_get_user_meta_keys() );
 
-		$roles = $wp_roles->role_names;
+		$roles = members_get_role_names();
 		asort( $roles );
 		$roles = array_merge( array( '' => '' ), $roles ); ?>
 
