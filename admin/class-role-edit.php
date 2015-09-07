@@ -170,6 +170,16 @@ final class Members_Admin_Role_Edit {
 		// If a new role was added (redirect from new role screen).
 		if ( isset( $_GET['message'] ) && 'role_added' === $_GET['message'] )
 			add_settings_error( 'members_edit_role', 'role_added', sprintf( esc_html__( 'The %s role has been created.', 'members' ), members_get_role_name( $this->role->name ) ), 'updated' );
+
+		// Load page hook.
+		do_action( 'members_load_role_edit' );
+
+		// Hook for adding in meta boxes.
+		do_action( 'add_meta_boxes_' . get_current_screen()->id, $this->role->name );
+		do_action( 'add_meta_boxes',   get_current_screen()->id, $this->role->name );
+
+		// Add layout screen option.
+		add_screen_option( 'layout_columns', array( 'max' => 2, 'default' => 2 ) );
 	}
 
 	/**
@@ -212,7 +222,7 @@ final class Members_Admin_Role_Edit {
 
 					<?php wp_nonce_field( 'edit_role', 'members_edit_role_nonce' ); ?>
 
-					<div id="post-body" class="columns-2">
+					<div id="post-body" class="metabox-holder columns-<?php echo 1 == get_current_screen()->get_columns() ? 1 : 2; ?>">
 
 						<div id="post-body-content">
 
@@ -239,10 +249,9 @@ final class Members_Admin_Role_Edit {
 						<?php wp_nonce_field( 'closedpostboxes', 'closedpostboxesnonce', false ); ?>
 						<?php wp_nonce_field( 'meta-box-order',  'meta-box-order-nonce', false ); ?>
 
-						<div id="postbox-container-1" class="post-box-container column-1 side">
+						<div id="postbox-container-1" class="postbox-container side">
 
-							<?php do_action( 'members_add_meta_boxes_role', $this->role->name ); ?>
-							<?php do_meta_boxes( 'members_edit_role', 'side', $this->role ); ?>
+							<?php do_meta_boxes( get_current_screen()->id, 'side', $this->role ); ?>
 
 						</div><!-- .post-box-container -->
 

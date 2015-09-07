@@ -107,14 +107,8 @@ final class Members_Admin_Role_New {
 		$this->page = add_submenu_page( 'users.php', esc_html__( 'Add New Role', 'members' ), esc_html__( 'Add New Role', 'members' ), 'create_roles', 'role-new', array( $this, 'page' ) );
 
 		// Let's roll if we have a page.
-		if ( $this->page ) {
-
-			// Load actions.
+		if ( $this->page )
 			add_action( "load-{$this->page}", array( $this, 'load' ) );
-
-			// Load scripts/styles.
-			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue' ) );
-		}
 	}
 
 	/**
@@ -236,6 +230,19 @@ final class Members_Admin_Role_New {
 		// If we don't have caps yet, get the new role default caps.
 		if ( empty( $this->capabilities ) )
 			$this->capabilities = members_new_role_default_caps();
+
+		// Load page hook.
+		do_action( 'members_load_role_new' );
+
+		// Hook for adding in meta boxes.
+		do_action( 'add_meta_boxes_' . get_current_screen()->id, '' );
+		do_action( 'add_meta_boxes',   get_current_screen()->id, '' );
+
+		// Add layout screen option.
+		add_screen_option( 'layout_columns', array( 'max' => 2, 'default' => 2 ) );
+
+		// Load scripts/styles.
+		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue' ) );
 	}
 
 	/**
@@ -245,10 +252,7 @@ final class Members_Admin_Role_New {
 	 * @access public
 	 * @return void
 	 */
-	public function enqueue( $hook ) {
-
-		if ( $this->page !== $hook )
-			return;
+	public function enqueue() {
 
 		wp_enqueue_style(  'members-admin'     );
 		wp_enqueue_script( 'members-edit-role' );
@@ -275,7 +279,7 @@ final class Members_Admin_Role_New {
 
 					<?php wp_nonce_field( 'new_role', 'members_new_role_nonce' ); ?>
 
-					<div id="post-body" class="columns-2">
+					<div id="post-body" class="metabox-holder columns-<?php echo 1 == get_current_screen()->get_columns() ? 1 : 2; ?>">
 
 						<div id="post-body-content">
 
@@ -304,10 +308,9 @@ final class Members_Admin_Role_New {
 						<?php wp_nonce_field( 'closedpostboxes', 'closedpostboxesnonce', false ); ?>
 						<?php wp_nonce_field( 'meta-box-order',  'meta-box-order-nonce', false ); ?>
 
-						<div id="postbox-container-1" class="post-box-container column-1 side">
+						<div id="postbox-container-1" class="postbox-container side">
 
-							<?php do_action( 'members_add_meta_boxes_role', '' ); ?>
-							<?php do_meta_boxes( 'members_edit_role', 'side', '' ); ?>
+							<?php do_meta_boxes( get_current_screen()->id, 'side', '' ); ?>
 
 						</div><!-- .post-box-container -->
 

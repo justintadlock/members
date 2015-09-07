@@ -269,7 +269,7 @@ jQuery( document ).ready( function() {
 	/* ====== Meta Boxes ====== */
 
 	// Add the postbox toggle functionality.
-	postboxes.add_postbox_toggles( 'members_edit_role' );
+	postboxes.add_postbox_toggles( pagenow );
 
 	/* ====== New Cap Meta Box ====== */
 

@@ -36,7 +36,20 @@ final class Members_Meta_Box_Publish_Role {
 	 */
 	protected function __construct() {
 
-		add_action( 'members_add_meta_boxes_role', array( $this, 'add_meta_boxes' ) );
+		add_action( 'members_load_role_edit', array( $this, 'load' ) );
+		add_action( 'members_load_role_new',  array( $this, 'load' ) );
+	}
+
+	/**
+	 * Runs on the page load hook to hook in the meta boxes.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @return void
+	 */
+	public function load() {
+
+		add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ) );
 	}
 
 	/**
@@ -44,12 +57,12 @@ final class Members_Meta_Box_Publish_Role {
 	 *
 	 * @since  1.0.0
 	 * @access public
-	 * @param  string  $role
+	 * @param  string  $screen_id
 	 * @return void
 	 */
-	public function add_meta_boxes() {
+	public function add_meta_boxes( $screen_id ) {
 
-		add_meta_box( 'submitdiv', esc_html__( 'Role', 'members' ), array( $this, 'meta_box' ), 'members_edit_role', 'side', 'high' );
+		add_meta_box( 'submitdiv', esc_html__( 'Role', 'members' ), array( $this, 'meta_box' ), $screen_id, 'side', 'high' );
 	}
 
 	/**

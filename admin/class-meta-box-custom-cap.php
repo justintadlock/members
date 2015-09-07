@@ -36,7 +36,20 @@ final class Members_Meta_Box_Custom_Cap {
 	 */
 	protected function __construct() {
 
-		add_action( 'members_add_meta_boxes_role', array( $this, 'add_meta_boxes' ) );
+		add_action( 'members_load_role_edit', array( $this, 'load' ) );
+		add_action( 'members_load_role_new',  array( $this, 'load' ) );
+	}
+
+	/**
+	 * Runs on the page load hook to hook in the meta boxes.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @return void
+	 */
+	public function load() {
+
+		add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ) );
 	}
 
 	/**
@@ -44,17 +57,18 @@ final class Members_Meta_Box_Custom_Cap {
 	 *
 	 * @since  1.0.0
 	 * @access public
+	 * @param  string  $screen_id
 	 * @param  string  $role
 	 * @return void
 	 */
-	public function add_meta_boxes( $role = '' ) {
+	public function add_meta_boxes( $screen_id, $role = '' ) {
 
 		// If role isn't editable, bail.
 		if ( $role && ! members_is_role_editable( $role ) )
 			return;
 
 		// Add the meta box.
-		add_meta_box( 'newcapdiv', esc_html__( 'Custom Capability', 'members' ), array( $this, 'meta_box' ), 'members_edit_role', 'side', 'core' );
+		add_meta_box( 'newcapdiv', esc_html__( 'Custom Capability', 'members' ), array( $this, 'meta_box' ), $screen_id, 'side', 'core' );
 
 		// Print Underscore template in the footer.
 		add_action( 'admin_footer', array( $this, 'print_template' ) );
