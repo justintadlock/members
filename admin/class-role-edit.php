@@ -170,17 +170,14 @@ final class Members_Admin_Role_Edit {
 		// If a new role was added (redirect from new role screen).
 		if ( isset( $_GET['message'] ) && 'role_added' === $_GET['message'] )
 			add_settings_error( 'members_edit_role', 'role_added', sprintf( esc_html__( 'The %s role has been created.', 'members' ), members_get_role_name( $this->role->name ) ), 'updated' );
-
-		// Enqueue scripts/styles.
-		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue' ) );
 	}
 
 	/**
 	 * Enqueue scripts/styles.
 	 *
 	 * @since  1.0.0
-	 * @access protected
-	 * @var    object
+	 * @access public
+	 * @return void
 	 */
 	public function enqueue() {
 

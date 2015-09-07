@@ -128,12 +128,10 @@ final class Members_Admin_Manage_Roles {
 	 * @access public
 	 * @return void
 	 */
-	public function enqueue( $hook ) {
+	public function enqueue() {
 
-		if ( $this->page !== $hook )
-			return;
-
-		wp_enqueue_style(  'members-admin' );
+		if ( method_exists( $this->page_obj, 'enqueue' ) )
+			$this->page_obj->enqueue();
 	}
 
 	/**

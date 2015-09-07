@@ -133,6 +133,18 @@ final class Members_Admin_Roles {
 	}
 
 	/**
+	 * Enqueue scripts/styles.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @return void
+	 */
+	public function enqueue() {
+
+		wp_enqueue_style( 'members-admin' );
+	}
+
+	/**
 	 * Displays the page content.
 	 *
 	 * @since  1.0.0
