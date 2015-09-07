@@ -23,7 +23,7 @@ jQuery( document ).ready( function() {
 	function members_print_role_slug( slug ) {
 
 		// Sanitize the role.
-		slug = slug.toLowerCase().replace( /<.*?>/g, '' ).replace( /\s/g, '_' ).replace( /[^a-zA-Z0-9_]/g, '' );
+		slug = slug.toLowerCase().trim().replace( /<.*?>/g, '' ).replace( /\s/g, '_' ).replace( /[^a-zA-Z0-9_]/g, '' );
 
 		// Add the text.
 		jQuery( '.role-slug' ).text( slug );
@@ -321,7 +321,7 @@ jQuery( document ).ready( function() {
 
 			// Sanitize the new cap.
 			// Note that this will be sanitized on the PHP side as well before save.
-			new_cap = new_cap.replace( /<.*?>/g, '' ).replace( /\s/g, '_' ).replace( /[^a-zA-Z0-9_]/g, '' );
+			new_cap = new_cap.trim().replace( /<.*?>/g, '' ).replace( /\s/g, '_' ).replace( /[^a-zA-Z0-9_]/g, '' );
 
 			// If there's a new cap value.
 			if ( new_cap ) {
