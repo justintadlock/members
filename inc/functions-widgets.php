@@ -23,7 +23,7 @@ add_action( 'widgets_init', 'members_register_widgets' );
 function members_register_widgets() {
 
 	// If the login form widget is enabled.
-	if ( members_get_setting( 'login_form_widget' ) ) {
+	if ( members_login_widget_enabled() ) {
 
 		require_once( members_plugin()->inc_dir . 'class-widget-login.php' );
 
@@ -31,7 +31,7 @@ function members_register_widgets() {
 	}
 
 	// If the users widget is enabled.
-	if ( members_get_setting( 'users_widget' ) ) {
+	if ( members_users_widget_enabled() ) {
 
 		require_once( members_plugin()->inc_dir . 'class-widget-users.php' );
 

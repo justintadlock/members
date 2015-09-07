@@ -44,6 +44,28 @@ function members_content_permissions_enabled() {
 }
 
 /**
+ * Conditional check to see if login widget is enabled.
+ *
+ * @since  1.0.0
+ * @access public
+ * @return bool
+ */
+function members_login_widget_enabled() {
+	return apply_filters( 'members_login_widget_enabled', members_get_setting( 'login_form_widget' ) );
+}
+
+/**
+ * Conditional check to see if users widget is enabled.
+ *
+ * @since  1.0.0
+ * @access public
+ * @return bool
+ */
+function members_users_widget_enabled() {
+	return apply_filters( 'members_users_widget_enabled', members_get_setting( 'users_widget' ) );
+}
+
+/**
  * Gets a setting from from the plugin settings in the database.
  *
  * @since  0.2.0

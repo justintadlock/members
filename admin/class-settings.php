@@ -1,5 +1,21 @@
 <?php
+/**
+ * Handles the settings screen.
+ *
+ * @package    Members
+ * @subpackage Admin
+ * @author     Justin Tadlock <justin@justintadlock.com>
+ * @copyright  Copyright (c) 2009 - 2015, Justin Tadlock
+ * @link       http://themehybrid.com/plugins/members
+ * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+ */
 
+/**
+ * Sets up and handles the plugin settings screen.
+ *
+ * @since  1.0.0
+ * @access public
+ */
 final class Members_Settings_Page {
 
 	/**
@@ -49,6 +65,7 @@ final class Members_Settings_Page {
 	 */
 	public function admin_menu() {
 
+		// Create the settings page.
 		$this->settings_page = add_options_page(
 			esc_html__( 'Members Settings', 'members' ),
 			esc_html__( 'Members',          'members' ),
@@ -58,8 +75,11 @@ final class Members_Settings_Page {
 		);
 
 		if ( $this->settings_page ) {
+
+			// Register setings.
 			add_action( 'admin_init', array( $this, 'register_settings' ) );
 
+			// Enqueue scripts/styles.
 			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue' ) );
 		}
 	}
@@ -89,27 +109,35 @@ final class Members_Settings_Page {
 	 */
 	function register_settings() {
 
+		// Get the current plugin settings w/o the defaults.
 		$this->settings = get_option( 'members_settings' );
 
+		// Register the setting.
 		register_setting( 'members_settings', 'members_settings', array( $this, 'validate_settings' ) );
 
-		// Add settings sections.
-		add_settings_section( 'roles_caps',          esc_html__( 'Roles and Capabilities', 'members' ), array( $this, 'section_roles_caps'          ), $this->settings_page );
-		add_settings_section( 'content_permissions', esc_html__( 'Content Permissions',    'members' ), array( $this, 'section_content_permissions' ), $this->settings_page );
-		add_settings_section( 'sidebar_widgets',     esc_html__( 'Sidebar Widgets',        'members' ), array( $this, 'section_sidebar_widgets'     ), $this->settings_page );
-		add_settings_section( 'private_site',        esc_html__( 'Private Site',           'members' ), array( $this, 'section_private_site'        ), $this->settings_page );
+		/* === Settings Sections === */
 
-		// Add settings fields.
+		// Add settings sections.
+		add_settings_section( 'roles_caps',          esc_html__( 'Roles and Capabilities', 'members' ), array( $this, 'section_roles_caps' ), $this->settings_page );
+		add_settings_section( 'content_permissions', esc_html__( 'Content Permissions',    'members' ), '__return_false',                     $this->settings_page );
+		add_settings_section( 'sidebar_widgets',     esc_html__( 'Sidebar Widgets',        'members' ), '__return_false',                     $this->settings_page );
+		add_settings_section( 'private_site',        esc_html__( 'Private Site',           'members' ), '__return_false',                     $this->settings_page );
+
+		/* === Settings Fields === */
+
+		// Role manager fields.
 		add_settings_field( 'enable_role_manager', esc_html__( 'Role Manager',        'members' ), array( $this, 'field_enable_role_manager' ), $this->settings_page, 'roles_caps' );
-	//	add_settings_field( 'enable_cap_manager',  esc_html__( 'Capability Manager',  'members' ), array( $this, 'field_enable_cap_manager'  ), $this->settings_page, 'roles_caps' );
 		add_settings_field( 'enable_multi_roles',  esc_html__( 'Multiple User Roles', 'members' ), array( $this, 'field_enable_multi_roles'  ), $this->settings_page, 'roles_caps' );
 
+		// Content permissions fields.
 		add_settings_field( 'enable_content_permissions', esc_html__( 'Enable Permissions', 'members' ), array( $this, 'field_enable_content_permissions' ), $this->settings_page, 'content_permissions' );
-		add_settings_field( 'content_permissions_error',  esc_html__( 'Error Message',              'members' ), array( $this, 'field_content_permissions_error'  ), $this->settings_page, 'content_permissions' );
+		add_settings_field( 'content_permissions_error',  esc_html__( 'Error Message',      'members' ), array( $this, 'field_content_permissions_error'  ), $this->settings_page, 'content_permissions' );
 
+		// Widgets fields.
 		add_settings_field( 'widget_login', esc_html__( 'Login Widget', 'members' ), array( $this, 'field_widget_login' ), $this->settings_page, 'sidebar_widgets' );
 		add_settings_field( 'widget_users', esc_html__( 'Users Widget', 'members' ), array( $this, 'field_widget_users' ), $this->settings_page, 'sidebar_widgets' );
 
+		// Private site fields.
 		add_settings_field( 'enable_private_site', esc_html__( 'Enable Private Site', 'members' ), array( $this, 'field_enable_private_site' ), $this->settings_page, 'private_site' );
 		add_settings_field( 'enable_private_feed', esc_html__( 'Disable Feed',        'members' ), array( $this, 'field_enable_private_feed' ), $this->settings_page, 'private_site' );
 		add_settings_field( 'private_feed_error',  esc_html__( 'Feed Error Message',  'members' ), array( $this, 'field_private_feed_error'  ), $this->settings_page, 'private_site' );
@@ -122,74 +150,92 @@ final class Members_Settings_Page {
 	 * @access public
 	 * @param  array  $input
 	 * @return array
-	 * @return void
 	 */
 	function validate_settings( $settings ) {
 
 		// Validate true/false checkboxes.
 		$settings['role_manager']        = isset( $settings['role_manager'] )        ? true : false;
-		$settings['cap_manager']         = isset( $settings['cap_manager'] )         ? true : false;
 		$settings['multi_roles']         = isset( $settings['multi_roles'] )         ? true : false;
 		$settings['content_permissions'] = isset( $settings['content_permissions'] ) ? true : false;
-		$settings['login_form_widget']   = isset( $settings['login_form_widget'] )   ? 1 : 0;
-		$settings['users_widget']        = isset( $settings['users_widget'] )        ? 1 : 0;
-		$settings['private_blog']        = isset( $settings['private_blog'] )        ? 1 : 0;
-		$settings['private_feed']        = isset( $settings['private_feed'] )        ? 1 : 0;
+		$settings['login_form_widget']   = isset( $settings['login_form_widget'] )   ? true : false;
+		$settings['users_widget']        = isset( $settings['users_widget'] )        ? true : false;
+		$settings['private_blog']        = isset( $settings['private_blog'] )        ? true : false;
+		$settings['private_feed']        = isset( $settings['private_feed'] )        ? true : false;
 
 		// Kill evil scripts.
 		$settings['content_permissions_error'] = stripslashes( wp_filter_post_kses( addslashes( $settings['content_permissions_error'] ) ) );
-		$settings['private_feed_error']        = stripslashes( wp_filter_post_kses( addslashes( $settings['private_feed_error'] ) ) );
+		$settings['private_feed_error']        = stripslashes( wp_filter_post_kses( addslashes( $settings['private_feed_error']        ) ) );
 
 		// Return the validated/sanitized settings.
 		return $settings;
 	}
 
+	/**
+	 * Role/Caps section callback.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @return void
+	 */
 	public function section_roles_caps() { ?>
+
 		<p class="description">
 			<?php esc_html_e( 'Your roles and capabilities will not revert back to their previous settings after deactivating or uninstalling this plugin, so use this feature wisely.', 'members' ); ?>
 		</p>
 	<?php }
 
-	public function section_content_permissions() {}
-	public function section_sidebar_widgets() {}
-	public function section_private_site() {}
-
+	/**
+	 * Role manager field callback.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @return void
+	 */
 	public function field_enable_role_manager() { ?>
-		<p>
-			<label>
-				<input type="checkbox" name="members_settings[role_manager]" value="true" <?php checked( members_role_manager_enabled() ); ?> />
-				<?php esc_html_e( 'Enable the role manager.', 'members' ); ?>
-			</label>
-		</p>
+
+		<label>
+			<input type="checkbox" name="members_settings[role_manager]" value="true" <?php checked( members_role_manager_enabled() ); ?> />
+			<?php esc_html_e( 'Enable the role manager.', 'members' ); ?>
+		</label>
 	<?php }
 
-	public function field_enable_cap_manager() { ?>
-		<p>
-			<label>
-				<input type="checkbox" name="members_settings[cap_manager]" value="true" <?php checked( members_cap_manager_enabled() ); ?> />
-				<?php esc_html_e( 'Enable the capability manager.', 'members' ); ?>
-			</label>
-		</p>
-	<?php }
-
+	/**
+	 * Multiple roles field callback.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @return void
+	 */
 	public function field_enable_multi_roles() { ?>
-		<p>
-			<label>
-				<input type="checkbox" name="members_settings[multi_roles]" value="true" <?php checked( members_multiple_user_roles_enabled() ); ?> />
-				<?php esc_html_e( 'Allow users to be assigned more than a single role.', 'members' ); ?>
-			</label>
-		</p>
+
+		<label>
+			<input type="checkbox" name="members_settings[multi_roles]" value="true" <?php checked( members_multiple_user_roles_enabled() ); ?> />
+			<?php esc_html_e( 'Allow users to be assigned more than a single role.', 'members' ); ?>
+		</label>
 	<?php }
 
+	/**
+	 * Enable content permissions field callback.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @return void
+	 */
 	public function field_enable_content_permissions() { ?>
-		<p>
-			<label>
-				<input type="checkbox" name="members_settings[content_permissions]" value="true" <?php checked( members_content_permissions_enabled() ); ?> />
-				<?php esc_html_e( 'Enable the content permissions feature.', 'members' ); ?>
-			</label>
-		</p>
+
+		<label>
+			<input type="checkbox" name="members_settings[content_permissions]" value="true" <?php checked( members_content_permissions_enabled() ); ?> />
+			<?php esc_html_e( 'Enable the content permissions feature.', 'members' ); ?>
+		</label>
 	<?php }
 
+	/**
+	 * Content permissions error message field callback.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @return void
+	 */
 	public function field_content_permissions_error() {
 
 		wp_editor(
@@ -203,42 +249,73 @@ final class Members_Settings_Page {
 		);
 	}
 
+	/**
+	 * Login widget field callback.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @return void
+	 */
 	public function field_widget_login() { ?>
-		<p>
-			<label>
-				<input type="checkbox" name="members_settings[login_form_widget]" value="1" <?php checked( 1, members_get_setting( 'login_form_widget' ) ); ?> />
-				<?php esc_html_e( 'Enable the login form widget.', 'members' ); ?>
-			</label>
-		</p>
+
+		<label>
+			<input type="checkbox" name="members_settings[login_form_widget]" value="true" <?php checked( members_login_widget_enabled() ); ?> />
+			<?php esc_html_e( 'Enable the login form widget.', 'members' ); ?>
+		</label>
 	<?php }
 
+	/**
+	 * Uers widget field callback.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @return void
+	 */
 	public function field_widget_users() { ?>
-		<p>
-			<label>
-				<input type="checkbox" name="members_settings[users_widget]" value="1" <?php checked( 1, members_get_setting( 'users_widget' ) ); ?> />
-				<?php esc_html_e( 'Enable the users widget.', 'members' ); ?>
-			</label>
-		</p>
+
+		<label>
+			<input type="checkbox" name="members_settings[users_widget]" value="true" <?php checked( members_users_widget_enabled() ); ?> />
+			<?php esc_html_e( 'Enable the users widget.', 'members' ); ?>
+		</label>
 	<?php }
 
+	/**
+	 * Enable private site field callback.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @return void
+	 */
 	public function field_enable_private_site() { ?>
-		<p>
-			<label>
-				<input type="checkbox" name="members_settings[private_blog]" value="1" <?php checked( 1, members_get_setting( 'private_blog' ) ); ?> />
-				<?php esc_html_e( 'Redirect all logged-out users to the login page before allowing them to view the site.', 'members' ); ?>
-			</label>
-		</p>
+
+		<label>
+			<input type="checkbox" name="members_settings[private_blog]" value="true" <?php checked( members_is_private_blog() ); ?> />
+			<?php esc_html_e( 'Redirect all logged-out users to the login page before allowing them to view the site.', 'members' ); ?>
+		</label>
 	<?php }
 
+	/**
+	 * Enable private feed field callback.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @return void
+	 */
 	public function field_enable_private_feed() { ?>
-		<p>
-			<label>
-				<input type="checkbox" name="members_settings[private_feed]" value="1" <?php checked( 1, members_get_setting( 'private_feed' ) ); ?> />
-				<?php esc_html_e( 'Show error message for feed items.', 'members' ); ?>
-			</label>
-		</p>
+
+		<label>
+			<input type="checkbox" name="members_settings[private_feed]" value="true" <?php checked( members_is_private_feed() ); ?> />
+			<?php esc_html_e( 'Show error message for feed items.', 'members' ); ?>
+		</label>
 	<?php }
 
+	/**
+	 * Private feed error message field callback.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @return void
+	 */
 	public function field_private_feed_error() {
 
 		wp_editor(
@@ -282,7 +359,7 @@ final class Members_Settings_Page {
 	 */
 	public static function get_instance() {
 
-		if ( !self::$instance )
+		if ( ! self::$instance )
 			self::$instance = new self;
 
 		return self::$instance;
