@@ -18,7 +18,7 @@ add_action( 'admin_enqueue_scripts', 'members_admin_register_scripts', 0 );
 add_action( 'admin_enqueue_scripts', 'members_admin_register_styles',  0 );
 
 # Custom manage users columns.
-add_filter( 'manage_users_columns',       'members_manage_users_columns',       0     );
+add_filter( 'manage_users_columns',       'members_manage_users_columns'              );
 add_filter( 'manage_users_custom_column', 'members_manage_users_custom_column', 10, 3 );
 
 /**

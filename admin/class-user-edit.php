@@ -1,5 +1,21 @@
 <?php
+/**
+ * Handles custom functionality on the edit user screen, such as multiple user roles.
+ *
+ * @package    Members
+ * @subpackage Admin
+ * @author     Justin Tadlock <justin@justintadlock.com>
+ * @copyright  Copyright (c) 2009 - 2015, Justin Tadlock
+ * @link       http://themehybrid.com/plugins/members
+ * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+ */
 
+/**
+ * Edit user screen class.
+ *
+ * @since  1.0.0
+ * @access public
+ */
 final class Members_Admin_User_Edit {
 
 	/**
@@ -112,25 +128,41 @@ final class Members_Admin_User_Edit {
 		if ( ! isset( $_POST['members_new_user_roles_nonce'] ) || ! wp_verify_nonce( $_POST['members_new_user_roles_nonce'], 'new_user_roles' ) )
 			return;
 
+		// Create a new user object.
 		$user = new WP_User( $user_id );
 
+		// If we have an array of roles.
 		if ( ! empty( $_POST['members_user_roles'] ) ) {
+
+			// Get the current user roles.
+			$old_roles = (array) $user->roles;
+
+			// Sanitize the posted roles.
 			$new_roles = array_map( 'members_sanitize_role', $_POST['members_user_roles'] );
 
+			// Loop through the posted roles.
 			foreach ( $new_roles as $new_role ) {
 
+				// If the user doesn't already have the role, add it.
 				if ( ! in_array( $new_role, (array) $user->roles ) )
 					$user->add_role( $new_role );
 			}
 
-			foreach ( (array) $user->roles as $old_role ) {
+			// Loop through the current user roles.
+			foreach ( $old_roles as $old_role ) {
 
-				if ( members_is_role_editable( $old_role ) && ! in_array( $old_role, $_POST['members_user_roles'] ) )
+				// If the role is editable and not in the new roles array, remove it.
+				if ( members_is_role_editable( $old_role ) && ! in_array( $old_role, $new_roles ) )
 					$user->remove_role( $old_role );
 			}
+
+		// If the posted roles are empty.
 		} else {
+
+			// Loop through the current user roles.
 			foreach ( (array) $user->roles as $old_role ) {
 
+				// Remove the role if it is editable.
 				if ( members_is_role_editable( $old_role ) )
 					$user->remove_role( $old_role );
 			}

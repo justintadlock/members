@@ -1,5 +1,21 @@
 <?php
+/**
+ * Handles the new role screen.
+ *
+ * @package    Members
+ * @subpackage Admin
+ * @author     Justin Tadlock <justin@justintadlock.com>
+ * @copyright  Copyright (c) 2009 - 2015, Justin Tadlock
+ * @link       http://themehybrid.com/plugins/members
+ * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+ */
 
+/**
+ * Class that displays the new role screen and handles the form submissions for that page.
+ *
+ * @since  1.0.0
+ * @access public
+ */
 final class Members_Admin_Role_New {
 
 	/**
@@ -115,9 +131,10 @@ final class Members_Admin_Role_New {
 
 		if ( $this->is_clone ) {
 
-			//add_filter( 'members_new_role_default_capabilities', array( $this, 'clone_default_caps' ) );
-			add_filter( 'members_new_role_default_caps', array( $this, 'clone_default_caps' ) );
+			// Override the default new role caps.
+			add_filter( 'members_new_role_default_caps', array( $this, 'clone_default_caps' ), 15 );
 
+			// Set the clone role.
 			$this->clone_role = members_sanitize_role( $_GET['clone'] );
 		}
 
@@ -220,7 +237,7 @@ final class Members_Admin_Role_New {
 	}
 
 	/**
-	 * Loads necessary scripts/styles.
+	 * Enqueue scripts/styles.
 	 *
 	 * @since  1.0.0
 	 * @access public
@@ -283,7 +300,7 @@ final class Members_Admin_Role_New {
 						</div><!-- #post-body-content -->
 
 						<?php wp_nonce_field( 'closedpostboxes', 'closedpostboxesnonce', false ); ?>
-						<?php wp_nonce_field( 'meta-box-order', 'meta-box-order-nonce', false ); ?>
+						<?php wp_nonce_field( 'meta-box-order',  'meta-box-order-nonce', false ); ?>
 
 						<div id="postbox-container-1" class="post-box-container column-1 side">
 

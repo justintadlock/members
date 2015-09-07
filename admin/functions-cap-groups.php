@@ -1,4 +1,14 @@
 <?php
+/**
+ * Capability groups API. Offers a standardized method for creating capability groups.
+ *
+ * @package    Members
+ * @subpackage Admin
+ * @author     Justin Tadlock <justin@justintadlock.com>
+ * @copyright  Copyright (c) 2009 - 2015, Justin Tadlock
+ * @link       http://themehybrid.com/plugins/members
+ * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+ */
 
 # Registers default groups.
 add_action( 'members_pre_edit_caps_manager_register', 'members_register_cap_groups', 0 );

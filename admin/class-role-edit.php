@@ -1,4 +1,14 @@
 <?php
+/**
+ * Handles the edit role screen.
+ *
+ * @package    Members
+ * @subpackage Admin
+ * @author     Justin Tadlock <justin@justintadlock.com>
+ * @copyright  Copyright (c) 2009 - 2015, Justin Tadlock
+ * @link       http://themehybrid.com/plugins/members
+ * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+ */
 
 /**
  * Class that displays the edit role screen and handles the form submissions for that page.
@@ -17,6 +27,13 @@ final class Members_Admin_Role_Edit {
 	 */
 	protected $role;
 
+	/**
+	 * Current Members role object to be edited/viewed.
+	 *
+	 * @since  1.0.0
+	 * @access protected
+	 * @var    object
+	 */
 	protected $members_role;
 
 	/**
@@ -114,54 +131,43 @@ final class Members_Admin_Role_Edit {
 
 			} // End loop through existing capabilities.
 
+			// Loop through the custom granted caps.
 			foreach ( $grant_new_caps as $grant_new_cap ) {
 
 				$_cap = members_sanitize_cap( $grant_new_cap );
 
+				// If not an existing cap, add it.
 				if ( ! in_array( $_cap, $this->capabilities ) )
 					$this->role->add_cap( $_cap );
 			}
 
+			// Loop through the custom denied caps.
 			foreach ( $deny_new_caps as $deny_new_cap ) {
 
 				$_cap = members_sanitize_cap( $deny_new_cap );
 
+				// If not a granted cap and not an existing cap, add it.
 				if ( ! in_array( $_cap, $this->capabilities ) && ! in_array( $_cap, $grant_new_caps ) )
 					$this->role->add_cap( $_cap, false );
 			}
 
-			// If new caps were added and are in an array, we need to add them.
-			if ( ! empty( $_POST['new-cap'] ) && is_array( $_POST['new-cap'] ) ) {
+			// Add the updated role to the role factory.
+			members_role_factory()->add_role( $this->role->name );
 
-				// Loop through each new capability from the edit roles form.
-				foreach ( $_POST['new-cap'] as $new_cap ) {
-
-					// Sanitize the new capability to remove any unwanted characters.
-					$new_cap = sanitize_key( $new_cap );
-
-					// Run one more check to make sure the new capability exists. Add the cap to the role.
-					if ( ! empty( $new_cap ) && ! $this->role->has_cap( $new_cap ) )
-						$this->role->add_cap( $new_cap );
-
-				} // End loop through new capabilities.
-
-				// If new caps are added, we need to reset the $capabilities array.
-				$this->capabilities = members_get_capabilities();
-
-			} // End check for new capabilities.
-
-			$_nm_role = members_role_factory()->add_role( $this->role->name );
-
+			// Reset the Members role object.
 			$this->members_role = members_get_role( $this->role->name );
 
 		} // End check for form submission.
 
+		// If successful update.
 		if ( $this->role_updated )
 			add_settings_error( 'members_edit_role', 'role_updated', sprintf( esc_html__( '%s role updated.', 'members' ), members_get_role_name( $this->role->name ) ), 'updated' );
 
+		// If the role is not editable.
 		if ( ! $this->is_editable )
 			add_settings_error( 'members_edit_role', 'role_uneditable', sprintf( esc_html__( 'The %s role is not editable. This means that it is most likely added via another plugin for a special use or that you do not have permission to edit it.', 'members' ), members_get_role_name( $this->role->name ) ) );
 
+		// If a new role was added (redirect from new role screen).
 		if ( isset( $_GET['message'] ) && 'role_added' === $_GET['message'] )
 			add_settings_error( 'members_edit_role', 'role_added', sprintf( esc_html__( 'The %s role has been created.', 'members' ), members_get_role_name( $this->role->name ) ), 'updated' );
 
@@ -169,6 +175,13 @@ final class Members_Admin_Role_Edit {
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue' ) );
 	}
 
+	/**
+	 * Enqueue scripts/styles.
+	 *
+	 * @since  1.0.0
+	 * @access protected
+	 * @var    object
+	 */
 	public function enqueue() {
 
 		wp_enqueue_style(  'members-admin'     );
@@ -227,7 +240,7 @@ final class Members_Admin_Role_Edit {
 						</div><!-- #post-body-content -->
 
 						<?php wp_nonce_field( 'closedpostboxes', 'closedpostboxesnonce', false ); ?>
-						<?php wp_nonce_field( 'meta-box-order', 'meta-box-order-nonce', false ); ?>
+						<?php wp_nonce_field( 'meta-box-order',  'meta-box-order-nonce', false ); ?>
 
 						<div id="postbox-container-1" class="post-box-container column-1 side">
 

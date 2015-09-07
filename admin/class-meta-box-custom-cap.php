@@ -1,5 +1,21 @@
 <?php
+/**
+ * Add new/custom capability meta box.
+ *
+ * @package    Members
+ * @subpackage Admin
+ * @author     Justin Tadlock <justin@justintadlock.com>
+ * @copyright  Copyright (c) 2009 - 2015, Justin Tadlock
+ * @link       http://themehybrid.com/plugins/members
+ * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+ */
 
+/**
+ * Class to handle the new cap meta box on the edit/new role screen.
+ *
+ * @since  1.0.0
+ * @access public
+ */
 final class Members_Meta_Box_Custom_Cap {
 
 	/**
@@ -11,18 +27,40 @@ final class Members_Meta_Box_Custom_Cap {
 	 */
 	private static $instance;
 
+	/**
+	 * Adds our methods to the proper hooks.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @return void
+	 */
 	protected function __construct() {
 
 		add_action( 'members_add_meta_boxes_role', array( $this, 'add_meta_boxes' ) );
 	}
 
+	/**
+	 * Adds the meta box.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @param  string  $role
+	 * @return void
+	 */
 	public function add_meta_boxes( $role = '' ) {
 
 		if ( ! $role || members_is_role_editable( $role ) )
 			add_meta_box( 'newcapdiv', esc_html__( 'Custom Capability', 'members' ), array( $this, 'meta_box' ), 'members_edit_role', 'side', 'core' );
 	}
 
-	public function meta_box( $role ) { ?>
+	/**
+	 * Outputs the meta box HTML.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @return void
+	 */
+	public function meta_box() { ?>
 
 		<p>
 			<input type="text" id="members-new-cap-field" class="widefat" />
@@ -37,6 +75,13 @@ final class Members_Meta_Box_Custom_Cap {
 		</script>
 	<?php }
 
+	/**
+	 * Outputs the Underscore JS template.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @return void
+	 */
 	public function template() { ?>
 
 		<tr class="members-cap-checklist">

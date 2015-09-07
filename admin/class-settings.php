@@ -64,6 +64,14 @@ final class Members_Settings_Page {
 		}
 	}
 
+	/**
+	 * Enqueue scripts/styles.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @param  string  $hook_suffix
+	 * @return void
+	 */
 	public function enqueue( $hook_suffix ) {
 
 		if ( $this->settings_page !== $hook_suffix )

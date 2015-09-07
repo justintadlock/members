@@ -1,5 +1,21 @@
 <?php
+/**
+ * Content permissions meta box.
+ *
+ * @package    Members
+ * @subpackage Admin
+ * @author     Justin Tadlock <justin@justintadlock.com>
+ * @copyright  Copyright (c) 2009 - 2015, Justin Tadlock
+ * @link       http://themehybrid.com/plugins/members
+ * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+ */
 
+/**
+ * Class to handle the content permissios meta box and saving the meta.
+ *
+ * @since  1.0.0
+ * @access public
+ */
 final class Members_Meta_Box_Content_Permissions {
 
 	/**
@@ -11,6 +27,13 @@ final class Members_Meta_Box_Content_Permissions {
 	 */
 	private static $instance;
 
+	/**
+	 * Sets up the appropriate actions.
+	 *
+	 * @since  1.0.0
+	 * @access protected
+	 * @return void
+	 */
 	protected function __construct() {
 
 		// If content permissions is disabled, bail.
@@ -21,6 +44,14 @@ final class Members_Meta_Box_Content_Permissions {
 		add_action( 'load-post-new.php', array( $this, 'load' ) );
 	}
 
+	/**
+	 * Fires on the page load hook to add actions specifically for the post and
+	 * new post screens.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @return void
+	 */
 	public function load() {
 
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue' ) );
@@ -30,11 +61,26 @@ final class Members_Meta_Box_Content_Permissions {
 		add_action( 'save_post', array( $this, 'update' ), 10, 2 );
 	}
 
+	/**
+	 * Enqueues scripts styles.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @return void
+	 */
 	public function enqueue() {
 
 		wp_enqueue_style( 'members-admin' );
 	}
 
+	/**
+	 * Adds the meta box.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @param  string  $post_type
+	 * @return void
+	 */
 	public function add_meta_boxes( $post_type ) {
 
 		// If the current user can't restrict content, bail.
@@ -50,6 +96,15 @@ final class Members_Meta_Box_Content_Permissions {
 			add_meta_box( 'members-cp', esc_html__( 'Content Permissions', 'members' ), array( $this, 'meta_box' ), $post_type, 'advanced', 'high' );
 	}
 
+	/**
+	 * Outputs the meta box HTML.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @param  object  $post
+	 * @global object  $wp_roles
+	 * @return void
+	 */
 	public function meta_box( $post ) {
 		global $wp_roles;
 
@@ -97,6 +152,15 @@ final class Members_Meta_Box_Content_Permissions {
 		</p>
 	<?php }
 
+	/**
+	 * Saves the post meta.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @param  int     $post_id
+	 * @param  object  $post
+	 * @return void
+	 */
 	public function update( $post_id, $post = '' ) {
 
 		// Fix for attachment save issue in WordPress 3.5.
