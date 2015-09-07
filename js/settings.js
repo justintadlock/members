@@ -8,12 +8,6 @@ jQuery( document ).ready( function() {
 		jQuery( '[name="members_settings[content_permissions]"]' ).parents( 'tr' ).next( 'tr' ).hide();
 	}
 
-	// Hide private feed if private blog disabled.
-	if ( false === jQuery( '[name="members_settings[private_blog]"]' ).prop( 'checked' ) ) {
-
-		jQuery( '[name="members_settings[private_blog]"]' ).parents( 'tr' ).next( 'tr' ).hide();
-	}
-
 	// Hide private feed message if private feed disabled.
 	if ( false === jQuery( '[name="members_settings[private_feed]"]' ).prop( 'checked' ) ) {
 
@@ -21,7 +15,7 @@ jQuery( document ).ready( function() {
 	}
 
 	// Show above hidden items if feature becomes enabled.
-	jQuery( '[name="members_settings[content_permissions]"], [name="members_settings[private_blog]"], [name="members_settings[private_feed]"]' ).on( 'change',
+	jQuery( '[name="members_settings[content_permissions]"], [name="members_settings[private_feed]"]' ).on( 'change',
 		function() {
 
 			if ( jQuery( this ).prop( 'checked' ) ) {
