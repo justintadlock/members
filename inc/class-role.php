@@ -158,7 +158,7 @@ class Members_Role {
 
 		// Set the role name.
 		if ( isset( $wp_roles->role_names[ $role ] ) )
-			$this->name = translate_user_role( $wp_roles->role_names[ $role ] );
+			$this->name = members_translate_role( $role );
 
 		// Check whether the role is editable.
 		$this->is_editable = array_key_exists( $role, apply_filters( 'editable_roles', $wp_roles->role_names ) );

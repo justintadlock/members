@@ -68,7 +68,7 @@ final class Members_Settings_Page {
 		// Create the settings page.
 		$this->settings_page = add_options_page(
 			esc_html__( 'Members Settings', 'members' ),
-			esc_html__( 'Members',          'members' ),
+			esc_html_x( 'Members', 'admin screen', 'members' ),
 			apply_filters( 'members_settings_capability', 'manage_options' ),
 			'members-settings',
 			array( $this, 'settings_page' )

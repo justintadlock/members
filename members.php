@@ -149,7 +149,7 @@ final class Members_Plugin {
 	 * @return void
 	 */
 	public function __toString() {
-		return esc_html__( 'Members', 'members' );
+		return 'members';
 	}
 
 	/**
@@ -301,33 +301,13 @@ final class Members_Plugin {
 		$role = get_role( 'administrator' );
 
 		// If the administrator role exists, add required capabilities for the plugin.
-		if ( !empty( $role ) ) {
+		if ( ! empty( $role ) ) {
 
 			$role->add_cap( 'list_roles'       ); // View roles in backend.
 			$role->add_cap( 'create_roles'     ); // Create new roles.
 			$role->add_cap( 'delete_roles'     ); // Delete existing roles.
 			$role->add_cap( 'edit_roles'       ); // Edit existing roles/caps.
 			$role->add_cap( 'restrict_content' ); // Edit per-post content permissions.
-		}
-
-		// If the administrator role does not exist for some reason, we have a bit of a problem
-		// because this is a role management plugin and requires that someone actually be able to
-		// manage roles.  So, we're going to create a custom role here.  The site administrator can
-		// assign this custom role to any user they wish to work around this problem.  We're only
-		// doing this for single-site installs of WordPress.  The 'super admin' has permission to do
-		// pretty much anything on a multisite install.
-		elseif ( empty( $role ) && !is_multisite() ) {
-
-			// Add the `members_role_manager` role with limited capabilities.
-			add_role(
-				'members_role_manager',
-				esc_html_x( 'Role Manager', 'role', 'members' ),
-				array(
-					'read'       => true,
-					'list_roles' => true,
-					'edit_roles' => true
-				)
-			);
 		}
 	}
 }

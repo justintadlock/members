@@ -184,6 +184,25 @@ function members_sanitize_role( $role ) {
 }
 
 /**
+ * WordPress provides no method of translating custom roles other than filtering the
+ * `translate_with_gettext_context` hook, which is very inefficient and is not the proper
+ * method of translating.  This is a method that allows plugin authors to hook in and add
+ * their own translations.
+ *
+ * Note the core WP `translate_user_role()` function only translates core user roles.
+ *
+ * @since  1.0.0
+ * @access public
+ * @param  string  $role
+ * @return string
+ */
+function members_translate_role( $role ) {
+	global $wp_roles;
+
+	return apply_filters( 'members_translate_role', translate_user_role( $wp_roles->role_names[ $role ] ), $role );
+}
+
+/**
  * Conditional tag to check if a role has any users.
  *
  * @since  1.0.0
