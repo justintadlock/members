@@ -101,6 +101,24 @@ jQuery( document ).ready( function() {
 		}
 	); // .keypress()
 
+	// Hide the add new role button if we don't at least have a role name.
+	if ( ! jQuery( '.users_page_role-new input[name="role_name"]' ).val() )
+		jQuery( '.users_page_role-new #publish' ).prop( 'disabled', true );
+
+	// Look for changes to the role name input.
+	jQuery( '.users_page_role-new input[name="role_name"]' ).on( 'input',
+		function() {
+
+			// If there's a role name, enable the add new role button.
+			if ( jQuery( this ).val() )
+				jQuery( '.users_page_role-new #publish' ).prop( 'disabled', false );
+
+			// Else, disable the button.
+			else
+				jQuery( '.users_page_role-new #publish' ).prop( 'disabled', true );
+		}
+	);
+
 	/* ====== Tabs ====== */
 
 	// Hides the tab content.
