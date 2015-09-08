@@ -25,17 +25,17 @@ function members_cap_section_template() { ?>
 
 			<thead>
 				<tr>
-					<th class="column-cap">{{ data.labels.cap }}</th>
-					<th class="column-grant">{{ data.labels.grant }}</th>
-					<th class="column-deny">{{ data.labels.deny }}</th>
+					<th class="column-cap">{{ data.label.cap }}</th>
+					<th class="column-grant">{{ data.label.grant }}</th>
+					<th class="column-deny">{{ data.label.deny }}</th>
 				</tr>
 			</thead>
 
 			<tfoot>
 				<tr>
-					<th class="column-cap">{{ data.labels.cap }}</th>
-					<th class="column-grant">{{ data.labels.grant }}</th>
-					<th class="column-deny">{{ data.labels.deny }}</th>
+					<th class="column-cap">{{ data.label.cap }}</th>
+					<th class="column-grant">{{ data.label.grant }}</th>
+					<th class="column-deny">{{ data.label.deny }}</th>
 				</tr>
 			</tfoot>
 

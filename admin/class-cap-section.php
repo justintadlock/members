@@ -99,7 +99,7 @@ final class Members_Cap_Section {
 	}
 
 	/**
-	 * Adds custom data to the json array.
+	 * Adds custom data to the json array. This data is passed to the Underscore template.
 	 *
 	 * @since  1.0.0
 	 * @access public
@@ -107,12 +107,15 @@ final class Members_Cap_Section {
 	 */
 	public function to_json() {
 
+		// Is the role editable?
 		$is_editable = $this->manager->role ? members_is_role_editable( $this->manager->role->name ) : true;
 
+		// Set up the ID and class.
 		$this->json['id']    = $this->section;
 		$this->json['class'] = 'members-tab-content' . ( $is_editable ? ' editable-role' : '' );
 
-		$this->json['labels'] = array(
+		// Set up the labels.
+		$this->json['label'] = array(
 			'cap'   => esc_html__( 'Capability', 'members' ),
 			'grant' => esc_html__( 'Grant',      'members' ),
 			'deny'  => esc_html__( 'Deny',       'members' )

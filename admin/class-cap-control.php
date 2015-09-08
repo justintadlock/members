@@ -90,7 +90,7 @@ final class Members_Cap_Control {
 	}
 
 	/**
-	 * Adds custom data to the json array.
+	 * Adds custom data to the json array. This data is passed to the Underscore template.
 	 *
 	 * @since  1.0.0
 	 * @access public
@@ -98,21 +98,28 @@ final class Members_Cap_Control {
 	 */
 	public function to_json() {
 
+		// Is the role editable?
 		$is_editable = $this->manager->role ? members_is_role_editable( $this->manager->role->name ) : true;
 
-		$this->json['cap']      = $this->cap;
+		// Get the current capability.
+		$this->json['cap'] = $this->cap;
+
+		// If the cap is not editable, the inputs should be read-only.
 		$this->json['readonly'] = $is_editable ? '' : ' disabled="disabled" readonly="readonly"';
 
+		// Set up the input labels.
 		$this->json['label'] = array(
 			'grant' => sprintf( esc_html__( 'Grant %s capability', 'members' ), "<code>{$this->cap}</code>" ),
 			'deny'  => sprintf( esc_html__( 'Deny %s capability',  'members' ), "<code>{$this->cap}</code>" )
 		);
 
+		// Set up the input `name` attributes.
 		$this->json['name'] = array(
 			'grant' => 'grant-caps[]',
 			'deny'  => 'deny-caps[]'
 		);
 
+		// Is this a granted or denied cap?
 		$this->json['is_granted_cap'] = isset( $this->manager->has_caps[ $this->cap ] ) && $this->manager->has_caps[ $this->cap ];
 		$this->json['is_denied_cap']  = isset( $this->manager->has_caps[ $this->cap ] ) && false === $this->manager->has_caps[ $this->cap ];
 	}
