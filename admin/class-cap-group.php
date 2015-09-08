@@ -111,7 +111,7 @@ final class Members_Cap_Group {
 
 		$defaults = array(
 			'label'       => '',
-			'icon'        => '',
+			'icon'        => 'dashicons-admin-generic',
 			'caps'        => array( 'read' ),
 			'merge_added' => true,
 			'diff_added'  => false,

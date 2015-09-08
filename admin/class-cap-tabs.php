@@ -172,8 +172,10 @@ final class Members_Cap_Tabs {
 
 		<?php foreach ( $this->sections as $section ) : ?>
 
+			<?php $icon = preg_match( '/dashicons-/', $section->icon ) ? sprintf( 'dashicons %s', sanitize_html_class( $section->icon ) ) : esc_attr( $section->icon ); ?>
+
 			<li class="members-tab-title">
-				<a href="<?php echo esc_attr( "#members-tab-{$section->section}" ); ?>"><i class="dashicons <?php echo sanitize_html_class( $section->icon ); ?>"></i> <span class="label"><?php echo esc_html( $section->label ); ?></span></a>
+				<a href="<?php echo esc_attr( "#members-tab-{$section->section}" ); ?>"><i class="<?php echo $icon; ?>"></i> <span class="label"><?php echo esc_html( $section->label ); ?></span></a>
 			</li>
 
 		<?php endforeach; ?>
