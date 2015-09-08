@@ -125,6 +125,9 @@ jQuery( document ).ready( function() {
 		}
 	);
 
+	/* ====== Tab Sections ====== */
+
+
 	/* ====== Tabs ====== */
 
 	// Hides the tab content.

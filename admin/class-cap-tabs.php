@@ -208,23 +208,37 @@ final class Members_Cap_Tabs {
 	 * @access public
 	 * @return void
 	 */
-	public function print_scripts() { ?>
+	public function print_scripts() {
+
+		// Set up an array for sections and controls.
+		$sections = array();
+		$controls = array();
+
+		// Get the sections' json data.
+		foreach ( $this->sections as $section )
+			$sections[] = $section->json();
+
+		// Get the controls' json data.
+		foreach ( $this->controls as $control )
+			$controls[] = $control->json(); ?>
 
 		<script type="text/javascript">
 			// Note the `members_template` global is set in the `js/edit-role.js` file.
 			jQuery( document ).ready( function() {
 
-				<?php foreach ( $this->sections as $section ) { ?>
-					jQuery( '.members-tab-wrap' ).append(
-						members_templates.cap_section( <?php echo wp_json_encode( $section->json() ); ?> )
-					);
-				<?php } ?>
+				// Get the json data for the sections and controls.
+				var sections = <?php echo wp_json_encode( $sections ); ?>;
+				var controls = <?php echo wp_json_encode( $controls ); ?>;
 
-				<?php foreach ( $this->controls as $control ) { ?>
-					jQuery( '#members-tab-<?php echo esc_attr( $control->section ); ?> tbody' ).append(
-						members_templates.cap_control( <?php echo wp_json_encode( $control->json() ); ?> )
-					);
-				<?php } ?>
+				// Loop through the sections and append the template for each.
+				_.each( sections, function( data ) {
+					jQuery( '.members-tab-wrap' ).append( members_templates.cap_section( data ) );
+				} );
+
+				// Loop through the controls and append the template for each.
+				_.each( controls, function( data ) {
+					jQuery( '#members-tab-' + data.section + ' tbody' ).append( members_templates.cap_control( data ) );
+				} );
 			} );
 		</script>
 	<?php }

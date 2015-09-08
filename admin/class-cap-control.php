@@ -104,6 +104,9 @@ final class Members_Cap_Control {
 		// Get the current capability.
 		$this->json['cap'] = $this->cap;
 
+		// Add the section ID.
+		$this->json['section'] = $this->section;
+
 		// If the cap is not editable, the inputs should be read-only.
 		$this->json['readonly'] = $is_editable ? '' : ' disabled="disabled" readonly="readonly"';
 
