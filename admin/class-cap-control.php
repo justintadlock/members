@@ -103,53 +103,17 @@ final class Members_Cap_Control {
 		$this->json['cap']      = $this->cap;
 		$this->json['readonly'] = $is_editable ? '' : ' disabled="disabled" readonly="readonly"';
 
-		$this->json['labels'] = array(
-			'grant_cap' => sprintf( esc_html__( 'Grant %s capability', 'members' ), "<code>{$this->cap}</code>" ),
-			'deny_cap'  => sprintf( esc_html__( 'Deny %s capability',  'members' ), "<code>{$this->cap}</code>" ),
+		$this->json['label'] = array(
+			'grant' => sprintf( esc_html__( 'Grant %s capability', 'members' ), "<code>{$this->cap}</code>" ),
+			'deny'  => sprintf( esc_html__( 'Deny %s capability',  'members' ), "<code>{$this->cap}</code>" )
+		);
+
+		$this->json['name'] = array(
+			'grant' => 'grant-caps[]',
+			'deny'  => 'deny-caps[]'
 		);
 
 		$this->json['is_granted_cap'] = isset( $this->manager->has_caps[ $this->cap ] ) && $this->manager->has_caps[ $this->cap ];
 		$this->json['is_denied_cap']  = isset( $this->manager->has_caps[ $this->cap ] ) && false === $this->manager->has_caps[ $this->cap ];
 	}
-
-	/**
-	 * Outputs the Underscore template.
-	 *
-	 * @since  1.0.0
-	 * @access public
-	 * @return array
-	 */
-	public function template() { ?>
-
-		<tr class="members-cap-checklist">
-			<td class="column-cap">
-				<button type="button"><strong>{{ data.cap }}</strong></button>
-				<i class="dashicons <?php echo is_rtl() ? 'dashicons-arrow-left' : 'dashicons-arrow-right'; ?>"></i>
-			</td>
-
-			<td class="column-grant">
-				<span class="screen-reader-text">{{{ data.labels.grant_cap }}}</span>
-				<input {{{ data.readonly }}} type="checkbox" name="grant-caps[]" data-grant-cap="{{ data.cap }}" value="{{ data.cap }}" <# if ( data.is_granted_cap ) { #>checked="checked"<# } #> />
-			</td>
-
-			<td class="column-deny">
-				<span class="screen-reader-text">{{{ data.labels.deny_cap }}}</span>
-				<input {{{ data.readonly }}} type="checkbox" name="deny-caps[]" data-deny-cap="{{ data.cap }}" value="{{ data.cap }}" <# if ( data.is_denied_cap ) { #>checked="checked"<# } #> />
-			</td>
-		</tr>
-	<?php }
-
-	/**
-	 * Prints the Underscore JS `<script>` wrapper and template.
-	 *
-	 * @since  1.0.0
-	 * @access public
-	 * @return void
-	 */
-	public function print_template() { ?>
-
-		<script type="text/html" id="tmpl-members-cap-control">
-			<?php $this->template(); ?>
-		</script>
-	<?php }
 }

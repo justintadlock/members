@@ -69,9 +69,6 @@ final class Members_Meta_Box_Custom_Cap {
 
 		// Add the meta box.
 		add_meta_box( 'newcapdiv', esc_html__( 'Custom Capability', 'members' ), array( $this, 'meta_box' ), $screen_id, 'side', 'core' );
-
-		// Print Underscore template in the footer.
-		add_action( 'admin_footer', array( $this, 'print_template' ) );
 	}
 
 	/**
@@ -90,47 +87,6 @@ final class Members_Meta_Box_Custom_Cap {
 		<p>
 			<button type="button" class="button-secondary" id="members-add-new-cap"><?php esc_html_e( 'Add New', 'members' ); ?></button>
 		</p>
-	<?php }
-
-	/**
-	 * Outputs the Underscore JS template.
-	 *
-	 * @since  1.0.0
-	 * @access public
-	 * @return void
-	 */
-	public function template() { ?>
-
-		<tr class="members-cap-checklist">
-			<td class="column-cap">
-				<button type="button"><strong>{{ data.cap }}</strong></button>
-				<i class="dashicons <?php echo is_rtl() ? 'dashicons-arrow-left' : 'dashicons-arrow-right'; ?>"></i>
-			</td>
-
-			<td class="column-grant">
-				<span class="screen-reader-text">{{{ data.labels.grant_cap }}}</span>
-				<input type="checkbox" name="grant-new-caps[]" data-grant-cap="{{ data.cap }}" value="{{ data.cap }}" <# if ( data.is_granted_cap ) { #>checked="checked"<# } #> />
-			</td>
-
-			<td class="column-deny">
-				<span class="screen-reader-text">{{{ data.labels.deny_cap }}}</span>
-				<input type="checkbox" name="deny-new-caps[]" data-deny-cap="{{ data.cap }}" value="{{ data.cap }}" <# if ( data.is_denied_cap ) { #>checked="checked"<# } #> />
-			</td>
-		</tr>
-	<?php }
-
-	/**
-	 * Prints the Underscore JS `<script>` wrapper and template.
-	 *
-	 * @since  1.0.0
-	 * @access public
-	 * @return void
-	 */
-	public function print_template() { ?>
-
-		<script type="text/html" id="tmpl-members-new-cap-control">
-			<?php $this->template(); ?>
-		</script>
 	<?php }
 
 	/**

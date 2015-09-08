@@ -190,16 +190,16 @@ final class Members_Cap_Tabs {
 	 * @access public
 	 * @return void
 	 */
-	public function print_templates() {
+	public function print_templates() { ?>
 
-		// Print section template.
-		$section = new Members_Cap_Section( $this, null );
-		$section->print_template();
+		<script type="text/html" id="tmpl-members-cap-section">
+			<?php members_cap_section_template(); ?>
+		</script>
 
-		// Print control template.
-		$control = new Members_Cap_Control( $this, null );
-		$control->print_template();
-	}
+		<script type="text/html" id="tmpl-members-cap-control">
+			<?php members_cap_control_template(); ?>
+		</script>
+	<?php }
 
 	/**
 	 * Outputs the JS to handle the Underscore JS template.
@@ -211,21 +211,18 @@ final class Members_Cap_Tabs {
 	public function print_scripts() { ?>
 
 		<script type="text/javascript">
+			// Note the `members_template` global is set in the `js/edit-role.js` file.
 			jQuery( document ).ready( function() {
-
-				// Underscore JS templates.
-				var section_template = wp.template( 'members-cap-section' );
-				var control_template = wp.template( 'members-cap-control' );
 
 				<?php foreach ( $this->sections as $section ) { ?>
 					jQuery( '.members-tab-wrap' ).append(
-						section_template( <?php echo wp_json_encode( $section->json() ); ?> )
+						members_templates.cap_section( <?php echo wp_json_encode( $section->json() ); ?> )
 					);
 				<?php } ?>
 
 				<?php foreach ( $this->controls as $control ) { ?>
 					jQuery( '#members-tab-<?php echo esc_attr( $control->section ); ?> tbody' ).append(
-						control_template( <?php echo wp_json_encode( $control->json() ); ?> )
+						members_templates.cap_control( <?php echo wp_json_encode( $control->json() ); ?> )
 					);
 				<?php } ?>
 			} );

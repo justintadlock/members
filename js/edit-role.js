@@ -1,3 +1,9 @@
+// Create Members Underscore templates.
+var members_templates = {
+	cap_section : wp.template( 'members-cap-section' ),
+	cap_control : wp.template( 'members-cap-control' )
+};
+
 jQuery( document ).ready( function() {
 
 	/* ====== Delete Role Link (on Roles and Edit Role screens) ====== */
@@ -292,9 +298,6 @@ jQuery( document ).ready( function() {
 
 	/* ====== New Cap Meta Box ====== */
 
-	// Create a Underscore template.
-	var new_cap_template = wp.template( 'members-new-cap-control' );
-
 	// Give the meta box toggle button a type of `button` so that it doesn't submit the form
 	// when we hit the "Enter" key in our input or toggle open/close the meta box.
 	jQuery( '#newcapdiv button.handlediv' ).attr( 'type', 'button' );
@@ -352,14 +355,19 @@ jQuery( document ).ready( function() {
 				i18n.label_grant_cap = i18n.label_grant_cap.replace( /%s/g, '<code>' + new_cap + '</code>' );
 				i18n.label_deny_cap  = i18n.label_deny_cap.replace( /%s/g,  '<code>' + new_cap + '</code>' );
 
-				// Set up the labels object.
-				var labels = { grant_cap : i18n.label_grant_cap, deny_cap : i18n.label_deny_cap };
-
 				// Set up some data to pass to our Underscore template.
-				var data = { cap : new_cap, is_granted_cap : true, is_denied_cap : false, labels : labels };
+				var data = {
+					cap            : new_cap,
+					readonly       : '',
+					name           : { grant : 'grant-new-caps[]', deny : 'deny-new-caps[]' },
+					is_granted_cap : true,
+					is_denied_cap  : false,
+					label          : { grant : i18n.label_grant_cap, deny : i18n.label_deny_cap }
+				};
 
 				// Prepend our template to the "custom" edit caps tab content.
-				jQuery( '#members-tab-custom tbody' ).prepend( new_cap_template( data ) );
+				//jQuery( '#members-tab-custom tbody' ).prepend( new_cap_template( data ) );
+				jQuery( '#members-tab-custom tbody' ).prepend( members_templates.cap_control( data ) );
 
 				// Get the new cap table row.
 				var parent = jQuery( '[data-grant-cap="' + new_cap + '"]' ).parents( '.members-cap-checklist' );
