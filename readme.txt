@@ -70,11 +70,11 @@ Well, that's why you really need to read the documentation for the plugin before
 
 == Screenshots ==
 
-1. Members plugin settings
-2. Role management screen
-3. Edit role screen
-4. Members settings help tab
-5. Content permissions on the edit post screen
+1. Role management screen
+2. Edit role screen
+3. Content permissions meta box (edit post/page screen)
+4. Plugin settings screen
+5. Select multiple roles per user (edit user screen)
 
 == Changelog ==
 
