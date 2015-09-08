@@ -22,6 +22,18 @@ add_filter( 'manage_users_columns',       'members_manage_users_columns'        
 add_filter( 'manage_users_custom_column', 'members_manage_users_custom_column', 10, 3 );
 
 /**
+ * Get an Underscore JS template.
+ *
+ * @since  1.0.0
+ * @access public
+ * @param  string  $name
+ * @return bool
+ */
+function members_get_underscore_template( $name ) {
+	require_once( members_plugin()->admin_dir . "tmpl/{$name}.php" );
+}
+
+/**
  * Registers custom plugin scripts.
  *
  * @since  1.0.0

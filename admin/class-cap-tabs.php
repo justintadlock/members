@@ -193,11 +193,11 @@ final class Members_Cap_Tabs {
 	public function print_templates() { ?>
 
 		<script type="text/html" id="tmpl-members-cap-section">
-			<?php members_cap_section_template(); ?>
+			<?php members_get_underscore_template( 'cap-section' ); ?>
 		</script>
 
 		<script type="text/html" id="tmpl-members-cap-control">
-			<?php members_cap_control_template(); ?>
+			<?php members_get_underscore_template( 'cap-control' ); ?>
 		</script>
 	<?php }
 
