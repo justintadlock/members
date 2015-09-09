@@ -79,6 +79,9 @@ final class Members_Settings_Page {
 			// Register setings.
 			add_action( 'admin_init', array( $this, 'register_settings' ) );
 
+			// Add help tabs.
+			add_action( "load-{$this->settings_page}", array( $this, 'add_help_tabs' ) );
+
 			// Enqueue scripts/styles.
 			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue' ) );
 		}
@@ -348,6 +351,129 @@ final class Members_Settings_Page {
 			</form>
 
 		</div><!-- wrap -->
+	<?php }
+
+	/**
+	 * Adds help tabs.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @return void
+	 */
+	public function add_help_tabs() {
+
+		// Get the current screen.
+		$screen = get_current_screen();
+
+		// Roles/Caps help tab.
+		$screen->add_help_tab(
+			array(
+				'id'       => 'roles-caps',
+				'title'    => esc_html__( 'Role and Capabilities', 'members' ),
+				'callback' => array( $this, 'help_tab_roles_caps' )
+			)
+		);
+
+		// Content Permissions help tab.
+		$screen->add_help_tab(
+			array(
+				'id'       => 'content-permissions',
+				'title'    => esc_html__( 'Content Permissions', 'members' ),
+				'callback' => array( $this, 'help_tab_content_permissions' )
+			)
+		);
+
+		// Widgets help tab.
+		$screen->add_help_tab(
+			array(
+				'id'       => 'sidebar-widgets',
+				'title'    => esc_html__( 'Sidebar Widgets', 'members' ),
+				'callback' => array( $this, 'help_tab_sidebar_widgets' )
+			)
+		);
+
+		// Private Site help tab.
+		$screen->add_help_tab(
+			array(
+				'id'       => 'private-site',
+				'title'    => esc_html__( 'Private Site', 'members' ),
+				'callback' => array( $this, 'help_tab_private_site' )
+			)
+		);
+
+		// Get docs and help links.
+		$docs_link = sprintf( '<li><a href="https://github.com/justintadlock/members/blob/master/readme.md">%s</a></li>', esc_html__( 'Documentation',  'members' ) );
+		$help_link = sprintf( '<li><a href="http://themehybrid.com/board/topics">%s</a></li>',                            esc_html__( 'Support Forums', 'members' ) );
+
+		// Set the help sidebar.
+		$screen->set_help_sidebar(
+			sprintf(
+				'<p><strong>%s</strong></p><ul>%s%s</ul>',
+				esc_html__( 'For more information:', 'members' ),
+				$docs_link,
+				$help_link
+			)
+		);
+	}
+
+	/**
+	 * Displays the roles/caps help tab.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @return void
+	 */
+	public function help_tab_roles_caps() { ?>
+
+		<p>
+			<?php esc_html_e( 'The role manager allows you to manage roles on your site by giving you the ability to create, edit, and delete any role. Note that changes to roles do not change settings for the Members plugin. You are literally changing data in your WordPress database. This plugin feature merely provides an interface for you to make these changes.', 'members' ); ?>
+		</p>
+
+		<p>
+			<?php esc_html_e( 'The multiple user roles feature allows you to assign more than one role to each user from the edit user screen.', 'members' ); ?>
+		</p>
+	<?php }
+
+	/**
+	 * Displays the content permissions help tab.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @return void
+	 */
+	public function help_tab_content_permissions() { ?>
+
+		<p>
+			<?php printf( esc_html__( "The content permissions features adds a meta box to the edit post screen that allows you to grant permissions for who can read the post content based on the user's role. Only users of roles with the %s capability will be able to use this component.", 'members' ), '<code>restrict_content</code>' ); ?>
+		</p>
+	<?php }
+
+	/**
+	 * Displays the sidebar widgets help tab.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @return void
+	 */
+	public function help_tab_sidebar_widgets() { ?>
+
+		<p>
+			<?php esc_html_e( "The sidebar widgets feature adds additional widgets for use in your theme's sidebars.", 'members' ); ?>
+		</p>
+	<?php }
+
+	/**
+	 * Displays the private site help tab.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @return void
+	 */
+	public function help_tab_private_site() { ?>
+
+		<p>
+			<?php esc_html_e( 'The private site feature redirects all users who are not logged into the site to the login page, creating an entirely private site. You may also replace your feed content with a custom error message.', 'members' ); ?>
+		</p>
 	<?php }
 
 	/**

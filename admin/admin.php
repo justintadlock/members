@@ -75,25 +75,8 @@ function members_admin_register_styles() {
  */
 function members_admin_contextual_help( $text, $screen ) {
 
-	/* Text shown on the "Members Settings" screen in the admin. */
-	if ( 'settings_page_members-settings' == $screen ) {
-		$text = '';
-
-		$text .= '<p>' . __( '<strong>Role Manager:</strong> This feature allows you to manage roles on your site by giving you the ability to create, edit, and delete any role. Note that changes to roles do not change settings for the Members plugin. You are literally changing data in your WordPress database. This plugin feature merely provides an interface for you to make these changes.', 'members' ) . '</p>';
-		$text .= '<p>' . __( "<strong>Content Permissions:</strong> This feature adds a meta box to the post edit screen that allows you to grant permissions for who can read the post content based on the user's role. Only users of roles with the <code>restrict_content</code> capability will be able to use this component.", 'members' ) . '</p>';
-		$text .= '<p>' . __( "<strong>Sidebar Widgets:</strong> This feature creates additional widgets for use in your theme's sidebars. You can access them by clicking Widgets in the menu.", 'members' ) . '</p>';
-		$text .= '<p>' . __( '<strong>Private Site:</strong> This feature allows you to redirect all users who are not logged into the site to the login page, creating an entirely private site. You may also replace your feed content with a custom error message.', 'members' ) . '</p>';
-
-		$text .= '<p><strong>' . __( 'For more information:', 'members' ) . '</strong></p>';
-
-		$text .= '<ul>';
-		$text .= '<li><a href="' . members_plugin()->dir_uri . 'docs/readme.html">' . __( 'Documentation', 'members' ) . '</a></li>';
-		$text .= '<li><a href="http://themehybrid.com/support">' . __( 'Support Forums', 'members' ) . '</a></li>';
-		$text .= '</ul>';
-	}
-
 	/* Text shown on the "Roles" screens in the admin. */
-	elseif ( 'users_page_roles' == $screen ) {
+	if ( 'users_page_roles' == $screen ) {
 		$text = '';
 
 		/* Text for the "Edit Role" screen. */
