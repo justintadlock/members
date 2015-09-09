@@ -65,6 +65,24 @@ final class Members_Cap_Tabs {
 	public $controls = array();
 
 	/**
+	 * Array of section json data.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @var    array
+	 */
+	public $sections_json = array();
+
+	/**
+	 * Array of control json data.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @var    array
+	 */
+	public $controls_json = array();
+
+	/**
 	 * Sets up the cap tabs.
 	 *
 	 * @since  1.0.0
@@ -92,8 +110,8 @@ final class Members_Cap_Tabs {
 		$this->register();
 
 		// Print custom JS in the footer.
-		add_action( 'admin_footer', array( $this, 'print_templates' ) );
-		add_action( 'admin_footer', array( $this, 'print_scripts'   ) );
+		add_action( 'admin_footer', array( $this, 'localize_scripts' ), 0 );
+		add_action( 'admin_footer', array( $this, 'print_templates'  )    );
 	}
 
 	/**
@@ -123,11 +141,19 @@ final class Members_Cap_Tabs {
 				$this->added_caps = array_unique( array_merge( $this->added_caps, $caps ) );
 
 			// Create a new section.
-			$this->sections[] = new Members_Cap_Section( $this, $group->name, array( 'icon' => $group->icon, 'label' => $group->label ) );
+			$this->sections[] = $section = new Members_Cap_Section( $this, $group->name, array( 'icon' => $group->icon, 'label' => $group->label ) );
+
+			// Get the section json data.
+			$this->sections_json[] = $section->json();
 
 			// Create new controls for each cap.
-			foreach ( $caps as $cap )
-				$this->controls[] = new Members_Cap_Control( $this, $cap, array( 'section' => $group->name ) );
+			foreach ( $caps as $cap ) {
+
+				$this->controls[] = $control = new Members_Cap_Control( $this, $cap, array( 'section' => $group->name ) );
+
+				// Get the control json data.
+				$this->controls_json[] = $control->json();
+			}
 		}
 
 		// Hook after registering.
@@ -184,6 +210,19 @@ final class Members_Cap_Tabs {
 	<?php }
 
 	/**
+	 * Passes our sections and controls data as json to the `edit-role.js` file.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @return void
+	 */
+	public function localize_scripts() {
+
+		wp_localize_script( 'members-edit-role', 'members_sections', $this->sections_json );
+		wp_localize_script( 'members-edit-role', 'members_controls', $this->controls_json );
+	}
+
+	/**
 	 * Outputs the Underscore JS templates.
 	 *
 	 * @since  1.0.0
@@ -198,48 +237,6 @@ final class Members_Cap_Tabs {
 
 		<script type="text/html" id="tmpl-members-cap-control">
 			<?php members_get_underscore_template( 'cap-control' ); ?>
-		</script>
-	<?php }
-
-	/**
-	 * Outputs the JS to handle the Underscore JS template.
-	 *
-	 * @since  1.0.0
-	 * @access public
-	 * @return void
-	 */
-	public function print_scripts() {
-
-		// Set up an array for sections and controls.
-		$sections = array();
-		$controls = array();
-
-		// Get the sections' json data.
-		foreach ( $this->sections as $section )
-			$sections[] = $section->json();
-
-		// Get the controls' json data.
-		foreach ( $this->controls as $control )
-			$controls[] = $control->json(); ?>
-
-		<script type="text/javascript">
-			// Note the `members_template` global is set in the `js/edit-role.js` file.
-			jQuery( document ).ready( function() {
-
-				// Get the json data for the sections and controls.
-				var sections = <?php echo wp_json_encode( $sections ); ?>;
-				var controls = <?php echo wp_json_encode( $controls ); ?>;
-
-				// Loop through the sections and append the template for each.
-				_.each( sections, function( data ) {
-					jQuery( '.members-tab-wrap' ).append( members_templates.cap_section( data ) );
-				} );
-
-				// Loop through the controls and append the template for each.
-				_.each( controls, function( data ) {
-					jQuery( '#members-tab-' + data.section + ' tbody' ).append( members_templates.cap_control( data ) );
-				} );
-			} );
 		</script>
 	<?php }
 }

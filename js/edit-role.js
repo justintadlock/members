@@ -1,9 +1,3 @@
-// Create Members Underscore templates.
-var members_templates = {
-	cap_section : wp.template( 'members-cap-section' ),
-	cap_control : wp.template( 'members-cap-control' )
-};
-
 jQuery( document ).ready( function() {
 
 	/* ====== Delete Role Link (on Roles and Edit Role screens) ====== */
@@ -125,9 +119,6 @@ jQuery( document ).ready( function() {
 		}
 	);
 
-	/* ====== Tab Sections ====== */
-
-
 	/* ====== Tabs ====== */
 
 	// Hides the tab content.
@@ -168,6 +159,27 @@ jQuery( document ).ready( function() {
 			jQuery( '.members-which-tab' ).text( jQuery( this ).text() );
 		}
 	); // click()
+
+	/* ====== Tab Sections and Controls ====== */
+
+	// Create Underscore templates.
+	var section_template = wp.template( 'members-cap-section' );
+	var control_template = wp.template( 'members-cap-control' );
+
+	// Check that the `members_sections` and `members_controls` variables were
+	// passed in via `wp_localize_script()`.
+	if ( typeof members_sections !== 'undefined' && typeof members_controls !== 'undefined' ) {
+
+		// Loop through the sections and append the template for each.
+		_.each( members_sections, function( data ) {
+			jQuery( '.members-tab-wrap' ).append( section_template( data ) );
+		} );
+
+		// Loop through the controls and append the template for each.
+		_.each( members_controls, function( data ) {
+			jQuery( '#members-tab-' + data.section + ' tbody' ).append( control_template( data ) );
+		} );
+	}
 
 	/* ====== Capability Checkboxes (inside tab content) ====== */
 
@@ -369,8 +381,7 @@ jQuery( document ).ready( function() {
 				};
 
 				// Prepend our template to the "custom" edit caps tab content.
-				//jQuery( '#members-tab-custom tbody' ).prepend( new_cap_template( data ) );
-				jQuery( '#members-tab-custom tbody' ).prepend( members_templates.cap_control( data ) );
+				jQuery( '#members-tab-custom tbody' ).prepend( control_template( data ) );
 
 				// Get the new cap table row.
 				var parent = jQuery( '[data-grant-cap="' + new_cap + '"]' ).parents( '.members-cap-checklist' );
