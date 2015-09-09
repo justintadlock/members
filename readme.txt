@@ -16,11 +16,12 @@ The foundation of the plugin is its extensive role and capability management sys
 
 ### Plugin Features:
 
-* Role Manager: Allows you to edit, create, and delete roles as well as capabilities for these roles.
-* Content Permissions: Gives you control over which users (by role) have access to post content.
-* Shortcodes: Shortcodes to control who has access to content.
-* Widgets:  A login form widget and users widget to show in your theme's sidebars.
-* Private Site: You can make your site and its feed completely private if you want.
+* **Role Manager:** Allows you to edit, create, and delete roles as well as capabilities for these roles.
+* **Multiple User Roles:** Give one, two, or even more roles to any user.
+* **Content Permissions:** Gives you control over which users (by role) have access to post content.
+* **Shortcodes:** Shortcodes to control who has access to content.
+* **Widgets:**  A login form widget and users widget to show in your theme's sidebars.
+* **Private Site:** You can make your site and its feed completely private if you want.
 
 ### Professional Support
 
@@ -38,7 +39,7 @@ Yes, I do accept donations.  If you want to buy me a beer or whatever, you can d
 
 1. Upload `members` to the `/wp-content/plugins/` directory.
 2. Activate the plugin through the 'Plugins' menu in WordPress.
-3. Go to <em>Settings > Members</em> to select which settings you'd like to use.
+3. Go to "Settings > Members" to select which settings you'd like to use.
 
 More detailed instructions are included in the plugin's `readme.html` file.
 
@@ -48,15 +49,13 @@ More detailed instructions are included in the plugin's `readme.html` file.
 
 I wasn't satisfied with the current user, role, and permissions plugins available.  Yes, some of them are good, but nothing fit what I had in mind perfectly.  Some offered few features.  Some worked completely outside of the WordPress APIs.  Others lacked the GPL license.
 
-This plugin is still a long way away from my goals, but it'll get there eventually.
+So, I just built something I actually enjoyed using.
 
 ### How do I use it?
 
-Most things should be fairly straightforward, but I've included an in-depth guide in the plugin download.  It's a file called `readme.html` in the `/docs` folder.
+Most things should be fairly straightforward, but I've included an in-depth guide in the plugin download.  It's a file called `readme.md` in the plugin folder.
 
-You'll want to look over that.  It's probably the most in-depth plugin documentation you'll ever read. ;)
-
-Now, open up the `/docs/readme.html` file included in the plugin download and read the documentation.
+You can also [view the readme](https://github.com/justintadlock/members/blob/master/readme.md) online.
 
 ### I can't access the "Role Manager" features.
 
@@ -66,7 +65,9 @@ If, for some reason, you do have the administrator role and the role manager is 
 
 ### Help! I've locked myself out of my site!
 
-Well, that's why you really need to read the documentation for the plugin before actually using it, especially a plugin that controls permissions for your site.
+Please read the documentation for the plugin before actually using it, especially a plugin that controls permissions for your site.  I cannot stress this enough.  This is a powerful plugin that allows you to make direct changes to roles and capabilities in the database.
+
+You'll need to stop by my [support forums](http://themehybrid.com/board/topics) to see if we can get your site fixed if you managed to lock yourself out.
 
 == Screenshots ==
 
@@ -78,51 +79,4 @@ Well, that's why you really need to read the documentation for the plugin before
 
 == Changelog ==
 
-### Version 0.2.5 - 2015-07-09
-
-#### Fixed
-
-* Deprecated old widget constructor method in favor of using `__construct()` in preparation for WP 4.3.
-* Removed old `/components` folder and files that's not used.
-
-### Version 0.2.4
-
-* Fixed content permissions not saving for attachments. Note that this only protects **content** and not media files.
-* No longer runs the upgrade script when `WP_INSTALLING` is `TRUE`.
-
-### Version 0.2.3
-
-* Fixes the strict standards notice "Redefining already defined constructor for class Members_Load".
-* No longer uses `&` for passing the role name by reference on plugin activation.
-* Fixes the `[feed]` shortcode, which was using the wrong callback function.
-
-### Version 0.2.2
-
-* No longer displays non-editable roles on the edit roles screen.
-
-### Version 0.2.1
-
-* Fixes the " Creating default object from empty value" error.
-
-### Version 0.2.0
-
-* Updated everything.  Nearly all the code was rewritten from the ground up to make for a better user experience.
-* Plugin users should check their plugin settings.
-
-### Version 0.1.1
-
-* Fixed a bug with the Content Permissions component that restricted access to everyone.
-* Added missing internationalization function call: `load_plugin_textdomain()`.
-* Added new `/languages` folder for holding translations.
-* Added `members-en_EN.po`, `members-en_EN.mo`, and `members.pot` to the `/languages` folder.
-* Updated some non-internationalized strings.
-
-### Version 0.1.0
-
-* Plugin launch.  Everything's new!
-
-== Upgrade Notice ==
-
-### If upgrading from a version earlier than 0.2.0
-
-Version 0.2.0 included a complete overhaul of the plugin. Please check your plugin and widget settings.
+The change log is located in the `changelog.md` file in the plugin folder.  You may also [view the change log](https://github.com/justintadlock/members/blob/master/changelog.md) online.

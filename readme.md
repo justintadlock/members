@@ -6,11 +6,12 @@ The foundation of the plugin is its extensive role and capability management sys
 
 ## Plugin Features:
 
-* Role Manager: Allows you to edit, create, and delete roles as well as capabilities for these roles.
-* Content Permissions: Gives you control over which users (by role) have access to post content.
-* Shortcodes: Shortcodes to control who has access to content.
-* Widgets:  A login form widget and users widget to show in your theme's sidebars.
-* Private Site: You can make your site and its feed completely private if you want.
+* **Role Manager:** Allows you to edit, create, and delete roles as well as capabilities for these roles.
+* **Multiple User Roles:** Give one, two, or even more roles to any user.
+* **Content Permissions:** Gives you control over which users (by role) have access to post content.
+* **Shortcodes:** Shortcodes to control who has access to content.
+* **Widgets:**  A login form widget and users widget to show in your theme's sidebars.
+* **Private Site:** You can make your site and its feed completely private if you want.
 
 ## Professional Support
 
@@ -38,7 +39,7 @@ I highly recommend reading that blog post, but here's the short version:
 
 This plugin is set up to have a components-based system.  The reason for this is that I don't want to stick everyone with a bunch of features they don't need.  There's no point in using the Role Manger feature if all you need is just a login widget and some shortcodes.  So, it's a *use-only-what-you-want* system.
 
-To activate certain features, look for the *Members* link under your *Settings* menu while in your WordPress admin.  When on the new page, you'll be able to select the features you want to use.
+To activate certain features, look for the "Members" link under your "Settings" menu while in your WordPress admin.  When on the new page, you'll be able to select the features you want to use.
 
 I recommend at least activating Role Manager feature.  It is at the heart of this plugin, and many other features will likely require its use in some form.
 
@@ -48,81 +49,88 @@ The Role Manager feature allows you to edit and add new roles as well as add and
 
 Any changes you make to users and roles using this feature are permanent changes.  What I mean by this is that if you deactivate or uninstall this plugin, the changes won't revert to their previous state.  This plugin merely provides a user interface for you to make changes directly to your WordPress database.  Please use this feature wisely.
 
-#### Editing existing roles
+#### Editing/Adding Roles
 
-This feature can be both a blessing and a curse, so I'm going to ask that you use it wisely.  Use extreme caution when assigning new capabilities to roles. You wouldn't want to give Average Joe the `edit_plugins` capability, for example.
+This feature can be both a blessing and a curse, so I'm going to ask that you use it wisely.  Use extreme caution when assigning new capabilities to roles. You wouldn't want to grant Average Joe the `edit_plugins` capability, for example.
 
-You can find the settings page for this feature under the *Users* menu.  It will be labeled *Roles*.  When clicking on the menu item, you'll get a list of all the available roles.  From there, you can select a role to edit.
+You can find the settings page for this feature under the "Users" menu.  It will be labeled "Roles".  When clicking on the menu item, you'll be take to a screen similar to the edit post/page screen, only it'll be for editing a role.
 
-When selecting a role to edit, you will be taken to a new screen that lists all of the available capabilities you can add to a role.  You simply have to tick the checkbox next to the capability you want to add/remove for a particular role and save.
+In the "Edit Capabilities" box on that screen, you simply have to tick the checkbox next to the capability you want to grant or deny.
 
-#### Adding new roles
+#### Grant, deny, or neither?
 
-The menu item for adding new roles is located under the *Users* menu and is labeled *Add New Role*.
+Every capability can have one of three "states" for a role.  The role can be *granted*, *denied*, or simply not have a capability.
 
-Adding new roles is pretty straightforward.  You need to input a *Role Name* (only use letters, numbers, and underscores), *Role Label*, and select which capabilities the new role should have.  You can later edit this role.
+* **Granting** a capability to a role means that users of that role will have permission to perform the given capability.
+* **Denying** a capability means that the role's users are explicitly denied permission.  So, if your user has multiple roles (see "Multiple user roles"), denied capabilities from one role will override granted capabilities from another.  If you're not using multiple roles per user, I highly doubt you'll ever need to deny a role a capability.
+* A role that is neither granted nor denied a capability simply doesn't have that capability.
 
-You can assign new roles to users from the *Users* screen in WordPress.  This is nothing particular to the plugin and is a default part of WordPress.  I believe you need the `edit_users` capability to do this.
+**Note:** If you were using a pre-1.0.0 version of Members, the concept of denied capabilities was not built in.  In those versions, you could only grant or remove a capability.
+
+### Multiple user roles
+
+You can assign a user more than one role by going to that edit user screen in the admin and locating the "Roles" section.  There will be a checkbox for every role.
+
+Note that the roles dropdown on the "Users" screen in the admin will overwrite all roles with a single role.  So, you'll need to edit the individual users to give them multiple roles.
 
 ### Content permissions feature
 
-The *Content Permissions* feature will be the heart and soul of this plugin in the future.  Right now, it only adds an additional meta box on the post editing screen.
+The Content Permissions feature adds an additional meta box on the post editing screen.
 
 For any public post type (posts, pages, etc.), you'll see a "Content Permissions" meta box on the post editing screen.  This meta box allows you to select which roles can view the content of the post/page.  If no roles are selected, anyone can view the content.  The post author, users that can edit the post, and any users of roles with the `restrict_content` capability can **always** view the post, regardless of their role.
 
-You can add a custom error message for individual posts.  Otherwise, the error message will default to whatever you have set under the *Members* plugin settings.
+You can add a custom error message for individual posts.  Otherwise, the error message will default to whatever you have set under the plugin settings.
+
+**Big important note:** This feature only blocks the post content (that's what you write in the post editor), post excerpt, and post comments.  It does not block anything else.
 
 ### Shortcodes
 
 There are several shortcodes that you can use in your post editor or any shortcode-ready area..
 
-#### [access]
+#### [members_access]
 
-The `[access]` shortcode is for hiding content from particular roles and capabilities.  You need to wrap your content when using this shortcode:
+The `[members_access]` shortcode is for hiding content from particular roles and capabilities.  You need to wrap your content when using this shortcode:
 
-	[access role="editor"]Hide this content from everyone but editors.[/access]
+	[members_access role="editor"]Hide this content from everyone but editors.[/members_access]
 
 **Parameters:**
 
 * `capability`:  A capability that has been assigned to a role.
 * `role`: A user role from WordPress or one that you've created.
-* `feed`: Set to `true` if you'd like to show the content in feeds.
 
 Note that `capability` and `role` parameters aren't used in conjunction.  The code first checks for the capability (if input) then checks for the role (if input).
 
 To check for multiple capabilities or multiple roles, simply add a comma between each capability/role.  For example, the following code checks for an editor or administrator:
 
-	[access role="administrator,editor"]Hide this content from everyone but administrators and editors.[/access]
+	[members_access role="administrator,editor"]Hide this content from everyone but administrators and editors.[/members_access]
 
-#### [is_user_logged_in]
+#### [members_logged_in]
 
-The `[is_user_logged_in]` shortcode should be used to check if a user is currently logged into the site.  If not, the content will be hidden.
+The `[members_logged_in]` shortcode should be used to check if a user is currently logged into the site.  If not, the content will be hidden.
 
-	[is_user_logged_in]This content is only shown to logged-in users.[/is_user_logged_in]
+	[members_logged_in]This content is only shown to logged-in users.[/members_logged_in]
 
 This shortcode has no parameters.
 
-#### [feed]
+#### [members_login_form]
 
-If you have content you only want to show to subscribers of your feed, wrap it in this shortcode:
+The `[members_login_form]` shortcode is used to show a login form on the page.
 
-	[feed]This content will only be shown in feeds.[/feed]
+	[members_login_form /]
 
 This shortcode has no parameters.
 
 ### Widgets
 
-The widgets component provides easy-to-use widgets for your site.  They can be used in any WordPress widget area (provided by your theme).  Currently, there's the *Login Form* and *Users* widgets.
+The widgets component provides easy-to-use widgets for your site.  They can be used in any WordPress widget area (provided by your theme).  Currently, there's the Login Form and Users widgets.
 
 #### Login Form widget
 
-The *Login Form* gives you a login form.  It's a mixture of a text widget and login form.  It can also show your avatar.
-
-It's pretty straightforward, but I'll provide more documentation later.
+The Login Form gives you a login form.  It's a mixture of a text widget and login form.  It can also show your avatar.
 
 #### Users widget
 
-The *Users* widget allows you to list users in any widget area.  It's based off the `get_users()` function, so all of the [parameters are the same](http://codex.wordpress.org/Function_Reference/get_users).
+The Users widget allows you to list users in any widget area.  It's based off the `get_users()` function, so all of the [parameters are the same](http://codex.wordpress.org/Function_Reference/get_users).
 
 ### Private site
 
@@ -130,7 +138,7 @@ The Private Site features makes sure that only logged-in users can see anything 
 
 You also have the option of disabling the viewing of feed content and setting an error message for feed items.
 
-### Checking if the current user has a capability/role
+### Checking if the current user has a capability
 
 In plugins and your theme template files, you might sometimes need to check if the currently logged in user has permission to do something.  We do this by using the WordPress function `current_user_can()`.  The basic format looks like this:
 
@@ -138,42 +146,21 @@ In plugins and your theme template files, you might sometimes need to check if t
 
 For a more practical situation, let's say you created a new capability called `read_pages`.  Well, you might want to hide the content within your `page.php` template by adding this:
 
-	<?php if ( current_user_can( 'read_pages ' ) ) { ?>
+	<?php if ( current_user_can( 'read_pages ' ) ) : ?>
 		<?php the_content(); ?>
-	<?php } ?>
+	<?php endif; ?>
 
 Only users with a role that has the `read_pages` capability will be able to see the content.
 
-You can check for a specific role by inputting the role name instead of the capability name.  It works the same way.
+### Checking if a user has a role
 
-### Adding new default capabilities
+Before beginning, I want to note that you really shouldn't do this.  It's better to check against capabilities.  However, for those times when you need to break the rules, you can do so like:
 
-Your plugin/theme can add new capabilities to the *Edit Roles* component if needed.  This will allow users to easily select the additional capabilities for whichever roles they choose.
+	if ( members_user_has_role( $user_id, $role ) )
 
-	add_filter( 'members_get_capabilities', 'my_plugin_new_caps' );
-	
-	function my_plugin_new_caps( $capabilities ) {
-	
-		$capabilities[] = 'cap_name_1';
-		$capabilities[] = 'cap_name_2';
-		$capabilities[] = 'cap_name_3';
-	
-		return $capabilities;
-	}
+Or, you can check against the current user:
 
-Note that you need to respect the existing capabilities and return the original array.
-
-### Checking for capabilities
-
-In WordPress, you can use the `current_user_can()` function to check if the current user has a particular capability.  Since you don't know whether a user has this plugin installed, you might want to check first.
-
-The `members_check_for_cap()` function (only use in admin) checks if any role has a particular capability.  This can be useful in setting up something like admin menus.  For example, you can set up a theme settings menu for users that have the `edit_themes` capability.  But, if this plugin is installed and a user has the `edit_my_theme` capability, that'll be used instead.
-
-	if ( function_exists( 'members_check_for_cap' ) && members_check_for_cap( 'some_cap' ) ) {
-		/* Do something if any role has the 'some_cap' capability. */
-	else {
-		/* Do something for people without the plugin. */
-	}
+	if ( members_current_user_has_role( $role ) )
 
 ### Need the old user levels system?
 
@@ -181,4 +168,4 @@ Some plugins and themes might rely on the old user level system in WordPress.  T
 
 By default, the levels aren't shown.  They still exist, but are tucked away behind the scenes.  While not recommended, if you need to control who has what level (levels are just capabilities), add this to your plugin or your theme's `functions.php`:
 
-	remove_filter( 'members_get_capabilities', 'members_remove_old_levels' );
+	add_filter( 'members_remove_old_levels', '__return_false' );
