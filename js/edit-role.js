@@ -119,6 +119,27 @@ jQuery( document ).ready( function() {
 		}
 	);
 
+	/* ====== Tab Sections and Controls ====== */
+
+	// Create Underscore templates.
+	var section_template = wp.template( 'members-cap-section' );
+	var control_template = wp.template( 'members-cap-control' );
+
+	// Check that the `members_sections` and `members_controls` variables were
+	// passed in via `wp_localize_script()`.
+	if ( typeof members_sections !== 'undefined' && typeof members_controls !== 'undefined' ) {
+
+		// Loop through the sections and append the template for each.
+		_.each( members_sections, function( data ) {
+			jQuery( '.members-tab-wrap' ).append( section_template( data ) );
+		} );
+
+		// Loop through the controls and append the template for each.
+		_.each( members_controls, function( data ) {
+			jQuery( '#members-tab-' + data.section + ' tbody' ).append( control_template( data ) );
+		} );
+	}
+
 	/* ====== Tabs ====== */
 
 	// Hides the tab content.
@@ -159,27 +180,6 @@ jQuery( document ).ready( function() {
 			jQuery( '.members-which-tab' ).text( jQuery( this ).text() );
 		}
 	); // click()
-
-	/* ====== Tab Sections and Controls ====== */
-
-	// Create Underscore templates.
-	var section_template = wp.template( 'members-cap-section' );
-	var control_template = wp.template( 'members-cap-control' );
-
-	// Check that the `members_sections` and `members_controls` variables were
-	// passed in via `wp_localize_script()`.
-	if ( typeof members_sections !== 'undefined' && typeof members_controls !== 'undefined' ) {
-
-		// Loop through the sections and append the template for each.
-		_.each( members_sections, function( data ) {
-			jQuery( '.members-tab-wrap' ).append( section_template( data ) );
-		} );
-
-		// Loop through the controls and append the template for each.
-		_.each( members_controls, function( data ) {
-			jQuery( '#members-tab-' + data.section + ' tbody' ).append( control_template( data ) );
-		} );
-	}
 
 	/* ====== Capability Checkboxes (inside tab content) ====== */
 
