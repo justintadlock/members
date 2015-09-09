@@ -5,7 +5,7 @@ jQuery( document ).ready( function() {
 	// When the delete role link is clicked, give a "AYS?" popup to confirm.
 	jQuery( '.members-delete-role-link' ).click(
 		function() {
-			return window.confirm( i18n.ays_delete_role );
+			return window.confirm( members_i18n.ays_delete_role );
 		}
 	);
 
@@ -48,7 +48,7 @@ jQuery( document ).ready( function() {
 		function() {
 
 			// Toggle the button class and change the text.
-			jQuery( this ).removeClass( 'closed' ).addClass( 'open' ).text( i18n.button_role_ok );
+			jQuery( this ).removeClass( 'closed' ).addClass( 'open' ).text( members_i18n.button_role_ok );
 
 			// Show role input.
 			jQuery( 'input[name="role"]' ).show();
@@ -66,7 +66,7 @@ jQuery( document ).ready( function() {
 		function() {
 
 			// Toggle the button class and change the text.
-			jQuery( this ).removeClass( 'open' ).addClass( 'closed' ).text( i18n.button_role_edit );
+			jQuery( this ).removeClass( 'open' ).addClass( 'closed' ).text( members_i18n.button_role_edit );
 
 			// Hide role input.
 			jQuery( 'input[name="role"]' ).hide();
@@ -367,8 +367,8 @@ jQuery( document ).ready( function() {
 				jQuery( 'a[href="#members-tab-custom"]' ).trigger( 'click' );
 
 				// Replace text placeholder with cap.
-				i18n.label_grant_cap = i18n.label_grant_cap.replace( /%s/g, '<code>' + new_cap + '</code>' );
-				i18n.label_deny_cap  = i18n.label_deny_cap.replace( /%s/g,  '<code>' + new_cap + '</code>' );
+				members_i18n.label_grant_cap = members_i18n.label_grant_cap.replace( /%s/g, '<code>' + new_cap + '</code>' );
+				members_i18n.label_deny_cap  = members_i18n.label_deny_cap.replace( /%s/g,  '<code>' + new_cap + '</code>' );
 
 				// Set up some data to pass to our Underscore template.
 				var data = {
@@ -377,7 +377,7 @@ jQuery( document ).ready( function() {
 					name           : { grant : 'grant-new-caps[]', deny : 'deny-new-caps[]' },
 					is_granted_cap : true,
 					is_denied_cap  : false,
-					label          : { grant : i18n.label_grant_cap, deny : i18n.label_deny_cap }
+					label          : { grant : members_i18n.label_grant_cap, deny : members_i18n.label_deny_cap }
 				};
 
 				// Prepend our template to the "custom" edit caps tab content.

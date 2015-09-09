@@ -54,7 +54,7 @@ function members_admin_register_scripts() {
 		'ays_delete_role'  => esc_html__( 'Are you sure you want to delete this role? This is a permanent action and cannot be undone.', 'members' )
 	);
 
-	wp_localize_script( 'members-edit-role', 'i18n', $i18n );
+	wp_localize_script( 'members-edit-role', 'members_i18n', $i18n );
 }
 
 /**
