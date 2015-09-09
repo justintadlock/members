@@ -84,22 +84,17 @@ function members_admin_contextual_help( $text, $screen ) {
 
 			$text .= '<p>' . __( 'This screen allows you to edit the capabilities given to the role. You can tick the checkbox next to a capability to add the capability to the role. You can untick the checkbox next to a capability to remove a capability from the role. You can also add as many custom capabilities as you need in the Custom Capabilities section.', 'members' ) . '</p>';
 			$text .= '<p>' . __( 'Capabilities are both powerful and dangerous tools. You should not add or remove a capability to a role unless you understand what permission you are granting or removing.', 'members' ) . '</p>';
+
+			/* Text shown for both the "Roles" and "Edit Role" screen. */
+			$text .= '<p><strong>' . __( 'For more information:', 'members' ) . '</strong></p>';
+
+			$text .= '<ul>';
+			$text .= '<li><a href="http://justintadlock.com/archives/2009/08/30/users-roles-and-capabilities-in-wordpress">' . __( 'Users, Roles, and Capabilities', 'members' ) . '</a></li>';
+			$text .= '<li><a href="' . members_plugin()->dir_uri . 'docs/readme.html">' . __( 'Documentation', 'members' ) . '</a></li>';
+			$text .= '<li><a href="http://themehybrid.com/support">' . __( 'Support Forums', 'members' ) . '</a></li>';
+			$text .= '</ul>';
 		}
 
-		/* Text shown on the main "Roles" screen. */
-		else {
-			$text .= '<p>' . __( 'This screen lists all the user roles available on this site. Roles are given to users as a way to "group" them. Roles are made up of capabilities (permissions), which decide what functions users of each role can perform on the site. From this screen, you can manage these roles and their capabilities.', 'members' ) . '</p>';
-			$text .= '<p>' . __( 'To add a role to a user, click Users in the menu. To create a new role, click the Add New button at the top of the screen or Add New Role under the Users menu.', 'members' ) . '</p>';
-		}
-
-		/* Text shown for both the "Roles" and "Edit Role" screen. */
-		$text .= '<p><strong>' . __( 'For more information:', 'members' ) . '</strong></p>';
-
-		$text .= '<ul>';
-		$text .= '<li><a href="http://justintadlock.com/archives/2009/08/30/users-roles-and-capabilities-in-wordpress">' . __( 'Users, Roles, and Capabilities', 'members' ) . '</a></li>';
-		$text .= '<li><a href="' . members_plugin()->dir_uri . 'docs/readme.html">' . __( 'Documentation', 'members' ) . '</a></li>';
-		$text .= '<li><a href="http://themehybrid.com/support">' . __( 'Support Forums', 'members' ) . '</a></li>';
-		$text .= '</ul>';
 	}
 
 	/* Text to show on the "Add New Role" screen in the admin. */
@@ -120,6 +115,28 @@ function members_admin_contextual_help( $text, $screen ) {
 
 	/* Return the contextual help text. */
 	return $text;
+}
+
+/**
+ * Help sidebar for all of the help tabs.
+ *
+ * @since  1.0.0
+ * @access public
+ * @return string
+ */
+function members_get_help_sidebar_text() {
+
+	// Get docs and help links.
+	$docs_link = sprintf( '<li><a href="https://github.com/justintadlock/members/blob/master/readme.md">%s</a></li>', esc_html__( 'Documentation',  'members' ) );
+	$help_link = sprintf( '<li><a href="http://themehybrid.com/board/topics">%s</a></li>',                            esc_html__( 'Support Forums', 'members' ) );
+
+	// Return the text.
+	return sprintf(
+		'<p><strong>%s</strong></p><ul>%s%s</ul>',
+		esc_html__( 'For more information:', 'members' ),
+		$docs_link,
+		$help_link
+	);
 }
 
 /**

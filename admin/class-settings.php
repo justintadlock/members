@@ -404,16 +404,10 @@ final class Members_Settings_Page {
 		// Get docs and help links.
 		$docs_link = sprintf( '<li><a href="https://github.com/justintadlock/members/blob/master/readme.md">%s</a></li>', esc_html__( 'Documentation',  'members' ) );
 		$help_link = sprintf( '<li><a href="http://themehybrid.com/board/topics">%s</a></li>',                            esc_html__( 'Support Forums', 'members' ) );
+		$tut_link  = sprintf( '<li><a href="http://justintadlock.com/archives/2009/08/30/users-roles-and-capabilities-in-wordpress">%s</a></li>', esc_html__( 'Users, Roles, and Capabilities', 'members' ) );
 
 		// Set the help sidebar.
-		$screen->set_help_sidebar(
-			sprintf(
-				'<p><strong>%s</strong></p><ul>%s%s</ul>',
-				esc_html__( 'For more information:', 'members' ),
-				$docs_link,
-				$help_link
-			)
-		);
+		$screen->set_help_sidebar( members_get_help_sidebar_text() );
 	}
 
 	/**
