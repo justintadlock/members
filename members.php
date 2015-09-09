@@ -240,12 +240,21 @@ final class Members_Plugin {
 
 		// Load admin files.
 		if ( is_admin() ) {
-			require_once( $this->admin_dir . 'admin.php'                              );
-			require_once( $this->admin_dir . 'functions-help.php'                     );
-			require_once( $this->admin_dir . 'class-settings.php'                     );
-			require_once( $this->admin_dir . 'class-user-edit.php'                    );
+
+			// General admin functions.
+			require_once( $this->admin_dir . 'functions-admin.php' );
+			require_once( $this->admin_dir . 'functions-help.php'  );
+
+			// Plugin settings.
+			require_once( $this->admin_dir . 'class-settings.php' );
+
+			// Edit users.
+			require_once( $this->admin_dir . 'class-user-edit.php' );
+
+			// Edit posts.
 			require_once( $this->admin_dir . 'class-meta-box-content-permissions.php' );
 
+			// Role management.
 			require_once( $this->admin_dir . 'class-manage-roles.php'          );
 			require_once( $this->admin_dir . 'class-roles.php'                 );
 			require_once( $this->admin_dir . 'class-role-edit.php'             );
@@ -253,6 +262,7 @@ final class Members_Plugin {
 			require_once( $this->admin_dir . 'class-meta-box-publish-role.php' );
 			require_once( $this->admin_dir . 'class-meta-box-custom-cap.php'   );
 
+			// Edit capabilities tabs and groups.
 			require_once( $this->admin_dir . 'class-cap-tabs.php'          );
 			require_once( $this->admin_dir . 'class-cap-section.php'       );
 			require_once( $this->admin_dir . 'class-cap-control.php'       );
