@@ -107,8 +107,11 @@ final class Members_Admin_Role_New {
 		$this->page = add_submenu_page( 'users.php', esc_html__( 'Add New Role', 'members' ), esc_html__( 'Add New Role', 'members' ), 'create_roles', 'role-new', array( $this, 'page' ) );
 
 		// Let's roll if we have a page.
-		if ( $this->page )
-			add_action( "load-{$this->page}", array( $this, 'load' ) );
+		if ( $this->page ) {
+
+			add_action( "load-{$this->page}", array( $this, 'load'          ) );
+			add_action( "load-{$this->page}", array( $this, 'add_help_tabs' ) );
+		}
 	}
 
 	/**
@@ -243,6 +246,28 @@ final class Members_Admin_Role_New {
 
 		// Load scripts/styles.
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue' ) );
+	}
+
+	/**
+	 * Adds help tabs.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @return void
+	 */
+	public function add_help_tabs() {
+
+		// Get the current screen.
+		$screen = get_current_screen();
+
+		// Add help tabs.
+		$screen->add_help_tab( members_get_edit_role_help_overview_args()   );
+		$screen->add_help_tab( members_get_edit_role_help_role_name_args()  );
+		$screen->add_help_tab( members_get_edit_role_help_edit_caps_args()  );
+		$screen->add_help_tab( members_get_edit_role_help_custom_cap_args() );
+
+		// Set the help sidebar.
+		$screen->set_help_sidebar( members_get_help_sidebar_text() );
 	}
 
 	/**

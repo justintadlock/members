@@ -33,6 +33,7 @@ final class Members_Admin_Roles {
 		// Set up the role list table columns.
 		add_filter( 'manage_users_page_roles_columns', array( $this, 'manage_roles_columns' ), 5 );
 
+		// Add help tabs.
 		add_action( 'members_load_roles', array( $this, 'add_help_tabs' ) );
 	}
 

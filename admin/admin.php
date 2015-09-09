@@ -10,9 +10,6 @@
  * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
-# Add contextual help to the "Help" tab for the plugin's pages in the admin.
-add_filter( 'contextual_help', 'members_admin_contextual_help', 10, 2 );
-
 # Register scripts/styles.
 add_action( 'admin_enqueue_scripts', 'members_admin_register_scripts', 0 );
 add_action( 'admin_enqueue_scripts', 'members_admin_register_styles',  0 );
@@ -71,51 +68,10 @@ function members_admin_register_styles() {
 /**
  * Adds custom contextual help on the plugin's admin screens.  This is the text shown under the "Help" tab.
  *
- * @since 0.2.0
+ * @since      0.2.0
+ * @deprecated 1.0.0
  */
-function members_admin_contextual_help( $text, $screen ) {
-
-	/* Text shown on the "Roles" screens in the admin. */
-	if ( 'users_page_roles' == $screen ) {
-		$text = '';
-
-		/* Text for the "Edit Role" screen. */
-		if ( isset( $_GET['action'] ) && 'edit' == $_GET['action'] ) {
-
-			$text .= '<p>' . __( 'This screen allows you to edit the capabilities given to the role. You can tick the checkbox next to a capability to add the capability to the role. You can untick the checkbox next to a capability to remove a capability from the role. You can also add as many custom capabilities as you need in the Custom Capabilities section.', 'members' ) . '</p>';
-			$text .= '<p>' . __( 'Capabilities are both powerful and dangerous tools. You should not add or remove a capability to a role unless you understand what permission you are granting or removing.', 'members' ) . '</p>';
-
-			/* Text shown for both the "Roles" and "Edit Role" screen. */
-			$text .= '<p><strong>' . __( 'For more information:', 'members' ) . '</strong></p>';
-
-			$text .= '<ul>';
-			$text .= '<li><a href="http://justintadlock.com/archives/2009/08/30/users-roles-and-capabilities-in-wordpress">' . __( 'Users, Roles, and Capabilities', 'members' ) . '</a></li>';
-			$text .= '<li><a href="' . members_plugin()->dir_uri . 'docs/readme.html">' . __( 'Documentation', 'members' ) . '</a></li>';
-			$text .= '<li><a href="http://themehybrid.com/support">' . __( 'Support Forums', 'members' ) . '</a></li>';
-			$text .= '</ul>';
-		}
-
-	}
-
-	/* Text to show on the "Add New Role" screen in the admin. */
-	elseif ( 'users_page_role-new' == $screen || 'users_page_role' == $screen ) {
-		$text = '';
-
-		$text .= '<p>' . __( 'This screen allows you to create a new user role for your site. You must input a unique role name and role label. You can also grant capabilities (permissions) to the new role. Capabilities are both powerful and dangerous tools. You should not add a capability to a role unless you understand what permission you are granting.', 'members' ) . '</p>';
-		$text .= '<p>' . __( 'To add a role to a user, click Users in the menu. To edit roles, click Roles under the Users menu.', 'members' ) . '</p>';
-
-		$text .= '<p><strong>' . __( 'For more information:', 'members' ) . '</strong></p>';
-
-		$text .= '<ul>';
-		$text .= '<li><a href="http://justintadlock.com/archives/2009/08/30/users-roles-and-capabilities-in-wordpress">' . __( 'Users, Roles, and Capabilities', 'members' ) . '</a></li>';
-		$text .= '<li><a href="' . members_plugin()->dir_uri . 'docs/readme.html">' . __( 'Documentation', 'members' ) . '</a></li>';
-		$text .= '<li><a href="http://themehybrid.com/support">' . __( 'Support Forums', 'members' ) . '</a></li>';
-		$text .= '</ul>';
-	}
-
-	/* Return the contextual help text. */
-	return $text;
-}
+function members_admin_contextual_help() {}
 
 /**
  * Help sidebar for all of the help tabs.
@@ -138,6 +94,80 @@ function members_get_help_sidebar_text() {
 		$help_link
 	);
 }
+
+function members_get_edit_role_help_overview_args() {
+
+	return array(
+		'id'       => 'overview',
+		'title'    => esc_html__( 'Overview', 'members' ),
+		'callback' => 'members_edit_role_help_tab_overview'
+	);
+}
+
+function members_get_edit_role_help_role_name_args() {
+
+	return array(
+		'id'       => 'role-name',
+		'title'    => esc_html__( 'Role Name', 'members' ),
+		'callback' => 'members_edit_role_help_tab_role_name'
+	);
+}
+
+function members_get_edit_role_help_edit_caps_args() {
+
+	return array(
+		'id'       => 'edit-capabilities',
+		'title'    => esc_html__( 'Edit Capabilities', 'members' ),
+		'callback' => 'members_edit_role_help_tab_capabilities'
+	);
+}
+
+function members_get_edit_role_help_custom_cap_args() {
+
+	return array(
+		'id'       => 'custom-capability',
+		'title'    => esc_html__( 'Custom Capability', 'members' ),
+		'callback' => 'members_edit_role_help_tab_custom_cap'
+	);
+}
+
+function members_edit_role_help_tab_overview() { ?>
+
+	<p>
+		<?php esc_html_e( 'This screen allows you to edit an individual role and its capabilities.', 'members' ); ?>
+	<p>
+<?php }
+
+function members_edit_role_help_tab_role_name() { ?>
+
+	<p>
+		<?php esc_html_e( 'The role name field allows you to enter a human-readable name for your role.', 'members' ); ?>
+	</p>
+
+	<p>
+		<?php esc_html_e( 'The machine-readable version of the role appears below the name field, which you can edit. This can only have lowercase letters, numbers, or underscores.', 'members' ); ?>
+	</p>
+<?php }
+
+function members_edit_role_help_tab_capabilities() { ?>
+
+	<p>
+		<?php esc_html_e( 'The capabilities edit box is made up of tabs that separate capabilities into groups. You may take the following actions for each capability:', 'members' ); ?>
+	</p>
+
+	<ul>
+		<li><?php _e( '<strong>Grant</strong> allows you to grant the role the capability.', 'members' ); ?></li>
+		<li><?php _e( '<strong>Deny</strong> allows you to deny the capability for the role. This is typically only useful when building a site with multiple roles per user where you might want to explicitly deny a capability.', 'members' ); ?></li>
+		<li><?php esc_html_e( 'You may also opt to neither grant nor deny the role a capability.', 'members' ); ?></li>
+	</ul>
+<?php }
+
+function members_edit_role_help_tab_custom_cap() { ?>
+
+	<p>
+		<?php esc_html_e( 'The custom capability box allows you to create a custom capability for the role. After hitting the Add New button, it will add the capability to the Custom tab in the Edit Capabilities box.', 'members' ); ?>
+	</p>
+<?php }
 
 /**
  * Function for safely deleting a role and transferring the deleted role's users to the default

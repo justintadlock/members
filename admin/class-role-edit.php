@@ -64,6 +64,19 @@ final class Members_Admin_Role_Edit {
 	protected $role_updated = false;
 
 	/**
+	 * Sets up some necessary actions/filters.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @return void
+	 */
+	public function __construct() {
+
+		// Add help tabs.
+		add_action( 'members_load_role_edit', array( $this, 'add_help_tabs' ) );
+	}
+
+	/**
 	 * Runs on the `load-{$page}` hook.  This is the handler for form submissions.
 	 *
 	 * @since  1.0.0
@@ -180,6 +193,28 @@ final class Members_Admin_Role_Edit {
 
 		// Add layout screen option.
 		add_screen_option( 'layout_columns', array( 'max' => 2, 'default' => 2 ) );
+	}
+
+	/**
+	 * Adds help tabs.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @return void
+	 */
+	public function add_help_tabs() {
+
+		// Get the current screen.
+		$screen = get_current_screen();
+
+		// Add help tabs.
+		$screen->add_help_tab( members_get_edit_role_help_overview_args()   );
+		$screen->add_help_tab( members_get_edit_role_help_role_name_args()  );
+		$screen->add_help_tab( members_get_edit_role_help_edit_caps_args()  );
+		$screen->add_help_tab( members_get_edit_role_help_custom_cap_args() );
+
+		// Set the help sidebar.
+		$screen->set_help_sidebar( members_get_help_sidebar_text() );
 	}
 
 	/**
