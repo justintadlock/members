@@ -189,7 +189,16 @@ final class Members_Admin_Roles {
 		</div><!-- .wrap -->
 	<?php }
 
+	/**
+	 * Adds help tabs.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @return void
+	 */
 	public function add_help_tabs() {
+
+		// Get the current screen.
 		$screen = get_current_screen();
 
 		// Add overview help tab.
@@ -232,6 +241,13 @@ final class Members_Admin_Roles {
 		$screen->set_help_sidebar( members_get_help_sidebar_text() );
 	}
 
+	/**
+	 * Overview help tab callback function.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @return void
+	 */
 	public function help_tab_overview() { ?>
 
 		<p>
@@ -239,6 +255,13 @@ final class Members_Admin_Roles {
 		<p>
 	<?php }
 
+	/**
+	 * Screen content help tab callback function.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @return void
+	 */
 	public function help_tab_screen_content() { ?>
 
 		<p>
@@ -251,6 +274,13 @@ final class Members_Admin_Roles {
 		</ul>
 	<?php }
 
+	/**
+	 * Row actions help tab callback function.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @return void
+	 */
 	public function help_tab_row_actions() { ?>
 
 		<p>
@@ -265,15 +295,17 @@ final class Members_Admin_Roles {
 		</ul>
 	<?php }
 
+	/**
+	 * Bulk actions help tab callback function.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @return void
+	 */
 	public function help_tab_bulk_actions() { ?>
 
 		<p>
 			<?php esc_html_e( 'You can permanently delete multiple roles at once. Select the roles you want to act on using the checkboxes, then select the action you want to take from the Bulk Actions menu and click Apply.', 'members' ); ?>
 		</p>
 	<?php }
-
-
-
-
-
 }
