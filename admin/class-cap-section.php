@@ -113,12 +113,5 @@ final class Members_Cap_Section {
 		// Set up the ID and class.
 		$this->json['id']    = $this->section;
 		$this->json['class'] = 'members-tab-content' . ( $is_editable ? ' editable-role' : '' );
-
-		// Set up the labels.
-		$this->json['label'] = array(
-			'cap'   => esc_html__( 'Capability', 'members' ),
-			'grant' => esc_html__( 'Grant',      'members' ),
-			'deny'  => esc_html__( 'Deny',       'members' )
-		);
 	}
 }

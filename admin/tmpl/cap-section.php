@@ -16,17 +16,17 @@
 
 		<thead>
 			<tr>
-				<th class="column-cap">{{ data.label.cap }}</th>
-				<th class="column-grant">{{ data.label.grant }}</th>
-				<th class="column-deny">{{ data.label.deny }}</th>
+				<th class="column-cap"><?php esc_html_e( 'Capability', 'members' ); ?></th>
+				<th class="column-grant"><?php esc_html_e( 'Grant', 'members' ); ?></th>
+				<th class="column-deny"><?php esc_html_e( 'Deny', 'members' ); ?></th>
 			</tr>
 		</thead>
 
 		<tfoot>
 			<tr>
-				<th class="column-cap">{{ data.label.cap }}</th>
-				<th class="column-grant">{{ data.label.grant }}</th>
-				<th class="column-deny">{{ data.label.deny }}</th>
+				<th class="column-cap"><?php esc_html_e( 'Capability', 'members' ); ?></th>
+				<th class="column-grant"><?php esc_html_e( 'Grant', 'members' ); ?></th>
+				<th class="column-deny"><?php esc_html_e( 'Deny', 'members' ); ?></th>
 			</tr>
 		</tfoot>
 
