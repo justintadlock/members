@@ -39,8 +39,10 @@ function members_get_underscore_template( $name ) {
  */
 function members_admin_register_scripts() {
 
-	wp_register_script( 'members-settings',  members_plugin()->js_uri . 'settings.js',  array( 'jquery'  ), '', true );
-	wp_register_script( 'members-edit-role', members_plugin()->js_uri . 'edit-role.js', array( 'postbox', 'wp-util' ), '', true );
+	$min = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+
+	wp_register_script( 'members-settings',  members_plugin()->js_uri . "settings{$min}.js",  array( 'jquery'  ), '', true );
+	wp_register_script( 'members-edit-role', members_plugin()->js_uri . "edit-role{$min}.js", array( 'postbox', 'wp-util' ), '', true );
 
 	// Localize our script with some text we want to pass in.
 	$i18n = array(
@@ -62,7 +64,10 @@ function members_admin_register_scripts() {
  * @return void
  */
 function members_admin_register_styles() {
-	wp_register_style( 'members-admin', members_plugin()->css_uri . 'admin.css' );
+
+	$min = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+
+	wp_register_style( 'members-admin', members_plugin()->css_uri . "admin{$min}.css" );
 }
 
 /**
