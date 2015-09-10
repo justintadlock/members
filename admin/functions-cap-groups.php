@@ -172,7 +172,7 @@ function members_register_cap_groups() {
 	// Register the theme group.
 	members_register_cap_group( 'theme',
 		array(
-			'label' => esc_html__( 'Themes', 'members' ),
+			'label' => esc_html__( 'Appearance', 'members' ),
 			'caps'  => members_get_theme_group_caps(),
 			'icon'  => 'dashicons-admin-appearance'
 		)
@@ -197,13 +197,13 @@ function members_register_cap_groups() {
 	);
 
 	// Register the custom group.
-	members_register_cap_group( 'custom', 
-		array( 
-			'label'      => esc_html__( 'Custom', 'members' ), 
-			'caps'       => members_get_capabilities(), 
-			'icon'       => 'dashicons-admin-generic', 
-			'diff_added' => true 
-		) 
+	members_register_cap_group( 'custom',
+		array(
+			'label'      => esc_html__( 'Custom', 'members' ),
+			'caps'       => members_get_capabilities(),
+			'icon'       => 'dashicons-admin-generic',
+			'diff_added' => true
+		)
 	);
 
 	// Hook for registering cap groups. Plugins should always register on this hook.
