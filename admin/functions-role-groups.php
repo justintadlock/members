@@ -21,7 +21,7 @@ add_action( 'init', 'members_register_role_groups', 15 );
  * @access public
  * @return object
  */
-function members_role_groups() {
+function members_role_group_factory() {
 	return Members_Role_Group_Factory::get_instance();
 }
 
@@ -36,7 +36,7 @@ function members_role_groups() {
  * @return void
  */
 function members_register_role_group( $name, $args = array() ) {
-	members_role_groups()->register_group( $name, $args );
+	members_role_group_factory()->register_group( $name, $args );
 }
 
 /**
@@ -49,7 +49,7 @@ function members_register_role_group( $name, $args = array() ) {
  * @return void
  */
 function members_unregister_role_group( $name ) {
-	members_role_groups()->unregister_group( $name );
+	members_role_group_factory()->unregister_group( $name );
 }
 
 /**
@@ -62,7 +62,7 @@ function members_unregister_role_group( $name ) {
  * @return bool
  */
 function members_role_group_exists( $name ) {
-	return members_role_groups()->group_exists( $name );
+	return members_role_group_factory()->group_exists( $name );
 }
 
 /**
@@ -74,7 +74,7 @@ function members_role_group_exists( $name ) {
  * @return array
  */
 function members_get_role_groups() {
-	return members_role_groups()->groups;
+	return members_role_group_factory()->groups;
 }
 
 /**
@@ -88,7 +88,7 @@ function members_get_role_groups() {
  * @return object|bool
  */
 function members_get_role_group( $name ) {
-	return members_role_groups()->get_group( $name );
+	return members_role_group_factory()->get_group( $name );
 }
 
 /**

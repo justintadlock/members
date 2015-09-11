@@ -21,7 +21,7 @@ add_action( 'init', 'members_register_cap_groups', 15 );
  * @access public
  * @return object
  */
-function members_cap_groups() {
+function members_cap_group_factory() {
 	return Members_Cap_Group_Factory::get_instance();
 }
 
@@ -36,7 +36,7 @@ function members_cap_groups() {
  * @return void
  */
 function members_register_cap_group( $name, $args = array() ) {
-	members_cap_groups()->register_group( $name, $args );
+	members_cap_group_factory()->register_group( $name, $args );
 }
 
 /**
@@ -49,7 +49,7 @@ function members_register_cap_group( $name, $args = array() ) {
  * @return void
  */
 function members_unregister_cap_group( $name ) {
-	members_cap_groups()->unregister_group( $name );
+	members_cap_group_factory()->unregister_group( $name );
 }
 
 /**
@@ -62,7 +62,7 @@ function members_unregister_cap_group( $name ) {
  * @return bool
  */
 function members_cap_group_exists( $name ) {
-	return members_cap_groups()->group_exists( $name );
+	return members_cap_group_factory()->group_exists( $name );
 }
 
 /**
@@ -74,7 +74,7 @@ function members_cap_group_exists( $name ) {
  * @return array
  */
 function members_get_cap_groups() {
-	return members_cap_groups()->groups;
+	return members_cap_group_factory()->groups;
 }
 
 /**
@@ -88,7 +88,7 @@ function members_get_cap_groups() {
  * @return object|bool
  */
 function members_get_cap_group( $name ) {
-	return members_cap_groups()->get_group( $name );
+	return members_cap_group_factory()->get_group( $name );
 }
 
 /**
