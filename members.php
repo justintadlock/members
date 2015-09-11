@@ -5,7 +5,7 @@
  * Description: A user and role management plugin that puts you in full control of your site's permissions. This plugin allows you to edit your roles and their capabilities, clone existing roles, assign multiple roles per user, block post content, or even make your site completely private.
  * Version:     1.0.0-alpha-1
  * Author:      Justin Tadlock
- * Author URI:  http://justintadlock.com
+ * Author URI:  http://themehybrid.com
  *
  * The members plugin was created because the WordPress community is lacking a solid permissions
  * plugin that is both open source and works completely within the confines of the APIs in WordPress.
