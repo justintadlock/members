@@ -126,10 +126,7 @@ final class Members_Role_Factory {
 	 */
 	public function get_role( $role ) {
 
-		if ( ! in_array( $role, $this->roles ) )
-			$this->add_role( $role );
-
-		return $this->roles[ $role ];
+		return isset( $this->roles[ $role ] ) ? $this->roles[ $role ] : false;
 	}
 
 	/**
