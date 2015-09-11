@@ -11,7 +11,7 @@
  */
 
 # Registers default groups.
-add_action( 'members_pre_edit_caps_manager_register', 'members_register_cap_groups', 0 );
+add_action( 'init', 'members_register_cap_groups', 15 );
 
 /**
  * Returns the instance of the `Members_Cap_Group_Factory` object. Use this function to access the object.

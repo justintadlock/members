@@ -11,7 +11,7 @@
  */
 
 # Registers default groups.
-add_action( 'init', 'members_register_role_groups', 0 );
+add_action( 'init', 'members_register_role_groups', 15 );
 
 /**
  * Returns the instance of the `Members_Role_Group_Factory` object. Use this function to access the object.
