@@ -118,7 +118,7 @@ final class Members_Meta_Box_Publish_Role {
 				<div id="delete-action">
 
 					<?php if ( $is_editable && $role ) : ?>
-						<a class="submitdelete deletion members-delete-role-link" href="<?php echo members_get_delete_role_url( $role->name ); ?>"><?php echo esc_html_x( 'Delete', 'delete role', 'members' ); ?></a>
+						<a class="submitdelete deletion members-delete-role-link" href="<?php echo esc_url( members_get_delete_role_url( $role->name ) ); ?>"><?php echo esc_html_x( 'Delete', 'delete role', 'members' ); ?></a>
 					<?php endif; ?>
 				</div>
 

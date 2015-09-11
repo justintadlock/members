@@ -33,7 +33,7 @@ function members_admin_bar() {
 				'id'     => 'members-new-role',
 				'parent' => 'new-content',
 				'title'  => esc_attr__( 'Role', 'members' ),
-				'href'   => members_get_new_role_url()
+				'href'   => esc_url( members_get_new_role_url() )
 			)
 		);
 	}

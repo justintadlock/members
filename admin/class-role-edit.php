@@ -245,7 +245,7 @@ final class Members_Admin_Role_Edit {
 				<?php esc_html_e( 'Edit Role', 'members' ); ?>
 
 				<?php if ( current_user_can( 'create_roles' ) ) : ?>
-					<?php printf( '<a class="page-title-action" href="%s">%s</a>', members_get_new_role_url(), esc_html__( 'Add New', 'members' ) ); ?>
+					<?php printf( '<a class="page-title-action" href="%s">%s</a>', esc_url( members_get_new_role_url() ), esc_html__( 'Add New', 'members' ) ); ?>
 				<?php endif; ?>
 			</h1>
 
@@ -253,7 +253,7 @@ final class Members_Admin_Role_Edit {
 
 			<div id="poststuff">
 
-				<form name="form0" method="post" action="<?php echo members_get_edit_role_url( $this->role->name ); ?>">
+				<form name="form0" method="post" action="<?php echo esc_url( members_get_edit_role_url( $this->role->name ) ); ?>">
 
 					<?php wp_nonce_field( 'edit_role', 'members_edit_role_nonce' ); ?>
 

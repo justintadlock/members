@@ -205,7 +205,7 @@ final class Members_Admin_Role_New {
 
 				// If the current user can edit roles, redirect to edit role screen.
 				if ( current_user_can( 'edit_roles' ) ) {
-					wp_redirect( add_query_arg( 'message', 'role_added', members_get_edit_role_url( $this->role, true ) ) );
+					wp_redirect( add_query_arg( 'message', 'role_added', members_get_edit_role_url( $this->role ) ) );
  					exit;
 				}
 
@@ -300,7 +300,7 @@ final class Members_Admin_Role_New {
 
 			<div id="poststuff">
 
-				<form name="form0" method="post" action="<?php echo members_get_new_role_url(); ?>">
+				<form name="form0" method="post" action="<?php echo esc_url( members_get_new_role_url() ); ?>">
 
 					<?php wp_nonce_field( 'new_role', 'members_new_role_nonce' ); ?>
 

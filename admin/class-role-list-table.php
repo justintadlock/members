@@ -229,7 +229,7 @@ class Members_Role_List_Table extends WP_List_Table {
 		}
 
 		// Add the title and role states.
-		$title = sprintf( '<strong><a class="row-title" href="%s">%s</a>%s</strong>', members_get_edit_role_url( $role ), members_get_role_name( $role ), $role_states );
+		$title = sprintf( '<strong><a class="row-title" href="%s">%s</a>%s</strong>', esc_url( members_get_edit_role_url( $role ) ), esc_html( members_get_role_name( $role ) ), $role_states );
 
 		return apply_filters( 'members_manage_roles_column_role_name', $title, $role );
 	}
@@ -315,22 +315,22 @@ class Members_Role_List_Table extends WP_List_Table {
 
 				// If the current user can edit the role, add an edit link.
 				if ( current_user_can( 'edit_roles' ) )
-					$actions['edit'] = sprintf( '<a href="%s">%s</a>', members_get_edit_role_url( $role ), esc_html__( 'Edit', 'members' ) );
+					$actions['edit'] = sprintf( '<a href="%s">%s</a>', esc_url( members_get_edit_role_url( $role ) ), esc_html__( 'Edit', 'members' ) );
 
 				// If the current user can delete the role, add a delete link.
-				if ( ( is_multisite() && is_super_admin() && $role !== $this->default_role ) || ( current_user_can( 'delete_roles' ) && $role !== $this->default_role && !current_user_can( $role ) ) )
-					$actions['delete'] = sprintf( '<a class="members-delete-role-link" href="%s">%s</a>', members_get_delete_role_url( $role ), esc_html__( 'Delete', 'members' ) );
+				if ( ( is_multisite() && is_super_admin() && $role !== $this->default_role ) || ( current_user_can( 'delete_roles' ) && $role !== $this->default_role && ! current_user_can( $role ) ) )
+					$actions['delete'] = sprintf( '<a class="members-delete-role-link" href="%s">%s</a>', esc_url( members_get_delete_role_url( $role ) ), esc_html__( 'Delete', 'members' ) );
 
 			// If the role cannot be edited.
 			} else {
 
 				// Add the view role link.
-				$actions['view'] = sprintf( '<a href="%s">%s</a>', members_get_edit_role_url( $role ), esc_html__( 'View', 'members' ) );
+				$actions['view'] = sprintf( '<a href="%s">%s</a>', esc_url( members_get_edit_role_url( $role ) ), esc_html__( 'View', 'members' ) );
 			}
 
 			// If the current user can create roles, add the clone role link.
 			if ( current_user_can( 'create_roles' ) )
-				$actions['clone'] = sprintf( '<a href="%s">%s</a>', members_get_clone_role_url( $role ), esc_html__( 'Clone', 'members' ) );
+				$actions['clone'] = sprintf( '<a href="%s">%s</a>', esc_url( members_get_clone_role_url( $role ) ), esc_html__( 'Clone', 'members' ) );
 
 			// If this is the default role and the current user can manage options, add a default role change link.
 			if ( current_user_can( 'manage_options' ) && $role === $this->default_role )
@@ -379,7 +379,7 @@ class Members_Role_List_Table extends WP_List_Table {
 		$views['all'] = sprintf(
 			'<a%s href="%s">%s</a>',
 			'all' === $this->role_view ? $current : '',
-			members_get_edit_roles_url(),
+			esc_url( members_get_edit_roles_url() ),
 			sprintf( _n( 'All %s', 'All %s', $all_count, 'members' ), sprintf( '<span class="count">(%s)</span>', number_format_i18n( $all_count ) ) )
 		);
 
@@ -402,7 +402,7 @@ class Members_Role_List_Table extends WP_List_Table {
 			$views[ $group->name ] = sprintf(
 				'<a%s href="%s">%s</a>',
 				$group->name === $this->role_view ? $current : '',
-				'all' === $group->name ? members_get_edit_roles_url() : members_get_role_view_url( $group->name ),
+				'all' === $group->name ? esc_url( members_get_edit_roles_url() ) : esc_url( members_get_role_view_url( $group->name ) ),
 				sprintf( translate_nooped_plural( $noop, $count, $noop['domain'] ), sprintf( '<span class="count">(%s)</span>', number_format_i18n( $count ) ) )
 			);
 		}
