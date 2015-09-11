@@ -94,30 +94,13 @@ class Members_Role_List_Table extends WP_List_Table {
 	 */
 	public function prepare_items() {
 
-		$roles = array();
+		// Get the current group being viewed.
+		$group = members_get_role_group( $this->role_view );
 
-		// Get the correct roles array based on the view.
-		if ( 'mine' === $this->role_view )
-			$roles = array_keys( members_get_user_role_names( $this->current_user->ID ) );
+		// Set the roles array.
+		$roles = $group ? $group->roles : array();
 
-		elseif ( 'active' === $this->role_view )
-			$roles = array_keys( members_get_active_role_names() );
-
-		elseif ( 'inactive' === $this->role_view )
-			$roles = array_keys( members_get_inactive_role_names() );
-
-		elseif ( 'editable' === $this->role_view )
-			$roles = array_keys( members_get_editable_role_names() );
-
-		elseif ( 'uneditable' === $this->role_view )
-			$roles = array_keys( members_get_uneditable_role_names() );
-
-		elseif ( 'wordpress' === $this->role_view )
-			$roles = array_keys( members_get_wordpress_role_names() );
-
-		else
-			$roles = array_keys( members_get_role_names() );
-
+		// Allow devs to filter the items.
 		$roles = apply_filters( 'members_manage_roles_items', $roles, $this->role_view );
 
 		// Sort the roles if given something to sort by.
@@ -383,52 +366,27 @@ class Members_Role_List_Table extends WP_List_Table {
 		$views   = array();
 		$current = ' class="current"';
 
-		// Get the view URLs.
-		$all_url        = members_get_edit_roles_url();
-		$mine_url       = members_get_my_roles_url();
-		$active_url     = members_get_active_roles_url();
-		$inactive_url   = members_get_inactive_roles_url();
-		$editable_url   = members_get_editable_roles_url();
-		$uneditable_url = members_get_uneditable_roles_url();
-		$wordpress_url  = members_get_wordpress_roles_url();
+		// Loop through the role groups and put them into an array of links.
+		foreach ( members_get_role_groups() as $group ) {
 
-		// Get the view counts.
-		$all_count        = count( members_get_role_names()            );
-		$mine_count       = count( $this->current_user->roles          );
-		$active_count     = count( members_get_active_role_names()     );
-		$inactive_count   = count( members_get_inactive_role_names()   );
-		$editable_count   = count( members_get_editable_role_names()   );
-		$uneditable_count = count( members_get_uneditable_role_names() );
-		$wordpress_count  = count( members_get_wordpress_role_names()  );
-
-		// Set up an array of views.
-		$_views = array(
-			'all'        => array( 'url' => $all_url,        'label' => _n( 'All %s',        'All %s',        $all_count,        'members' ), 'count' => $all_count        ),
-			'mine'       => array( 'url' => $mine_url,       'label' => _n( 'Mine %s',       'Mine %s',       $mine_count,       'members' ), 'count' => $mine_count       ),
-			'active'     => array( 'url' => $active_url,     'label' => _n( 'Has Users %s',  'Has Users %s',  $active_count,     'members' ), 'count' => $active_count     ),
-			'inactive'   => array( 'url' => $inactive_url,   'label' => _n( 'No Users %s',   'No Users %s',   $inactive_count,   'members' ), 'count' => $inactive_count   ),
-			'editable'   => array( 'url' => $editable_url,   'label' => _n( 'Editable %s',   'Editable %s',   $editable_count,   'members' ), 'count' => $editable_count   ),
-			'uneditable' => array( 'url' => $uneditable_url, 'label' => _n( 'Uneditable %s', 'Uneditable %s', $uneditable_count, 'members' ), 'count' => $uneditable_count ),
-			'wordpress'  => array( 'url' => $wordpress_url,  'label' => _n( 'WordPress %s',  'WordPress %s',  $wordpress_count,  'members' ), 'count' => $wordpress_count  )
-		);
-
-		// Loop through the views and put them into an array of links.
-		foreach ( $_views as $view => $view_args ) {
+			$count = count( $group->roles );
 
 			// Skip any views with 0 roles.
-			if ( 0 >= $view_args['count'] )
+			if ( 0 >= $count )
 				continue;
 
+			$noop = $group->label_count;
+
 			// Add the view link.
-			$views[ $view ] = sprintf(
+			$views[ $group->name ] = sprintf(
 				'<a%s href="%s">%s</a>',
-				$view === $this->role_view ? $current : '',
-				$view_args['url'],
-				sprintf( $view_args['label'], sprintf( '<span class="count">(%s)</span>', number_format_i18n( $view_args['count'] ) ) )
+				$group->name === $this->role_view ? $current : '',
+				'all' === $group->name ? members_get_edit_roles_url() : members_get_role_view_url( $group->name ),
+				sprintf( translate_nooped_plural( $noop, $count, $noop['domain'] ), sprintf( '<span class="count">(%s)</span>', number_format_i18n( $count ) ) )
 			);
 		}
 
-		return apply_filters( 'members_manage_roles_views', $views, $this->role_view, $all_url );
+		return apply_filters( 'members_manage_roles_views', $views, $this->role_view, members_get_edit_roles_url() );
 	}
 
 	/**

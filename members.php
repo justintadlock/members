@@ -262,6 +262,11 @@ final class Members_Plugin {
 			require_once( $this->admin_dir . 'class-meta-box-publish-role.php' );
 			require_once( $this->admin_dir . 'class-meta-box-custom-cap.php'   );
 
+			// Role groups.
+			require_once( $this->admin_dir . 'class-role-group.php'         );
+			require_once( $this->admin_dir . 'class-role-group-factory.php' );
+			require_once( $this->admin_dir . 'functions-role-groups.php'    );
+
 			// Edit capabilities tabs and groups.
 			require_once( $this->admin_dir . 'class-cap-tabs.php'          );
 			require_once( $this->admin_dir . 'class-cap-section.php'       );
