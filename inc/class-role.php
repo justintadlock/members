@@ -180,7 +180,8 @@ class Members_Role {
 			$this->name = members_translate_role( $role );
 
 		// Check whether the role is editable.
-		$this->is_editable = array_key_exists( $role, apply_filters( 'editable_roles', $wp_roles->role_names ) );
+		$editable_roles    = function_exists( 'get_editable_roles' ) ? get_editable_roles() : apply_filters( 'editable_roles', $wp_roles->roles );
+		$this->is_editable = array_key_exists( $role, $editable_roles );
 
 		// Loop through the role's caps.
 		foreach ( (array) $_role->capabilities as $cap => $grant ) {
