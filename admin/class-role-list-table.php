@@ -369,6 +369,10 @@ class Members_Role_List_Table extends WP_List_Table {
 		// Loop through the role groups and put them into an array of links.
 		foreach ( members_get_role_groups() as $group ) {
 
+			// Skip role groups that shouldn't be shown in the view list.
+			if ( ! $group->show_in_view_list )
+				continue;
+
 			$count = count( $group->roles );
 
 			// Skip any views with 0 roles.

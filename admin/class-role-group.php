@@ -108,19 +108,22 @@ final class Members_Role_Group {
 		$name = sanitize_key( $name );
 
 		$defaults = array(
-			'label'       => '',
-			'label_count' => '',
-			'roles'       => array(),
+			'label'             => '',
+			'label_count'       => '',
+			'roles'             => array(),
+			'show_in_view_list' => true
 		);
 
 		$this->args = wp_parse_args( $args, $defaults );
 
+		// Get the roles that exist.
 		$existing_roles = array_keys( members_get_role_names() );
 
 		// Remove roles that don't exist.
 		if ( $this->args['roles'] )
 			$this->args['roles'] = array_intersect( $existing_roles, $this->args['roles'] );
 
+		// Set the name.
 		$this->args['name'] = $name;
 	}
 }
