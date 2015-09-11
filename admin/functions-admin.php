@@ -165,11 +165,9 @@ function members_manage_users_columns( $columns ) {
  * @param  string  $output
  * @param  string  $column
  * @param  int     $user_id
- * @global object  $wp_roles
  * @return string
  */
 function members_manage_users_custom_column( $output, $column, $user_id ) {
-	global $wp_roles;
 
 	if ( 'roles' === $column && members_multiple_user_roles_enabled() ) {
 
@@ -182,8 +180,8 @@ function members_manage_users_custom_column( $output, $column, $user_id ) {
 
 			foreach ( $user->roles as $role ) {
 
-				if ( isset( $wp_roles->role_names[ $role ] ) )
-					$user_roles[] = translate_user_role( $wp_roles->role_names[ $role ] );
+				if ( members_role_exists( $role ) )
+					$user_roles[] = members_translate_role( $role );
 			}
 
 			$output = join( ', ', $user_roles );
