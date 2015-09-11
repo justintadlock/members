@@ -94,11 +94,19 @@ class Members_Role_List_Table extends WP_List_Table {
 	 */
 	public function prepare_items() {
 
-		// Get the current group being viewed.
-		$group = members_get_role_group( $this->role_view );
+		// Get the roles for the default/All view.
+		if ( 'all' === $this->role_view ) {
 
-		// Set the roles array.
-		$roles = $group ? $group->roles : array();
+			$roles = array_keys( members_get_role_names() );
+
+		// If a custom view, get the roles.
+		} else {
+			// Get the current group being viewed.
+			$group = members_get_role_group( $this->role_view );
+
+			// Set the roles array.
+			$roles = $group ? $group->roles : array();
+		}
 
 		// Allow devs to filter the items.
 		$roles = apply_filters( 'members_manage_roles_items', $roles, $this->role_view );
@@ -363,10 +371,19 @@ class Members_Role_List_Table extends WP_List_Table {
 	 */
 	protected function get_views() {
 
-		$views   = array();
-		$current = ' class="current"';
+		$views     = array();
+		$current   = ' class="current"';
+		$all_count = count( members_get_role_names() );
 
-		// Loop through the role groups and put them into an array of links.
+		// Add the default/all view.
+		$views['all'] = sprintf(
+			'<a%s href="%s">%s</a>',
+			'all' === $this->role_view ? $current : '',
+			members_get_edit_roles_url(),
+			sprintf( _n( 'All %s', 'All %s', $all_count, 'members' ), sprintf( '<span class="count">(%s)</span>', number_format_i18n( $all_count ) ) )
+		);
+
+		// Loop through the role groups and put them into the view list.
 		foreach ( members_get_role_groups() as $group ) {
 
 			// Skip role groups that shouldn't be shown in the view list.

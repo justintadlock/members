@@ -103,15 +103,6 @@ function members_register_role_groups() {
 	// Get the current user.
 	$current_user = wp_get_current_user();
 
-	// Register the all group.
-	members_register_role_group( 'all',
-		array(
-			'label'       => esc_html__( 'All', 'members' ),
-			'label_count' => _n_noop( 'All %s', 'All %s', 'members' ),
-			'roles'       => array_keys( members_get_role_names() ),
-		)
-	);
-
 	if ( is_object( $current_user ) ) {
 
 		// Register the mine group.
