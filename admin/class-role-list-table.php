@@ -97,7 +97,7 @@ class Members_Role_List_Table extends WP_List_Table {
 		// Get the roles for the default/All view.
 		if ( 'all' === $this->role_view ) {
 
-			$roles = array_keys( members_get_role_names() );
+			$roles = members_get_role_slugs();
 
 		// If a custom view, get the roles.
 		} else {
@@ -373,7 +373,7 @@ class Members_Role_List_Table extends WP_List_Table {
 
 		$views     = array();
 		$current   = ' class="current"';
-		$all_count = count( members_get_role_names() );
+		$all_count = count( members_get_role_slugs() );
 
 		// Add the default/all view.
 		$views['all'] = sprintf(

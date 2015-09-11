@@ -36,38 +36,6 @@ function members_get_role_count() {
 }
 
 /**
- * Returns an array of the role names of roles that have users.
- *
- * @since  1.0.0
- * @access public
- * @return array
- */
-function members_get_active_role_names() {
-	$has_users = array();
-
-	foreach ( members_role_factory()->has_users as $role )
-		$has_users[ $role->role ] = $role->name;
-
-	return $has_users;
-}
-
-/**
- * Returns an array of the role names of roles that do not have users.
- *
- * @since  1.0.0
- * @access public
- * @return array
- */
-function members_get_inactive_role_names() {
-	$no_users = array();
-
-	foreach ( members_role_factory()->no_users as $role )
-		$no_users[ $role->role ] = $role->name;
-
-	return $no_users;
-}
-
-/**
  * Returns an array of `Members_Role` objects.
  *
  * @since  1.0.0
@@ -95,6 +63,71 @@ function members_get_role_names() {
 }
 
 /**
+ * Returns an array of roles.
+ *
+ * @since  1.0.0
+ * @access public
+ * @return array
+ */
+function members_get_role_slugs() {
+	return array_keys( members_role_factory()->roles );
+}
+
+/**
+ * Returns an array of the role names of roles that have users.
+ *
+ * @since  1.0.0
+ * @access public
+ * @return array
+ */
+function members_get_active_role_names() {
+	$has_users = array();
+
+	foreach ( members_role_factory()->has_users as $role )
+		$has_users[ $role->role ] = $role->name;
+
+	return $has_users;
+}
+
+/**
+ * Returns an array of the roles that have users.
+ *
+ * @since  1.0.0
+ * @access public
+ * @return array
+ */
+function members_get_active_role_slugs() {
+	return array_keys( members_role_factory()->has_users );
+}
+
+/**
+ * Returns an array of the role names of roles that do not have users.
+ *
+ * @since  1.0.0
+ * @access public
+ * @return array
+ */
+function members_get_inactive_role_names() {
+	$no_users = array();
+
+	foreach ( members_role_factory()->no_users as $role )
+		$no_users[ $role->role ] = $role->name;
+
+	return $no_users;
+}
+
+/**
+ * Returns an array of the roles that have no users.
+ *
+ * @since  1.0.0
+ * @access public
+ * @return array
+ */
+function members_get_inactive_role_slugs() {
+	return array_keys( members_role_factory()->no_users );
+}
+
+/**
  * Returns an array of editable role names.
  *
  * @since  1.0.0
@@ -108,6 +141,17 @@ function members_get_editable_role_names() {
 		$editable[ $role->role ] = $role->name;
 
 	return $editable;
+}
+
+/**
+ * Returns an array of editable roles.
+ *
+ * @since  1.0.0
+ * @access public
+ * @return array
+ */
+function members_get_editable_role_slugs() {
+	return array_keys( members_role_factory()->editable );
 }
 
 /**
@@ -127,6 +171,17 @@ function members_get_uneditable_role_names() {
 }
 
 /**
+ * Returns an array of uneditable roles.
+ *
+ * @since  1.0.0
+ * @access public
+ * @return array
+ */
+function members_get_uneditable_role_slugs() {
+	return array_keys( members_role_factory()->uneditable );
+}
+
+/**
  * Returns an array of core WordPress role names.
  *
  * @since  1.0.0
@@ -140,6 +195,17 @@ function members_get_wordpress_role_names() {
 		$names[ $role->role ] = $role->name;
 
 	return $names;
+}
+
+/**
+ * Returns an array of core WP roles.
+ *
+ * @since  1.0.0
+ * @access public
+ * @return array
+ */
+function members_get_wordpress_role_slugs() {
+	return array_keys( members_role_factory()->wordpress );
 }
 
 /* ====== Single Role Functions ====== */

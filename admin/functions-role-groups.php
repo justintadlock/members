@@ -120,7 +120,7 @@ function members_register_role_groups() {
 		array(
 			'label'       => esc_html__( 'Has Users', 'members' ),
 			'label_count' => _n_noop( 'Has Users %s', 'Has Users %s', 'members' ),
-			'roles'       => array_keys( members_get_active_role_names() ),
+			'roles'       => members_get_active_role_slugs(),
 		)
 	);
 
@@ -129,7 +129,7 @@ function members_register_role_groups() {
 		array(
 			'label'       => esc_html__( 'No Users', 'members' ),
 			'label_count' => _n_noop( 'No Users %s', 'No Users %s', 'members' ),
-			'roles'       => array_keys( members_get_inactive_role_names() ),
+			'roles'       => members_get_inactive_role_slugs(),
 		)
 	);
 
@@ -138,7 +138,7 @@ function members_register_role_groups() {
 		array(
 			'label'       => esc_html__( 'Editable', 'members' ),
 			'label_count' => _n_noop( 'Editable %s', 'Editable %s', 'members' ),
-			'roles'       => array_keys( members_get_editable_role_names() ),
+			'roles'       => members_get_editable_role_slugs(),
 		)
 	);
 
@@ -147,7 +147,7 @@ function members_register_role_groups() {
 		array(
 			'label'       => esc_html__( 'Uneditable', 'members' ),
 			'label_count' => _n_noop( 'Uneditable %s', 'Uneditable %s', 'members' ),
-			'roles'       => array_keys( members_get_uneditable_role_names() ),
+			'roles'       => members_get_uneditable_role_slugs(),
 		)
 	);
 
@@ -156,7 +156,7 @@ function members_register_role_groups() {
 		array(
 			'label'       => esc_html__( 'WordPress', 'members' ),
 			'label_count' => _n_noop( 'WordPress %s', 'WordPress %s', 'members' ),
-			'roles'       => array_keys( members_get_wordpress_role_names() ),
+			'roles'       => members_get_wordpress_role_slugs(),
 		)
 	);
 
