@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Members
  * Plugin URI:  http://themehybrid.com/plugins/members
- * Description: A user, role, and content management plugin for controlling permissions and access. A plugin for making WordPress a more powerful <acronym title="Content Management System">CMS</acronym>.
+ * Description: A user and role management plugin that puts you in full control of your site's permissions. This plugin allows you to edit your roles and their capabilities, clone existing roles, assign multiple roles per user, block post content, or even make your site completely private.
  * Version:     1.0.0-alpha-1
  * Author:      Justin Tadlock
  * Author URI:  http://justintadlock.com
