@@ -57,7 +57,7 @@ function members_get_role_names() {
 	$roles = array();
 
 	foreach ( members_role_factory()->roles as $role )
-		$roles[ $role->role ] = $role->name;
+		$roles[ $role->slug ] = $role->name;
 
 	return $roles;
 }
@@ -84,7 +84,7 @@ function members_get_active_role_names() {
 	$has_users = array();
 
 	foreach ( members_role_factory()->has_users as $role )
-		$has_users[ $role->role ] = $role->name;
+		$has_users[ $role->slug ] = $role->name;
 
 	return $has_users;
 }
@@ -111,7 +111,7 @@ function members_get_inactive_role_names() {
 	$no_users = array();
 
 	foreach ( members_role_factory()->no_users as $role )
-		$no_users[ $role->role ] = $role->name;
+		$no_users[ $role->slug ] = $role->name;
 
 	return $no_users;
 }
@@ -138,7 +138,7 @@ function members_get_editable_role_names() {
 	$editable = array();
 
 	foreach ( members_role_factory()->editable as $role )
-		$editable[ $role->role ] = $role->name;
+		$editable[ $role->slug ] = $role->name;
 
 	return $editable;
 }
@@ -165,7 +165,7 @@ function members_get_uneditable_role_names() {
 	$uneditable = array();
 
 	foreach ( members_role_factory()->uneditable as $role )
-		$uneditable[ $role->role ] = $role->name;
+		$uneditable[ $role->slug ] = $role->name;
 
 	return $uneditable;
 }
@@ -192,7 +192,7 @@ function members_get_wordpress_role_names() {
 	$names = array();
 
 	foreach ( members_role_factory()->wordpress as $role )
-		$names[ $role->role ] = $role->name;
+		$names[ $role->slug ] = $role->name;
 
 	return $names;
 }

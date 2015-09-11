@@ -20,13 +20,13 @@
 class Members_Role {
 
 	/**
-	 * The role.
+	 * The role/slug.
 	 *
 	 * @since  1.0.0
 	 * @access public
 	 * @var    string
 	 */
-	public $role = '';
+	public $slug = '';
 
 	/**
 	 * The role name.
@@ -135,7 +135,7 @@ class Members_Role {
 	 * @return string
 	 */
 	public function __toString() {
-		return $this->role;
+		return $this->slug;
 	}
 
 	/**
@@ -153,8 +153,8 @@ class Members_Role {
 		// Get the WP role object.
 		$_role = get_role( $role );
 
-		// Set the role.
-		$this->role = $_role->name;
+		// Set the slug.
+		$this->slug = $_role->name;
 
 		// Set the role name.
 		if ( isset( $wp_roles->role_names[ $role ] ) )
