@@ -5,7 +5,7 @@
 	.users_page_roles .column-users,
 	.users_page_roles .column-granted_caps,
 	.users_page_roles .column-denied_caps {
-		width:      125px;
+		width:      100px;
 		text-align: center;
 	}
 }

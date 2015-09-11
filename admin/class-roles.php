@@ -62,11 +62,11 @@ final class Members_Admin_Roles {
 
 		$columns = array(
 			'cb'            => '<input type="checkbox" />',
-			'title'         => esc_html__( 'Role Name',    'members' ),
-			'role'          => esc_html__( 'Role',         'members' ),
-			'users'         => esc_html__( 'Users',        'members' ),
-			'granted_caps'  => esc_html__( 'Granted Caps', 'members' ),
-			'denied_caps'   => esc_html__( 'Denied Caps',  'members' )
+			'title'         => esc_html__( 'Role Name', 'members' ),
+			'role'          => esc_html__( 'Role',      'members' ),
+			'users'         => esc_html__( 'Users',     'members' ),
+			'granted_caps'  => esc_html__( 'Granted',   'members' ),
+			'denied_caps'   => esc_html__( 'Denied',    'members' )
 		);
 
 		return apply_filters( 'members_manage_roles_columns', $columns );
