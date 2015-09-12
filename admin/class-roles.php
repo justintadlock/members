@@ -34,7 +34,7 @@ final class Members_Admin_Roles {
 		add_filter( 'manage_users_page_roles_columns', array( $this, 'manage_roles_columns' ), 5 );
 
 		// Add help tabs.
-		add_action( 'members_load_roles', array( $this, 'add_help_tabs' ) );
+		add_action( 'members_load_manage_roles', array( $this, 'add_help_tabs' ) );
 	}
 
 	/**
@@ -135,7 +135,7 @@ final class Members_Admin_Roles {
 		}
 
 		// Load page hook.
-		do_action( 'members_load_roles' );
+		do_action( 'members_load_manage_roles' );
 	}
 
 	/**
