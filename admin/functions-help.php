@@ -142,8 +142,8 @@ function members_edit_role_help_edit_caps_cb() { ?>
 	</p>
 
 	<ul>
-		<li><?php _e( '<strong>Grant</strong> allows you to grant the role the capability.', 'members' ); ?></li>
-		<li><?php _e( '<strong>Deny</strong> allows you to deny the capability for the role. This is typically only useful when building a site with multiple roles per user where you might want to explicitly deny a capability.', 'members' ); ?></li>
+		<li><?php _e( '<strong>Grant</strong> allows you to grant the role a capability.', 'members' ); ?></li>
+		<li><?php _e( '<strong>Deny</strong> allows you to explicitly deny the role a capability.', 'members' ); ?></li>
 		<li><?php esc_html_e( 'You may also opt to neither grant nor deny the role a capability.', 'members' ); ?></li>
 	</ul>
 <?php }

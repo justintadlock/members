@@ -62,7 +62,7 @@ In the "Edit Capabilities" box on that screen, you simply have to tick the check
 Every capability can have one of three "states" for a role.  The role can be *granted*, *denied*, or simply not have a capability.
 
 * **Granting** a capability to a role means that users of that role will have permission to perform the given capability.
-* **Denying** a capability means that the role's users are explicitly denied permission.  So, if your user has multiple roles (see "Multiple user roles"), denied capabilities from one role will override granted capabilities from another.  If you're not using multiple roles per user, I highly doubt you'll ever need to deny a role a capability.
+* **Denying** a capability means that the role's users are explicitly denied permission.
 * A role that is neither granted nor denied a capability simply doesn't have that capability.
 
 **Note:** If you were using a pre-1.0.0 version of Members, the concept of denied capabilities was not built in.  In those versions, you could only grant or remove a capability.
