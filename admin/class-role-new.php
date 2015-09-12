@@ -317,8 +317,8 @@ final class Members_Admin_Role_New {
 
 								<div class="inside">
 									<div id="edit-slug-box">
-										<strong><?php esc_html_e( 'Role:', 'members' ); ?></strong> <span class="role-slug"><?php echo esc_attr( $this->role ); ?></span> <!-- edit box -->
-										<input type="text" name="role" value="<?php echo ! $this->role && $this->clone_role ? esc_attr( "{$this->clone_role}_clone" ) : members_sanitize_role( $this->role ); ?>" />
+										<strong><?php esc_html_e( 'Role:', 'members' ); ?></strong> <span class="role-slug"><?php echo ! $this->role && $this->clone_role ? esc_attr( "{$this->clone_role}_clone" ) : esc_attr( $this->role ); ?></span> <!-- edit box -->
+										<input type="text" name="role" value="<?php echo members_sanitize_role( $this->role ); ?>" />
 										<button type="button" class="role-edit-button button button-small closed"><?php esc_html_e( 'Edit', 'members' ); ?></button>
 									</div>
 								</div><!-- .inside -->
