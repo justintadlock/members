@@ -120,5 +120,7 @@ final class Members_Cap_Group {
 		$this->args = wp_parse_args( $args, $defaults );
 
 		$this->args['name'] = $name;
+
+		$this->args['caps'] = members_remove_hidden_caps( $this->args['caps'] );
 	}
 }

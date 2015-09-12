@@ -203,7 +203,11 @@ class Members_Role {
 
 		// Remove user levels from granted/denied caps.
 		$this->granted_caps = members_remove_old_levels( $this->granted_caps );
-		$this->denied_caps  = members_remove_old_levels( $this->denied_caps );
+		$this->denied_caps  = members_remove_old_levels( $this->denied_caps  );
+
+		// Remove hidden caps from granted/denied caps.
+		$this->granted_caps = members_remove_hidden_caps( $this->granted_caps );
+		$this->denied_caps  = members_remove_hidden_caps( $this->denied_caps  );
 
 		// Set the cap count.
 		$this->granted_cap_count = count( $this->granted_caps );

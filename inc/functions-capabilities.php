@@ -11,7 +11,8 @@
  */
 
 # Disables the old user levels from capabilities array.
-add_filter( 'members_get_capabilities', 'members_remove_old_levels' );
+add_filter( 'members_get_capabilities', 'members_remove_old_levels'  );
+add_filter( 'members_get_capabilities', 'members_remove_hidden_caps' );
 
 /**
  * Function for sanitizing a capability.
@@ -246,6 +247,63 @@ function members_check_for_cap( $cap = '' ) {
 
 	// Check if the cap is assigned to any role.
 	return in_array( $cap, members_get_role_capabilities() );
+}
+
+/**
+ * Return an array of capabilities that are not allowed on this installation.
+ *
+ * @since  1.0.0
+ * @access public
+ * @return array
+ */
+function members_get_hidden_caps() {
+
+	$caps = array();
+
+	// Unfiltered uploads.
+	if ( is_multisite() || ! defined( 'ALLOW_UNFILTERED_UPLOADS' ) || ! ALLOW_UNFILTERED_UPLOADS )
+		$caps[] = 'unfiltered_upload';
+
+	// Unfiltered HTML.
+	if ( is_multisite() || ( defined( 'DISALLOW_UNFILTERED_HTML' ) && DISALLOW_UNFILTERED_HTML ) )
+		$caps[] = 'unfiltered_html';
+
+	// File editing.
+	if ( is_multisite() || ( defined( 'DISALLOW_FILE_EDIT' ) && DISALLOW_FILE_EDIT ) ) {
+		$caps[] = 'edit_files';
+		$caps[] = 'edit_plugins';
+		$caps[] = 'edit_themes';
+	}
+
+	// File mods.
+	if ( is_multisite() || ( defined( 'DISALLOW_FILE_MODS' ) && DISALLOW_FILE_MODS ) ) {
+		$caps[] = 'edit_files';
+		$caps[] = 'edit_plugins';
+		$caps[] = 'edit_themes';
+		$caps[] = 'update_plugins';
+		$caps[] = 'delete_plugins';
+		$caps[] = 'install_plugins';
+		$caps[] = 'upload_plugins';
+		$caps[] = 'update_themes';
+		$caps[] = 'delete_themes';
+		$caps[] = 'install_themes';
+		$caps[] = 'upload_themes';
+		$caps[] = 'update_core';
+	}
+
+	return array_unique( $caps );
+}
+
+/**
+ * Get rid of hidden capabilities.
+ *
+ * @since  1.0.0
+ * @access public
+ * @param  array  $caps
+ * @return array
+ */
+function members_remove_hidden_caps( $caps ) {
+	return apply_filters( 'members_remove_hidden_caps', true ) ? array_diff( $caps, members_get_hidden_caps() ) : $caps;
 }
 
 /**
