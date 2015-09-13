@@ -22,6 +22,18 @@ function members_role_manager_enabled() {
 }
 
 /**
+ * Conditional check to see if denied capabilities should overrule granted capabilities when
+ * a user has multiple roles with conflicting cap definitions.
+ *
+ * @since  1.0.0
+ * @access public
+ * @return bool
+ */
+function members_explicitly_deny_caps() {
+	return apply_filters( 'members_explicitly_deny_caps', members_get_setting( 'explicit_denied_caps' ) );
+}
+
+/**
  * Conditional check to see if the role manager is enabled.
  *
  * @since  1.0.0
@@ -105,6 +117,7 @@ function members_get_default_settings() {
 		'private_feed_error'        => esc_html__( 'You must be logged into the site to view this content.',      'members' ),
 
 		// @since 1.0.0
-		'multi_roles' => true,
+		'explicit_denied_caps' => true,
+		'multi_roles'          => true,
 	);
 }

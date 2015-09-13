@@ -129,8 +129,9 @@ final class Members_Settings_Page {
 		/* === Settings Fields === */
 
 		// Role manager fields.
-		add_settings_field( 'enable_role_manager', esc_html__( 'Role Manager',        'members' ), array( $this, 'field_enable_role_manager' ), $this->settings_page, 'roles_caps' );
-		add_settings_field( 'enable_multi_roles',  esc_html__( 'Multiple User Roles', 'members' ), array( $this, 'field_enable_multi_roles'  ), $this->settings_page, 'roles_caps' );
+		add_settings_field( 'enable_role_manager',  esc_html__( 'Role Manager',        'members' ), array( $this, 'field_enable_role_manager'  ), $this->settings_page, 'roles_caps' );
+		add_settings_field( 'explicit_denied_caps', esc_html__( 'Capabilities',        'members' ), array( $this, 'field_explicit_denied_caps' ), $this->settings_page, 'roles_caps' );
+		add_settings_field( 'enable_multi_roles',   esc_html__( 'Multiple User Roles', 'members' ), array( $this, 'field_enable_multi_roles'   ), $this->settings_page, 'roles_caps' );
 
 		// Content permissions fields.
 		add_settings_field( 'enable_content_permissions', esc_html__( 'Enable Permissions', 'members' ), array( $this, 'field_enable_content_permissions' ), $this->settings_page, 'content_permissions' );
@@ -157,13 +158,14 @@ final class Members_Settings_Page {
 	function validate_settings( $settings ) {
 
 		// Validate true/false checkboxes.
-		$settings['role_manager']        = isset( $settings['role_manager'] )        ? true : false;
-		$settings['multi_roles']         = isset( $settings['multi_roles'] )         ? true : false;
-		$settings['content_permissions'] = isset( $settings['content_permissions'] ) ? true : false;
-		$settings['login_form_widget']   = isset( $settings['login_form_widget'] )   ? true : false;
-		$settings['users_widget']        = isset( $settings['users_widget'] )        ? true : false;
-		$settings['private_blog']        = isset( $settings['private_blog'] )        ? true : false;
-		$settings['private_feed']        = isset( $settings['private_feed'] )        ? true : false;
+		$settings['role_manager']         = isset( $settings['role_manager'] )         ? true : false;
+		$settings['explicit_denied_caps'] = isset( $settings['explicit_denied_caps'] ) ? true : false;
+		$settings['multi_roles']          = isset( $settings['multi_roles'] )          ? true : false;
+		$settings['content_permissions']  = isset( $settings['content_permissions'] )  ? true : false;
+		$settings['login_form_widget']    = isset( $settings['login_form_widget'] )    ? true : false;
+		$settings['users_widget']         = isset( $settings['users_widget'] )         ? true : false;
+		$settings['private_blog']         = isset( $settings['private_blog'] )         ? true : false;
+		$settings['private_feed']         = isset( $settings['private_feed'] )         ? true : false;
 
 		// Kill evil scripts.
 		$settings['content_permissions_error'] = stripslashes( wp_filter_post_kses( addslashes( $settings['content_permissions_error'] ) ) );
@@ -199,6 +201,21 @@ final class Members_Settings_Page {
 		<label>
 			<input type="checkbox" name="members_settings[role_manager]" value="true" <?php checked( members_role_manager_enabled() ); ?> />
 			<?php esc_html_e( 'Enable the role manager.', 'members' ); ?>
+		</label>
+	<?php }
+
+	/**
+	 * Explicit denied caps field callback.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @return void
+	 */
+	public function field_explicit_denied_caps() { ?>
+
+		<label>
+			<input type="checkbox" name="members_settings[explicit_denied_caps]" value="true" <?php checked( members_explicitly_deny_caps() ); ?> />
+			<?php esc_html_e( 'Denied capabilities should always overrule granted capabilities.', 'members' ); ?>
 		</label>
 	<?php }
 
