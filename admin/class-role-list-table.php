@@ -371,6 +371,15 @@ class Members_Role_List_Table extends WP_List_Table {
 	 */
 	protected function get_views() {
 
+		$active   = members_get_role_group( 'active' );
+		$inactive = members_get_role_group( 'inactive' );
+
+		if ( $active )
+			$active->roles = members_get_active_role_slugs();
+
+		if ( $inactive )
+			$inactive->roles = members_get_inactive_role_slugs();
+
 		$views     = array();
 		$current   = ' class="current"';
 		$all_count = count( members_get_role_slugs() );

@@ -56,15 +56,6 @@ class Members_Role {
 	public $is_wordpress_role = false;
 
 	/**
-	 * Whether the role has users.
-	 *
-	 * @since  1.0.0
-	 * @access public
-	 * @var    bool
-	 */
-	public $has_users = false;
-
-	/**
 	 * Whether the role has caps (granted).
 	 *
 	 * @since  1.0.0
@@ -72,15 +63,6 @@ class Members_Role {
 	 * @var    bool
 	 */
 	public $has_caps = false;
-
-	/**
-	 * User count for the role.
-	 *
-	 * @since  1.0.0
-	 * @access public
-	 * @var    int|null
-	 */
-	public $user_count = null;
 
 	/**
 	 * Capability count for the role.
@@ -196,11 +178,5 @@ class Members_Role {
 
 		// Check if we have caps.
 		$this->has_caps = 0 < $this->granted_cap_count;
-
-		// Set the user count.
-		$this->user_count = members_get_role_user_count( $this->slug );
-
-		// Check if we have users.
-		$this->has_users = 0 < $this->user_count;
 	}
 }

@@ -120,7 +120,7 @@ function members_register_role_groups() {
 		array(
 			'label'       => esc_html__( 'Has Users', 'members' ),
 			'label_count' => _n_noop( 'Has Users %s', 'Has Users %s', 'members' ),
-			'roles'       => members_get_active_role_slugs(),
+			'roles'       => array(), // These will be updated on the fly b/c it requires counting users.
 		)
 	);
 
@@ -129,7 +129,7 @@ function members_register_role_groups() {
 		array(
 			'label'       => esc_html__( 'No Users', 'members' ),
 			'label_count' => _n_noop( 'No Users %s', 'No Users %s', 'members' ),
-			'roles'       => members_get_inactive_role_slugs(),
+			'roles'       => array(), // These will be updated on the fly b/c it requires counting users.
 		)
 	);
 

@@ -29,24 +29,6 @@ final class Members_Role_Factory {
 	public $roles = array();
 
 	/**
-	 * Array of roles with users.
-	 *
-	 * @since  1.0.0
-	 * @access public
-	 * @var    array
-	 */
-	public $has_users = array();
-
-	/**
-	 * Array of roles with no users.
-	 *
-	 * @since  1.0.0
-	 * @access public
-	 * @var    array
-	 */
-	public $no_users = array();
-
-	/**
 	 * Array of editable roles.
 	 *
 	 * @since  1.0.0
@@ -97,12 +79,6 @@ final class Members_Role_Factory {
 
 			// Get the role object.
 			$this->roles[ $role ] = new Members_Role( $role );
-
-			// Check if role has users.
-			if ( $this->roles[ $role ]->has_users )
-				$this->has_users[ $role ] = $this->roles[ $role ];
-			else
-				$this->no_users[ $role ] = $this->roles[ $role ];
 
 			// Check if role is editable.
 			if ( $this->roles[ $role ]->is_editable )

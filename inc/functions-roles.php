@@ -83,8 +83,8 @@ function members_get_role_slugs() {
 function members_get_active_role_names() {
 	$has_users = array();
 
-	foreach ( members_role_factory()->has_users as $role )
-		$has_users[ $role->slug ] = $role->name;
+	foreach ( members_get_active_role_slugs() as $role )
+		$has_users[ $role ] = members_get_role_name( $role );
 
 	return $has_users;
 }
@@ -97,7 +97,16 @@ function members_get_active_role_names() {
  * @return array
  */
 function members_get_active_role_slugs() {
-	return array_keys( members_role_factory()->has_users );
+
+	$has_users = array();
+
+	foreach ( members_get_role_user_count() as $role => $count ) {
+
+		if ( 0 < $count )
+			$has_users[] = $role;
+	}
+
+	return $has_users;
 }
 
 /**
@@ -108,12 +117,7 @@ function members_get_active_role_slugs() {
  * @return array
  */
 function members_get_inactive_role_names() {
-	$no_users = array();
-
-	foreach ( members_role_factory()->no_users as $role )
-		$no_users[ $role->slug ] = $role->name;
-
-	return $no_users;
+	return array_diff( members_get_role_names(), members_get_active_role_names() );
 }
 
 /**
@@ -124,7 +128,7 @@ function members_get_inactive_role_names() {
  * @return array
  */
 function members_get_inactive_role_slugs() {
-	return array_keys( members_role_factory()->no_users );
+	return array_diff( members_get_role_slugs(), members_get_active_role_slugs() );
 }
 
 /**
@@ -276,7 +280,7 @@ function members_translate_role( $role ) {
  * @return bool
  */
 function members_role_has_users( $role ) {
-	return members_role_factory()->get_role( $role )->has_users;
+	return in_array( $role, members_get_active_role_slugs() );
 }
 
 /**
