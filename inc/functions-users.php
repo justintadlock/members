@@ -56,3 +56,52 @@ function members_user_has_cap_filter( $allcaps, $caps, $args, $user ) {
 	// Return all the user caps.
 	return $allcaps;
 }
+
+/**
+ * Conditional tag to check whether a user has a specific role.
+ *
+ * @since  1.0.0
+ * @access public
+ * @param  int     $user_id
+ * @param  string  $role
+ * @return bool
+ */
+function members_user_has_role( $user_id, $role ) {
+
+	$user = new WP_User( $user_id );
+
+	return in_array( $role, (array) $user->roles );
+}
+
+/**
+ * Conditional tag to check whether the currently logged-in user has a specific role.
+ *
+ * @since  1.0.0
+ * @access public
+ * @param  string  $role
+ * @return bool
+ */
+function members_current_user_has_role( $role ) {
+
+	return is_user_logged_in() ? members_user_has_role( get_current_user_id(), $role ) : false;
+}
+
+/**
+ * Returns an array of the role names a user has.
+ *
+ * @since  1.0.0
+ * @access public
+ * @param  int    $user_id
+ * @return array
+ */
+function members_get_user_role_names( $user_id ) {
+
+	$user = new WP_User( $user_id );
+
+	$names = array();
+
+	foreach ( $user->roles as $role )
+		$names[ $role ] = members_get_role_name( $role );
+
+	return $names;
+}
