@@ -74,8 +74,7 @@ class Members_Role {
 	public $has_caps = false;
 
 	/**
-	 * User count for the role. Note that this is only set when specifically
-	 * called for because it is an expensive function.
+	 * User count for the role.
 	 *
 	 * @since  1.0.0
 	 * @access public
@@ -127,24 +126,6 @@ class Members_Role {
 	 * @var    array
 	 */
 	public $denied_caps = array();
-
-	/**
-	 * Magic method for getting object properties.
-	 *
-	 * @since  1.0.0
-	 * @access public
-	 * @param  string  $property
-	 * @return mixed
-	 */
-	public function __get( $property ) {
-
-		if ( 'user_count' === $property && is_null( $this->$property ) ) {
-			$this->user_count = members_get_role_user_count( $role );
-			return $this->user_count;
-		}
-
-		return isset( $this->$property ) ? $this->args[ $property ] : null;
-	}
 
 	/**
 	 * Return the role string in attempts to use the object as a string.
@@ -215,6 +196,9 @@ class Members_Role {
 
 		// Check if we have caps.
 		$this->has_caps = 0 < $this->granted_cap_count;
+
+		// Set the user count.
+		$this->user_count = members_get_role_user_count( $this->slug );
 
 		// Check if we have users.
 		$this->has_users = 0 < $this->user_count;
