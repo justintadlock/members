@@ -65,7 +65,9 @@ Every capability can have one of three "states" for a role.  The role can be *gr
 * **Denying** a capability means that the role's users are explicitly denied permission.
 * A role that is neither granted nor denied a capability simply doesn't have that capability.
 
-**Note:** If you were using a pre-1.0.0 version of Members, the concept of denied capabilities was not built in.  In those versions, you could only grant or remove a capability.
+**Note #1:** If you were using a pre-1.0.0 version of Members, the concept of denied capabilities was not built in.  In those versions, you could only grant or remove a capability.
+
+**Note #2:** When assigning multiple roles to a single user that have a conflicting capability (e.g., granted `publish_posts` and denied `published_posts` cap), it's best to enable the denied capabilities override via the Members Settings screen.  This will consistently make sure that denied capabilities always overrule granted capabilities.  With this setting disabled, WordPress will decide based on the *last* role given to the user, which can mean for extremely inconsistent behavior depending on the roles a user has.
 
 ### Multiple user roles
 
