@@ -4,10 +4,12 @@ Members is a plugin that extends your control over your blog.  It's a user, role
 
 The foundation of the plugin is its extensive role and capability management system.  This is the backbone of all the current features and planned future features.
 
-## Plugin Features:
+## Plugin Features
 
 * **Role Manager:** Allows you to edit, create, and delete roles as well as capabilities for these roles.
 * **Multiple User Roles:** Give one, two, or even more roles to any user.
+* **Explicitly Deny Capabilities:** Deny specific caps to specific user roles.
+* **Clone Roles:** Build a new role by cloning an existing role.
 * **Content Permissions:** Gives you control over which users (by role) have access to post content.
 * **Shortcodes:** Shortcodes to control who has access to content.
 * **Widgets:**  A login form widget and users widget to show in your theme's sidebars.
@@ -15,7 +17,7 @@ The foundation of the plugin is its extensive role and capability management sys
 
 ## Professional Support
 
-If you need professional plugin support from me, the plugin author, you can access the support forums at [Theme Hybrid](http://themehybrid.com/support), which is a professional WordPress help/support site where I handle support for all my plugins and themes for a community of 60,000+ users (and growing).
+If you need professional plugin support from me, the plugin author, you can access the support forums at [Theme Hybrid](http://themehybrid.com/board/topics), which is a professional WordPress help/support site where I handle support for all my plugins and themes for a community of 60,000+ users (and growing).
 
 ## Copyright and License
 
