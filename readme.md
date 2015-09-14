@@ -1,8 +1,8 @@
 # Members
 
-Members is a plugin that extends your control over your blog.  It's a user, role, and content management plugin that was created to make WordPress a more powerful CMS.
+Members is a plugin that extends your control over your blog.  It's a user, role, and capability management plugin that was created to make WordPress a more powerful CMS.
 
-The foundation of the plugin is its extensive role and capability management system.  This is the backbone of all the current features and planned future features.
+It puts you in control over permissions on your site by providing a user interface (UI) for WordPress' powerful role and cap system, which is traditionally only available to developers who know how to code this by hand.
 
 ## Plugin Features
 

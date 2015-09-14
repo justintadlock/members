@@ -10,9 +10,9 @@ The most powerful user, role, and capability management plugin for WordPress.
 
 == Description ==
 
-Members is a plugin that extends your control over your blog.  It's a user, role, and content management plugin that was created to make WordPress a more powerful CMS.
+Members is a plugin that extends your control over your blog.  It's a user, role, and capability management plugin that was created to make WordPress a more powerful CMS.
 
-The foundation of the plugin is its extensive role and capability management system.  This is the backbone of all the current features and planned future features.
+It puts you in control over permissions on your site by providing a user interface (UI) for WordPress' powerful role and cap system, which is traditionally only available to developers who know how to code this by hand.
 
 ### Plugin Features
 
@@ -24,7 +24,9 @@ The foundation of the plugin is its extensive role and capability management sys
 * **Shortcodes:** Shortcodes to control who has access to content.
 * **Widgets:**  A login form widget and users widget to show in your theme's sidebars.
 * **Private Site:** You can make your site and its feed completely private if you want.
-* **Plugin Integration:** Members is the #1 recommended plugin by WordPress developers. Many existing plugins integrate their custom roles and caps directly into it.
+* **Plugin Integration:** Members is highly recommended by  other WordPress developers. Many existing plugins integrate their custom roles and caps directly into it.
+
+For more info, vist the [Members plugin home page](http://themehybrid.com/plugin/members).
 
 ### Like this plugin?
 
