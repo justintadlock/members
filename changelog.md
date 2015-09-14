@@ -1,5 +1,63 @@
 # Change Log
 
+## [1.0.0] - 2015-09-13
+
+### Added
+
+* Ability to clone existing roles.
+* Add multiple roles per user.
+* Ability to explicitly deny capabilities to roles.
+* Capability groups to find related caps when editing a role.
+* Role groups to group related roles together.
+* Content Permissions handles HTML, shortcodes, and auto-embeds.
+* Disabled capabilities (via `wp-config.php` settings) no longer show cap lists.
+* Additional role and capability functions to extend WP's existing APIs.
+* Role translation filters so that plugin authors can make role names translatable.
+* Uneditable roles are now shown in the UI. They can be viewed but not edited.
+* `Members_Role` object and API to extend WP's existing Roles API.
+* Plugin authors can now add meta boxes to the edit role screen.
+* Underscore JS based capabilities editing box for roles.
+
+### Changed
+
+* Complete UI overhaul for all user-facing components in the plugin.
+* Overhaul of all text strings in the plugin.
+* Shortcodes are now prefixed with `members_`. Old shortcodes will continue to work.
+* Overhauled the widgets code with new text strings and general code cleanup.
+* Using the newer WP help tab functionality with custom tabs.
+
+### Deprecated
+
+* `members_get_active_roles()`. Replaced by `members_get_active_role_names()`.
+* `members_get_inactive_roles()`. Replaced by `members_get_inactive_role_names()`.
+* `members_count_roles()`. Replaced by `members_get_role_count()`.
+* `members_get_default_capabilities()`. Replaced by `members_get_wp_capabilities()`.
+* `members_get_additional_capabilities()`. Replaced by `members_get_plugin_capabilities()`.
+
+### Removed
+
+* Upgrade routine.
+* All old translation files since the text strings were overhauled.
+* Plugin constants in favor of `Members_Plugin` properties.
+* `$members` global in favor of `Members_Plugin` properties.
+
+### Fixed
+
+* Content Permissions meta box now accepts HTML on the edit post screen.
+* User levels are now hidden from the role capability count.
+* Uses the proper path for translation files in case plugin folder name changes.
+* An "Are you sure?" (AYS) popup prevents users from inadvertently deleting roles.
+* Added missing `export` and `delete_themes` caps to the core caps backup function.
+* Removed CSS code that was hiding the "collapse menu" button for the admin menu.
+
+### Security
+
+* Added the `members_sanitize_role()` function.
+* Added the `members_sanitize_cap()` function.
+* Security hardening by making sure all URLs are escaped.
+* Security hardening by making sure all dynamic data is escaped.
+* Security hardening by escaping translated text.
+
 ## [0.2.5] - 2015-07-09
 
 ### Fixed
