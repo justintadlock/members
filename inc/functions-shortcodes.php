@@ -98,7 +98,7 @@ function members_access_check_shortcode( $attr, $content = null ) {
 	);
 
 	// Merge the input attributes and the defaults.
-	shortcode_atts( $defaults, $attr, 'members_access' );
+	$attr = shortcode_atts( $defaults, $attr, 'members_access' );
 
 	// If the current user has the capability, show the content.
 	if ( $attr['capability'] ) {
@@ -125,7 +125,7 @@ function members_access_check_shortcode( $attr, $content = null ) {
 		foreach ( $roles as $role ) {
 
 			// If the current user has the role, return the content.
-			if ( members_user_has_role( trim( $role ) ) )
+			if ( members_current_user_has_role( trim( $role ) ) )
 				return do_shortcode( $content );
 		}
 	}
