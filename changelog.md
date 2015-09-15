@@ -1,5 +1,13 @@
 # Change Log
 
+## [1.0.2] - 2015-09-15
+
+### Fixed
+
+* Make sure `$attr` is set by `shortcode_atts()` in the `[members_access]` shortcode.
+* Use `members_current_user_has_role()` in the `[members_access]` shortcode.
+* Use `! empty()` to validate the checkboxes when settings are saved.
+
 ## [1.0.1] - 2015-09-14
 
 ### Fixed
