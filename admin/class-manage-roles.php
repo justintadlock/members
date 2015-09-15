@@ -126,11 +126,12 @@ final class Members_Admin_Manage_Roles {
 	 *
 	 * @since  1.0.0
 	 * @access public
+	 * @param  string  $hook_suffix
 	 * @return void
 	 */
-	public function enqueue() {
+	public function enqueue( $hook_suffix ) {
 
-		if ( method_exists( $this->page_obj, 'enqueue' ) )
+		if ( $this->page === $hook_suffix && method_exists( $this->page_obj, 'enqueue' ) )
 			$this->page_obj->enqueue();
 	}
 
