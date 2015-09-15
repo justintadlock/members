@@ -1,5 +1,11 @@
 # Change Log
 
+## [1.0.1] - 2015-09-14
+
+### Fixed
+
+* Only load `edit-role.js` on the role management screens.
+
 ## [1.0.0] - 2015-09-13
 
 ### Added
