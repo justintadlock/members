@@ -158,14 +158,14 @@ final class Members_Settings_Page {
 	function validate_settings( $settings ) {
 
 		// Validate true/false checkboxes.
-		$settings['role_manager']         = isset( $settings['role_manager'] )         ? true : false;
-		$settings['explicit_denied_caps'] = isset( $settings['explicit_denied_caps'] ) ? true : false;
-		$settings['multi_roles']          = isset( $settings['multi_roles'] )          ? true : false;
-		$settings['content_permissions']  = isset( $settings['content_permissions'] )  ? true : false;
-		$settings['login_form_widget']    = isset( $settings['login_form_widget'] )    ? true : false;
-		$settings['users_widget']         = isset( $settings['users_widget'] )         ? true : false;
-		$settings['private_blog']         = isset( $settings['private_blog'] )         ? true : false;
-		$settings['private_feed']         = isset( $settings['private_feed'] )         ? true : false;
+		$settings['role_manager']         = ! empty( $settings['role_manager'] )         ? true : false;
+		$settings['explicit_denied_caps'] = ! empty( $settings['explicit_denied_caps'] ) ? true : false;
+		$settings['multi_roles']          = ! empty( $settings['multi_roles'] )          ? true : false;
+		$settings['content_permissions']  = ! empty( $settings['content_permissions'] )  ? true : false;
+		$settings['login_form_widget']    = ! empty( $settings['login_form_widget'] )    ? true : false;
+		$settings['users_widget']         = ! empty( $settings['users_widget'] )         ? true : false;
+		$settings['private_blog']         = ! empty( $settings['private_blog'] )         ? true : false;
+		$settings['private_feed']         = ! empty( $settings['private_feed'] )         ? true : false;
 
 		// Kill evil scripts.
 		$settings['content_permissions_error'] = stripslashes( wp_filter_post_kses( addslashes( $settings['content_permissions_error'] ) ) );
