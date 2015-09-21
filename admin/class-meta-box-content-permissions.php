@@ -122,13 +122,13 @@ final class Members_Meta_Box_Content_Permissions {
 		wp_nonce_field( 'members_cp_meta_nonce', 'members_cp_meta' );
 
 		/**
-		 * Fires at the top of the content permissions metabox.
+		 * Fires at the top of the content permissions meta box.
 		 *
 		 * @since 1.1.0
 		 *
 		 * @param WP_Post Object  $post The current WordPress post object.
 		 */
-		do_action( 'members_cp_metabox_before', $post );
+		do_action( 'members_cp_meta_box_before', $post );
 		?>
 
 		<p>
@@ -162,13 +162,13 @@ final class Members_Meta_Box_Content_Permissions {
 		</p>
 	<?php
 		/**
-		 * Fires at the bottom of the content permissions metabox.
+		 * Fires at the bottom of the content permissions meta box.
 		 *
 		 * @since 1.1.0
 		 *
 		 * @param WP_Post Object  $post The current WordPress post object.
 		 */
-		do_action( 'members_cp_metabox_after', $post );
+		do_action( 'members_cp_meta_box_after', $post );
 	}
 
 	/**
