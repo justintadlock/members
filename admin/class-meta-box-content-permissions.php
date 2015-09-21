@@ -119,7 +119,17 @@ final class Members_Meta_Box_Content_Permissions {
 		if ( empty( $roles ) )
 			$roles = members_convert_old_post_meta( $post->ID );
 
-		wp_nonce_field( 'members_cp_meta_nonce', 'members_cp_meta' ); ?>
+		wp_nonce_field( 'members_cp_meta_nonce', 'members_cp_meta' );
+
+		/**
+		 * Fires at the top of the content permissions meta box.
+		 *
+		 * @since 1.1.0
+		 *
+		 * @param WP_Post Object  $post The current WordPress post object.
+		 */
+		do_action( 'members_cp_meta_box_before', $post );
+		?>
 
 		<p>
 			<?php esc_html_e( "Limit access to this post's content to users of the selected roles.", 'members' ); ?>
@@ -150,7 +160,16 @@ final class Members_Meta_Box_Content_Permissions {
 			<textarea class="widefat" id="members_access_error" name="members_access_error" rows="6"><?php echo esc_textarea( get_post_meta( $post->ID, '_members_access_error', true ) ); ?></textarea>
 			<span class="howto"><?php _e( 'Message shown to users that do no have permission to view the post.', 'members' ); ?></span>
 		</p>
-	<?php }
+	<?php
+		/**
+		 * Fires at the bottom of the content permissions meta box.
+		 *
+		 * @since 1.1.0
+		 *
+		 * @param WP_Post Object  $post The current WordPress post object.
+		 */
+		do_action( 'members_cp_meta_box_after', $post );
+	}
 
 	/**
 	 * Saves the post meta.
