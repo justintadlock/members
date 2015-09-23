@@ -146,13 +146,23 @@ final class Members_Admin_Role_New {
 			$new_caps           = array();
 			$is_duplicate       = false;
 
+			// Get all the capabilities.
+			$_m_caps = members_get_capabilities();
+
+			// Add all caps from the cap groups.
+			foreach ( members_get_cap_groups() as $group )
+				$_m_caps = array_merge( $_m_caps, $group->caps );
+
+			// Make sure we have a unique array of caps.
+			$_m_caps = array_unique( $_m_caps );
+
 			// Check if any capabilities were selected.
 			if ( isset( $_POST['grant-caps'] ) || isset( $_POST['deny-caps'] ) ) {
 
 				$grant_caps = ! empty( $_POST['grant-caps'] ) ? array_unique( $_POST['grant-caps'] ) : array();
 				$deny_caps  = ! empty( $_POST['deny-caps'] )  ? array_unique( $_POST['deny-caps']  ) : array();
 
-				foreach ( members_get_capabilities() as $cap ) {
+				foreach ( $_m_caps as $cap ) {
 
 					if ( in_array( $cap, $grant_caps ) )
 						$new_caps[ $cap ] = true;
@@ -164,8 +174,6 @@ final class Members_Admin_Role_New {
 
 			$grant_new_caps = ! empty( $_POST['grant-new-caps'] ) ? array_unique( $_POST['grant-new-caps'] ) : array();
 			$deny_new_caps  = ! empty( $_POST['deny-new-caps'] )  ? array_unique( $_POST['deny-new-caps']  ) : array();
-
-			$_m_caps = members_get_capabilities();
 
 			foreach ( $grant_new_caps as $grant_new_cap ) {
 
