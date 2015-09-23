@@ -101,6 +101,13 @@ final class Members_Admin_Role_Edit {
 		// Get all the capabilities.
 		$this->capabilities = members_get_capabilities();
 
+		// Add all caps from the cap groups.
+		foreach ( members_get_cap_groups() as $group )
+			$this->capabilities = array_merge( $this->capabilities, $group->caps );
+
+		// Make sure we have a unique array of caps.
+		$this->capabilities = array_unique( $this->capabilities );
+
 		// Is the role editable?
 		$this->is_editable = members_is_role_editable( $this->role->name );
 
