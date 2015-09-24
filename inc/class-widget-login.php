@@ -19,6 +19,15 @@
 class Members_Widget_Login extends WP_Widget {
 
 	/**
+	 * Default arguments for the widget settings.
+	 *
+	 * @since  1.0.3
+	 * @access public
+	 * @var    array
+	 */
+	public $defaults = array();
+
+	/**
 	 * Set up the widget's unique name, ID, class, description, and other options.
 	 *
 	 * @since  0.2.5
@@ -42,6 +51,26 @@ class Members_Widget_Login extends WP_Widget {
 
 		// Create the widget.
 		parent::__construct( 'members-widget-login', esc_attr__( 'Members: Login Form', 'members' ), $widget_options, $control_options );
+
+		// Set up the defaults.
+		$this->defaults = array(
+			'title'           => esc_attr__( 'Log In',     'members' ),
+			'label_username'  => esc_attr__( 'Username',   'members' ),
+			'label_password'  => esc_attr__( 'Password',   'members' ),
+			'label_log_in'    => esc_attr__( 'Log In',     'members' ),
+			'label_remember'  => esc_attr__('Remember Me', 'members' ),
+			'form_id'         => 'loginform',
+			'id_username'     => 'user_login',
+			'id_password'     => 'user_pass',
+			'id_remember'     => 'rememberme',
+			'id_submit'       => 'wp-submit',
+			'remember'        => true,
+			'value_remember'  => false,
+			'value_username'  => '',
+			'show_avatar'     => true,
+			'logged_out_text' => esc_html__( 'Please log into the site.',   'members' ),
+			'logged_in_text'  => esc_html__( 'You are currently logged in.', 'members' )
+		);
 	}
 
 	/**
@@ -55,6 +84,8 @@ class Members_Widget_Login extends WP_Widget {
 	 */
 	function widget( $sidebar, $instance ) {
 		global $user_identity, $user_ID;
+
+		$instance = wp_parse_args( $instance, $this->defaults );
 
 		// Set up the arguments for wp_login_form().
 		$args = array(
@@ -167,28 +198,8 @@ class Members_Widget_Login extends WP_Widget {
 	 */
 	function form( $instance ) {
 
-		// Set up the default form values. */
-		$defaults = array(
-			'title'           => esc_attr__( 'Log In',     'members' ),
-			'label_username'  => esc_attr__( 'Username',   'members' ),
-			'label_password'  => esc_attr__( 'Password',   'members' ),
-			'label_log_in'    => esc_attr__( 'Log In',     'members' ),
-			'label_remember'  => esc_attr__('Remember Me', 'members' ),
-			'form_id'         => 'loginform',
-			'id_username'     => 'user_login',
-			'id_password'     => 'user_pass',
-			'id_remember'     => 'rememberme',
-			'id_submit'       => 'wp-submit',
-			'remember'        => true,
-			'value_remember'  => false,
-			'value_username'  => '',
-			'show_avatar'     => true,
-			'logged_out_text' => esc_html__( 'Please log into the site.',   'members' ),
-			'logged_in_text'  => esc_html__( 'You are currently logged in.', 'members' )
-		);
-
 		// Merge the user-selected arguments with the defaults.
-		$instance = wp_parse_args( (array) $instance, $defaults );
+		$instance = wp_parse_args( (array) $instance, $this->defaults );
 
 		$logged_in_text  = format_to_edit( $instance['logged_in_text'] );
 		$logged_out_text = format_to_edit( $instance['logged_out_text'] ); ?>
