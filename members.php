@@ -6,6 +6,8 @@
  * Version:     1.0.3-dev
  * Author:      Justin Tadlock
  * Author URI:  http://themehybrid.com
+ * Text Domain: members
+ * Domain Path: /languages
  *
  * The members plugin was created because the WordPress community is lacking a solid permissions
  * plugin that is both open source and works completely within the confines of the APIs in WordPress.
