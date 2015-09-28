@@ -135,7 +135,7 @@ function members_list_users( $args = array() ) {
 
 		foreach ( $users as $user ) {
 
-			$url = get_author_posts_url( $author->ID, $author->user_nicename );
+			$url = get_author_posts_url( $user->ID, $user->user_nicename );
 
 			$class = sanitize_html_class( "user-{$user->ID}" );
 
