@@ -208,6 +208,24 @@ function members_register_cap_groups() {
 
 	// Hook for registering cap groups. Plugins should always register on this hook.
 	do_action( 'members_register_cap_groups' );
+
+	// Check if the `all` group is registered.
+	if ( members_cap_group_exists( 'all' ) ) {
+
+		// Set up an empty caps array and get the `all` group object.
+		$caps      = array();
+		$_group = members_get_cap_group( 'all' );
+
+		// Get the caps from every registered group.
+		foreach ( members_get_cap_groups() as $group )
+			$caps = array_merge( $caps, $group->caps );
+
+		// Sort the caps alphabetically.
+		asort( $caps );
+
+		// Assign all caps to the `all` group.
+		$_group->caps = array_unique( $caps );
+	}
 }
 
 /**
