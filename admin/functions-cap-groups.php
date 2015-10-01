@@ -213,7 +213,7 @@ function members_register_cap_groups() {
 	if ( members_cap_group_exists( 'all' ) ) {
 
 		// Set up an empty caps array and get the `all` group object.
-		$caps      = array();
+		$caps   = array();
 		$_group = members_get_cap_group( 'all' );
 
 		// Get the caps from every registered group.
@@ -225,6 +225,19 @@ function members_register_cap_groups() {
 
 		// Assign all caps to the `all` group.
 		$_group->caps = array_unique( $caps );
+	}
+
+	// Check if the `custom` group is registered and there's possibly other non-default groups.
+	if ( has_action( 'members_register_cap_groups' ) && members_cap_group_exists( 'custom' ) ) {
+
+		// Get the custom group object.
+		$custom = members_cap_group_factory()->groups[ 'custom' ];
+
+		// Unset the custom group object.
+		unset( members_cap_group_factory()->groups[ 'custom' ] );
+
+		// Move the custom group object to the end.
+		members_cap_group_factory()->groups[ 'custom' ] = $custom;
 	}
 }
 
