@@ -211,6 +211,9 @@ final class Members_Admin_Role_New {
 
 				add_role( $this->role, $this->role_name, $new_caps );
 
+				// Action hook for when a role is added.
+				do_action( 'members_role_added', $this->role );
+
 				// If the current user can edit roles, redirect to edit role screen.
 				if ( current_user_can( 'edit_roles' ) ) {
 					wp_redirect( add_query_arg( 'message', 'role_added', members_get_edit_role_url( $this->role ) ) );

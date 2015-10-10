@@ -177,6 +177,9 @@ final class Members_Admin_Role_Edit {
 			// Reset the Members role object.
 			$this->members_role = members_get_role( $this->role->name );
 
+			// Action hook for when a role is updated.
+			do_action( 'members_role_updated', $this->role->name );
+
 		} // End check for form submission.
 
 		// If successful update.
