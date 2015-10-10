@@ -136,7 +136,7 @@ final class Members_Admin_Role_New {
 		}
 
 		// Check if the current user can create roles and the form has been submitted.
-		if ( current_user_can( 'create_roles' ) && ( isset( $_POST['role_name'] ) || isset( $_POST['role'] ) || isset( $_POST['grant-caps'] ) || isset( $_POST['deny-caps'] ) || isset( $_POST['grant-new-caps'] ) || isset( $_POST['deny-new-caps'] ) ) ) {
+		if ( current_user_can( 'create_roles' ) && isset( $_POST['members_new_role_nonce'] ) ) {
 
 			// Verify the nonce.
 			check_admin_referer( 'new_role', 'members_new_role_nonce' );
@@ -210,6 +210,9 @@ final class Members_Admin_Role_New {
 			if ( $this->role && $this->role_name && ! $is_duplicate ) {
 
 				add_role( $this->role, $this->role_name, $new_caps );
+
+				// Action hook for when a role is added.
+				do_action( 'members_role_added', $this->role );
 
 				// If the current user can edit roles, redirect to edit role screen.
 				if ( current_user_can( 'edit_roles' ) ) {

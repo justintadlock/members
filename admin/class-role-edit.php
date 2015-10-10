@@ -112,16 +112,18 @@ final class Members_Admin_Role_Edit {
 		$this->is_editable = members_is_role_editable( $this->role->name );
 
 		// Check if the form has been submitted.
-		if ( $this->is_editable && ( isset( $_POST['grant-caps'] ) || isset( $_POST['deny-caps'] ) || isset( $_POST['grant-new-caps'] ) || isset( $_POST['deny-new-caps'] ) ) ) {
-
-			$grant_caps = ! empty( $_POST['grant-caps'] ) ? array_unique( $_POST['grant-caps'] ) : array();
-			$deny_caps  = ! empty( $_POST['deny-caps'] )  ? array_unique( $_POST['deny-caps']  ) : array();
-
-			$grant_new_caps = ! empty( $_POST['grant-new-caps'] ) ? array_unique( $_POST['grant-new-caps'] ) : array();
-			$deny_new_caps  = ! empty( $_POST['deny-new-caps'] )  ? array_unique( $_POST['deny-new-caps']  ) : array();
+		if ( $this->is_editable && isset( $_POST['members_edit_role_nonce'] ) ) {
 
 			// Verify the nonce.
 			check_admin_referer( 'edit_role', 'members_edit_role_nonce' );
+
+			// Get the granted and denied caps.
+			$grant_caps = ! empty( $_POST['grant-caps'] ) ? array_unique( $_POST['grant-caps'] ) : array();
+			$deny_caps  = ! empty( $_POST['deny-caps'] )  ? array_unique( $_POST['deny-caps']  ) : array();
+
+			// Get the new (custom) granted and denied caps.
+			$grant_new_caps = ! empty( $_POST['grant-new-caps'] ) ? array_unique( $_POST['grant-new-caps'] ) : array();
+			$deny_new_caps  = ! empty( $_POST['deny-new-caps'] )  ? array_unique( $_POST['deny-new-caps']  ) : array();
 
 			// Set the $role_updated variable to true.
 			$this->role_updated = true;
@@ -176,6 +178,9 @@ final class Members_Admin_Role_Edit {
 
 			// Reset the Members role object.
 			$this->members_role = members_get_role( $this->role->name );
+
+			// Action hook for when a role is updated.
+			do_action( 'members_role_updated', $this->role->name );
 
 		} // End check for form submission.
 

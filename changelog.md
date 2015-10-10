@@ -1,5 +1,20 @@
 # Change Log
 
+## [1.0.3] - 2015-10-01
+
+### Added
+
+* `Text Domain` plugin header added.
+* `Domain Path` plugin header added.
+
+### Fixed
+
+* Correct "undefined index" notices with widgets.
+* Make sure custom caps (post types, taxonomies, etc.) that aren't stored get saved when editing a role.
+* Make sure the "All" capability group actually lists all caps from all groups.
+* Use the `$user` variable instead of `$author` variable in `members_list_users()`.
+* "Custom" cap group should always be added last.
+
 ## [1.0.2] - 2015-09-15
 
 ### Fixed
