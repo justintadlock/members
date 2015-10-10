@@ -136,7 +136,7 @@ final class Members_Admin_Role_New {
 		}
 
 		// Check if the current user can create roles and the form has been submitted.
-		if ( current_user_can( 'create_roles' ) && ( isset( $_POST['role_name'] ) || isset( $_POST['role'] ) || isset( $_POST['grant-caps'] ) || isset( $_POST['deny-caps'] ) || isset( $_POST['grant-new-caps'] ) || isset( $_POST['deny-new-caps'] ) ) ) {
+		if ( current_user_can( 'create_roles' ) && isset( $_POST['members_new_role_nonce'] ) ) {
 
 			// Verify the nonce.
 			check_admin_referer( 'new_role', 'members_new_role_nonce' );
