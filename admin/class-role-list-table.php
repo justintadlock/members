@@ -177,6 +177,22 @@ class Members_Role_List_Table extends WP_List_Table {
 	}
 
 	/**
+	 * Returns the default column output. By default, this will return an empty string. The
+	 * purpose of the method is to provide plugin authors a hook to return content for
+	 * custom columns: `members_manage_roles_column_{$column_name}`.
+	 *
+	 * @since  1.1.0
+	 * @access protected
+	 * @param  string     $role
+	 * @param  string     $column_name
+	 * @return string
+	 */
+	protected function column_default( $role, $column_name ) {
+
+		return apply_filters( "members_manage_roles_column_{$column_name}", '', $role );
+	}
+
+	/**
 	 * The checkbox column callback.
 	 *
 	 * @since  1.0.0
