@@ -11,6 +11,7 @@
 * `members_manage_roles_column_{$column_name}` filter hook for handling the output of custom manage roles screen columns.
 * `members_cp_meta_box_before` action hook for hooking in before the Content Permissions meta box.
 * `members_cp_meta_box_after` action hook for hooking in after the Content Permissions meta box.
+* Added the `Members_Role_Factory::remove_role()` method to remove a stored role.
 
 ### Changed
 
@@ -24,6 +25,7 @@
 * Use the `$user` variable instead of `$author` variable in `members_list_users()`.
 * "Custom" cap group should always be added last.
 * Make sure roles edited with no caps get processed. Previously, we bailed if no caps were set.
+* Remove deleted roles from the manage roles screen list without having to refresh the page.
 
 ### Security
 

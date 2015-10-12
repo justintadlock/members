@@ -110,6 +110,9 @@ function members_delete_role( $role ) {
 
 	// Remove the role.
 	remove_role( $role );
+
+	// Remove the role from the role factory.
+	members_role_factory()->remove_role( $role );
 }
 
 /**
