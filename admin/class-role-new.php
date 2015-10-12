@@ -193,7 +193,7 @@ final class Members_Admin_Role_New {
 
 			// Sanitize the new role name/label. We just want to strip any tags here.
 			if ( ! empty( $_POST['role_name'] ) )
-				$this->role_name = strip_tags( $_POST['role_name'] );
+				$this->role_name = wp_strip_all_tags( $_POST['role_name'] );
 
 			// Sanitize the new role, removing any unwanted characters.
 			if ( ! empty( $_POST['role'] ) )
@@ -216,7 +216,7 @@ final class Members_Admin_Role_New {
 
 				// If the current user can edit roles, redirect to edit role screen.
 				if ( current_user_can( 'edit_roles' ) ) {
-					wp_redirect( add_query_arg( 'message', 'role_added', members_get_edit_role_url( $this->role ) ) );
+					wp_redirect( esc_url_raw( add_query_arg( 'message', 'role_added', members_get_edit_role_url( $this->role ) ) ) );
  					exit;
 				}
 

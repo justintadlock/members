@@ -54,10 +54,13 @@ final class Members_Meta_Box_Content_Permissions {
 	 */
 	public function load() {
 
+		// Enqueue scripts/styles.
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue' ) );
 
+		// Add custom meta boxes.
 		add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ) );
 
+		// Save metadata on post save.
 		add_action( 'save_post', array( $this, 'update' ), 10, 2 );
 	}
 
@@ -119,7 +122,11 @@ final class Members_Meta_Box_Content_Permissions {
 		if ( empty( $roles ) )
 			$roles = members_convert_old_post_meta( $post->ID );
 
-		wp_nonce_field( 'members_cp_meta_nonce', 'members_cp_meta' ); ?>
+		// Nonce field to validate on save.
+		wp_nonce_field( 'members_cp_meta_nonce', 'members_cp_meta' );
+
+		// Hook for firing at the top of the meta box.
+		do_action( 'members_cp_meta_box_before', $post ); ?>
 
 		<p>
 			<?php esc_html_e( "Limit access to this post's content to users of the selected roles.", 'members' ); ?>
@@ -149,8 +156,11 @@ final class Members_Meta_Box_Content_Permissions {
 			<label for="members_access_error"><?php esc_html_e( 'Custom error messsage:', 'members' ); ?></label>
 			<textarea class="widefat" id="members_access_error" name="members_access_error" rows="6"><?php echo esc_textarea( get_post_meta( $post->ID, '_members_access_error', true ) ); ?></textarea>
 			<span class="howto"><?php _e( 'Message shown to users that do no have permission to view the post.', 'members' ); ?></span>
-		</p>
-	<?php }
+		</p><?php
+
+		// Hook that fires at the end of the meta box.
+		do_action( 'members_cp_meta_box_after', $post );
+	}
 
 	/**
 	 * Saves the post meta.
