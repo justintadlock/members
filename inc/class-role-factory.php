@@ -106,6 +106,20 @@ final class Members_Role_Factory {
 	}
 
 	/**
+	 * Removes a role object (doesn't remove from DB).
+	 *
+	 * @since  1.1.0
+	 * @access public
+	 * @param  string  $role
+	 * @return void
+	 */
+	public function remove_role( $role ) {
+
+		if ( isset( $this->roles[ $role ] ) )
+			unset( $this->roles[ $role ] );
+	}
+
+	/**
 	 * Returns an array of role objects.
 	 *
 	 * @since  1.0.0
