@@ -1,11 +1,20 @@
 # Change Log
 
-## [1.0.3] - 2015-10-01
+## [1.1.0] - 2015-10-12
 
 ### Added
 
 * `Text Domain` plugin header added.
 * `Domain Path` plugin header added.
+* `members_role_updated` action hook for when a role is edited/updated.
+* `members_role_added` action hook for when a new role is created.
+* `members_manage_roles_column_{$column_name}` filter hook for handling the output of custom manage roles screen columns.
+* `members_cp_meta_box_before` action hook for hooking in before the Content Permissions meta box.
+* `members_cp_meta_box_after` action hook for hooking in after the Content Permissions meta box.
+
+### Changed
+
+* Edit/New role forms just check the nonce instead of checking for form fields + nonce to see if the form was submitted (fields can be legitimately empty).
 
 ### Fixed
 
@@ -14,6 +23,12 @@
 * Make sure the "All" capability group actually lists all caps from all groups.
 * Use the `$user` variable instead of `$author` variable in `members_list_users()`.
 * "Custom" cap group should always be added last.
+* Make sure roles edited with no caps get processed. Previously, we bailed if no caps were set.
+
+### Security
+
+* Use `wp_strip_all_tags()` over `strip_tags()` for sanitizing the role name.
+* Use `esc_url_raw()` to escape the redirect URL after creating a new role.
 
 ## [1.0.2] - 2015-09-15
 
