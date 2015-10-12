@@ -216,7 +216,7 @@ final class Members_Admin_Role_New {
 
 				// If the current user can edit roles, redirect to edit role screen.
 				if ( current_user_can( 'edit_roles' ) ) {
-					wp_redirect( add_query_arg( 'message', 'role_added', members_get_edit_role_url( $this->role ) ) );
+					wp_redirect( esc_url_raw( add_query_arg( 'message', 'role_added', members_get_edit_role_url( $this->role ) ) ) );
  					exit;
 				}
 
