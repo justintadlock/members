@@ -66,7 +66,7 @@ final class Members_Cap_Group_Factory {
 	 */
 	public function unregister_group( $name ) {
 
-		if ( $this->group_exists( $name ) && false === $this->get( $name )->_internal )
+		if ( $this->group_exists( $name ) )
 			unset( $this->groups[ $name ] );
 	}
 
