@@ -153,9 +153,9 @@ final class Members_Meta_Box_Content_Permissions {
 		</p>
 
 		<p>
-			<label for="members_access_error"><?php esc_html_e( 'Custom error messsage:', 'members' ); ?></label>
+			<label for="members_access_error"><?php esc_html_e( 'Custom error message:', 'members' ); ?></label>
 			<textarea class="widefat" id="members_access_error" name="members_access_error" rows="6"><?php echo esc_textarea( get_post_meta( $post->ID, '_members_access_error', true ) ); ?></textarea>
-			<span class="howto"><?php _e( 'Message shown to users that do no have permission to view the post.', 'members' ); ?></span>
+			<span class="howto"><?php _e( 'Message shown to users that do not have permission to view the post.', 'members' ); ?></span>
 		</p><?php
 
 		// Hook that fires at the end of the meta box.
