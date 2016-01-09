@@ -5,7 +5,7 @@
  * @package    Members
  * @subpackage Admin
  * @author     Justin Tadlock <justin@justintadlock.com>
- * @copyright  Copyright (c) 2009 - 2015, Justin Tadlock
+ * @copyright  Copyright (c) 2009 - 2016, Justin Tadlock
  * @link       http://themehybrid.com/plugins/members
  * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
@@ -153,9 +153,9 @@ final class Members_Meta_Box_Content_Permissions {
 		</p>
 
 		<p>
-			<label for="members_access_error"><?php esc_html_e( 'Custom error messsage:', 'members' ); ?></label>
+			<label for="members_access_error"><?php esc_html_e( 'Custom error message:', 'members' ); ?></label>
 			<textarea class="widefat" id="members_access_error" name="members_access_error" rows="6"><?php echo esc_textarea( get_post_meta( $post->ID, '_members_access_error', true ) ); ?></textarea>
-			<span class="howto"><?php _e( 'Message shown to users that do no have permission to view the post.', 'members' ); ?></span>
+			<span class="howto"><?php _e( 'Message shown to users that do not have permission to view the post.', 'members' ); ?></span>
 		</p><?php
 
 		// Hook that fires at the end of the meta box.

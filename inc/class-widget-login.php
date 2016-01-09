@@ -5,7 +5,7 @@
  * @package    Members
  * @subpackage Includes
  * @author     Justin Tadlock <justin@justintadlock.com>
- * @copyright  Copyright (c) 2009 - 2015, Justin Tadlock
+ * @copyright  Copyright (c) 2009 - 2016, Justin Tadlock
  * @link       http://themehybrid.com/plugins/members
  * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
@@ -181,8 +181,8 @@ class Members_Widget_Login extends WP_Widget {
 			$instance['logged_in_text']  = $new_instance['logged_in_text'];
 			$instance['logged_out_text'] = $new_instance['logged_out_text'];
 		} else {
-			$instance['logged_in_text']  = wp_filter_post_kses( $new_instance['logged_in_text']  );
-			$instance['logged_out_text'] = wp_filter_post_kses( $new_instance['logged_out_text'] );
+			$instance['logged_in_text']  = wp_kses_post( stripslashes( $new_instance['logged_in_text']  ) );
+			$instance['logged_out_text'] = wp_kses_post( stripslashes( $new_instance['logged_out_text'] ) );
 		}
 
 		return $instance;
@@ -199,10 +199,7 @@ class Members_Widget_Login extends WP_Widget {
 	function form( $instance ) {
 
 		// Merge the user-selected arguments with the defaults.
-		$instance = wp_parse_args( (array) $instance, $this->defaults );
-
-		$logged_in_text  = format_to_edit( $instance['logged_in_text'] );
-		$logged_out_text = format_to_edit( $instance['logged_out_text'] ); ?>
+		$instance = wp_parse_args( (array) $instance, $this->defaults ); ?>
 
 		<div style="float: left; width: 31%; margin-right: 3.5%;">
 
@@ -275,12 +272,12 @@ class Members_Widget_Login extends WP_Widget {
 		</p>
 		<p>
 			<label for="<?php echo $this->get_field_id( 'logged_out_text' ); ?>"><?php _e( 'Logged out text:', 'members' ); ?></label>
-			<textarea class="widefat" rows="4" cols="20" id="<?php echo $this->get_field_id( 'logged_out_text' ); ?>" name="<?php echo $this->get_field_name( 'logged_out_text' ); ?>" style="width:100%;"><?php echo esc_textarea( $logged_out_text ); ?></textarea>
+			<textarea class="widefat" rows="4" cols="20" id="<?php echo $this->get_field_id( 'logged_out_text' ); ?>" name="<?php echo $this->get_field_name( 'logged_out_text' ); ?>" style="width:100%;"><?php echo esc_textarea( $instance['logged_out_text'] ); ?></textarea>
 		</p>
 
 		<p>
 			<label for="<?php echo $this->get_field_id( 'logged_in_text' ); ?>"><?php _e( 'Logged in text:', 'members' ); ?></label>
-			<textarea class="widefat" rows="4" cols="20" id="<?php echo $this->get_field_id( 'logged_in_text' ); ?>" name="<?php echo $this->get_field_name( 'logged_in_text' ); ?>" style="width:100%;"><?php echo esc_textarea( $logged_in_text ); ?></textarea>
+			<textarea class="widefat" rows="4" cols="20" id="<?php echo $this->get_field_id( 'logged_in_text' ); ?>" name="<?php echo $this->get_field_name( 'logged_in_text' ); ?>" style="width:100%;"><?php echo esc_textarea( $instance['logged_in_text'] ); ?></textarea>
 		</p>
 
 		</div>

@@ -1,5 +1,19 @@
 # Change Log
 
+## [1.1.1] - 2016-01-09
+
+### Changed
+
+* Allows a hyphen in role names. Alphanumeric characters, underscores, and hyphens now allowed.
+
+### Fixed
+
+* Don't escaped allowed HTML in the login widget textarea.
+* When filter `user_has_cap`, check that the role is not null.
+* Remove broken property check when unregistering a cap group.
+* Typo corrections in the Content Permissions meta box.
+* Changed an incorrect textdomain instance.
+
 ## [1.1.0] - 2015-10-12
 
 ### Added

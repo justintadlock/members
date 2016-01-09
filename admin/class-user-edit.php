@@ -5,7 +5,7 @@
  * @package    Members
  * @subpackage Admin
  * @author     Justin Tadlock <justin@justintadlock.com>
- * @copyright  Copyright (c) 2009 - 2015, Justin Tadlock
+ * @copyright  Copyright (c) 2009 - 2016, Justin Tadlock
  * @link       http://themehybrid.com/plugins/members
  * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
@@ -84,7 +84,7 @@ final class Members_Admin_User_Edit {
 
 		wp_nonce_field( 'new_user_roles', 'members_new_user_roles_nonce' ); ?>
 
-		<h3><?php esc_html_e( 'Roles', 'message-board' ); ?></h3>
+		<h3><?php esc_html_e( 'Roles', 'members' ); ?></h3>
 
 		<table class="form-table">
 
