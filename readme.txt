@@ -4,7 +4,7 @@ Contributors: greenshady
 Donate link: http://themehybrid.com/donate
 Tags: admin, role, roles, member, members, profile, shortcode, user, users, widget, widgets
 Requires at least: 4.3
-Stable tag: 1.1.0
+Stable tag: 1.1.1
 
 The most powerful user, role, and capability management plugin for WordPress.
 
@@ -26,7 +26,7 @@ It puts you in control over permissions on your site by providing a user interfa
 * **Private Site:** You can make your site and its feed completely private if you want.
 * **Plugin Integration:** Members is highly recommended by  other WordPress developers. Many existing plugins integrate their custom roles and caps directly into it.
 
-For more info, vist the [Members plugin home page](http://themehybrid.com/plugin/members).
+For more info, vist the [Members plugin home page](http://themehybrid.com/plugins/members).
 
 ### Like this plugin?
 

@@ -5,7 +5,7 @@
  * @package    Members
  * @subpackage Admin
  * @author     Justin Tadlock <justin@justintadlock.com>
- * @copyright  Copyright (c) 2009 - 2015, Justin Tadlock
+ * @copyright  Copyright (c) 2009 - 2016, Justin Tadlock
  * @link       http://themehybrid.com/plugins/members
  * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
@@ -66,7 +66,7 @@ final class Members_Cap_Group_Factory {
 	 */
 	public function unregister_group( $name ) {
 
-		if ( $this->group_exists( $name ) && false === $this->get( $name )->_internal )
+		if ( $this->group_exists( $name ) )
 			unset( $this->groups[ $name ] );
 	}
 

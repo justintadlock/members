@@ -5,7 +5,7 @@
  * @package    Members
  * @subpackage Includes
  * @author     Justin Tadlock <justin@justintadlock.com>
- * @copyright  Copyright (c) 2009 - 2015, Justin Tadlock
+ * @copyright  Copyright (c) 2009 - 2016, Justin Tadlock
  * @link       http://themehybrid.com/plugins/members
  * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
@@ -250,7 +250,7 @@ function members_get_role( $role ) {
 function members_sanitize_role( $role ) {
 	$_role = strtolower( $role );
 	$_role = preg_replace( '/[^a-z0-9_\-\s]/', '', $_role );
-	return apply_filters( 'members_sanitize_role', str_replace( array( '-', ' ' ), '_', $_role ), $role );
+	return apply_filters( 'members_sanitize_role', str_replace( ' ', '_', $_role ), $role );
 }
 
 /**
