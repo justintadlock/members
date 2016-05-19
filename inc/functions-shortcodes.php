@@ -108,10 +108,15 @@ function members_access_check_shortcode( $attr, $content = null ) {
 
 		// Loop through each capability.
 		foreach ( $caps as $cap ) {
-
-			// If the current user can perform the capability, return the content.
-			if ( current_user_can( trim( $cap ) ) )
-				return do_shortcode( $content );
+			if (startsWith($cap, '!')) {
+				$cap = substr($cap, 1);
+				if (!current_user_can( trim( $cap ) ) ) {
+					return do_shortcode( $content );
+			} else {
+				// If the current user can perform the capability, return the content.
+				if ( current_user_can( trim( $cap ) ) )
+					return do_shortcode( $content );
+			}
 		}
 	}
 
@@ -123,10 +128,17 @@ function members_access_check_shortcode( $attr, $content = null ) {
 
 		// Loop through each of the roles.
 		foreach ( $roles as $role ) {
-
-			// If the current user has the role, return the content.
-			if ( members_current_user_has_role( trim( $role ) ) )
-				return do_shortcode( $content );
+			// is role negated?
+			if (startsWith($role, '!')) {
+				$role = substr($role, 1);
+				if (!members_current_user_has_role( trim( $role ) ) ) {
+					return do_shortcode( $content );
+				}
+			} else {
+				// If the current user has the role, return the content.
+				if ( members_current_user_has_role( trim( $role ) ) )
+					return do_shortcode( $content );
+			}
 		}
 	}
 
@@ -143,4 +155,9 @@ function members_access_check_shortcode( $attr, $content = null ) {
  */
 function members_login_form_shortcode() {
 	return wp_login_form( array( 'echo' => false ) );
+}
+
+function startsWith($haystack, $needle) {
+    // search backwards starting from haystack length characters from the end
+    return $needle === "" || strrpos($haystack, $needle, -strlen($haystack)) !== false;
 }
