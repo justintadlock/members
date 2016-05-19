@@ -30,6 +30,12 @@ function members_register_shortcodes() {
 	add_shortcode( 'members_access', 'members_access_check_shortcode' );
 	add_shortcode( 'access',         'members_access_check_shortcode' ); // @deprecated 1.0.0
 
+	// add [members_access-1] till [members_access-3] for nested shortcodes
+	for ( $i=1; $i<=3; $i++ )
+	{
+		add_shortcode( 'members_access-' . $i , 'members_access_check_shortcode' ); 
+	}
+
 	// Add the `[members_feed]` shortcode.
 	add_shortcode( 'members_feed', 'members_feed_shortcode' );
 	add_shortcode( 'feed',         'members_feed_shortcode' ); // @deprecated 1.0.0
