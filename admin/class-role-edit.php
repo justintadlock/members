@@ -192,6 +192,10 @@ final class Members_Admin_Role_Edit {
 		if ( ! $this->is_editable )
 			add_settings_error( 'members_edit_role', 'role_uneditable', sprintf( esc_html__( 'The %s role is not editable. This means that it is most likely added via another plugin for a special use or that you do not have permission to edit it.', 'members' ), members_get_role_name( $this->role->name ) ) );
 
+		// If editing the core administrator role.
+		if ( 'administrator' === $this->role->name )
+			add_settings_error( 'members_edit_role', 'role_is_admin', sprintf( esc_html__( 'The %s role is typically the most important role on the site. Please take extreme caution that you do no inadvertently remove necessary capabilities.', 'members' ), members_get_role_name( $this->role->name ) ) );
+
 		// If a new role was added (redirect from new role screen).
 		if ( isset( $_GET['message'] ) && 'role_added' === $_GET['message'] )
 			add_settings_error( 'members_edit_role', 'role_added', sprintf( esc_html__( 'The %s role has been created.', 'members' ), members_get_role_name( $this->role->name ) ), 'updated' );
