@@ -62,16 +62,29 @@ function members_is_private_feed() {
 function members_please_log_in() {
 
 	// Check if the private blog feature is active and if the user is not logged in.
-	if ( members_is_private_blog() && ! is_user_logged_in() ) {
+	if ( members_is_private_blog() && ! is_user_logged_in() && ! members_is_public_page() ) {
 
-		// If using BuddyPress and on the register page, don't do anything.
-		if ( function_exists( 'bp_is_current_component' ) && ( bp_is_current_component( 'register' ) || bp_is_current_component( 'activate' ) ) )
-			return;
-
-		// Redirect to the login page.
 		auth_redirect();
 		exit;
 	}
+}
+
+/**
+ * Function for determining whether a page should be public even though we're in private
+ * site mode.  Plugin devs can filter this to make specific pages public.
+ *
+ * @since  1.2.0
+ * @access public
+ * @return bool
+ */
+function members_is_public_page() {
+
+	$is_public = false;
+
+	if ( function_exists( 'bp_is_current_component' ) && ( bp_is_current_component( 'register' ) || bp_is_current_component( 'activate' ) ) )
+		$is_public = true;
+
+	return apply_filters( 'members_is_public_page', $is_public );
 }
 
 /**
