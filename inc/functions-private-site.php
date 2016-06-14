@@ -62,7 +62,7 @@ function members_is_private_feed() {
 function members_please_log_in() {
 
 	// Check if the private blog feature is active and if the user is not logged in.
-	if ( members_is_private_blog() && ! is_user_logged_in() && ! members_is_public_page() ) {
+	if ( members_is_private_blog() && ! is_user_logged_in() && members_is_private_page() ) {
 
 		auth_redirect();
 		exit;
@@ -77,14 +77,14 @@ function members_please_log_in() {
  * @access public
  * @return bool
  */
-function members_is_public_page() {
+function members_is_private_page() {
 
-	$is_public = false;
+	$is_private = true;
 
 	if ( function_exists( 'bp_is_current_component' ) && ( bp_is_current_component( 'register' ) || bp_is_current_component( 'activate' ) ) )
-		$is_public = true;
+		$is_private = false;
 
-	return apply_filters( 'members_is_public_page', $is_public );
+	return apply_filters( 'members_is_private_page', $is_private );
 }
 
 /**
