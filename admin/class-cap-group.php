@@ -19,64 +19,58 @@
 final class Members_Cap_Group {
 
 	/**
-	 * Stores the properties for the object.
+	 * Name/ID for the group.
+	 *
+	 * @since  1.0.0
+	 * @access protected
+	 * @var    string
+	 */
+	public $name = '';
+
+	/**
+	 * Internationalized text label for the group.
+	 *
+	 * @since  1.0.0
+	 * @access protected
+	 * @var    string
+	 */
+	public $label = '';
+
+	/**
+	 * Icon for the group.  This can be a dashicons class or a custom class.
+	 *
+	 * @since  1.0.0
+	 * @access protected
+	 * @var    string
+	 */
+	public $icon = 'dashicons-admin-generic';
+
+	/**
+	 * Capabilities for the group.
 	 *
 	 * @since  1.0.0
 	 * @access protected
 	 * @var    array
 	 */
-	protected $args = array();
+	public $caps = array( 'read' );
 
 	/**
-	 * Magic method for getting object properties.
+	 * Whether to merge this groups caps with the added caps array.
 	 *
 	 * @since  1.0.0
-	 * @access public
-	 * @param  string  $property
-	 * @return mixed
+	 * @access protected
+	 * @var    bool
 	 */
-	public function __get( $property ) {
-
-		return isset( $this->$property ) ? $this->args[ $property ] : null;
-	}
+	public $merge_added = true;
 
 	/**
-	 * Magic method for setting object properties.
+	 * Whether to remove previously-added caps from this group's caps.
 	 *
 	 * @since  1.0.0
-	 * @access public
-	 * @param  string  $property
-	 * @param  mixed   $value
-	 * @return void
+	 * @access protected
+	 * @var    bool
 	 */
-	public function __set( $property, $value ) {
-
-		if ( isset( $this->$property ) )
-			$this->args[ $property ] = $value;
-	}
-
-	/**
-	 * Magic method for checking if a property is set.
-	 *
-	 * @since  1.0.0
-	 * @access public
-	 * @param  string  $property
-	 * @return bool
-	 */
-	public function __isset( $property ) {
-
-		return isset( $this->args[ $property ] );
-	}
-
-	/**
-	 * Don't allow properties to be unset.
-	 *
-	 * @since  3.0.0
-	 * @access public
-	 * @param  string  $property
-	 * @return void
-	 */
-	public function __unset( $property ) {}
+	public $diff_added = false;
 
 	/**
 	 * Magic method to use in case someone tries to output the object as a string.
@@ -107,20 +101,14 @@ final class Members_Cap_Group {
 	 */
 	public function __construct( $name, $args = array() ) {
 
-		$name = sanitize_key( $name );
+		foreach ( array_keys( get_object_vars( $this ) ) as $key ) {
 
-		$defaults = array(
-			'label'       => '',
-			'icon'        => 'dashicons-admin-generic',
-			'caps'        => array( 'read' ),
-			'merge_added' => true,
-			'diff_added'  => false,
-		);
+			if ( isset( $args[ $key ] ) )
+				$this->$key = $args[ $key ];
+		}
 
-		$this->args = wp_parse_args( $args, $defaults );
+		$this->name = sanitize_key( $name );
 
-		$this->args['name'] = $name;
-
-		$this->args['caps'] = members_remove_hidden_caps( $this->args['caps'] );
+		$this->caps = members_remove_hidden_caps( $this->caps );
 	}
 }
