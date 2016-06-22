@@ -125,6 +125,13 @@ final class Members_Admin_Role_Edit {
 			$grant_new_caps = ! empty( $_POST['grant-new-caps'] ) ? array_unique( $_POST['grant-new-caps'] ) : array();
 			$deny_new_caps  = ! empty( $_POST['deny-new-caps'] )  ? array_unique( $_POST['deny-new-caps']  ) : array();
 
+			// Get the all and custom cap group objects.
+			$all_group    = members_get_cap_group( 'all'    );
+			$custom_group = members_get_cap_group( 'custom' );
+
+			// New caps to push to cap groups on update.
+			$push_caps = array();
+
 			// Set the $role_updated variable to true.
 			$this->role_updated = true;
 
@@ -159,8 +166,11 @@ final class Members_Admin_Role_Edit {
 				$_cap = members_sanitize_cap( $grant_new_cap );
 
 				// If not an existing cap, add it.
-				if ( ! in_array( $_cap, $this->capabilities ) )
+				if ( ! in_array( $_cap, $this->capabilities ) ) {
 					$this->role->add_cap( $_cap );
+
+					$push_caps[] = $_cap;
+				}
 			}
 
 			// Loop through the custom denied caps.
@@ -169,8 +179,25 @@ final class Members_Admin_Role_Edit {
 				$_cap = members_sanitize_cap( $deny_new_cap );
 
 				// If not a granted cap and not an existing cap, add it.
-				if ( ! in_array( $_cap, $this->capabilities ) && ! in_array( $_cap, $grant_new_caps ) )
+				if ( ! in_array( $_cap, $this->capabilities ) && ! in_array( $_cap, $grant_new_caps ) ) {
 					$this->role->add_cap( $_cap, false );
+
+					$push_caps[] = $_cap;
+				}
+			}
+
+			// If there are new caps, add them to the all and custom groups.
+			if ( $push_caps ) {
+
+				if ( $all_group ) {
+					$all_group->caps[] = $_cap;
+					sort( $all_group->caps );
+				}
+
+				if ( $custom_group ) {
+					$custom_group->caps[] = $_cap;
+					sort( $custom_group->caps );
+				}
 			}
 
 			// Add the updated role to the role factory.

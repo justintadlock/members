@@ -1,5 +1,12 @@
 # Change Log
 
+## [1.1.2] - 2016-06-20
+
+### Fixed
+
+* Bug where custom capabilities would not appear after updating role.
+* Make BuddyPress activation page public in private site mode.
+
 ## [1.1.1] - 2016-01-09
 
 ### Changed
