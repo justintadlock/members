@@ -118,7 +118,7 @@ class Members_Widget_Login extends WP_Widget {
 
 		// If a title was input by the user, display it.
 		if ( $instance['title'] )
-			echo $sidebar['before_title'] . apply_filters( 'widget_title',  $instance['title'], $instance, $this->id_base ) . $sidebar['after_title'];
+			echo $sidebar['before_title'] . esc_html( apply_filters( 'widget_title',  $instance['title'], $instance, $this->id_base ) ) . $sidebar['after_title'];
 
 		// If the current user is logged in.
 		if ( is_user_logged_in() ) {
@@ -129,7 +129,7 @@ class Members_Widget_Login extends WP_Widget {
 
 			// Show logged in text if any is written.
 			if ( $logged_in_text )
-				echo do_shortcode( shortcode_unautop( wpautop( $logged_in_text ) ) );
+				echo wp_kses( do_shortcode( shortcode_unautop( wpautop( $logged_in_text ) ) ) );
 		}
 
 		// If the current user is not logged in.
@@ -141,7 +141,7 @@ class Members_Widget_Login extends WP_Widget {
 
 			// Show logged out text if any is written.
 			if ( $logged_out_text )
-				echo do_shortcode( shortcode_unautop( wpautop( $logged_out_text ) ) );
+				echo wp_kses( do_shortcode( shortcode_unautop( wpautop( $logged_out_text ) ) ) );
 
 			// Output the login form.
 			echo '<div class="members-login-form">' . wp_login_form( $args ) . '</div>';
@@ -255,13 +255,13 @@ class Members_Widget_Login extends WP_Widget {
 		<p>
 			<label>
 				<input class="checkbox" type="checkbox" <?php checked( $instance['remember'] ); ?> name="<?php echo $this->get_field_name( 'remember' ); ?>" />
-				<?php _e( '"Remember me" checkbox?', 'members' ); ?>
+				<?php esc_html_e( '"Remember me" checkbox?', 'members' ); ?>
 			</label>
 		</p>
 		<p>
 			<label>
 				<input class="checkbox" type="checkbox" <?php checked( $instance['value_remember'] ); ?> name="<?php echo $this->get_field_name( 'value_remember' ); ?>" />
-				<?php _e( 'Check "remember me"?', 'members' ); ?>
+				<?php edc_html_e( 'Check "remember me"?', 'members' ); ?>
 			</label>
 		</p>
 		<p>
@@ -271,12 +271,12 @@ class Members_Widget_Login extends WP_Widget {
 			</label>
 		</p>
 		<p>
-			<label for="<?php echo $this->get_field_id( 'logged_out_text' ); ?>"><?php _e( 'Logged out text:', 'members' ); ?></label>
+			<label for="<?php echo $this->get_field_id( 'logged_out_text' ); ?>"><?php esc_html_e( 'Logged out text:', 'members' ); ?></label>
 			<textarea class="widefat" rows="4" cols="20" id="<?php echo $this->get_field_id( 'logged_out_text' ); ?>" name="<?php echo $this->get_field_name( 'logged_out_text' ); ?>" style="width:100%;"><?php echo esc_textarea( $instance['logged_out_text'] ); ?></textarea>
 		</p>
 
 		<p>
-			<label for="<?php echo $this->get_field_id( 'logged_in_text' ); ?>"><?php _e( 'Logged in text:', 'members' ); ?></label>
+			<label for="<?php echo $this->get_field_id( 'logged_in_text' ); ?>"><?php esc_html_e( 'Logged in text:', 'members' ); ?></label>
 			<textarea class="widefat" rows="4" cols="20" id="<?php echo $this->get_field_id( 'logged_in_text' ); ?>" name="<?php echo $this->get_field_name( 'logged_in_text' ); ?>" style="width:100%;"><?php echo esc_textarea( $instance['logged_in_text'] ); ?></textarea>
 		</p>
 

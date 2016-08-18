@@ -98,7 +98,8 @@ final class Members_Admin_Roles {
 				check_admin_referer( 'bulk-roles' );
 
 				// Loop through each of the selected roles.
-				foreach ( $_POST['roles'] as $role ) {
+				$roles = array_map( 'members_sanitize_role', $_POST['roles'] );
+				foreach ( $roles as $role ) {
 
 					$role = members_sanitize_role( $role );
 
@@ -126,7 +127,7 @@ final class Members_Admin_Roles {
 				if ( members_role_exists( $role ) ) {
 
 					// Add role deleted message.
-					add_settings_error( 'members_roles', 'role_deleted', sprintf( esc_html__( '%s role deleted.', 'members' ), members_get_role_name( $role ) ), 'updated' );
+					add_settings_error( 'members_roles', 'role_deleted', sprintf( esc_html__( '%s role deleted.', 'members' ), esc_html( members_get_role_name( $role ) ) ), 'updated' );
 
 					// Delete the role.
 					members_delete_role( $role );
@@ -288,10 +289,10 @@ final class Members_Admin_Roles {
 		</p>
 
 		<ul>
-			<li><?php _e( '<strong>Edit</strong> takes you to the editing screen for that role. You can also reach that screen by clicking on the role name.', 'members' ); ?></li>
-			<li><?php _e( '<strong>Delete</strong> removes your role from this list and permanently deletes it.', 'members' ); ?></li>
-			<li><?php _e( '<strong>Clone</strong> copies the role and takes you to the new role screen to further edit it.', 'members' ); ?></li>
-			<li><?php _e( '<strong>Users</strong> takes you to the users screen and lists the users that have that role.', 'members' ); ?></li>
+			<li><?php echo wp_kses_post( __( '<strong>Edit</strong> takes you to the editing screen for that role. You can also reach that screen by clicking on the role name.', 'members' ) ); ?></li>
+			<li><?php  echo wp_kses_post( __( '<strong>Delete</strong> removes your role from this list and permanently deletes it.', 'members' ) ); ?></li>
+			<li><?php  echo wp_kses_post( __( '<strong>Clone</strong> copies the role and takes you to the new role screen to further edit it.', 'members' ) ); ?></li>
+			<li><?php  echo wp_kses_post( __( '<strong>Users</strong> takes you to the users screen and lists the users that have that role.', 'members' ) ); ?></li>
 		</ul>
 	<?php }
 

@@ -124,7 +124,7 @@ final class Members_Admin_Role_New {
 	public function load() {
 
 		// Are we cloning a role?
-		$this->is_clone = isset( $_GET['clone'] ) && members_role_exists( $_GET['clone'] );
+		$this->is_clone = isset( $_GET['clone'] ) && members_role_exists( members_sanitize_role( $_GET['clone'] ) );
 
 		if ( $this->is_clone ) {
 
@@ -159,8 +159,11 @@ final class Members_Admin_Role_New {
 			// Check if any capabilities were selected.
 			if ( isset( $_POST['grant-caps'] ) || isset( $_POST['deny-caps'] ) ) {
 
-				$grant_caps = ! empty( $_POST['grant-caps'] ) ? array_unique( $_POST['grant-caps'] ) : array();
-				$deny_caps  = ! empty( $_POST['deny-caps'] )  ? array_unique( $_POST['deny-caps']  ) : array();
+				$grant_caps = ! empty( $_POST['grant-caps'] ) ? array_map( 'members_sanitize_cap', $_POST['grant-caps'] ) : array();
+				$deny_caps  = ! empty( $_POST['deny-caps'] )  ? array_map( 'members_sanitize_cap', $_POST['deny-caps']  ) : array();
+
+				$grant_caps = array_unique( $grant_caps );
+				$deny_caps  = array_unique( $deny_caps );
 
 				foreach ( $_m_caps as $cap ) {
 
@@ -172,8 +175,11 @@ final class Members_Admin_Role_New {
 				}
 			}
 
-			$grant_new_caps = ! empty( $_POST['grant-new-caps'] ) ? array_unique( $_POST['grant-new-caps'] ) : array();
-			$deny_new_caps  = ! empty( $_POST['deny-new-caps'] )  ? array_unique( $_POST['deny-new-caps']  ) : array();
+			$grant_new_caps = ! empty( $_POST['grant-new-caps'] ) ? array_map( 'members_sanitize_cap', $_POST['grant-new-caps'] ) : array();
+			$deny_new_caps  = ! empty( $_POST['deny-new-caps'] )  ? array_map( 'members_sanitize_cap', $_POST['deny-new-caps']  ) : array();
+
+			$grant_new_caps = array_unique( $grant_new_caps );
+			$deny_new_caps  = array_unique( $deny_new_caps );
 
 			foreach ( $grant_new_caps as $grant_new_cap ) {
 
@@ -221,7 +227,7 @@ final class Members_Admin_Role_New {
 				}
 
 				// Add role added message.
-				add_settings_error( 'members_role_new', 'role_added', sprintf( esc_html__( 'The %s role has been created.', 'members' ), $this->role_name ), 'updated' );
+				add_settings_error( 'members_role_new', 'role_added', sprintf( esc_html__( 'The %s role has been created.', 'members' ), esc_html( $this->role_name ) ), 'updated' );
 			}
 
 			// If there are new caps, let's assign them.
@@ -234,7 +240,7 @@ final class Members_Admin_Role_New {
 
 			// Add error if this is a duplicate role.
 			if ( $is_duplicate )
-				add_settings_error( 'members_role_new', 'duplicate_role', sprintf( esc_html__( 'The %s role already exists.', 'members' ), $this->role ) );
+				add_settings_error( 'members_role_new', 'duplicate_role', sprintf( esc_html__( 'The %s role already exists.', 'members' ), esc_html( $this->role ) ) );
 
 			// Add error if there's no role name.
 			if ( ! $this->role_name )

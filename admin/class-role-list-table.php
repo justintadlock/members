@@ -245,7 +245,7 @@ class Members_Role_List_Table extends WP_List_Table {
 		}
 
 		// Add the title and role states.
-		$title = sprintf( '<strong><a class="row-title" href="%s">%s</a>%s</strong>', esc_url( members_get_edit_role_url( $role ) ), esc_html( members_get_role_name( $role ) ), $role_states );
+		$title = sprintf( '<strong><a class="row-title" href="%s">%s</a>%s</strong>', esc_url( members_get_edit_role_url( $role ) ), esc_html( members_get_role_name( $role ) ), wp_kses_post( $role_states ) );
 
 		return apply_filters( 'members_manage_roles_column_role_name', $title, $role );
 	}
@@ -397,13 +397,13 @@ class Members_Role_List_Table extends WP_List_Table {
 			$inactive->roles = members_get_inactive_role_slugs();
 
 		$views     = array();
-		$current   = ' class="current"';
+		$current   = 'current';
 		$all_count = count( members_get_role_slugs() );
 
 		// Add the default/all view.
 		$views['all'] = sprintf(
-			'<a%s href="%s">%s</a>',
-			'all' === $this->role_view ? $current : '',
+			'<a class="%s" href="%s">%s</a>',
+			esc_attr( 'all' === $this->role_view ? $current : '' ),
 			esc_url( members_get_edit_roles_url() ),
 			sprintf( _n( 'All %s', 'All %s', $all_count, 'members' ), sprintf( '<span class="count">(%s)</span>', number_format_i18n( $all_count ) ) )
 		);
@@ -425,8 +425,8 @@ class Members_Role_List_Table extends WP_List_Table {
 
 			// Add the view link.
 			$views[ $group->name ] = sprintf(
-				'<a%s href="%s">%s</a>',
-				$group->name === $this->role_view ? $current : '',
+				'<a class="%s" href="%s">%s</a>',
+				esc_attr( $group->name === $this->role_view ? $current : '' ),
 				'all' === $group->name ? esc_url( members_get_edit_roles_url() ) : esc_url( members_get_role_view_url( $group->name ) ),
 				sprintf( translate_nooped_plural( $noop, $count, $noop['domain'] ), sprintf( '<span class="count">(%s)</span>', number_format_i18n( $count ) ) )
 			);
