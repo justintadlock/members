@@ -27,8 +27,8 @@ function members_get_help_sidebar_text() {
 	return sprintf(
 		'<p><strong>%s</strong></p><ul>%s%s</ul>',
 		esc_html__( 'For more information:', 'members' ),
-		wp_kses( $docs_link ),
-		wp_kses( $help_link )
+		wp_kses_post( $docs_link ),
+		wp_kses_post( $help_link )
 	);
 }
 

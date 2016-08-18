@@ -129,7 +129,7 @@ class Members_Widget_Login extends WP_Widget {
 
 			// Show logged in text if any is written.
 			if ( $logged_in_text )
-				echo wp_kses( do_shortcode( shortcode_unautop( wpautop( $logged_in_text ) ) ) );
+				echo wp_kses_data( do_shortcode( shortcode_unautop( wpautop( $logged_in_text ) ) ) );
 		}
 
 		// If the current user is not logged in.
@@ -141,7 +141,7 @@ class Members_Widget_Login extends WP_Widget {
 
 			// Show logged out text if any is written.
 			if ( $logged_out_text )
-				echo wp_kses( do_shortcode( shortcode_unautop( wpautop( $logged_out_text ) ) ) );
+				echo wp_kses_data( do_shortcode( shortcode_unautop( wpautop( $logged_out_text ) ) ) );
 
 			// Output the login form.
 			echo '<div class="members-login-form">' . wp_login_form( $args ) . '</div>';
