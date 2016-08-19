@@ -121,7 +121,7 @@ final class Members_Admin_Roles {
 				check_admin_referer( 'delete_role', 'members_delete_role_nonce' );
 
 				// Get the role we want to delete.
-				$role = members_sanitize_role( $_GET['role'] );
+				$role = members_sanitize_role( wp_unslash( $_GET['role'] ) );
 
 				// Check that we have a role before attempting to delete it.
 				if ( members_role_exists( $role ) ) {

@@ -124,7 +124,7 @@ final class Members_Admin_Role_New {
 	public function load() {
 
 		// Are we cloning a role?
-		$this->is_clone = isset( $_GET['clone'] ) && members_role_exists( members_sanitize_role( $_GET['clone'] ) );
+		$this->is_clone = isset( $_GET['clone'] ) && members_role_exists( members_sanitize_role( wp_unslash( $_GET['clone'] ) ) );
 
 		if ( $this->is_clone ) {
 
@@ -132,7 +132,7 @@ final class Members_Admin_Role_New {
 			add_filter( 'members_new_role_default_caps', array( $this, 'clone_default_caps' ), 15 );
 
 			// Set the clone role.
-			$this->clone_role = members_sanitize_role( $_GET['clone'] );
+			$this->clone_role = members_sanitize_role( wp_unslash( $_GET['clone'] ) );
 		}
 
 		// Check if the current user can create roles and the form has been submitted.
