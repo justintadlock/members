@@ -153,5 +153,5 @@ function members_list_users( $args = array() ) {
 	if ( empty( $args['echo'] ) )
 		return $output;
 
-	echo $output;
+	echo wp_kses_post( $output );
 }
