@@ -188,7 +188,7 @@ final class Members_Meta_Box_Content_Permissions {
 		$current_roles = members_get_post_roles( $post_id );
 
 		// Get the new roles.
-		$new_roles = isset( $_POST['members_access_role'] ) ? array_map( 'members_sanitize_role', $_POST['members_access_role'] ) : '';
+		$new_roles = isset( $_POST['members_access_role'] ) ? array_map( 'members_sanitize_role', wp_unslash( $_POST['members_access_role'] ) ) : '';
 
 		// If we have an array of new roles, set the roles.
 		if ( is_array( $new_roles ) )
@@ -204,7 +204,7 @@ final class Members_Meta_Box_Content_Permissions {
 		$old_message = members_get_post_access_message( $post_id );
 
 		// Get the new message.
-		$new_message = isset( $_POST['members_access_error'] ) ? stripslashes( wp_filter_post_kses( addslashes( $_POST['members_access_error'] ) ) ) : '';
+		$new_message = isset( $_POST['members_access_error'] ) ? stripslashes( wp_filter_post_kses( addslashes( wp_unslash( $_POST['members_access_error'] ) ) ) ) : '';
 
 		// If we have don't have a new message but do have an old one, delete it.
 		if ( '' == $new_message && $old_message )

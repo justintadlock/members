@@ -159,8 +159,8 @@ final class Members_Admin_Role_New {
 			// Check if any capabilities were selected.
 			if ( isset( $_POST['grant-caps'] ) || isset( $_POST['deny-caps'] ) ) {
 
-				$grant_caps = ! empty( $_POST['grant-caps'] ) ? array_map( 'members_sanitize_cap', $_POST['grant-caps'] ) : array();
-				$deny_caps  = ! empty( $_POST['deny-caps'] )  ? array_map( 'members_sanitize_cap', $_POST['deny-caps']  ) : array();
+				$grant_caps = ! empty( $_POST['grant-caps'] ) ? array_map( 'members_sanitize_cap', wp_unslash( $_POST['grant-caps'] ) ) : array();
+				$deny_caps  = ! empty( $_POST['deny-caps'] )  ? array_map( 'members_sanitize_cap', wp_unslash( $_POST['deny-caps']  ) ) : array();
 
 				$grant_caps = array_unique( $grant_caps );
 				$deny_caps  = array_unique( $deny_caps );
@@ -175,8 +175,8 @@ final class Members_Admin_Role_New {
 				}
 			}
 
-			$grant_new_caps = ! empty( $_POST['grant-new-caps'] ) ? array_map( 'members_sanitize_cap', $_POST['grant-new-caps'] ) : array();
-			$deny_new_caps  = ! empty( $_POST['deny-new-caps'] )  ? array_map( 'members_sanitize_cap', $_POST['deny-new-caps']  ) : array();
+			$grant_new_caps = ! empty( $_POST['grant-new-caps'] ) ? array_map( 'members_sanitize_cap', wp_unslash( $_POST['grant-new-caps'] ) ) : array();
+			$deny_new_caps  = ! empty( $_POST['deny-new-caps'] )  ? array_map( 'members_sanitize_cap', wp_unslash( $_POST['deny-new-caps']  ) ) : array();
 
 			$grant_new_caps = array_unique( $grant_new_caps );
 			$deny_new_caps  = array_unique( $deny_new_caps );
@@ -199,11 +199,11 @@ final class Members_Admin_Role_New {
 
 			// Sanitize the new role name/label. We just want to strip any tags here.
 			if ( ! empty( $_POST['role_name'] ) )
-				$this->role_name = wp_strip_all_tags( $_POST['role_name'] );
+				$this->role_name = wp_strip_all_tags( wp_unslash( $_POST['role_name'] ) );
 
 			// Sanitize the new role, removing any unwanted characters.
 			if ( ! empty( $_POST['role'] ) )
-				$this->role = members_sanitize_role( $_POST['role'] );
+				$this->role = members_sanitize_role( wp_unslash( $_POST['role'] ) );
 
 			else if ( $this->role_name )
 				$this->role = members_sanitize_role( $this->role_name );

@@ -98,7 +98,7 @@ final class Members_Admin_Roles {
 				check_admin_referer( 'bulk-roles' );
 
 				// Loop through each of the selected roles.
-				$roles = array_map( 'members_sanitize_role', $_POST['roles'] );
+				$roles = array_map( 'members_sanitize_role', wp_unslash( $_POST['roles'] ) );
 				foreach ( $roles as $role ) {
 
 					$role = members_sanitize_role( $role );

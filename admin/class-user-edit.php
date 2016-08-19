@@ -138,7 +138,7 @@ final class Members_Admin_User_Edit {
 			$old_roles = (array) $user->roles;
 
 			// Sanitize the posted roles.
-			$new_roles = array_map( 'members_sanitize_role', $_POST['members_user_roles'] );
+			$new_roles = array_map( 'members_sanitize_role', wp_unslash( $_POST['members_user_roles'] ) );
 
 			// Loop through the posted roles.
 			foreach ( $new_roles as $new_role ) {
