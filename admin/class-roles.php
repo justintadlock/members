@@ -290,9 +290,9 @@ final class Members_Admin_Roles {
 
 		<ul>
 			<li><?php echo wp_kses_post( __( '<strong>Edit</strong> takes you to the editing screen for that role. You can also reach that screen by clicking on the role name.', 'members' ) ); ?></li>
-			<li><?php  echo wp_kses_post( __( '<strong>Delete</strong> removes your role from this list and permanently deletes it.', 'members' ) ); ?></li>
-			<li><?php  echo wp_kses_post( __( '<strong>Clone</strong> copies the role and takes you to the new role screen to further edit it.', 'members' ) ); ?></li>
-			<li><?php  echo wp_kses_post( __( '<strong>Users</strong> takes you to the users screen and lists the users that have that role.', 'members' ) ); ?></li>
+			<li><?php echo wp_kses_post( __( '<strong>Delete</strong> removes your role from this list and permanently deletes it.', 'members' ) ); ?></li>
+			<li><?php echo wp_kses_post( __( '<strong>Clone</strong> copies the role and takes you to the new role screen to further edit it.', 'members' ) ); ?></li>
+			<li><?php echo wp_kses_post( __( '<strong>Users</strong> takes you to the users screen and lists the users that have that role.', 'members' ) ); ?></li>
 		</ul>
 	<?php }
 
