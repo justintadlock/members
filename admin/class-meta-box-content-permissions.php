@@ -204,7 +204,7 @@ final class Members_Meta_Box_Content_Permissions {
 		$old_message = members_get_post_access_message( $post_id );
 
 		// Get the new message.
-		$new_message = isset( $_POST['members_access_error'] ) ? stripslashes( wp_filter_post_kses( addslashes( wp_unslash( $_POST['members_access_error'] ) ) ) ) : '';
+		$new_message = isset( $_POST['members_access_error'] ) ? wp_kses_post( wp_unslash( $_POST['members_access_error'] ) ) : '';
 
 		// If we have don't have a new message but do have an old one, delete it.
 		if ( '' == $new_message && $old_message )
