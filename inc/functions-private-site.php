@@ -84,6 +84,14 @@ function members_is_private_page() {
 	if ( function_exists( 'bp_is_current_component' ) && ( bp_is_current_component( 'register' ) || bp_is_current_component( 'activate' ) ) )
 		$is_private = false;
 
+	// WooCommerce support.
+	if ( class_exists( 'WooCommerce' ) ) {
+		$page_id = get_option( 'woocommerce_myaccount_page_id' );
+
+		if ( is_page( $page_id ) )
+			$is_private = false;
+	}
+
 	return apply_filters( 'members_is_private_page', $is_private );
 }
 
