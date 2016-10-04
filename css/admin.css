@@ -38,7 +38,7 @@
 
 #tabcapsdiv { margin-top: 1em; }
 
-	#tabcapsdiv > h3 {
+	#tabcapsdiv > .hndle {
 		padding:       10px;
 		border-bottom: 1px solid #eee;
 	}

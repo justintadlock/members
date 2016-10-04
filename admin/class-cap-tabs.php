@@ -171,7 +171,7 @@ final class Members_Cap_Tabs {
 
 		<div id="tabcapsdiv" class="postbox">
 
-			<h3><?php printf( esc_html__( 'Edit Capabilities: %s', 'members' ), '<span class="members-which-tab"></span>' ); ?></h3>
+			<h2 class="hndle"><?php printf( esc_html__( 'Edit Capabilities: %s', 'members' ), '<span class="members-which-tab"></span>' ); ?></h2>
 
 			<div class="inside">
 

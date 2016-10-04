@@ -84,7 +84,7 @@ final class Members_Admin_User_Edit {
 
 		wp_nonce_field( 'new_user_roles', 'members_new_user_roles_nonce' ); ?>
 
-		<h3><?php esc_html_e( 'Roles', 'members' ); ?></h3>
+		<h2><?php esc_html_e( 'Roles', 'members' ); ?></h2>
 
 		<table class="form-table">
 
