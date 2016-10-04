@@ -54,6 +54,10 @@ final class Members_Meta_Box_Content_Permissions {
 	 */
 	public function load() {
 
+		// Make sure meta box is allowed for this post type.
+		if ( ! $this->maybe_enable() )
+			return;
+
 		// Enqueue scripts/styles.
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue' ) );
 
@@ -97,6 +101,20 @@ final class Members_Meta_Box_Content_Permissions {
 		// Note that we're disabling for attachments b/c users get confused between "content" and "file".
 		if ( 'attachment' !== $type->name && $type->public )
 			add_meta_box( 'members-cp', esc_html__( 'Content Permissions', 'members' ), array( $this, 'meta_box' ), $post_type, 'advanced', 'high' );
+	}
+
+	/**
+	 * Checks if Content Permissions should appear for the given post type.
+	 *
+	 * @since  1.2.0
+	 * @access public
+	 * @return bool
+	 */
+	public function maybe_enable() {
+
+		$post_type = get_current_screen()->post_type;
+
+		return apply_filters( "members_enable_{$post_type}_content_permissions", true );
 	}
 
 	/**
