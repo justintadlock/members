@@ -85,7 +85,7 @@ final class Members_Meta_Box_Custom_Cap {
 		</p>
 
 		<p>
-			<button type="button" class="button-secondary" id="members-add-new-cap"><?php esc_html_e( 'Add New', 'members' ); ?></button>
+			<button type="button" class="button-secondary" id="members-add-new-cap"><?php echo esc_html_x( 'Add New', 'capability', 'members' ); ?></button>
 		</p>
 	<?php }
 
