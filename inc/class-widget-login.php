@@ -54,11 +54,11 @@ class Members_Widget_Login extends WP_Widget {
 
 		// Set up the defaults.
 		$this->defaults = array(
-			'title'           => esc_attr__( 'Log In',     'members' ),
-			'label_username'  => esc_attr__( 'Username',   'members' ),
-			'label_password'  => esc_attr__( 'Password',   'members' ),
-			'label_log_in'    => esc_attr__( 'Log In',     'members' ),
-			'label_remember'  => esc_attr__('Remember Me', 'members' ),
+			'title'           => esc_attr__( 'Log In',      'members' ),
+			'label_username'  => esc_attr__( 'Username',    'members' ),
+			'label_password'  => esc_attr__( 'Password',    'members' ),
+			'label_log_in'    => esc_attr__( 'Log In',      'members' ),
+			'label_remember'  => esc_attr__( 'Remember Me', 'members' ),
 			'form_id'         => 'loginform',
 			'id_username'     => 'user_login',
 			'id_password'     => 'user_pass',
@@ -97,8 +97,8 @@ class Members_Widget_Login extends WP_Widget {
 			'label_log_in'   => esc_html( $instance['label_log_in']   ),
 			'id_username'    => esc_attr( $instance['id_username']    ),
 			'id_password'    => esc_attr( $instance['id_password']    ),
-			'id_remember'    => esc_attr( $instance['id_submit']      ),
-			'id_submit'      => esc_attr( $instance['remember']       ),
+			'id_remember'    => esc_attr( $instance['id_remember']    ),
+			'id_submit'      => esc_attr( $instance['id_submit']      ),
 			'value_username' => esc_attr( $instance['value_username'] ),
 
 			'remember'       => ! empty( $instance['remember']       ) ? true : false,
