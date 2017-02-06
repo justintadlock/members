@@ -123,7 +123,7 @@ function members_register_cap_groups() {
 	foreach ( get_post_types( array(), 'objects' ) as $type ) {
 
 		// Skip revisions and nave menu items.
-		if ( in_array( $type->name, array( 'revision', 'nav_menu_item' ) ) )
+		if ( in_array( $type->name, array( 'revision', 'nav_menu_item', 'custom_css', 'customize_changeset' ) ) )
 			continue;
 
 		// Get the caps for the post type.
