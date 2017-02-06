@@ -82,7 +82,7 @@ final class Members_Admin_Roles {
 	public function load() {
 
 		// Get the current action if sent as request.
-		$action = isset( $_REQUEST['action'] ) ? sanitize_key( $_REQUEST['action'] ) : false;
+		$action = isset( $_REQUEST['action'] ) ? sanitize_key( wp_unslash( $_REQUEST['action'] ) ) : false;
 
 		// Get the current action if posted.
 		if ( ( isset( $_POST['action'] ) && 'delete' == $_POST['action'] ) || ( isset( $_POST['action2'] ) && 'delete' == $_POST['action2'] ) )
@@ -98,7 +98,8 @@ final class Members_Admin_Roles {
 				check_admin_referer( 'bulk-roles' );
 
 				// Loop through each of the selected roles.
-				foreach ( $_POST['roles'] as $role ) {
+				$roles = array_map( 'members_sanitize_role', wp_unslash( $_POST['roles'] ) );
+				foreach ( $roles as $role ) {
 
 					$role = members_sanitize_role( $role );
 
@@ -120,13 +121,13 @@ final class Members_Admin_Roles {
 				check_admin_referer( 'delete_role', 'members_delete_role_nonce' );
 
 				// Get the role we want to delete.
-				$role = members_sanitize_role( $_GET['role'] );
+				$role = members_sanitize_role( wp_unslash( $_GET['role'] ) );
 
 				// Check that we have a role before attempting to delete it.
 				if ( members_role_exists( $role ) ) {
 
 					// Add role deleted message.
-					add_settings_error( 'members_roles', 'role_deleted', sprintf( esc_html__( '%s role deleted.', 'members' ), members_get_role_name( $role ) ), 'updated' );
+					add_settings_error( 'members_roles', 'role_deleted', sprintf( esc_html__( '%s role deleted.', 'members' ), esc_html( members_get_role_name( $role ) ) ), 'updated' );
 
 					// Delete the role.
 					members_delete_role( $role );
@@ -288,10 +289,10 @@ final class Members_Admin_Roles {
 		</p>
 
 		<ul>
-			<li><?php _e( '<strong>Edit</strong> takes you to the editing screen for that role. You can also reach that screen by clicking on the role name.', 'members' ); ?></li>
-			<li><?php _e( '<strong>Delete</strong> removes your role from this list and permanently deletes it.', 'members' ); ?></li>
-			<li><?php _e( '<strong>Clone</strong> copies the role and takes you to the new role screen to further edit it.', 'members' ); ?></li>
-			<li><?php _e( '<strong>Users</strong> takes you to the users screen and lists the users that have that role.', 'members' ); ?></li>
+			<li><?php echo wp_kses_post( __( '<strong>Edit</strong> takes you to the editing screen for that role. You can also reach that screen by clicking on the role name.', 'members' ) ); ?></li>
+			<li><?php echo wp_kses_post( __( '<strong>Delete</strong> removes your role from this list and permanently deletes it.', 'members' ) ); ?></li>
+			<li><?php echo wp_kses_post( __( '<strong>Clone</strong> copies the role and takes you to the new role screen to further edit it.', 'members' ) ); ?></li>
+			<li><?php echo wp_kses_post( __( '<strong>Users</strong> takes you to the users screen and lists the users that have that role.', 'members' ) ); ?></li>
 		</ul>
 	<?php }
 

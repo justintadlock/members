@@ -359,7 +359,7 @@ final class Members_Settings_Page {
 	public function settings_page() { ?>
 
 		<div class="wrap">
-			<h1><?php _e( 'Members Settings', 'members' ); ?></h1>
+			<h1><?php esc_html_e( 'Members Settings', 'members' ); ?></h1>
 
 			<form method="post" action="options.php">
 				<?php settings_fields( 'members_settings' ); ?>

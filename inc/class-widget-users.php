@@ -100,7 +100,7 @@ class Members_Widget_Users extends WP_Widget {
 
 		// If a title was input by the user, display it.
 		if ( $instance['title'] )
-			echo $sidebar['before_title'] . apply_filters( 'widget_title',  $instance['title'], $instance, $this->id_base ) . $sidebar['after_title'];
+			echo $sidebar['before_title'] . esc_html( apply_filters( 'widget_title',  $instance['title'], $instance, $this->id_base ) ) . $sidebar['after_title'];
 
 		// Get users.
 		$users = get_users( $args );

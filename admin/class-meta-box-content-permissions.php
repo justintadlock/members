@@ -155,7 +155,7 @@ final class Members_Meta_Box_Content_Permissions {
 		<p>
 			<label for="members_access_error"><?php esc_html_e( 'Custom error message:', 'members' ); ?></label>
 			<textarea class="widefat" id="members_access_error" name="members_access_error" rows="6"><?php echo esc_textarea( get_post_meta( $post->ID, '_members_access_error', true ) ); ?></textarea>
-			<span class="howto"><?php _e( 'Message shown to users that do not have permission to view the post.', 'members' ); ?></span>
+			<span class="howto"><?php esc_html_e( 'Message shown to users that do not have permission to view the post.', 'members' ); ?></span>
 		</p><?php
 
 		// Hook that fires at the end of the meta box.
@@ -188,7 +188,7 @@ final class Members_Meta_Box_Content_Permissions {
 		$current_roles = members_get_post_roles( $post_id );
 
 		// Get the new roles.
-		$new_roles = isset( $_POST['members_access_role'] ) ? $_POST['members_access_role'] : '';
+		$new_roles = isset( $_POST['members_access_role'] ) ? array_map( 'members_sanitize_role', wp_unslash( $_POST['members_access_role'] ) ) : '';
 
 		// If we have an array of new roles, set the roles.
 		if ( is_array( $new_roles ) )
@@ -204,7 +204,7 @@ final class Members_Meta_Box_Content_Permissions {
 		$old_message = members_get_post_access_message( $post_id );
 
 		// Get the new message.
-		$new_message = isset( $_POST['members_access_error'] ) ? stripslashes( wp_filter_post_kses( addslashes( $_POST['members_access_error'] ) ) ) : '';
+		$new_message = isset( $_POST['members_access_error'] ) ? wp_kses_post( wp_unslash( $_POST['members_access_error'] ) ) : '';
 
 		// If we have don't have a new message but do have an old one, delete it.
 		if ( '' == $new_message && $old_message )
