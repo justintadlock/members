@@ -4,7 +4,8 @@ Contributors: greenshady
 Donate link: http://themehybrid.com/donate
 Tags: admin, role, roles, member, members, profile, shortcode, user, users, widget, widgets
 Requires at least: 4.3
-Stable tag: 1.1.2
+Tested up to: 4.7.2
+Stable tag: 1.1.3
 
 The most powerful user, role, and capability management plugin for WordPress.
 
@@ -42,7 +43,7 @@ If you need professional plugin support from me, the plugin author, you can acce
 
 ### Plugin Development
 
-If you're a theme author, plugin author, or just a code hobbyist, you can follow the development of this plugin on it's [GitHub repository](https://github.com/justintadlock/members). 
+If you're a theme author, plugin author, or just a code hobbyist, you can follow the development of this plugin on it's [GitHub repository](https://github.com/justintadlock/members).
 
 == Installation ==
 
