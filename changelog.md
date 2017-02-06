@@ -1,5 +1,11 @@
 # Change Log
 
+## [1.1.3] - 2016-02-06
+
+### Security
+
+* Added a check that the role is editable before attempting to add a new role to a user.
+
 ## [1.1.2] - 2016-06-20
 
 ### Fixed
