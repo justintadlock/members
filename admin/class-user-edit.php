@@ -144,7 +144,7 @@ final class Members_Admin_User_Edit {
 			foreach ( $new_roles as $new_role ) {
 
 				// If the user doesn't already have the role, add it.
-				if ( ! in_array( $new_role, (array) $user->roles ) )
+				if ( members_is_role_editable( $new_role ) && ! in_array( $new_role, (array) $user->roles ) )
 					$user->add_role( $new_role );
 			}
 

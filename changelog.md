@@ -1,5 +1,15 @@
 # Change Log
 
+## [1.1.3] - 2016-02-06
+
+### Fixed
+
+* Removes the `customize_changeset` and `custom_css` post type cap groups so that they don't appear in the capability tabs on the edit role screen.
+
+### Security
+
+* Added a check that the role is editable before attempting to add a new role to a user.
+
 ## [1.1.2] - 2016-06-20
 
 ### Fixed
