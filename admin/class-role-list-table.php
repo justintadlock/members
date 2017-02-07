@@ -238,10 +238,10 @@ class Members_Role_List_Table extends WP_List_Table {
 		// If we have states, string them together.
 		if ( ! empty( $states ) ) {
 
-			foreach ( $states as $state )
-				$role_states .= sprintf( '<span class="role-state">%s</span>', $state );
+			foreach ( $states as $state => $label )
+				$states[ $state ] = sprintf( '<span class="role-state">%s</span>', $label );
 
-			$role_states = ' &ndash; ' . $role_states;
+			$role_states = ' &ndash; ' . join( ', ', $states );
 		}
 
 		// Add the title and role states.
