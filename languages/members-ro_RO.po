@@ -1,0 +1,912 @@
+# Copyright (C) 2013 Members
+# This file is distributed under the same license as the Members package.
+# Translators:
+# ArianServ <arianserv@gmail.com>, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: Members\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/members\n"
+"POT-Creation-Date: 2013-11-10 09:00:53+00:00\n"
+"PO-Revision-Date: 2014-04-01 11:07+0000\n"
+"Last-Translator: ArianServ <arianserv@gmail.com>\n"
+"Language-Team: Romanian (Romania) (http://www.transifex.com/projects/p/wp-translations/language/ro_RO/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ro_RO\n"
+"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?2:1));\n"
+
+#: admin/admin.php:44 admin/roles-list-table.php:54
+#: components/role-manager/default.php:41
+msgid "Roles"
+msgstr "Roluri"
+
+#: admin/admin.php:47 admin/role-new.php:44
+msgid "Add New Role"
+msgstr "Adăugare Rol Nou"
+
+#: admin/admin.php:135
+msgid ""
+"<strong>Role Manager:</strong> This feature allows you to manage roles on "
+"your site by giving you the ability to create, edit, and delete any role. "
+"Note that changes to roles do not change settings for the Members plugin. "
+"You are literally changing data in your WordPress database. This plugin "
+"feature merely provides an interface for you to make these changes."
+msgstr "<strong>Gestionare Rol:</strong> Această caracteristică vă permite să gestionaţi roluri în site-ul dvs., dându-vă posibilitatea de a crea, edita şi şterge orice rol. Reţineţi că modificările rolurilor nu vor modifica configurările modulului Membrii. Efectiv, modificaţi datele în baza dvs. de date WorPress. Caracteristica acestui modul, vă oferă doar o interfaţă pentru a face aceste modificări."
+
+#: admin/admin.php:136
+msgid ""
+"<strong>Content Permissions:</strong> This feature adds a meta box to the "
+"post edit screen that allows you to grant permissions for who can read the "
+"post content based on the user's role. Only users of roles with the "
+"<code>restrict_content</code> capability will be able to use this component."
+msgstr "<strong>Permisiuni Conţinut:</strong> Această caracteristică adaugă în ecranul de editare articole, o casetă meta ce vă permite să acordaţi permisiuni pentru cine poate citi conţinutul articolului, pe baza rolului de utilizator. Numai utilizatorii din rolurile cu capabilitatea <code>conţinut_restricţionat</code> vor putea utiliza această componentă."
+
+#: admin/admin.php:137
+msgid ""
+"<strong>Sidebar Widgets:</strong> This feature creates additional widgets "
+"for use in your theme's sidebars. You can access them by clicking Widgets in"
+" the menu."
+msgstr "<strong>Widgets Bară Laterală:</strong> Această caracteristică creează miniaplicaţii-widgets adiţionale, pentru utilizarea în bara laterală a temei dvs. Le puteţi accesa accesând din meniu, Widgets."
+
+#: admin/admin.php:138
+msgid ""
+"<strong>Private Site:</strong> This feature allows you to redirect all users"
+" who are not logged into the site to the login page, creating an entirely "
+"private site. You may also replace your feed content with a custom error "
+"message."
+msgstr "<strong>Site Privat:</strong> Această caracateristică vă permite să redirecţionaţi, către pagina de autentificare, toţi utilizatorii neautentificaţi, făcând astfel site-ul privat. Puteţi de asemenea, înlocui conţinutul de flux, cu un mesaj de eroare personalizat."
+
+#: admin/admin.php:140 admin/admin.php:166 admin/admin.php:182
+msgid "For more information:"
+msgstr "Documentație:"
+
+#: admin/admin.php:143 admin/admin.php:170 admin/admin.php:186
+msgid "Documentation"
+msgstr "Documentație"
+
+#: admin/admin.php:144 admin/admin.php:171 admin/admin.php:187
+msgid "Support Forums"
+msgstr "Forumuri asistență"
+
+#: admin/admin.php:155
+msgid ""
+"This screen allows you to edit the capabilities given to the role. You can "
+"tick the checkbox next to a capability to add the capability to the role. "
+"You can untick the checkbox next to a capability to remove a capability from"
+" the role. You can also add as many custom capabilities as you need in the "
+"Custom Capabilities section."
+msgstr "Acest ecran vă permite editarea capabilităţiilor date rolului. Puteţi bifa caseta de validare de lângă capabilitate, pentru a adăuga capabilitatea respectivului rol. Puteţi debifa caseta de validare de lângă capabilitate, pentru a elimina capabilitatea din respectivu rol. Puteţi, de asemenea, adăuga oricâte capabilităţi aveţi nevoie, din secţiunea Capabilităţi Personalizate."
+
+#: admin/admin.php:156
+msgid ""
+"Capabilities are both powerful and dangerous tools. You should not add or "
+"remove a capability to a role unless you understand what permission you are "
+"granting or removing."
+msgstr "Capabilităţiile sunt, atât intrumente puternice, cât şi periculoase. Nu ar trebui să adăgaţi sau să eliminaţi o capabilitate pentru un rol, doar dacă înţelegeţi exact ce permisiuni asiguraţi sau eliminaţi."
+
+#: admin/admin.php:161
+msgid ""
+"This screen lists all the user roles available on this site. Roles are given"
+" to users as a way to \"group\" them. Roles are made up of capabilities "
+"(permissions), which decide what functions users of each role can perform on"
+" the site. From this screen, you can manage these roles and their "
+"capabilities."
+msgstr "Acest ecran listează toate rolurile de utilizator disponibile pe acest site. Rolurile sunt atribuite utilizatorilor, ca şi posibilitate pentru \"gruparea\" lor în grupuri. Rolurile sunt alcătuite din capabilităţi (permisiuni), ce decid ce funcţii ale fiecărui utilizator, pot fi efectuate pe site. Din acest ecran, puteţi gestiona acele roluri şi capabilităţiile lor."
+
+#: admin/admin.php:162
+msgid ""
+"To add a role to a user, click Users in the menu. To create a new role, "
+"click the Add New button at the top of the screen or Add New Role under the "
+"Users menu."
+msgstr "Pentru a adăuga un rol unui utilizator, apăsaţi în meniu, pe butonul Utilizatori. Pentru a crea un nou rol, apăsaţi pe butonul Adăugare Nou, din meniul Utilizatori."
+
+#: admin/admin.php:169 admin/admin.php:185
+msgid "Users, Roles, and Capabilities"
+msgstr "Utilizatori, Roluri, şi Capabilităţi"
+
+#: admin/admin.php:179
+msgid ""
+"This screen allows you to create a new user role for your site. You must "
+"input a unique role name and role label. You can also grant capabilities "
+"(permissions) to the new role. Capabilities are both powerful and dangerous "
+"tools. You should not add a capability to a role unless you understand what "
+"permission you are granting."
+msgstr "Acest ecran vă permite crearea pe site, a unui nou rol de utilizator. Este necesar să introduceţi un nume unic de rol, şi o etichetă pentru rol. Puteţi de asemenea, să acordaţi capabilităţi (permisiuni) noului rol. Capabilităţiile sunt deopotrivă intrumente puternice, dar şi periculoase. Nu ar trebui să adăugaţi o capabilitate unui rol, doar dacă aţi înţeles exact ce permisiuni acordaţi."
+
+#: admin/admin.php:180
+msgid ""
+"To add a role to a user, click Users in the menu. To edit roles, click Roles"
+" under the Users menu."
+msgstr "Pentru a adăuga un rol unui utilizator, apăsaţi din meniu, pe butonul Utilizatori. Pentru a eita roluri, alegeţi din meniul Utilizatori, butonul Roluri."
+
+#: admin/admin.php:201 components/role-manager/default.php:84
+msgid "Role deleted."
+msgstr "Rol şters."
+
+#: admin/admin.php:210 components/role-manager/default.php:93
+msgid "Selected roles deleted."
+msgstr "Rolurile selectate au fost şterse."
+
+#: admin/meta-box-plugin-settings.php:21
+msgctxt "meta box"
+msgid "About"
+msgstr "Despre"
+
+#: admin/meta-box-plugin-settings.php:24
+msgctxt "meta box"
+msgid "Like this plugin?"
+msgstr "Apreciaţi acest modul?"
+
+#: admin/meta-box-plugin-settings.php:27
+msgctxt "meta box"
+msgid "Support"
+msgstr "Asistenţă"
+
+#: admin/meta-box-plugin-settings.php:30
+msgctxt "meta box"
+msgid "Role Manager"
+msgstr "Gestionare Rol"
+
+#: admin/meta-box-plugin-settings.php:33
+msgctxt "meta box"
+msgid "Content Permissions"
+msgstr "Permisiuni Conţinut"
+
+#: admin/meta-box-plugin-settings.php:36
+msgctxt "meta box"
+msgid "Sidebar Widgets"
+msgstr "Widgets Bară Laterală"
+
+#: admin/meta-box-plugin-settings.php:39
+msgctxt "meta box"
+msgid "Private Site"
+msgstr "Site Privat"
+
+#: admin/meta-box-plugin-settings.php:52
+msgid "Version:"
+msgstr "Versiune:"
+
+#: admin/meta-box-plugin-settings.php:55
+msgid "Description:"
+msgstr "Descriere:"
+
+#: admin/meta-box-plugin-settings.php:69
+msgid "Here's how you can give back:"
+msgstr "Iată cum puteți da înapoi:"
+
+#: admin/meta-box-plugin-settings.php:72
+msgid "Members on the WordPress plugin repository"
+msgstr "Membrii din registrul de module WordPress"
+
+#: admin/meta-box-plugin-settings.php:72
+msgid "Give the plugin a good rating."
+msgstr "Acordaţi modulului un scor favorabil."
+
+#: admin/meta-box-plugin-settings.php:73
+msgid "Donate via PayPal"
+msgstr "Donaţi prin PayPal"
+
+#: admin/meta-box-plugin-settings.php:73
+msgid "Donate a few dollars."
+msgstr "Donaţi câţiva dolari."
+
+#: admin/meta-box-plugin-settings.php:74
+msgid "Justin Tadlock's Amazon Wish List"
+msgstr "Lista de Dorinţe din Amazon a lui Justin Tadlock"
+
+#: admin/meta-box-plugin-settings.php:74
+msgid "Get me something from my wish list."
+msgstr "Cumpăraţi-mi ceva din lista mea de dorinţe."
+
+#: admin/meta-box-plugin-settings.php:86
+msgid ""
+"Support for this plugin is provided via the support forums at %1$s. If you "
+"need any help using it, please ask your support questions there."
+msgstr "Asistenţa pentru acest modul este asigurat prin forumurile de asistenţă, pe  %1$s. Dacă aveţi nevoie de orice ajutor în utilizare, vă rugăm să ne adresaţi întrebările de asistenţă, acolo."
+
+#: admin/meta-box-plugin-settings.php:86
+msgid "Theme Hybrid Support Forums"
+msgstr "Forumurile de Asistenţă a Temei Hybrid"
+
+#: admin/meta-box-plugin-settings.php:86
+msgid "Theme Hybrid"
+msgstr "Tema Hybrid"
+
+#: admin/meta-box-plugin-settings.php:99
+msgid "Enable the role manager."
+msgstr "Activare gestionare rol."
+
+#: admin/meta-box-plugin-settings.php:102
+msgid ""
+"Your roles and capabilities will not revert back to their previous settings "
+"after deactivating or uninstalling this plugin, so use this feature wisely."
+msgstr "Rolurile şi capabilităţiile nu vor reveni la configurările lor anterioare după dezactivarea sau dezinstalarea acestui modul, deci folosiţi cu grijă acest modul."
+
+#: admin/meta-box-plugin-settings.php:116
+msgid "Enable the content permissions feature."
+msgstr "Activarea caracteristicii de permisiuni conţinut."
+
+#: admin/meta-box-plugin-settings.php:120
+msgid "Default post error message:"
+msgstr "Mesaj de eroare, implicit:"
+
+#: admin/meta-box-plugin-settings.php:122
+msgid ""
+"You can use <abbr title=\"Hypertext Markup Language\">HTML</abbr> and/or "
+"shortcodes to create a custom error message for users that don't have "
+"permission to view posts."
+msgstr "Puteţi folosi <abbr title=\"Hypertext Markup Language\">HTML</abbr> şi/sau coduri-scurte pentru a crea un mesaj de eroare, personalizat, pentru utilizatorii ce nu au permisiunea pentru vizualizarea articolelor."
+
+#: admin/meta-box-plugin-settings.php:136
+msgid "Enable the login form widget."
+msgstr "Activare widget formular autentificare."
+
+#: admin/meta-box-plugin-settings.php:141
+msgid "Enable the users widget."
+msgstr "Activare widget utilizatori."
+
+#: admin/meta-box-plugin-settings.php:155
+msgid ""
+"Redirect all logged-out users to the login page before allowing them to view"
+" the site."
+msgstr "Redirecţionarea tuturor utilizatorilor neautentificaţi, către pagina de autentificare, înainte de a le permite să vizualizeze acest site."
+
+#: admin/meta-box-plugin-settings.php:160
+msgid "Show error message for feed items."
+msgstr "Afişare mesaj eroare pentru elemente de flux."
+
+#: admin/meta-box-plugin-settings.php:164
+msgid "Feed error message:"
+msgstr "Mesaj eroare Flux:"
+
+#: admin/meta-box-plugin-settings.php:167
+msgid ""
+"You can use <abbr title=\"Hypertext Markup Language\">HTML</abbr> and/or "
+"shortcodes to create a custom error message to display instead of feed item "
+"content."
+msgstr "Puteţi folosi <abbr title=\"Hypertext Markup Language\">HTML</abbr> şi/sau coduri-scurte pentru a crea un mesaj de eroare, personalizat, pentru a-l afişa în locul conţinutului unui element de flux."
+
+#: admin/meta-box-post-content-permissions.php:30
+msgid "Content Permissions"
+msgstr "Permisiuni Conţinut"
+
+#: admin/meta-box-post-content-permissions.php:53
+msgid "Limit access to this post's content to users of the selected roles."
+msgstr "Limitarea accesului la conţinutul acestui articol, pentru utilizatorii rolurilor selectate."
+
+#: admin/meta-box-post-content-permissions.php:77
+msgid ""
+"If no roles are selected, everyone can view the content. The post author, "
+"any users who can edit this post, and users with the %s capability can view "
+"the content regardless of role."
+msgstr "Dacă nici un rol nu este selectat, toată lumea poate vizualiza conţinutul. Autorul publicaţiei, orice utilizator ce poate edita această publicaţie, şi utilizatorii cu capabilitatea %s, pot vizualiza conţinutul, indiferent de rol."
+
+#: admin/meta-box-post-content-permissions.php:81
+msgid "Custom error messsage:"
+msgstr "Mesaj eroare, personalizat:"
+
+#: admin/meta-box-post-content-permissions.php:84
+msgid "Message shown to users that do no have permission to view the post."
+msgstr "Mesajul afişat utilizatorilor ce nu au permisiunea să vizualizeze acest articol."
+
+#: admin/role-edit.php:67 components/role-manager/manage-roles.php:130
+#: components/role-manager/manage-roles.php:144
+msgid "Edit Role"
+msgstr "Editare Rol"
+
+#: admin/role-edit.php:68 admin/roles-list-table.php:55
+msgid "Add New"
+msgstr "Adaugă"
+
+#: admin/role-edit.php:71 components/role-manager/edit-role-form.php:67
+msgid "Role updated."
+msgstr "Rol actualizat."
+
+#: admin/role-edit.php:71
+msgid "&larr; Back to Roles"
+msgstr "&larr; Înapoi la Roluri"
+
+#: admin/role-edit.php:85 admin/role-new.php:60 admin/roles-list-table.php:108
+#: components/role-manager/edit-roles.php:137
+#: components/role-manager/edit-roles.php:147
+msgid "Role Name"
+msgstr "Nume Rol"
+
+#: admin/role-edit.php:94 admin/roles-list-table.php:110
+#: admin/roles-list-table.php:120
+#: components/role-manager/edit-role-form.php:87
+#: components/role-manager/edit-roles.php:140
+#: components/role-manager/edit-roles.php:150
+msgid "Capabilities"
+msgstr "Capabilităţi"
+
+#: admin/role-edit.php:112
+msgid "Custom Capabilities"
+msgstr "Capabilităţi Personalizate"
+
+#: admin/role-edit.php:117
+msgid "Add New Capability"
+msgstr "Adăugare Capanilitate Nouă"
+
+#: admin/role-edit.php:127 components/role-manager/edit-role-form.php:152
+msgid "Update Role"
+msgstr "Actualizare Rol"
+
+#: admin/role-new.php:46
+msgid "The %s role has been created."
+msgstr "Rolul %s, a fost creat."
+
+#: admin/role-new.php:65
+msgid ""
+"<strong>Required:</strong> The role name should be unique and contain only "
+"alphanumeric characters and underscores."
+msgstr "<strong>Necesar:</strong> Numele rolului trebuie să fie unic şi să conţină numai caractere alfanumerice şi liniuţe de subliniere."
+
+#: admin/role-new.php:71 admin/roles-list-table.php:107
+#: admin/roles-list-table.php:117
+msgid "Role Label"
+msgstr "Etichetă Rol"
+
+#: admin/role-new.php:76
+msgid ""
+"<strong>Required:</strong> The role label is used to represent your role in "
+"the WordPress admin."
+msgstr "<strong>Necesar::</strong> Eticheta de rol este utilizată pentru a reprezenta rolul dvs. în panoul administrativ WordPress."
+
+#: admin/role-new.php:82
+msgid "Role Capabilities"
+msgstr "Capabilităţi Rol"
+
+#: admin/role-new.php:86
+msgid ""
+"<strong>Optional:</strong> Select the capabilities this role should have. "
+"These may be updated later."
+msgstr "<strong>Opţional:</strong> Selectaţi capabilităţiile pe care ar trebui să le aibă acest rol. Poate fi actualizat mai târziu."
+
+#: admin/role-new.php:102
+msgid "Add Role"
+msgstr "Adăugare Rol"
+
+#: admin/roles-list-table.php:67 components/role-manager/edit-roles.php:114
+msgid "All"
+msgstr "Toate"
+
+#: admin/roles-list-table.php:68
+msgid "Has Users"
+msgstr "Are Utilizatori"
+
+#: admin/roles-list-table.php:69
+msgid "No Users"
+msgstr "Fără Utilizatori"
+
+#: admin/roles-list-table.php:80 admin/roles-list-table.php:212
+#: components/role-manager/edit-roles.php:123
+#: components/role-manager/edit-roles.php:239
+msgid "Bulk Actions"
+msgstr "Acțiuni în masă"
+
+#: admin/roles-list-table.php:83 admin/roles-list-table.php:155
+#: admin/roles-list-table.php:215 components/role-manager/edit-roles.php:124
+#: components/role-manager/edit-roles.php:179
+#: components/role-manager/edit-roles.php:240
+msgid "Delete"
+msgstr "Șterge"
+
+#: admin/roles-list-table.php:88 admin/roles-list-table.php:220
+#: components/role-manager/edit-roles.php:126
+#: components/role-manager/edit-roles.php:242
+#: components/role-manager/manage-roles.php:21
+#: components/role-manager/manage-roles.php:25
+msgid "Apply"
+msgstr "Aplică"
+
+#: admin/roles-list-table.php:95 admin/roles-list-table.php:227
+msgid "%s item"
+msgid_plural "%s items"
+msgstr[0] "%s rol"
+msgstr[1] "%s roluri"
+msgstr[2] "%s roluri"
+
+#: admin/roles-list-table.php:109 admin/roles-list-table.php:119
+#: components/role-manager/edit-roles.php:139
+#: components/role-manager/edit-roles.php:149
+#: components/statistics/statistics.php:98
+#: components/statistics/statistics.php:106
+#: components/statistics/view-stats.php:35
+#: components/statistics/view-stats.php:42 components/widgets/users.php:14
+#: components/widgets/users.php:69 includes/widget-users.php:37
+#: includes/widget-users.php:129
+msgid "Users"
+msgstr "Utilizatori"
+
+#: admin/roles-list-table.php:118 components/role-manager/edit-roles.php:138
+#: components/role-manager/edit-roles.php:148
+#: components/statistics/statistics.php:97
+#: components/statistics/statistics.php:105 includes/admin-bar.php:29
+msgid "Role"
+msgstr "Rol"
+
+#: admin/roles-list-table.php:143 admin/roles-list-table.php:151
+msgid "Edit the %s role"
+msgstr "Editare rol %s"
+
+#: admin/roles-list-table.php:151 components/role-manager/edit-roles.php:174
+msgid "Edit"
+msgstr "Editare"
+
+#: admin/roles-list-table.php:155
+msgid "Delete the %s role"
+msgstr "Ştergere rol %s"
+
+#: admin/roles-list-table.php:159 components/role-manager/edit-roles.php:184
+msgid "Change default role"
+msgstr "Schimbare rol implicit"
+
+#: admin/roles-list-table.php:159 components/role-manager/edit-roles.php:184
+msgid "Default Role"
+msgstr "Rol Implicit"
+
+#: admin/roles-list-table.php:163 admin/roles-list-table.php:179
+msgid "View all users with the %s role"
+msgstr "Vizualizare toţi utilizatorii cu rolul %s"
+
+#: admin/roles-list-table.php:163 components/role-manager/edit-roles.php:189
+#: components/statistics/statistics.php:130
+msgid "View Users"
+msgstr "Vizualizare Utilizatori"
+
+#: admin/roles-list-table.php:179 admin/roles-list-table.php:181
+msgid "%s User"
+msgid_plural "%s Users"
+msgstr[0] "% Utilizator"
+msgstr[1] "% Utilizatori"
+msgstr[2] "% Utilizatori"
+
+#: admin/roles-list-table.php:191
+msgid "%s Capability"
+msgid_plural "%s Capabilities"
+msgstr[0] "%s Capabilitate"
+msgstr[1] "%s Capabilităţi"
+msgstr[2] "%s Capabilităţi"
+
+#: admin/settings.php:28
+msgid "Members Settings"
+msgstr "Configurări Membrii"
+
+#. #-#-#-#-#  members.pot (Members 0.2.4)  #-#-#-#-#
+#. Plugin Name of the plugin/theme
+#: admin/settings.php:28
+msgid "Members"
+msgstr "Membrii"
+
+#: admin/settings.php:122
+msgid "Members Plugin Settings"
+msgstr "Configurări Modul Membrii"
+
+#: admin/settings.php:137
+msgid "Update Settings"
+msgstr "Actualizare Configurări"
+
+#: components/content-permissions/content-permissions.php:78
+msgid ""
+"No role currently has the <code>restrict_content</code> capability.  To use "
+"the <em>Content Permissions</em> component, at least one role must have this"
+" capability."
+msgstr "Nici-un rol curent nu are capabilitatea de <code>conţinut_restricţionat</code>.  Pentru a folosi componenta de <em>Permisiuni Conţinut</em>, cel puţin un singur rol trebuie să aibă această capabilitate."
+
+#: components/content-permissions/content-permissions.php:106
+#: includes/update.php:103
+msgid "Sorry, but you do not have permission to view this content."
+msgstr "Ne pare rău, dar nu aveţi permisiunea pentru a vizualiza acest conţinut."
+
+#: components/content-permissions/meta-box.php:42
+msgid ""
+"<strong>Roles:</strong> Restrict the content to these roles on the front end"
+" of the site.  If all boxes are left unchecked, everyone can view the "
+"content."
+msgstr "<strong>Roluri:</strong> Restricţionaţi conţinutul acestor roluri din panoul de procesare frontală. Dacă toate casetele de validare rămân nebifate, oricine poate vedea conţinutul."
+
+#: components/role-manager/default.php:44
+msgid "New Role"
+msgstr "Rol Nou"
+
+#: components/role-manager/default.php:103
+msgid ""
+"No role currently has the <code>edit_roles</code> capability.  Please add "
+"this to each role that should be able to manage/edit roles. If you do not "
+"change this, any user that has the <code>edit_users</code> capability will "
+"be able to edit roles."
+msgstr "În prezent, nici-un rol nu are capabilitatea de <code>editare_roluri</code>.  Vă rugăm să adăugaţi aceasta, fiecărui rol ce ar trebui să poată gestiona/edita rolurile. Dacă nu modificaţi acest parametru, orice utilizator ce are capabilitatea de <code>editare_utilizatori</code>, va putea edita roluri."
+
+#: components/role-manager/default.php:116
+msgid ""
+"To create new roles, you must give the <code>create_roles</code> capability "
+"to at least one role."
+msgstr "Pentru a crea noi roluri, trebuie să acordaţi capabilitatea de <code>creare_roluri</code>, cel puţin unui rol."
+
+#: components/role-manager/edit-role-form.php:65
+#: components/role-manager/edit-roles.php:171
+#: components/role-manager/edit-roles.php:174
+msgid "Edit the %1$s role"
+msgstr "Editare rol %1$s"
+
+#: components/role-manager/edit-role-form.php:79
+msgid "<strong>Role:</strong> %1$s"
+msgstr "<strong>Rol:</strong> %1$s"
+
+#: components/role-manager/edit-role-form.php:91
+msgid ""
+"Select which capabilities this role should have. Make sure you understand "
+"what the capability does before giving it to just any role. This is a "
+"powerful feature, but it can cause you some grief if you give regular ol' "
+"Joe more capabilities than yourself."
+msgstr "Selectaţi, ce capabilităţi trebuie să aibă acest rol. Asiguraţi-vă, înainte de-a atribui vreunui rol, că aţi înţeles ceea ce fac capabilităţile"
+
+#: components/role-manager/edit-role-form.php:117
+msgid "New Capabilities"
+msgstr "Capabilităţi Noi"
+
+#: components/role-manager/edit-role-form.php:121
+msgid ""
+"Add up to six new capabilities with this form for this role (more can be "
+"added later). Please only use letters, numbers, and underscores."
+msgstr "Adăugaţi, prin acest formular, până la şase noi capabilităţi acestui rol (mai multe pot fi adăugate mai târziu). Vă rugăm să folosiţi numai litere, cifre şi liniuţe de subliniere."
+
+#: components/role-manager/edit-roles.php:80
+msgid "Edit Active Roles"
+msgstr "Editare Roluri Active"
+
+#: components/role-manager/edit-roles.php:87
+msgid "Edit Inactive Roles"
+msgstr "Editare Roluri Inactive"
+
+#: components/role-manager/edit-roles.php:94
+msgid "Edit Roles"
+msgstr "Editare Roluri"
+
+#: components/role-manager/edit-roles.php:115
+msgid "Active"
+msgstr "Activ"
+
+#: components/role-manager/edit-roles.php:116
+msgid "Inactive"
+msgstr "Inactiv"
+
+#: components/role-manager/edit-roles.php:179
+msgid "Delete the %1$s role"
+msgstr "Ştergere rol  %1$s"
+
+#: components/role-manager/edit-roles.php:189
+#: components/role-manager/edit-roles.php:203
+#: components/role-manager/edit-roles.php:205
+#: components/statistics/statistics.php:130
+#: components/statistics/statistics.php:140
+#: components/statistics/statistics.php:142
+msgid "View all users with the %1$s role"
+msgstr "Vizualizare toţi utilizatorii cu rolul %1$s"
+
+#: components/role-manager/edit-roles.php:203
+#: components/statistics/statistics.php:140
+msgid "%1$s Users"
+msgstr "%1$s Utilizatori"
+
+#: components/role-manager/edit-roles.php:205
+#: components/statistics/statistics.php:142
+msgid "1 User"
+msgstr "1 Utilizator"
+
+#: components/role-manager/edit-roles.php:207
+#: components/statistics/statistics.php:144
+msgid "No users have this role."
+msgstr "Nici-un utilizator nu are acest rol."
+
+#: components/role-manager/edit-roles.php:219
+msgid "%1$s Capabilities"
+msgstr "%1$s Capabilităţi"
+
+#: components/role-manager/edit-roles.php:220
+msgid "1 Capability"
+msgstr "1 Capabilitate"
+
+#: components/role-manager/edit-roles.php:223
+msgid "This role has no capabilities"
+msgstr "Acest rol nu are capabilităţi"
+
+#: components/role-manager/new-role.php:45
+msgid "Add a new user role"
+msgstr "Adăugare rol, utilizator nou"
+
+#: components/role-manager/new-role.php:47
+msgid "The %1$s role has been created."
+msgstr "A fost creat rolul  %1$s."
+
+#: components/role-manager/new-role.php:59
+msgid "Create a new user role"
+msgstr "Creare rol nou, de utilizator"
+
+#: components/role-manager/new-role.php:66
+msgid "About:"
+msgstr "Despre:"
+
+#: components/role-manager/new-role.php:69
+msgid ""
+"Here you can create as many new roles as you'd like.  Roles are a way of "
+"grouping your users.  You can give individual users a role from the <a "
+"href=\"%1$s\" title=\"Manage Users\">user management</a> screen.  This will "
+"allow you to do specific things for users with a specific role.  Once you've"
+" created a new role, you can manage it with the <em>Edit Roles</em> "
+"component."
+msgstr "De aici, puteţi crea, câte roluri doriţi. Rolurile reprezintă o cale de a grupa utilizatorii. Puteţi acorda un rol unui utilizator individual din ecranul <a href=\"%1$s\" title=\"Gestionare Utilizatori\"> de gestionare utilizator</a>. Aceasta vă va permite să executaţi acţiuni specifice pentru utilizatorii cu un rol specific. După crearea unui rol nou, îl puteţi modifica prin componenta <em>Editare Roluri</em>."
+
+#: components/role-manager/new-role.php:75
+msgid "Role:"
+msgstr "Rol:"
+
+#: components/role-manager/new-role.php:78
+msgid ""
+"<strong>Required:</strong> Enter the name of your role.  This is a unique "
+"key that should only contain numbers, letters, and underscores.  Please "
+"don't add spaces or other odd characters."
+msgstr "<strong>Necesar</strong> Introduceţi numele rolului.  Acesta este o cheie unică, ce ar trebui să conţină doar numere, litere şi liniuţe de sublinire. Vă rugăm să nu adăugaţi spaţii sau alte caractere."
+
+#: components/role-manager/new-role.php:86
+msgid "Role Label:"
+msgstr "Etichetă Rol:"
+
+#: components/role-manager/new-role.php:89
+msgid ""
+"<strong>Required:</strong> Enter a label your role.  This will be the title "
+"that is displayed in most cases."
+msgstr "<strong>Necesar:</strong> Introduceţi o etichetă pentru rol.  Aceasta va fi tittlul, ce va fi afişat, de cele mai multe ori."
+
+#: components/role-manager/new-role.php:97
+msgid "Capabilities:"
+msgstr "Capabilităţi:"
+
+#: components/role-manager/new-role.php:100
+msgid ""
+"<strong>Optional:</strong> Select which capabilities your new role should "
+"have.  These may be changed later using the <em>Edit Roles</em> component."
+msgstr "<strong>Opţional:</strong> Selectaţi ce capabilităţi trebuie să aibă noul rol. Se poate modifica mai târziu, folosind componenta <em>Editare Roluri</em>."
+
+#: components/role-manager/new-role.php:118
+msgid "Create Role"
+msgstr "Creare Rol"
+
+#: components/statistics/default.php:27
+msgid "Members Statistics"
+msgstr "Statistici Membrii"
+
+#: components/statistics/default.php:27
+msgid "Members Stats"
+msgstr "Statistică Membrii"
+
+#: components/statistics/statistics.php:84
+#: components/statistics/view-stats.php:23
+msgid "Statistics"
+msgstr "Statistici"
+
+#: components/statistics/statistics.php:99
+#: components/statistics/statistics.php:107
+#: components/statistics/statistics.php:125
+msgid "Stats"
+msgstr "Statistică"
+
+#: components/statistics/statistics.php:122
+#: components/statistics/statistics.php:125
+msgid "View stats for the %1$s role"
+msgstr "Vizualizare stare pentru rolul %1$s"
+
+#: components/statistics/statistics.php:150
+msgid "View the yearly stats for the %1$s role"
+msgstr "Vizualizare statistici anuale pentru rolul %1$s "
+
+#: components/statistics/statistics.php:150
+msgid "Yearly"
+msgstr "Anual"
+
+#: components/statistics/statistics.php:151
+msgid "View the monthly stats for the %1$s role"
+msgstr "Vizualizare statistici anuale pentru rolul %1$s"
+
+#: components/statistics/statistics.php:151
+msgid "Monthly"
+msgstr "Lunar"
+
+#: components/statistics/statistics.php:152
+msgid "View the daily stats for the %1$s role"
+msgstr "Vizualizare statistici zilnice pentru rolul %1$"
+
+#: components/statistics/statistics.php:152
+msgid "Daily"
+msgstr "Zilnic"
+
+#: components/statistics/view-stats.php:34
+#: components/statistics/view-stats.php:41
+msgid "Date"
+msgstr "Data"
+
+#: components/widgets/login.php:12 includes/widget-login-form.php:26
+msgid "A widget that allows users to log into your site."
+msgstr "O miniaplicaţie-widget ce permite utilizatoriilor să se autentifice pe site-ul dumneavoastră."
+
+#: components/widgets/login.php:14 includes/widget-login-form.php:37
+msgid "Login Form"
+msgstr "Formular Autentificare"
+
+#: components/widgets/login.php:110 components/widgets/login.php:113
+#: includes/widget-login-form.php:158 includes/widget-login-form.php:161
+msgid "Log In"
+msgstr "Autentificare"
+
+#: components/widgets/login.php:111
+msgid "Username:"
+msgstr "Nume de utilizator:"
+
+#: components/widgets/login.php:112 includes/widget-login-form.php:160
+msgid "Password"
+msgstr "Parola"
+
+#: components/widgets/login.php:114
+msgid "Remember me?"
+msgstr "Reţinere?"
+
+#: components/widgets/login.php:116 includes/widget-login-form.php:172
+msgid "Please log into the site."
+msgstr "Vă rugăm să vă autentificaţi."
+
+#: components/widgets/login.php:117 includes/widget-login-form.php:173
+msgid "You are currently logged in."
+msgstr "V-aţi autentificat deja."
+
+#: components/widgets/login.php:126 components/widgets/users.php:73
+#: includes/widget-login-form.php:185 includes/widget-users.php:157
+msgid "Title:"
+msgstr "Titlu:"
+
+#: components/widgets/login.php:131 includes/widget-login-form.php:246
+msgid "Logged out text:"
+msgstr "Text pentru Deautentificare:"
+
+#: components/widgets/login.php:136 includes/widget-login-form.php:251
+msgid "Logged in text:"
+msgstr "Text pentru Autentificare:"
+
+#: components/widgets/login.php:145 includes/widget-login-form.php:243
+msgid "Display avatar?"
+msgstr "Afişare pictogramă avatar?"
+
+#: components/widgets/login.php:148
+msgid "Username Label:"
+msgstr "Etichetă Nume-Utilizator:"
+
+#: components/widgets/login.php:152
+msgid "Password Label:"
+msgstr "Etichetă Parolă"
+
+#: components/widgets/login.php:157
+msgid "Submit Text:"
+msgstr "Text pentru Trimitere:"
+
+#: components/widgets/login.php:161
+msgid "Remember User Text:"
+msgstr "Reţinere Text Utilizator:"
+
+#: components/widgets/users.php:12
+msgid ""
+"An advanced widget that gives you total control over the output of your user"
+" lists."
+msgstr "O miniaplicaţie-widget ce vă oferă un control absolut asupra activităţii listei, dumneavoastră, de utilizatori."
+
+#: components/widgets/users.php:77
+msgid "Limit:"
+msgstr "Limitare:"
+
+#: components/widgets/users.php:81
+msgid "Order:"
+msgstr "Ordonare:"
+
+#: components/widgets/users.php:88
+msgid "Order By:"
+msgstr "Ordonare după:"
+
+#: components/widgets/users.php:96
+msgid "Include:"
+msgstr "Includere:"
+
+#: components/widgets/users.php:100
+msgid "Exclude:"
+msgstr "Excludere:"
+
+#: components/widgets/users.php:105
+msgid "Show full name?"
+msgstr "Afişare nume complet?"
+
+#: includes/update.php:104
+msgid "You must be logged into the site to view this content."
+msgstr "Pentru a vizualiza acest conţinut, trebuie să vă autentificaţi."
+
+#: includes/widget-login-form.php:159
+msgid "Username"
+msgstr "Nume utilizator"
+
+#: includes/widget-login-form.php:162
+msgid "Remember Me"
+msgstr "Reţinere!"
+
+#: includes/widget-login-form.php:235
+msgid "\"Remember me\" checkbox?"
+msgstr "Casetă validare \"Reţinere\"?"
+
+#: includes/widget-login-form.php:239
+msgid "Check \"remember me\"?"
+msgstr "Bifaţi \"reţinere\"?"
+
+#: includes/widget-users.php:26
+msgid "Provides the ability to list the users of the site."
+msgstr "Oferă abilitatea de listare a utilizatorilor acestui site."
+
+#: includes/widget-users.php:145
+msgid "Ascending"
+msgstr "Crescător"
+
+#: includes/widget-users.php:145
+msgid "Descending"
+msgstr "Descrescătoar"
+
+#: includes/widget-users.php:146
+msgid "Display Name"
+msgstr "Nume Afişat"
+
+#: includes/widget-users.php:146
+msgid "Email"
+msgstr "Email"
+
+#: includes/widget-users.php:146
+msgid "ID"
+msgstr "ID"
+
+#: includes/widget-users.php:146
+msgid "Nice Name"
+msgstr "Nume Familiar"
+
+#: includes/widget-users.php:146
+msgid "Post Count"
+msgstr "Număr Articole"
+
+#: includes/widget-users.php:146
+msgid "Registered"
+msgstr "Înregistrat"
+
+#: includes/widget-users.php:146
+msgid "URL"
+msgstr "URL"
+
+#: includes/widget-users.php:146
+msgid "Login"
+msgstr "Autentificare"
+
+#: members.php:191
+msgctxt "role"
+msgid "Role Manager"
+msgstr "Gestionare Rol"
+
+#. Plugin URI of the plugin/theme
+msgid "http://themehybrid.com/plugins/members"
+msgstr "http://themehybrid.com/plugins/members"
+
+#. Description of the plugin/theme
+msgid ""
+"A user, role, and content management plugin for controlling permissions and "
+"access. A plugin for making WordPress a more powerful <acronym "
+"title=\"Content Management System\">CMS</acronym>."
+msgstr "Un modul de gestionare conţinuturi şi roluri, pentru a controla accesul şi permisiunile. Un modul creat pentru a face din WordPress, un <acronym title=\"Content Management System\">CMS</acronym>mult mai puternic ."
+
+#. Author of the plugin/theme
+msgid "Justin Tadlock"
+msgstr "Justin Tadlock"
+
+#. Author URI of the plugin/theme
+msgid "http://justintadlock.com"
+msgstr "http://justintadlock.com"
