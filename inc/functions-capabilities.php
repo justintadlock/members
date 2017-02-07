@@ -92,7 +92,8 @@ function members_get_capabilities() {
 	$capabilities = array_merge(
 		members_get_wp_capabilities(),
 		members_get_role_capabilities(),
-		members_get_plugin_capabilities()
+		members_get_plugin_capabilities(),
+		members_get_post_type_capabilities()
 	);
 
 	// Apply filters to the array of capabilities.
@@ -228,6 +229,27 @@ function members_get_wp_capabilities() {
 		'update_themes',
 		'upload_files'
 	);
+}
+
+/**
+ * Gets an array of capabilities according to each post type. Each post type will return its caps,
+ * which are then added to the overall `$capabilities` array.
+ * 
+ * @since  1.0.2
+ * @access public
+ * @return array
+ */
+function members_get_post_type_capabilities() {
+	$cpt_caps = array();
+
+	// Loop through every custom post type.
+	foreach ( get_post_types( array(), 'objects' ) as $type ) {
+		$has_caps = members_get_post_type_group_caps( $type->name );
+
+		$cpt_caps = array_merge( $cpt_caps, $has_caps );
+	}
+
+	return $cpt_caps;
 }
 
 /**
