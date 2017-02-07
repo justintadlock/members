@@ -226,11 +226,11 @@ class Members_Role_List_Table extends WP_List_Table {
 
 		// If the role is the default role.
 		if ( $role == get_option( 'default_role' ) )
-			$states[] = esc_html__( 'Default Role', 'members' );
+			$states['default'] = esc_html__( 'Default Role', 'members' );
 
 		// If the current user has this role.
 		if ( members_current_user_has_role( $role ) )
-			$states[] = esc_html__( 'Your Role', 'members' );
+			$states['mine'] = esc_html__( 'Your Role', 'members' );
 
 		// Allow devs to filter the role states.
 		$states = apply_filters( 'members_role_states', $states, $role );
