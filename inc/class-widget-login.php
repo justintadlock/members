@@ -97,8 +97,8 @@ class Members_Widget_Login extends WP_Widget {
 			'label_log_in'   => esc_html( $instance['label_log_in']   ),
 			'id_username'    => esc_attr( $instance['id_username']    ),
 			'id_password'    => esc_attr( $instance['id_password']    ),
-			'id_remember'    => esc_attr( $instance['id_submit']      ),
-			'id_submit'      => esc_attr( $instance['remember']       ),
+			'id_remember'    => esc_attr( $instance['remember']       ),
+			'id_submit'      => esc_attr( $instance['id_submit']      ),
 			'value_username' => esc_attr( $instance['value_username'] ),
 
 			'remember'       => ! empty( $instance['remember']       ) ? true : false,
