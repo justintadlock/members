@@ -168,7 +168,7 @@ final class Members_Admin_Roles {
 				<?php esc_html_e( 'Roles', 'members' ); ?>
 
 				<?php if ( current_user_can( 'create_roles' ) ) : ?>
-					<a href="<?php echo esc_url( members_get_new_role_url() ); ?>" class="page-title-action"><?php esc_html_e( 'Add New', 'members' ); ?></a>
+					<a href="<?php echo esc_url( members_get_new_role_url() ); ?>" class="page-title-action"><?php echo esc_html_x( 'Add New', 'Add New Role', 'members' ); ?></a>
 				<?php endif; ?>
 			</h1>
 
