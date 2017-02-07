@@ -30,6 +30,12 @@ function members_register_shortcodes() {
 	add_shortcode( 'members_access', 'members_access_check_shortcode' );
 	add_shortcode( 'access',         'members_access_check_shortcode' ); // @deprecated 1.0.0
 
+	// add [members_access-1] till [members_access-3] for nested shortcodes
+	for ( $i=1; $i<=3; $i++ )
+	{
+		add_shortcode( 'members_access-' . $i , 'members_access_check_shortcode' ); 
+	}
+
 	// Add the `[members_feed]` shortcode.
 	add_shortcode( 'members_feed', 'members_feed_shortcode' );
 	add_shortcode( 'feed',         'members_feed_shortcode' ); // @deprecated 1.0.0
@@ -108,10 +114,15 @@ function members_access_check_shortcode( $attr, $content = null ) {
 
 		// Loop through each capability.
 		foreach ( $caps as $cap ) {
-
-			// If the current user can perform the capability, return the content.
-			if ( current_user_can( trim( $cap ) ) )
-				return do_shortcode( $content );
+			if (startsWith($cap, '!')) {
+				$cap = substr($cap, 1);
+				if (!current_user_can( trim( $cap ) ) ) {
+					return do_shortcode( $content );
+			} else {
+				// If the current user can perform the capability, return the content.
+				if ( current_user_can( trim( $cap ) ) )
+					return do_shortcode( $content );
+			}
 		}
 	}
 
@@ -123,10 +134,17 @@ function members_access_check_shortcode( $attr, $content = null ) {
 
 		// Loop through each of the roles.
 		foreach ( $roles as $role ) {
-
-			// If the current user has the role, return the content.
-			if ( members_current_user_has_role( trim( $role ) ) )
-				return do_shortcode( $content );
+			// is role negated?
+			if (startsWith($role, '!')) {
+				$role = substr($role, 1);
+				if (!members_current_user_has_role( trim( $role ) ) ) {
+					return do_shortcode( $content );
+				}
+			} else {
+				// If the current user has the role, return the content.
+				if ( members_current_user_has_role( trim( $role ) ) )
+					return do_shortcode( $content );
+			}
 		}
 	}
 
@@ -143,4 +161,9 @@ function members_access_check_shortcode( $attr, $content = null ) {
  */
 function members_login_form_shortcode() {
 	return wp_login_form( array( 'echo' => false ) );
+}
+
+function startsWith($haystack, $needle) {
+    // search backwards starting from haystack length characters from the end
+    return $needle === "" || strrpos($haystack, $needle, -strlen($haystack)) !== false;
 }
