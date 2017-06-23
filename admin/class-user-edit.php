@@ -92,16 +92,18 @@ final class Members_Admin_User_Edit {
 				<th><?php esc_html_e( 'User Roles', 'members' ); ?></th>
 
 				<td>
-					<ul>
-					<?php foreach ( $editable_roles as $role => $name ) : ?>
-						<li>
-							<label>
-								<input type="checkbox" name="members_user_roles[]" value="<?php echo esc_attr( $role ); ?>" <?php checked( in_array( $role, $user_roles ) ); ?> />
-								<?php echo esc_html( $name ); ?>
-							</label>
-						</li>
-					<?php endforeach; ?>
-					</ul>
+					<div class="wp-tab-panel">
+						<ul>
+						<?php foreach ( $editable_roles as $role => $name ) : ?>
+							<li>
+								<label>
+									<input type="checkbox" name="members_user_roles[]" value="<?php echo esc_attr( $role ); ?>" <?php checked( in_array( $role, $user_roles ) ); ?> />
+									<?php echo esc_html( $name ); ?>
+								</label>
+							</li>
+						<?php endforeach; ?>
+						</ul>
+					</div>
 				</td>
 			</tr>
 
