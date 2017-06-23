@@ -191,6 +191,13 @@ final class Members_Meta_Box_Content_Permissions {
 	 */
 	public function update( $post_id, $post = '' ) {
 
+		$do_autosave = defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE;
+		$is_autosave = wp_is_post_autosave( $post_id );
+		$is_revision = wp_is_post_revision( $post_id );
+
+		if ( $do_autosave || $is_autosave || $is_revision )
+			return;
+
 		// Fix for attachment save issue in WordPress 3.5.
 		// @link http://core.trac.wordpress.org/ticket/21963
 		if ( ! is_object( $post ) )
