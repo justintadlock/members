@@ -11,7 +11,7 @@
  */
 
 # Registers default groups.
-add_action( 'init', 'members_register_cap_groups', 15 );
+add_action( 'init', 'members_register_cap_groups', 95 );
 
 /**
  * Returns the instance of the `Members_Cap_Group_Factory` object. Use this function to access the object.
@@ -114,7 +114,6 @@ function members_register_cap_groups() {
 	members_register_cap_group( 'general',
 		array(
 			'label' => esc_html__( 'General', 'members' ),
-			'caps'  => members_get_general_group_caps(),
 			'icon'  => 'dashicons-wordpress'
 		)
 	);
@@ -173,7 +172,6 @@ function members_register_cap_groups() {
 	members_register_cap_group( 'theme',
 		array(
 			'label' => esc_html__( 'Appearance', 'members' ),
-			'caps'  => members_get_theme_group_caps(),
 			'icon'  => 'dashicons-admin-appearance'
 		)
 	);
@@ -182,7 +180,6 @@ function members_register_cap_groups() {
 	members_register_cap_group( 'plugin',
 		array(
 			'label' => esc_html__( 'Plugins', 'members' ),
-			'caps'  => members_get_plugin_group_caps(),
 			'icon'  => 'dashicons-admin-plugins'
 		)
 	);
@@ -191,7 +188,6 @@ function members_register_cap_groups() {
 	members_register_cap_group( 'user',
 		array(
 			'label' => esc_html__( 'Users', 'members' ),
-			'caps'  => members_get_user_group_caps(),
 			'icon'  => 'dashicons-admin-users'
 		)
 	);
@@ -254,29 +250,6 @@ function members_get_all_group_caps() {
 }
 
 /**
- * Returns the caps for the general capability group.
- *
- * @since  1.0.0
- * @access public
- * @return array
- */
-function members_get_general_group_caps() {
-
-	return array(
-		'edit_dashboard',
-		'edit_files',
-		'export',
-		'import',
-		'manage_links',
-		'manage_options',
-		'moderate_comments',
-		'read',
-		'unfiltered_html',
-		'update_core',
-	);
-}
-
-/**
  * Returns the caps for a specific post type capability group.
  *
  * @since  1.0.0
@@ -311,6 +284,11 @@ function members_get_post_type_group_caps( $post_type = 'post' ) {
 	if ( 'attachment' === $post_type )
 		$caps[] = 'unfiltered_upload';
 
+	$registered_caps = array_keys( wp_list_filter( members_get_caps(), array( 'group' => "type-{$post_type}" ) ) );
+
+	if ( $registered_caps )
+		array_merge( $caps, $registered_caps );
+
 	// Make sure there are no duplicates and return.
 	return array_unique( $caps );
 }
@@ -331,68 +309,12 @@ function members_get_taxonomy_group_caps() {
 	foreach ( $taxi as $tax )
 		$caps = array_merge( $caps, array_values( (array) $tax->cap ) );
 
+	$registered_caps = array_keys( wp_list_filter( members_get_caps(), array( 'group' => 'taxonomy' ) ) );
+
+	if ( $registered_caps )
+		array_merge( $caps, $registered_caps );
+
 	return array_unique( $caps );
-}
-
-/**
- * Returns the caps for the theme capability group.
- *
- * @since  1.0.0
- * @access public
- * @return array
- */
-function members_get_theme_group_caps() {
-
-	return array(
-		'delete_themes',
-		'edit_theme_options',
-		'edit_themes',
-		'install_themes',
-		'switch_themes',
-		'update_themes',
-	);
-}
-
-/**
- * Returns the caps for the plugin capability group.
- *
- * @since  1.0.0
- * @access public
- * @return array
- */
-function members_get_plugin_group_caps() {
-
-	return array(
-		'activate_plugins',
-		'delete_plugins',
-		'edit_plugins',
-		'install_plugins',
-		'update_plugins',
-	);
-}
-
-/**
- * Returns the caps for the user capability group.
- *
- * @since  1.0.0
- * @access public
- * @return array
- */
-function members_get_user_group_caps() {
-
-	return array(
-		'add_users',
-		'create_roles',
-		'create_users',
-		'delete_roles',
-		'delete_users',
-		'edit_roles',
-		'edit_users',
-		'list_roles',
-		'list_users',
-		'promote_users',
-		'remove_users',
-	);
 }
 
 /**
@@ -404,5 +326,64 @@ function members_get_user_group_caps() {
  */
 function members_get_custom_group_caps() {
 
-	return members_get_capabilities();
+	$caps = members_get_capabilities();
+
+	$registered_caps = array_keys( wp_list_filter( members_get_caps(), array( 'group' => 'custom' ) ) );
+
+	if ( $registered_caps )
+		array_merge( $caps, $registered_caps );
+
+	return array_unique( $caps );
+}
+
+/**
+ * Returns the caps for the general capability group.
+ *
+ * @since      1.0.0
+ * @deprecated 1.2.0
+ * @access     public
+ * @return     array
+ */
+function members_get_general_group_caps() {
+
+	return array_keys( wp_list_filter( members_get_caps(), array( 'group' => 'general' ) ) );
+}
+
+/**
+ * Returns the caps for the theme capability group.
+ *
+ * @since      1.0.0
+ * @deprecated 1.2.0
+ * @access     public
+ * @return     array
+ */
+function members_get_theme_group_caps() {
+
+	return array_keys( wp_list_filter( members_get_caps(), array( 'group' => 'theme' ) ) );
+}
+
+/**
+ * Returns the caps for the plugin capability group.
+ *
+ * @since      1.0.0
+ * @deprecated 1.2.0
+ * @access     public
+ * @return     array
+ */
+function members_get_plugin_group_caps() {
+
+	return array_keys( wp_list_filter( members_get_caps(), array( 'group' => 'plugin' ) ) );
+}
+
+/**
+ * Returns the caps for the user capability group.
+ *
+ * @since      1.0.0
+ * @deprecated 1.2.0
+ * @access     public
+ * @return     array
+ */
+function members_get_user_group_caps() {
+
+	return array_keys( wp_list_filter( members_get_caps(), array( 'group' => 'user' ) ) );
 }

@@ -11,6 +11,99 @@
  */
 
 /**
+ * Additional capabilities provided by the Members plugin that gives users permissions to handle
+ * certain features of the plugin.
+ *
+ * @since      1.0.0
+ * @deprecated 1.2.0
+ * @access     public
+ * @return     array
+ */
+function members_get_plugin_capabilities() {
+
+	return array(
+		'list_roles',	   // View roles list.
+		'create_roles',	   // Create new roles.
+		'delete_roles',	   // Delete roles.
+		'edit_roles',	   // Edit a role's caps.
+		'restrict_content' // Restrict content (content permissions component).
+	);
+}
+
+/**
+ * Make sure we keep the default capabilities in case users screw 'em up.  A user could easily
+ * remove a useful WordPress capability from all roles.  When this happens, the capability is no
+ * longer stored in any of the roles, so it basically doesn't exist.  This function will house
+ * all of the default WordPress capabilities in case this scenario comes into play.
+ *
+ * For those reading this note, yes, I did "accidentally" remove all capabilities from my
+ * administrator account when developing this plugin.  And yes, that was fun putting back
+ * together. ;)
+ *
+ * @link       http://codex.wordpress.org/Roles_and_Capabilities#Capabilities
+ * @since      1.0.0
+ * @deprecated 1.2.0
+ * @access     public
+ * @return     array
+ */
+function members_get_wp_capabilities() {
+
+	return array(
+		'activate_plugins',
+		'add_users',
+		'create_users',
+		'delete_others_pages',
+		'delete_others_posts',
+		'delete_pages',
+		'delete_plugins',
+		'delete_posts',
+		'delete_private_pages',
+		'delete_private_posts',
+		'delete_published_pages',
+		'delete_published_posts',
+		'delete_themes',
+		'delete_users',
+		'edit_dashboard',
+		'edit_files',
+		'edit_others_pages',
+		'edit_others_posts',
+		'edit_pages',
+		'edit_plugins',
+		'edit_posts',
+		'edit_private_pages',
+		'edit_private_posts',
+		'edit_published_pages',
+		'edit_published_posts',
+		'edit_theme_options',
+		'edit_themes',
+		'edit_users',
+		'export',
+		'import',
+		'install_plugins',
+		'install_themes',
+		'list_users',
+		'manage_categories',
+		'manage_links',
+		'manage_options',
+		'moderate_comments',
+		'promote_users',
+		'publish_pages',
+		'publish_posts',
+		'read',
+		'read_private_pages',
+		'read_private_posts',
+		'remove_users',
+		'switch_themes',
+		'unfiltered_html',
+		'unfiltered_upload',
+		'update_core',
+		'update_plugins',
+		'update_themes',
+		'upload_files'
+	);
+}
+
+/**
  * @since      0.2.0
  * @deprecated 1.0.0
  */

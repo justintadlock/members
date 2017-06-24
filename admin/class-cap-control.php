@@ -112,6 +112,7 @@ final class Members_Cap_Control {
 
 		// Set up the input labels.
 		$this->json['label'] = array(
+			'cap'   => members_show_human_caps() && members_cap_exists( $this->cap ) ? members_get_cap( $this->cap )->label : $this->cap,
 			'grant' => sprintf( esc_html__( 'Grant %s capability', 'members' ), "<code>{$this->cap}</code>" ),
 			'deny'  => sprintf( esc_html__( 'Deny %s capability',  'members' ), "<code>{$this->cap}</code>" )
 		);

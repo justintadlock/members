@@ -10,9 +10,208 @@
  * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
+# Register capabilities.
+add_action( 'init',                  'members_register_caps',         95 );
+add_action( 'members_register_caps', 'members_register_default_caps', 5  );
+
 # Disables the old user levels from capabilities array.
 add_filter( 'members_get_capabilities', 'members_remove_old_levels'  );
 add_filter( 'members_get_capabilities', 'members_remove_hidden_caps' );
+
+/**
+ * Fires the action hook for registering capabilities.
+ *
+ * @since  1.2.0
+ * @access public
+ * @return void
+ */
+function members_register_caps() {
+
+	do_action( 'members_register_caps' );
+}
+
+/**
+ * Registers all of our default caps.  In particular, the plugin registers its own caps plus core
+ * WP's caps.
+ *
+ * @since  1.2.0
+ * @access public
+ * @return void
+ */
+function members_register_default_caps() {
+
+	$caps = array();
+
+	// General caps.
+	$caps['edit_dashboard']    = array( 'label' => __( 'Edit Dashboard',    'members' ), 'group' => 'general' );
+	$caps['edit_files']        = array( 'label' => __( 'Edit Files',        'members' ), 'group' => 'general' );
+	$caps['export']            = array( 'label' => __( 'Export',            'members' ), 'group' => 'general' );
+	$caps['import']            = array( 'label' => __( 'Import',            'members' ), 'group' => 'general' );
+	$caps['manage_links']      = array( 'label' => __( 'Manage Links',      'members' ), 'group' => 'general' );
+	$caps['manage_options']    = array( 'label' => __( 'Manage Options',    'members' ), 'group' => 'general' );
+	$caps['moderate_comments'] = array( 'label' => __( 'Moderate Comments', 'members' ), 'group' => 'general' );
+	$caps['read']              = array( 'label' => __( 'Read',              'members' ), 'group' => 'general' );
+	$caps['unfiltered_html']   = array( 'label' => __( 'Unfiltered HTML',   'members' ), 'group' => 'general' );
+	$caps['update_core']       = array( 'label' => __( 'Update Core',       'members' ), 'group' => 'general' );
+
+	// Post caps.
+	$caps['delete_others_posts']    = array( 'label' => __( "Delete Others' Posts",   'members' ), 'group' => 'type-post' );
+	$caps['delete_posts']           = array( 'label' => __( 'Delete Posts',           'members' ), 'group' => 'type-post' );
+	$caps['delete_private_posts']   = array( 'label' => __( 'Delete Private Posts',   'members' ), 'group' => 'type-post' );
+	$caps['delete_published_posts'] = array( 'label' => __( 'Delete Published Posts', 'members' ), 'group' => 'type-post' );
+	$caps['edit_others_posts']      = array( 'label' => __( "Edit Others' Posts",     'members' ), 'group' => 'type-post' );
+	$caps['edit_posts']             = array( 'label' => __( 'Edit Posts',             'members' ), 'group' => 'type-post' );
+	$caps['edit_private_posts']     = array( 'label' => __( 'Edit Private Posts',     'members' ), 'group' => 'type-post' );
+	$caps['edit_published_posts']   = array( 'label' => __( 'Edit Published Posts',   'members' ), 'group' => 'type-post' );
+	$caps['publish_posts']          = array( 'label' => __( 'Publish Posts',          'members' ), 'group' => 'type-post' );
+	$caps['read_private_posts']     = array( 'label' => __( 'Read Private Posts',     'members' ), 'group' => 'type-post' );
+
+	// Page caps.
+	$caps['delete_others_pages']    = array( 'label' => __( "Delete Others' Pages",   'members' ), 'group' => 'type-page' );
+	$caps['delete_pages']           = array( 'label' => __( 'Delete Pages',           'members' ), 'group' => 'type-page' );
+	$caps['delete_private_pages']   = array( 'label' => __( 'Delete Private Pages',   'members' ), 'group' => 'type-page' );
+	$caps['delete_published_pages'] = array( 'label' => __( 'Delete Published Pages', 'members' ), 'group' => 'type-page' );
+	$caps['edit_others_pages']      = array( 'label' => __( "Edit Others' Pages",     'members' ), 'group' => 'type-page' );
+	$caps['edit_pages']             = array( 'label' => __( 'Edit Pages',             'members' ), 'group' => 'type-page' );
+	$caps['edit_private_pages']     = array( 'label' => __( 'Edit Private Pages',     'members' ), 'group' => 'type-page' );
+	$caps['edit_published_pages']   = array( 'label' => __( 'Edit Published Pages',   'members' ), 'group' => 'type-page' );
+	$caps['publish_pages']          = array( 'label' => __( 'Publish Pages',          'members' ), 'group' => 'type-page' );
+	$caps['read_private_pages']     = array( 'label' => __( 'Read Private Pages',     'members' ), 'group' => 'type-page' );
+
+	// Attachment caps.
+	$caps['upload_files'] = array( 'label' => __( 'Upload Files', 'members' ), 'group' => 'type-attachment' );
+
+	// Taxonomy caps.
+	$caps['assign_categories'] = array( 'label' => __( 'Assign Categories', 'members' ), 'group' => 'taxonomy' );
+	$caps['edit_categories']   = array( 'label' => __( 'Edit Categories',   'members' ), 'group' => 'taxonomy' );
+	$caps['delete_categories'] = array( 'label' => __( 'Delete Categories', 'members' ), 'group' => 'taxonomy' );
+	$caps['manage_categories'] = array( 'label' => __( 'Manage Categories', 'members' ), 'group' => 'taxonomy' );
+
+	$caps['assign_post_tags'] = array( 'label' => __( 'Assign Tags', 'members' ), 'group' => 'taxonomy' );
+	$caps['edit_post_tags']   = array( 'label' => __( 'Edit Tags',   'members' ), 'group' => 'taxonomy' );
+	$caps['delete_post_tags'] = array( 'label' => __( 'Delete Tags', 'members' ), 'group' => 'taxonomy' );
+	$caps['manage_post_tags'] = array( 'label' => __( 'Manage Tags', 'members' ), 'group' => 'taxonomy' );
+
+	// Theme caps.
+	$caps['delete_themes']      = array( 'label' => __( 'Delete Themes',      'members' ), 'group' => 'theme' );
+	$caps['edit_theme_options'] = array( 'label' => __( 'Edit Theme Options', 'members' ), 'group' => 'theme' );
+	$caps['edit_themes']        = array( 'label' => __( 'Edit Themes',        'members' ), 'group' => 'theme' );
+	$caps['install_themes']     = array( 'label' => __( 'Install Themes',     'members' ), 'group' => 'theme' );
+	$caps['switch_themes']      = array( 'label' => __( 'Switch Themes',      'members' ), 'group' => 'theme' );
+	$caps['update_themes']      = array( 'label' => __( 'Update Themes',      'members' ), 'group' => 'theme' );
+
+	// Plugin caps.
+	$caps['activate_plugins'] = array( 'label' => __( 'Activate Plugins', 'members' ), 'group' => 'plugin' );
+	$caps['delete_plugins']   = array( 'label' => __( 'Delete Plugins',   'members' ), 'group' => 'plugin' );
+	$caps['edit_plugins']     = array( 'label' => __( 'Edit Plugins',     'members' ), 'group' => 'plugin' );
+	$caps['install_plugins']  = array( 'label' => __( 'Install Plugins',  'members' ), 'group' => 'plugin' );
+	$caps['update_plugins']   = array( 'label' => __( 'Update Plugins',   'members' ), 'group' => 'plugin' );
+
+	// User caps.
+	$caps['add_users']     = array( 'label' => __( 'Add Users',     'members' ), 'group' => 'user' );
+	$caps['create_roles']  = array( 'label' => __( 'Create Roles',  'members' ), 'group' => 'user' );
+	$caps['create_users']  = array( 'label' => __( 'Create Users',  'members' ), 'group' => 'user' );
+	$caps['delete_roles']  = array( 'label' => __( 'Delete Roles',  'members' ), 'group' => 'user' );
+	$caps['delete_users']  = array( 'label' => __( 'Delete Users',  'members' ), 'group' => 'user' );
+	$caps['edit_roles']    = array( 'label' => __( 'Edit Roles',    'members' ), 'group' => 'user' );
+	$caps['edit_users']    = array( 'label' => __( 'Edit Users',    'members' ), 'group' => 'user' );
+	$caps['list_roles']    = array( 'label' => __( 'List Roles',    'members' ), 'group' => 'user' );
+	$caps['list_users']    = array( 'label' => __( 'List Users',    'members' ), 'group' => 'user' );
+	$caps['promote_users'] = array( 'label' => __( 'Promote Users', 'members' ), 'group' => 'user' );
+	$caps['remove_users']  = array( 'label' => __( 'Remove Users',  'members' ), 'group' => 'user' );
+
+	// Custom caps.
+	$caps['restrict_content'] = array( 'label' => __( 'Restrict Content', 'members' ), 'group' => 'custom' );
+
+	// Register each of the capabilities.
+	foreach ( $caps as $name => $args )
+		members_register_cap( $name, $args );
+}
+
+/**
+ * Returns the instance of the capability factory.
+ *
+ * @see    Members_Capability_Factory::get_instance()
+ * @since  1.2.0
+ * @access public
+ * @return object
+ */
+function members_capability_factory() {
+
+	return Members_Capability_Factory::get_instance();
+}
+
+/**
+ * Returns all registered caps.
+ *
+ * @see    Members_Capability_Factory::caps
+ * @since  1.2.0
+ * @access public
+ * @return array
+ */
+function members_get_caps() {
+
+	return members_capability_factory()->caps;
+}
+
+/**
+ * Registers a capability.
+ *
+ * @see    Members_Capability_Factory::register_cap()
+ * @since  1.2.0
+ * @access public
+ * @param  string  $name
+ * @param  array   $args
+ * @return void
+ */
+function members_register_cap( $name, $args = array() ) {
+
+	members_capability_factory()->register_cap( $name, $args );
+}
+
+/**
+ * Unregisters a capability.
+ *
+ * @see    Members_Capability_Factory::unregister_cap()
+ * @since  1.2.0
+ * @access public
+ * @param  string  $name
+ * @return void
+ */
+function members_unregister_cap( $name ) {
+
+	members_capability_factory()->unregister_cap( $name );
+}
+
+/**
+ * Returns a capability object.
+ *
+ * @see    Members_Capability_Factory::get_cap()
+ * @since  1.2.0
+ * @access public
+ * @param  string  $name
+ * @return object
+ */
+function members_get_cap( $name ) {
+
+	return members_capability_factory()->get_cap( $name );
+}
+
+/**
+ * Checks if a capability object exists.
+ *
+ * @note   In 1.2.0, the function was changed to only check from registered caps.
+ *
+ * @see    Members_Capability_Factory::unregister_cap()
+ * @since  1.0.0
+ * @access public
+ * @param  string  $name
+ * @return bool
+ */
+function members_cap_exists( $name ) {
+
+	return members_capability_factory()->cap_exists( $name );
+}
 
 /**
  * Function for sanitizing a capability.
@@ -24,18 +223,6 @@ add_filter( 'members_get_capabilities', 'members_remove_hidden_caps' );
  */
 function members_sanitize_cap( $cap ) {
 	return apply_filters( 'members_sanitize_cap', sanitize_key( $cap ) );
-}
-
-/**
- * Conditional tag for checking whether a capability exists.
- *
- * @since  1.0.0
- * @access public
- * @param  string  $cap
- * @return bool
- */
-function members_cap_exists( $cap ) {
-	return in_array( $cap, members_get_capabilities() );
 }
 
 /**
@@ -90,9 +277,8 @@ function members_get_capabilities() {
 
 	// Merge the default WP, role, and plugin caps together.
 	$capabilities = array_merge(
-		members_get_wp_capabilities(),
-		members_get_role_capabilities(),
-		members_get_plugin_capabilities()
+		array_keys( members_get_caps() ),
+		members_get_role_capabilities()
 	);
 
 	// Apply filters to the array of capabilities.
@@ -137,97 +323,6 @@ function members_get_role_capabilities() {
 
 	// Return the capabilities array, making sure there are no duplicates.
 	return array_unique( $capabilities );
-}
-
-/**
- * Additional capabilities provided by the Members plugin that gives users permissions to handle
- * certain features of the plugin.
- *
- * @since  1.0.0
- * @access public
- * @return array
- */
-function members_get_plugin_capabilities() {
-
-	return array(
-		'list_roles',	   // View roles list.
-		'create_roles',	   // Create new roles.
-		'delete_roles',	   // Delete roles.
-		'edit_roles',	   // Edit a role's caps.
-		'restrict_content' // Restrict content (content permissions component).
-	);
-}
-
-/**
- * Make sure we keep the default capabilities in case users screw 'em up.  A user could easily
- * remove a useful WordPress capability from all roles.  When this happens, the capability is no
- * longer stored in any of the roles, so it basically doesn't exist.  This function will house
- * all of the default WordPress capabilities in case this scenario comes into play.
- *
- * For those reading this note, yes, I did "accidentally" remove all capabilities from my
- * administrator account when developing this plugin.  And yes, that was fun putting back
- * together. ;)
- *
- * @link   http://codex.wordpress.org/Roles_and_Capabilities#Capabilities
- * @since  1.0.0
- * @access public
- * @return array
- */
-function members_get_wp_capabilities() {
-
-	return array(
-		'activate_plugins',
-		'add_users',
-		'create_users',
-		'delete_others_pages',
-		'delete_others_posts',
-		'delete_pages',
-		'delete_plugins',
-		'delete_posts',
-		'delete_private_pages',
-		'delete_private_posts',
-		'delete_published_pages',
-		'delete_published_posts',
-		'delete_themes',
-		'delete_users',
-		'edit_dashboard',
-		'edit_files',
-		'edit_others_pages',
-		'edit_others_posts',
-		'edit_pages',
-		'edit_plugins',
-		'edit_posts',
-		'edit_private_pages',
-		'edit_private_posts',
-		'edit_published_pages',
-		'edit_published_posts',
-		'edit_theme_options',
-		'edit_themes',
-		'edit_users',
-		'export',
-		'import',
-		'install_plugins',
-		'install_themes',
-		'list_users',
-		'manage_categories',
-		'manage_links',
-		'manage_options',
-		'moderate_comments',
-		'promote_users',
-		'publish_pages',
-		'publish_posts',
-		'read',
-		'read_private_pages',
-		'read_private_posts',
-		'remove_users',
-		'switch_themes',
-		'unfiltered_html',
-		'unfiltered_upload',
-		'update_core',
-		'update_plugins',
-		'update_themes',
-		'upload_files'
-	);
 }
 
 /**

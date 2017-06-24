@@ -52,10 +52,10 @@ final class Members_Cap_Group {
 	 * @access protected
 	 * @var    array
 	 */
-	public $caps = array( 'read' );
+	public $caps = array();
 
 	/**
-	 * Whether to merge this groups caps with the added caps array.
+	 * Whether to merge this group's caps with the added caps array.
 	 *
 	 * @since  1.0.0
 	 * @access protected
@@ -108,6 +108,10 @@ final class Members_Cap_Group {
 		}
 
 		$this->name = sanitize_key( $name );
+
+		$registered_caps = array_keys( wp_list_filter( members_get_caps(), array( 'group' => $this->name ) ) );
+
+		$this->caps = array_unique( array_merge( $this->caps, $registered_caps ) );
 
 		$this->caps = members_remove_hidden_caps( $this->caps );
 	}

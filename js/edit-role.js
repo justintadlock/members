@@ -377,7 +377,7 @@ jQuery( document ).ready( function() {
 					name           : { grant : 'grant-new-caps[]', deny : 'deny-new-caps[]' },
 					is_granted_cap : true,
 					is_denied_cap  : false,
-					label          : { grant : members_i18n.label_grant_cap, deny : members_i18n.label_deny_cap }
+					label          : { cap : new_cap, grant : members_i18n.label_grant_cap, deny : members_i18n.label_deny_cap }
 				};
 
 				// Prepend our template to the "custom" edit caps tab content.

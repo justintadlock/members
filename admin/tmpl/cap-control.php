@@ -12,7 +12,7 @@
 ?>
 <tr class="members-cap-checklist">
 	<td class="column-cap">
-		<button type="button"><strong>{{ data.cap }}</strong></button>
+		<button type="button"><strong>{{ data.label.cap }}</strong></button>
 		<i class="dashicons <?php echo is_rtl() ? 'dashicons-arrow-left' : 'dashicons-arrow-right'; ?>"></i>
 	</td>
 
