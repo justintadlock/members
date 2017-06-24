@@ -166,7 +166,7 @@ final class Members_Admin_Role_Edit {
 				$_cap = members_sanitize_cap( $grant_new_cap );
 
 				// If not an existing cap, add it.
-				if ( ! in_array( $_cap, $this->capabilities ) ) {
+				if ( 'do_not_allow' !== $_cap && ! in_array( $_cap, $this->capabilities ) ) {
 					$this->role->add_cap( $_cap );
 
 					$push_caps[] = $_cap;
@@ -179,7 +179,7 @@ final class Members_Admin_Role_Edit {
 				$_cap = members_sanitize_cap( $deny_new_cap );
 
 				// If not a granted cap and not an existing cap, add it.
-				if ( ! in_array( $_cap, $this->capabilities ) && ! in_array( $_cap, $grant_new_caps ) ) {
+				if ( 'do_not_allow' !== $_cap && ! in_array( $_cap, $this->capabilities ) && ! in_array( $_cap, $grant_new_caps ) ) {
 					$this->role->add_cap( $_cap, false );
 
 					$push_caps[] = $_cap;

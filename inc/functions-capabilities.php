@@ -355,6 +355,9 @@ function members_get_hidden_caps() {
 
 	$caps = array();
 
+	// This is always a hidden cap and should never be added to the caps list.
+	$caps[] = 'do_not_allow';
+
 	// Unfiltered uploads.
 	if ( is_multisite() || ! defined( 'ALLOW_UNFILTERED_UPLOADS' ) || ! ALLOW_UNFILTERED_UPLOADS )
 		$caps[] = 'unfiltered_upload';

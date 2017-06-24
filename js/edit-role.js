@@ -325,7 +325,7 @@ jQuery( document ).ready( function() {
 		function() {
 
 			// If there's a value in the input, enable the add new button.
-			if ( jQuery( this ).val() ) {
+			if ( 'do_not_allow' !== jQuery( this ).val() ) {
 
 				jQuery( '#members-add-new-cap' ).prop( 'disabled', false );
 
@@ -362,6 +362,11 @@ jQuery( document ).ready( function() {
 
 			// If there's a new cap value.
 			if ( new_cap ) {
+
+				// Don't allow the 'do_not_allow' cap.
+				if ( 'do_not_allow' === new_cap ) {
+					return;
+				}
 
 				// Trigger a click event on the "custom" tab in the edit caps box.
 				jQuery( 'a[href="#members-tab-custom"]' ).trigger( 'click' );

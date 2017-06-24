@@ -179,7 +179,7 @@ final class Members_Admin_Role_New {
 
 				$_cap = members_sanitize_cap( $grant_new_cap );
 
-				if ( ! in_array( $_cap, $_m_caps ) )
+				if ( 'do_not_allow' !== $_cap && ! in_array( $_cap, $_m_caps ) )
 					$new_caps[ $_cap ] = true;
 			}
 
@@ -187,7 +187,7 @@ final class Members_Admin_Role_New {
 
 				$_cap = members_sanitize_cap( $deny_new_cap );
 
-				if ( ! in_array( $_cap, $_m_caps ) )
+				if ( 'do_not_allow' !== $_cap && ! in_array( $_cap, $_m_caps ) )
 					$new_caps[ $_cap ] = false;
 			}
 
