@@ -127,8 +127,12 @@ final class Members_Cap_Tabs {
 		// Hook before registering.
 		do_action( 'members_pre_edit_caps_manager_register' );
 
+		$groups = members_get_cap_groups();
+
+		uasort( $groups, 'members_priority_sort' );
+
 		// Get and loop through the available capability groups.
-		foreach ( members_get_cap_groups() as $group ) {
+		foreach ( $groups as $group ) {
 
 			$caps = $group->caps;
 

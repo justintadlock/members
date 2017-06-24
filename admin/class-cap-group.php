@@ -55,6 +55,15 @@ final class Members_Cap_Group {
 	public $caps = array();
 
 	/**
+	 * Sort order priority.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @var    int
+	 */
+	public $priority = 10;
+
+	/**
 	 * Whether to merge this group's caps with the added caps array.
 	 *
 	 * @since  1.0.0

@@ -103,8 +103,9 @@ function members_register_cap_groups() {
 	// Registers the general group.
 	members_register_cap_group( 'general',
 		array(
-			'label' => esc_html__( 'General', 'members' ),
-			'icon'  => 'dashicons-wordpress'
+			'label'    => esc_html__( 'General', 'members' ),
+			'icon'     => 'dashicons-wordpress',
+			'priority' => 5
 		)
 	);
 
@@ -141,9 +142,10 @@ function members_register_cap_groups() {
 		// Register the post type cap group.
 		members_register_cap_group( "type-{$type->name}",
 			array(
-				'label' => $type->labels->name,
-				'caps'  => $has_caps,
-				'icon'  => $icon
+				'label'    => $type->labels->name,
+				'caps'     => $has_caps,
+				'icon'     => $icon,
+				'priority' => 5
 			)
 		);
 	}
@@ -154,31 +156,35 @@ function members_register_cap_groups() {
 			'label'      => esc_html__( 'Taxonomies', 'members' ),
 			'caps'       => members_get_taxonomy_group_caps(),
 			'icon'       => 'dashicons-tag',
-			'diff_added' => true
+			'diff_added' => true,
+			'priority'   => 10
 		)
 	);
 
 	// Register the theme group.
 	members_register_cap_group( 'theme',
 		array(
-			'label' => esc_html__( 'Appearance', 'members' ),
-			'icon'  => 'dashicons-admin-appearance'
+			'label'    => esc_html__( 'Appearance', 'members' ),
+			'icon'     => 'dashicons-admin-appearance',
+			'priority' => 15
 		)
 	);
 
 	// Register the plugin group.
 	members_register_cap_group( 'plugin',
 		array(
-			'label' => esc_html__( 'Plugins', 'members' ),
-			'icon'  => 'dashicons-admin-plugins'
+			'label'    => esc_html__( 'Plugins', 'members' ),
+			'icon'     => 'dashicons-admin-plugins',
+			'priority' => 20
 		)
 	);
 
 	// Register the user group.
 	members_register_cap_group( 'user',
 		array(
-			'label' => esc_html__( 'Users', 'members' ),
-			'icon'  => 'dashicons-admin-users'
+			'label'    => esc_html__( 'Users', 'members' ),
+			'icon'     => 'dashicons-admin-users',
+			'priority' => 25
 		)
 	);
 
@@ -188,7 +194,8 @@ function members_register_cap_groups() {
 			'label'      => esc_html__( 'Custom', 'members' ),
 			'caps'       => members_get_capabilities(),
 			'icon'       => 'dashicons-admin-generic',
-			'diff_added' => true
+			'diff_added' => true,
+			'priority'   => 90
 		)
 	);
 
@@ -198,7 +205,8 @@ function members_register_cap_groups() {
 			'label'       => esc_html__( 'All', 'members' ),
 			'caps'        => members_get_all_group_caps(),
 			'icon'        => 'dashicons-plus',
-			'merge_added' => false
+			'merge_added' => false,
+			'priority'    => 95
 		)
 	);
 
@@ -221,19 +229,6 @@ function members_register_cap_groups() {
 
 		// Assign all caps to the `all` group.
 		$_group->caps = array_unique( $caps );
-	}
-
-	// Check if the `custom` group is registered and there's possibly other non-default groups.
-	if ( has_action( 'members_register_cap_groups' ) && members_cap_group_exists( 'custom' ) ) {
-
-		// Get the custom group object.
-		$custom = members_cap_group_factory()->groups[ 'custom' ];
-
-		// Unset the custom group object.
-		unset( members_cap_group_factory()->groups[ 'custom' ] );
-
-		// Move the custom group object to the end.
-		members_cap_group_factory()->groups[ 'custom' ] = $custom;
 	}
 }
 

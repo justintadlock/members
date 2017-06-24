@@ -22,3 +22,18 @@
 function members_validate_boolean( $val ) {
 	return filter_var( $val, FILTER_VALIDATE_BOOLEAN );
 }
+
+
+/**
+ * Helper function for sorting objects by priority.
+ *
+ * @since  1.2.0
+ * @access protected
+ * @param  object     $a
+ * @param  object     $b
+ * @return int
+ */
+function members_priority_sort( $a, $b ) {
+
+	return $a->priority - $b->priority;
+}
