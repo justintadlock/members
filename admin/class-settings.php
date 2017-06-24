@@ -171,7 +171,7 @@ final class Members_Settings_Page {
 
 			do_action( 'members_register_settings_views', $this );
 
-			uasort( $this->views, array( $this, 'priority_sort' ) );
+			uasort( $this->views, 'members_priority_sort' );
 
 			// Register setings.
 			add_action( 'admin_init', array( $this, 'register_settings' ) );
@@ -300,23 +300,6 @@ final class Members_Settings_Page {
 
 		</ul>
 	<?php }
-
-	/**
-	 * Helper method for sorting views by priority.
-	 *
-	 * @since  1.2.0
-	 * @access protected
-	 * @param  object     $a
-	 * @param  object     $b
-	 * @return int
-	 */
-	protected function priority_sort( $a, $b ) {
-
-		if ( $a->priority === $b->priority )
-			return $a->instance_number - $b->instance_number;
-
-		return $a->priority - $b->priority;
-	}
 
 	/**
 	 * Adds help tabs.
