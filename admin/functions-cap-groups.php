@@ -100,16 +100,6 @@ function members_get_cap_group( $name ) {
  */
 function members_register_cap_groups() {
 
-	// Register the all group.
-	members_register_cap_group( 'all',
-		array(
-			'label'       => esc_html__( 'All', 'members' ),
-			'caps'        => members_get_all_group_caps(),
-			'icon'        => 'dashicons-plus',
-			'merge_added' => false
-		)
-	);
-
 	// Registers the general group.
 	members_register_cap_group( 'general',
 		array(
@@ -199,6 +189,16 @@ function members_register_cap_groups() {
 			'caps'       => members_get_capabilities(),
 			'icon'       => 'dashicons-admin-generic',
 			'diff_added' => true
+		)
+	);
+
+	// Register the all group.
+	members_register_cap_group( 'all',
+		array(
+			'label'       => esc_html__( 'All', 'members' ),
+			'caps'        => members_get_all_group_caps(),
+			'icon'        => 'dashicons-plus',
+			'merge_added' => false
 		)
 	);
 
