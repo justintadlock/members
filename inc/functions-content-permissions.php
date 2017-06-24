@@ -9,6 +9,8 @@
 
 # Enable the content permissions features.
 add_action( 'after_setup_theme', 'members_enable_content_permissions', 0 );
+# Also enable post and taxonomy filtration when using admin-ajax.php queries.
+add_action('admin_init','members_enable_content_permissions_ajax',0);
 
 /**
  * Returns an array of the roles for a given post.
@@ -126,7 +128,73 @@ function members_enable_content_permissions() {
 		add_filter( 'members_post_error_message',                   'wpautop',           25 );
 		add_filter( 'members_post_error_message',                   'do_shortcode',      30 );
 		add_filter( 'members_post_error_message',                   'shortcode_unautop', 35 );
+		
+		
+		custom_registration_ex();
 	}
+}
+
+function custom_registration_ex() {
+	add_filter('get_terms','members_content_permissions_custom_get_terms',10,3);
+	add_filter('the_posts','members_content_permissions_custom_the_posts',10,3);
+	add_filter('vc_basic_grid_filter_query_suppress_filters','members_content_permissions_custom_vc_grid_suppress',10,1);
+}
+
+function members_enable_content_permissions_ajax() {
+	if ( !wp_doing_ajax() ) return; // make sure we aren't running the same code twice.
+	// Only add filters if the content permissions feature is enabled and we're not in the admin.
+	// here we only add the filters to support ajax requests that process content, which we must ensure they have access to attain.
+	
+	if ( members_content_permissions_enabled() ) {
+		custom_registration_ex();
+	}
+}
+
+function members_content_permissions_custom_vc_grid_suppress($state) {
+	return false;//don't suppress filters on visualcomposer grid.
+}
+
+function members_content_permissions_custom_the_posts($posts,$self,$unk2=null) {
+	if ( is_admin() && !wp_doing_ajax() ) return $posts;
+	if ( !is_main_query() && !$self->is_search && !wp_doing_ajax() ) return $posts;
+	$resultant=array();
+	$uid=get_current_user_id();
+	foreach($posts as $post) {
+		if (members_can_user_view_post($uid,$post->ID)) {
+			$resultant[]=$post;
+		}
+	}
+	return $resultant;
+}
+
+
+function members_content_permissions_custom_get_terms($terms, $taxonomies=null, $args=null) {
+	if ( is_admin() && !wp_doing_ajax() ) return $terms;
+	global $wpdb;
+	if ( !is_array($terms) && count($terms) < 1 ) return $terms;
+	$taxonomy = $taxonomies[0];
+	$resultant=array();
+	
+	$uid=get_current_user_id();
+	foreach($terms as $term) {
+		$allow=false;
+		if ($term->taxonomy == "") {
+			$allow=true;
+		} else {
+			$post_ids_with_tax = $wpdb->get_var("SELECT GROUP_CONCAT(p.ID SEPARATOR ',') FROM ".$wpdb->posts." p JOIN ".$wpdb->term_relationships." rl ON p.ID = rl.object_id WHERE rl.term_taxonomy_id = ".$term->term_id." AND p.post_status = 'publish' GROUP BY p.id");
+			if ($post_ids_with_tax!=null) {
+				$pids=explode(',',$post_ids_with_tax);
+				foreach($pids as $pid) {
+					if (members_can_user_view_post($uid,$pid)) {
+						$allow=true;
+						break; // no need to check additional posts, the user can see at least one post in the category.
+					}
+				}
+			}
+		}
+		if ($allow) $resultant[]=$term;
+	}
+	return $resultant;
 }
 
 /**
