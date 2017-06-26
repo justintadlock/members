@@ -94,13 +94,8 @@ final class Members_Meta_Box_Content_Permissions {
 		if ( ! current_user_can( 'restrict_content' ) )
 			return;
 
-		// Get the post type object.
-		$type = get_post_type_object( $post_type );
-
-		// If this is a public post type, add the meta box.
-		// Note that we're disabling for attachments b/c users get confused between "content" and "file".
-		if ( 'attachment' !== $type->name && $type->public )
-			add_meta_box( 'members-cp', esc_html__( 'Content Permissions', 'members' ), array( $this, 'meta_box' ), $post_type, 'advanced', 'high' );
+		// Add the meta box.
+		add_meta_box( 'members-cp', esc_html__( 'Content Permissions', 'members' ), array( $this, 'meta_box' ), $post_type, 'advanced', 'high' );
 	}
 
 	/**
@@ -112,9 +107,13 @@ final class Members_Meta_Box_Content_Permissions {
 	 */
 	public function maybe_enable() {
 
-		$post_type = get_current_screen()->post_type;
+		// Get the post type object.
+		$type = get_post_type_object( get_current_screen()->post_type );
 
-		return apply_filters( "members_enable_{$post_type}_content_permissions", true );
+		// Only enable for public post types and non-attachments by default.
+		$enable = 'attachment' !== $type->name && $type->public;
+
+		return apply_filters( "members_enable_{$type->name}_content_permissions", $enable );
 	}
 
 	/**
