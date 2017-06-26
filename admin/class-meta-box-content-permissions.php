@@ -146,7 +146,7 @@ final class Members_Meta_Box_Content_Permissions {
 		do_action( 'members_cp_meta_box_before', $post ); ?>
 
 		<p>
-			<?php esc_html_e( "Limit access to this post's content to users of the selected roles.", 'members' ); ?>
+			<?php esc_html_e( 'Limit access to the content to users of the selected roles.', 'members' ); ?>
 		</p>
 
 		<div class="members-cp-role-list-wrap">
@@ -166,7 +166,7 @@ final class Members_Meta_Box_Content_Permissions {
 		</div>
 
 		<p class="howto">
-			<?php printf( esc_html__( 'If no roles are selected, everyone can view the content. The post author, any users who can edit this post, and users with the %s capability can view the content regardless of role.', 'members' ), '<code>restrict_content</code>' ); ?>
+			<?php printf( esc_html__( 'If no roles are selected, everyone can view the content. The author, any users who can edit the content, and users with the %s capability can view the content regardless of role.', 'members' ), '<code>restrict_content</code>' ); ?>
 		</p>
 
 		<p>
