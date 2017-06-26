@@ -106,7 +106,7 @@ final class Members_Meta_Box_Content_Permissions {
 	/**
 	 * Checks if Content Permissions should appear for the given post type.
 	 *
-	 * @since  1.2.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return bool
 	 */

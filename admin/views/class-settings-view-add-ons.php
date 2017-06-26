@@ -13,7 +13,7 @@
 /**
  * Sets up and handles the add-ons settings view.
  *
- * @since  1.2.0
+ * @since  2.0.0
  * @access public
  */
 class Members_Settings_View_Add_Ons extends Members_Settings_View {
@@ -21,7 +21,7 @@ class Members_Settings_View_Add_Ons extends Members_Settings_View {
 	/**
 	 * Renders the settings page.
 	 *
-	 * @since  1.2.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */
@@ -79,7 +79,7 @@ class Members_Settings_View_Add_Ons extends Members_Settings_View {
 	/**
 	 * Adds help tabs.
 	 *
-	 * @since  1.2.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */
@@ -105,7 +105,7 @@ class Members_Settings_View_Add_Ons extends Members_Settings_View {
 	 * Returns a list of add-ons for the Members plugin.  This function is temporary until
 	 * we can get a proper API set up on Theme Hybrid to allow this data to be sent over.
 	 *
-	 * @since  1.2.0
+	 * @since  2.0.0
 	 * @access private
 	 * @return array
 	 */

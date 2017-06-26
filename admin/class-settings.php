@@ -30,7 +30,7 @@ final class Members_Settings_Page {
 	/**
 	 * Holds an array the settings page views.
 	 *
-	 * @since  1.2.0
+	 * @since  2.0.0
 	 * @access public
 	 * @var    array
 	 */
@@ -68,7 +68,7 @@ final class Members_Settings_Page {
 	/**
 	 * Loads settings files.
 	 *
-	 * @since  1.2.0
+	 * @since  2.0.0
 	 * @access private
 	 * @return void
 	 */
@@ -86,7 +86,7 @@ final class Members_Settings_Page {
 	/**
 	 * Sets up initial actions.
 	 *
-	 * @since  1.2.0
+	 * @since  2.0.0
 	 * @access private
 	 * @return void
 	 */
@@ -98,7 +98,7 @@ final class Members_Settings_Page {
 	/**
 	 * Register a view.
 	 *
-	 * @since  1.2.0
+	 * @since  2.0.0
 	 * @access public
 	 * @param  object  $view
 	 * @return void
@@ -112,7 +112,7 @@ final class Members_Settings_Page {
 	/**
 	 * Unregister a view.
 	 *
-	 * @since  1.2.0
+	 * @since  2.0.0
 	 * @access public
 	 * @param  string  $name
 	 * @return void
@@ -126,7 +126,7 @@ final class Members_Settings_Page {
 	/**
 	 * Get a view object
 	 *
-	 * @since  1.2.0
+	 * @since  2.0.0
 	 * @access public
 	 * @param  string  $name
 	 * @return object
@@ -139,7 +139,7 @@ final class Members_Settings_Page {
 	/**
 	 * Check if a view exists.
 	 *
-	 * @since  1.2.0
+	 * @since  2.0.0
 	 * @access public
 	 * @param  string  $name
 	 * @return bool
@@ -187,7 +187,7 @@ final class Members_Settings_Page {
 	/**
 	 * Runs on page load.
 	 *
-	 * @since  1.2.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */
@@ -206,7 +206,7 @@ final class Members_Settings_Page {
 	/**
 	 * Print styles to the header.
 	 *
-	 * @since  1.2.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */
@@ -273,7 +273,7 @@ final class Members_Settings_Page {
 	/**
 	 * Outputs the list of views.
 	 *
-	 * @since  1.2.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */
@@ -305,7 +305,7 @@ final class Members_Settings_Page {
 	 * Adds help tabs.
 	 *
 	 * @since      1.0.0
-	 * @deprecated 1.2.0
+	 * @deprecated 2.0.0
 	 * @access     public
 	 * @return     void
 	 */

@@ -16,7 +16,7 @@ add_action( 'init', 'members_register_role_groups', 95 );
 /**
  * Returns the instance of the role group registry.
  *
- * @since  1.2.0
+ * @since  2.0.0
  * @access public
  * @return object
  */

@@ -13,7 +13,7 @@
 /**
  * Settings view base class.
  *
- * @since  1.2.0
+ * @since  2.0.0
  * @access public
  */
 class Members_Settings_View {
@@ -21,7 +21,7 @@ class Members_Settings_View {
 	/**
 	 * Name/ID for the group.
 	 *
-	 * @since  1.2.0
+	 * @since  2.0.0
 	 * @access protected
 	 * @var    string
 	 */
@@ -30,7 +30,7 @@ class Members_Settings_View {
 	/**
 	 * Internationalized text label for the group.
 	 *
-	 * @since  1.2.0
+	 * @since  2.0.0
 	 * @access protected
 	 * @var    string
 	 */
@@ -39,7 +39,7 @@ class Members_Settings_View {
 	/**
 	 * Priority (order) the control should be output.
 	 *
-	 * @since  1.2.0
+	 * @since  2.0.0
 	 * @access public
 	 * @var    int
 	 */
@@ -48,7 +48,7 @@ class Members_Settings_View {
 	/**
 	 * A user role capability required to show the control.
 	 *
-	 * @since  1.2.0
+	 * @since  2.0.0
 	 * @access public
 	 * @var    string|array
 	 */
@@ -58,7 +58,7 @@ class Members_Settings_View {
 	 * Magic method to use in case someone tries to output the object as a string.
 	 * We'll just return the name.
 	 *
-	 * @since  1.2.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return string
 	 */
@@ -69,7 +69,7 @@ class Members_Settings_View {
 	/**
 	 * Register a new object.
 	 *
-	 * @since  1.2.0
+	 * @since  2.0.0
 	 * @access public
 	 * @param  string  $name
 	 * @param  array   $args  {
@@ -93,7 +93,7 @@ class Members_Settings_View {
 	/**
 	 * Enqueue scripts/styles for the control.
 	 *
-	 * @since  1.2.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */
@@ -102,7 +102,7 @@ class Members_Settings_View {
 	/**
 	 * Register settings for the view.
 	 *
-	 * @since  1.2.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */
@@ -111,7 +111,7 @@ class Members_Settings_View {
 	/**
 	 * Add help tabs for the view.
 	 *
-	 * @since  1.2.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */
@@ -120,7 +120,7 @@ class Members_Settings_View {
 	/**
 	 * Output the content for the view.
 	 *
-	 * @since  1.2.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */
@@ -129,7 +129,7 @@ class Members_Settings_View {
 	/**
 	 * Checks if the control should be allowed at all.
 	 *
-	 * @since  1.2.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return bool
 	 */

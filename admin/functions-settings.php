@@ -16,7 +16,7 @@ add_action( 'members_register_settings_views', 'members_register_default_setting
 /**
  * Registers the plugin's built-in settings views.
  *
- * @since  1.2.0
+ * @since  2.0.0
  * @access public
  * @param  object  $manager
  * @return void
@@ -49,7 +49,7 @@ function members_register_default_settings_views( $manager ) {
 /**
  * Conditional function to check if on the plugin's settings page.
  *
- * @since  1.2.0
+ * @since  2.0.0
  * @access public
  * @return bool
  */
@@ -63,7 +63,7 @@ function members_is_settings_page() {
 /**
  * Returns the URL to the settings page.
  *
- * @since  1.2.0
+ * @since  2.0.0
  * @access public
  * @return string
  */
@@ -75,7 +75,7 @@ function members_get_settings_page_url() {
 /**
  * Returns the URL to a settings view page.
  *
- * @since  1.2.0
+ * @since  2.0.0
  * @access public
  * @param  string  $view
  * @return string
@@ -88,7 +88,7 @@ function members_get_settings_view_url( $view ) {
 /**
  * Returns the current settings view name.
  *
- * @since  1.2.0
+ * @since  2.0.0
  * @access public
  * @return string
  */
@@ -103,7 +103,7 @@ function members_get_current_settings_view() {
 /**
  * Conditional function to check if on a specific settings view page.
  *
- * @since  1.2.0
+ * @since  2.0.0
  * @access public
  * @param  string  $view
  * @return bool

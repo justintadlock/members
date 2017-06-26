@@ -15,7 +15,7 @@ namespace Members;
 /**
  * Base registry class.
  *
- * @since  1.2.0
+ * @since  2.0.0
  * @access public
  */
 class Registry {
@@ -23,7 +23,7 @@ class Registry {
 	/**
 	 * Registry instances.
 	 *
-	 * @since  1.2.0
+	 * @since  2.0.0
 	 * @access private
 	 * @var    array
 	 */
@@ -32,7 +32,7 @@ class Registry {
 	/**
 	 * Array of objects in the collection.
 	 *
-	 * @since  1.2.0
+	 * @since  2.0.0
 	 * @access protected
 	 * @var    array
 	 */
@@ -41,7 +41,7 @@ class Registry {
 	/**
 	 * Constructor method.
 	 *
-	 * @since  1.2.0
+	 * @since  2.0.0
 	 * @access protected
 	 * @return void
 	 */
@@ -50,7 +50,7 @@ class Registry {
 	/**
 	 * Lock down `__clone()`.
 	 *
-	 * @since  1.2.0
+	 * @since  2.0.0
 	 * @access private
 	 * @return void
 	 */
@@ -59,7 +59,7 @@ class Registry {
 	/**
 	 * Lock down `__wakeup()`.
 	 *
-	 * @since  1.2.0
+	 * @since  2.0.0
 	 * @access private
 	 * @return void
 	 */
@@ -68,7 +68,7 @@ class Registry {
 	/**
 	 * Register a new cap object
 	 *
-	 * @since  1.2.0
+	 * @since  2.0.0
 	 * @access public
 	 * @param  string  $name
 	 * @param  object  $value
@@ -83,7 +83,7 @@ class Registry {
 	/**
 	 * Unregisters a cap object.
 	 *
-	 * @since  1.2.0
+	 * @since  2.0.0
 	 * @access public
 	 * @param  string  $name
 	 * @return void
@@ -97,7 +97,7 @@ class Registry {
 	/**
 	 * Checks if a cap exists.
 	 *
-	 * @since  1.2.0
+	 * @since  2.0.0
 	 * @access public
 	 * @param  string  $name
 	 * @return bool
@@ -110,7 +110,7 @@ class Registry {
 	/**
 	 * Gets a cap object.
 	 *
-	 * @since  1.2.0
+	 * @since  2.0.0
 	 * @access public
 	 * @param  string  $name
 	 * @return object|bool
@@ -123,7 +123,7 @@ class Registry {
 	/**
 	 * Returns the entire collection.
 	 *
-	 * @since  1.2.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return array
 	 */
@@ -135,7 +135,7 @@ class Registry {
 	/**
 	 * Returns the instance.
 	 *
-	 * @since  1.2.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return object
 	 */

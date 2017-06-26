@@ -21,7 +21,7 @@ add_filter( 'members_get_capabilities', 'members_remove_hidden_caps' );
 /**
  * Fires the action hook for registering capabilities.
  *
- * @since  1.2.0
+ * @since  2.0.0
  * @access public
  * @return void
  */
@@ -34,7 +34,7 @@ function members_register_caps() {
  * Registers all of our default caps.  In particular, the plugin registers its own caps plus core
  * WP's caps.
  *
- * @since  1.2.0
+ * @since  2.0.0
  * @access public
  * @return void
  */
@@ -131,7 +131,7 @@ function members_register_default_caps() {
 /**
  * Returns the instance of the capability registry.
  *
- * @since  1.2.0
+ * @since  2.0.0
  * @access public
  * @return object
  */
@@ -143,7 +143,7 @@ function members_capability_registry() {
 /**
  * Returns all registered caps.
  *
- * @since  1.2.0
+ * @since  2.0.0
  * @access public
  * @return array
  */
@@ -155,7 +155,7 @@ function members_get_caps() {
 /**
  * Registers a capability.
  *
- * @since  1.2.0
+ * @since  2.0.0
  * @access public
  * @param  string  $name
  * @param  array   $args
@@ -169,7 +169,7 @@ function members_register_cap( $name, $args = array() ) {
 /**
  * Unregisters a capability.
  *
- * @since  1.2.0
+ * @since  2.0.0
  * @access public
  * @param  string  $name
  * @return void
@@ -182,7 +182,7 @@ function members_unregister_cap( $name ) {
 /**
  * Returns a capability object.
  *
- * @since  1.2.0
+ * @since  2.0.0
  * @access public
  * @param  string  $name
  * @return object
@@ -195,7 +195,7 @@ function members_get_cap( $name ) {
 /**
  * Checks if a capability object exists.
  *
- * @note   In 1.2.0, the function was changed to only check from registered caps.
+ * @note   In 2.0.0, the function was changed to only check from registered caps.
  *
  * @since  1.0.0
  * @access public

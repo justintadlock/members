@@ -73,7 +73,7 @@ function members_please_log_in() {
  * Function for determining whether a page should be public even though we're in private
  * site mode.  Plugin devs can filter this to make specific pages public.
  *
- * @since  1.2.0
+ * @since  2.0.0
  * @access public
  * @return bool
  */

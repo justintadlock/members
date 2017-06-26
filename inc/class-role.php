@@ -16,7 +16,7 @@ namespace Members;
 /**
  * Role class.
  *
- * @since  1.2.0
+ * @since  2.0.0
  * @access public
  */
 class Role {
@@ -24,7 +24,7 @@ class Role {
 	/**
 	 * The role name.
 	 *
-	 * @since  1.2.0
+	 * @since  2.0.0
 	 * @access public
 	 * @var    string
 	 */
@@ -33,7 +33,7 @@ class Role {
 	/**
 	 * The role label.
 	 *
-	 * @since  1.2.0
+	 * @since  2.0.0
 	 * @access public
 	 * @var    string
 	 */
@@ -43,7 +43,7 @@ class Role {
 	 * The group the role belongs to.
 	 *
 	 * @see    Members\Role_Group
-	 * @since  1.2.0
+	 * @since  2.0.0
 	 * @access public
 	 * @var    string
 	 */
@@ -52,7 +52,7 @@ class Role {
 	/**
 	 * Whether the role has caps (granted).
 	 *
-	 * @since  1.2.0
+	 * @since  2.0.0
 	 * @access public
 	 * @var    bool
 	 */
@@ -61,7 +61,7 @@ class Role {
 	/**
 	 * Capability count for the role.
 	 *
-	 * @since  1.2.0
+	 * @since  2.0.0
 	 * @access public
 	 * @var    int
 	 */
@@ -70,7 +70,7 @@ class Role {
 	/**
 	 * Capability count for the role.
 	 *
-	 * @since  1.2.0
+	 * @since  2.0.0
 	 * @access public
 	 * @var    int
 	 */
@@ -79,7 +79,7 @@ class Role {
 	/**
 	 * Array of capabilities that the role has.
 	 *
-	 * @since  1.2.0
+	 * @since  2.0.0
 	 * @access public
 	 * @var    array
 	 */
@@ -88,7 +88,7 @@ class Role {
 	/**
 	 * Array of granted capabilities that the role has.
 	 *
-	 * @since  1.2.0
+	 * @since  2.0.0
 	 * @access public
 	 * @var    array
 	 */
@@ -97,7 +97,7 @@ class Role {
 	/**
 	 * Array of denied capabilities that the role has.
 	 *
-	 * @since  1.2.0
+	 * @since  2.0.0
 	 * @access public
 	 * @var    array
 	 */
@@ -106,7 +106,7 @@ class Role {
 	/**
 	 * Return the role string in attempts to use the object as a string.
 	 *
-	 * @since  1.2.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return string
 	 */
@@ -117,7 +117,7 @@ class Role {
 	/**
 	 * Creates a new role object.
 	 *
-	 * @since  1.2.0
+	 * @since  2.0.0
 	 * @access public
 	 * @param  string  $role
 	 * @param  array   $args

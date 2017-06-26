@@ -27,7 +27,7 @@ function members_validate_boolean( $val ) {
 /**
  * Helper function for sorting objects by priority.
  *
- * @since  1.2.0
+ * @since  2.0.0
  * @access protected
  * @param  object     $a
  * @param  object     $b

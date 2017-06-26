@@ -18,7 +18,7 @@
  * @return array
  */
 function members_get_role_names() {
-	_deprecated_function( __FUNCTION__, '1.2.0', '' );
+	_deprecated_function( __FUNCTION__, '2.0.0', '' );
 
 	$roles = array();
 
@@ -36,7 +36,7 @@ function members_get_role_names() {
  * @return array
  */
 function members_get_active_role_names() {
-	_deprecated_function( __FUNCTION__, '1.2.0', '' );
+	_deprecated_function( __FUNCTION__, '2.0.0', '' );
 
 	$has_users = array();
 
@@ -54,7 +54,7 @@ function members_get_active_role_names() {
  * @return array
  */
 function members_get_inactive_role_names() {
-	_deprecated_function( __FUNCTION__, '1.2.0', '' );
+	_deprecated_function( __FUNCTION__, '2.0.0', '' );
 
 	return array_diff( members_get_role_names(), members_get_active_role_names() );
 }
@@ -67,7 +67,7 @@ function members_get_inactive_role_names() {
  * @return array
  */
 function members_get_editable_role_names() {
-	_deprecated_function( __FUNCTION__, '1.2.0', '' );
+	_deprecated_function( __FUNCTION__, '2.0.0', '' );
 
 	$editable = array();
 
@@ -85,7 +85,7 @@ function members_get_editable_role_names() {
  * @return array
  */
 function members_get_editable_role_slugs() {
-	_deprecated_function( __FUNCTION__, '1.2.0', '' );
+	_deprecated_function( __FUNCTION__, '2.0.0', '' );
 
 	return array_keys( members_role_registry()->editable );
 }
@@ -98,7 +98,7 @@ function members_get_editable_role_slugs() {
  * @return array
  */
 function members_get_uneditable_role_names() {
-	_deprecated_function( __FUNCTION__, '1.2.0', '' );
+	_deprecated_function( __FUNCTION__, '2.0.0', '' );
 
 	$uneditable = array();
 
@@ -116,7 +116,7 @@ function members_get_uneditable_role_names() {
  * @return array
  */
 function members_get_uneditable_role_slugs() {
-	_deprecated_function( __FUNCTION__, '1.2.0', '' );
+	_deprecated_function( __FUNCTION__, '2.0.0', '' );
 
 	return array_keys( members_role_registry()->uneditable );
 }
@@ -129,7 +129,7 @@ function members_get_uneditable_role_slugs() {
  * @return array
  */
 function members_get_wordpress_role_names() {
-	_deprecated_function( __FUNCTION__, '1.2.0', '' );
+	_deprecated_function( __FUNCTION__, '2.0.0', '' );
 
 	$names = array();
 
@@ -147,7 +147,7 @@ function members_get_wordpress_role_names() {
  * @return array
  */
 function members_get_wordpress_role_slugs() {
-	_deprecated_function( __FUNCTION__, '1.2.0', '' );
+	_deprecated_function( __FUNCTION__, '2.0.0', '' );
 
 	return array_keys( members_role_registry()->wordpress );
 }
@@ -161,7 +161,7 @@ function members_get_wordpress_role_slugs() {
  * @return string
  */
 function members_get_role_name( $role ) {
-	_deprecated_function( __FUNCTION__, '1.2.0', '' );
+	_deprecated_function( __FUNCTION__, '2.0.0', '' );
 
 	return members_role_registry()->get( $role )->name;
 }
@@ -174,7 +174,7 @@ function members_get_role_name( $role ) {
  * @return array
  */
 function members_get_role_slugs() {
-	_deprecated_function( __FUNCTION__, '1.2.0', '' );
+	_deprecated_function( __FUNCTION__, '2.0.0', '' );
 
 	return array_keys( members_get_roles() );
 }
@@ -187,7 +187,7 @@ function members_get_role_slugs() {
  * @return array
  */
 function members_get_active_role_slugs() {
-	_deprecated_function( __FUNCTION__, '1.2.0', '' );
+	_deprecated_function( __FUNCTION__, '2.0.0', '' );
 
 	$has_users = array();
 
@@ -208,7 +208,7 @@ function members_get_active_role_slugs() {
  * @return array
  */
 function members_get_inactive_role_slugs() {
-	_deprecated_function( __FUNCTION__, '1.2.0', '' );
+	_deprecated_function( __FUNCTION__, '2.0.0', '' );
 
 	return array_diff( array_keys( members_get_roles() ), members_get_active_roles() );
 }
@@ -218,7 +218,7 @@ function members_get_inactive_role_slugs() {
  * certain features of the plugin.
  *
  * @since      1.0.0
- * @deprecated 1.2.0
+ * @deprecated 2.0.0
  * @access     public
  * @return     array
  */
@@ -245,7 +245,7 @@ function members_get_plugin_capabilities() {
  *
  * @link       http://codex.wordpress.org/Roles_and_Capabilities#Capabilities
  * @since      1.0.0
- * @deprecated 1.2.0
+ * @deprecated 2.0.0
  * @access     public
  * @return     array
  */

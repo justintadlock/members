@@ -16,7 +16,7 @@ add_action( 'init', 'members_register_cap_groups', 95 );
 /**
  * Returns the instance of cap group registry.
  *
- * @since  1.2.0
+ * @since  2.0.0
  * @access public
  * @return object
  */
@@ -334,7 +334,7 @@ function members_get_custom_group_caps() {
  * Returns the caps for the general capability group.
  *
  * @since      1.0.0
- * @deprecated 1.2.0
+ * @deprecated 2.0.0
  * @access     public
  * @return     array
  */
@@ -347,7 +347,7 @@ function members_get_general_group_caps() {
  * Returns the caps for the theme capability group.
  *
  * @since      1.0.0
- * @deprecated 1.2.0
+ * @deprecated 2.0.0
  * @access     public
  * @return     array
  */
@@ -360,7 +360,7 @@ function members_get_theme_group_caps() {
  * Returns the caps for the plugin capability group.
  *
  * @since      1.0.0
- * @deprecated 1.2.0
+ * @deprecated 2.0.0
  * @access     public
  * @return     array
  */
@@ -373,7 +373,7 @@ function members_get_plugin_group_caps() {
  * Returns the caps for the user capability group.
  *
  * @since      1.0.0
- * @deprecated 1.2.0
+ * @deprecated 2.0.0
  * @access     public
  * @return     array
  */

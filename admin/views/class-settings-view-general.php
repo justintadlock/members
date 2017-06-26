@@ -13,7 +13,7 @@
 /**
  * Sets up and handles the general settings view.
  *
- * @since  1.2.0
+ * @since  2.0.0
  * @access public
  */
 class Members_Settings_View_General extends Members_Settings_View {
@@ -21,7 +21,7 @@ class Members_Settings_View_General extends Members_Settings_View {
 	/**
 	 * Holds an array the plugin settings.
 	 *
-	 * @since  1.2.0
+	 * @since  2.0.0
 	 * @access public
 	 * @var    array
 	 */
@@ -30,7 +30,7 @@ class Members_Settings_View_General extends Members_Settings_View {
 	/**
 	 * Enqueue scripts/styles.
 	 *
-	 * @since  1.2.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */
@@ -42,7 +42,7 @@ class Members_Settings_View_General extends Members_Settings_View {
 	/**
 	 * Registers the plugin settings.
 	 *
-	 * @since  1.2.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */
@@ -87,7 +87,7 @@ class Members_Settings_View_General extends Members_Settings_View {
 	/**
 	 * Validates the plugin settings.
 	 *
-	 * @since  1.2.0
+	 * @since  2.0.0
 	 * @access public
 	 * @param  array  $input
 	 * @return array
@@ -115,7 +115,7 @@ class Members_Settings_View_General extends Members_Settings_View {
 	/**
 	 * Role/Caps section callback.
 	 *
-	 * @since  1.2.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */
@@ -129,7 +129,7 @@ class Members_Settings_View_General extends Members_Settings_View {
 	/**
 	 * Role manager field callback.
 	 *
-	 * @since  1.2.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */
@@ -144,7 +144,7 @@ class Members_Settings_View_General extends Members_Settings_View {
 	/**
 	 * Explicit denied caps field callback.
 	 *
-	 * @since  1.2.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */
@@ -172,7 +172,7 @@ class Members_Settings_View_General extends Members_Settings_View {
 	/**
 	 * Multiple roles field callback.
 	 *
-	 * @since  1.2.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */
@@ -187,7 +187,7 @@ class Members_Settings_View_General extends Members_Settings_View {
 	/**
 	 * Enable content permissions field callback.
 	 *
-	 * @since  1.2.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */
@@ -202,7 +202,7 @@ class Members_Settings_View_General extends Members_Settings_View {
 	/**
 	 * Enable content permissions field callback.
 	 *
-	 * @since  1.2.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */
@@ -213,7 +213,7 @@ class Members_Settings_View_General extends Members_Settings_View {
 	/**
 	 * Content permissions error message field callback.
 	 *
-	 * @since  1.2.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */
@@ -233,7 +233,7 @@ class Members_Settings_View_General extends Members_Settings_View {
 	/**
 	 * Login widget field callback.
 	 *
-	 * @since  1.2.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */
@@ -248,7 +248,7 @@ class Members_Settings_View_General extends Members_Settings_View {
 	/**
 	 * Uers widget field callback.
 	 *
-	 * @since  1.2.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */
@@ -263,7 +263,7 @@ class Members_Settings_View_General extends Members_Settings_View {
 	/**
 	 * Enable private site field callback.
 	 *
-	 * @since  1.2.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */
@@ -278,7 +278,7 @@ class Members_Settings_View_General extends Members_Settings_View {
 	/**
 	 * Enable private feed field callback.
 	 *
-	 * @since  1.2.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */
@@ -293,7 +293,7 @@ class Members_Settings_View_General extends Members_Settings_View {
 	/**
 	 * Private feed error message field callback.
 	 *
-	 * @since  1.2.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */
@@ -313,7 +313,7 @@ class Members_Settings_View_General extends Members_Settings_View {
 	/**
 	 * Renders the settings page.
 	 *
-	 * @since  1.2.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */
@@ -330,7 +330,7 @@ class Members_Settings_View_General extends Members_Settings_View {
 	/**
 	 * Adds help tabs.
 	 *
-	 * @since  1.2.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */
@@ -387,7 +387,7 @@ class Members_Settings_View_General extends Members_Settings_View {
 	/**
 	 * Displays the roles/caps help tab.
 	 *
-	 * @since  1.2.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */
@@ -409,7 +409,7 @@ class Members_Settings_View_General extends Members_Settings_View {
 	/**
 	 * Displays the content permissions help tab.
 	 *
-	 * @since  1.2.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */
@@ -423,7 +423,7 @@ class Members_Settings_View_General extends Members_Settings_View {
 	/**
 	 * Displays the sidebar widgets help tab.
 	 *
-	 * @since  1.2.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */
@@ -437,7 +437,7 @@ class Members_Settings_View_General extends Members_Settings_View {
 	/**
 	 * Displays the private site help tab.
 	 *
-	 * @since  1.2.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */

@@ -17,7 +17,7 @@ add_action( 'members_register_roles', 'members_register_default_roles',  5 );
 /**
  * Fires the role registration action hook.
  *
- * @since  1.2.0
+ * @since  2.0.0
  * @access public
  * @return void
  */
@@ -29,7 +29,7 @@ function members_register_roles() {
 /**
  * Registers any roles stored globally with WordPress.
  *
- * @since  1.2.0
+ * @since  2.0.0
  * @access public
  * @return void
  */
@@ -49,7 +49,7 @@ function members_register_default_roles() {
 /**
  * Returns the instance of the role registry.
  *
- * @since  1.2.0
+ * @since  2.0.0
  * @access public
  * @return object
  */
@@ -61,7 +61,7 @@ function members_role_registry() {
 /**
  * Returns all registered roles.
  *
- * @since  1.2.0
+ * @since  2.0.0
  * @access public
  * @return array
  */
@@ -73,7 +73,7 @@ function members_get_roles() {
 /**
  * Registers a role.
  *
- * @since  1.2.0
+ * @since  2.0.0
  * @access public
  * @param  string  $name
  * @param  array   $args
@@ -87,7 +87,7 @@ function members_register_role( $name, $args = array() ) {
 /**
  * Unregisters a role.
  *
- * @since  1.2.0
+ * @since  2.0.0
  * @access public
  * @param  string  $name
  * @return void
@@ -100,7 +100,7 @@ function members_unregister_role( $name ) {
 /**
  * Returns a role object.
  *
- * @since  1.2.0
+ * @since  2.0.0
  * @access public
  * @param  string  $name
  * @return object
@@ -113,7 +113,7 @@ function members_get_role( $name ) {
 /**
  * Checks if a role object exists.
  *
- * @since  1.2.0
+ * @since  2.0.0
  * @access public
  * @param  string  $name
  * @return bool
@@ -128,7 +128,7 @@ function members_role_exists( $name ) {
 /**
  * Returns an array of editable roles.
  *
- * @since  1.2.0
+ * @since  2.0.0
  * @access public
  * @global array  $wp_roles
  * @return array
@@ -144,7 +144,7 @@ function members_get_editable_roles() {
 /**
  * Returns an array of uneditable roles.
  *
- * @since  1.2.0
+ * @since  2.0.0
  * @access public
  * @return array
  */
@@ -156,7 +156,7 @@ function members_get_uneditable_roles() {
 /**
  * Returns an array of core WP roles.  Note that we remove any that are not registered.
  *
- * @since  1.2.0
+ * @since  2.0.0
  * @access public
  * @return array
  */
@@ -170,7 +170,7 @@ function members_get_wordpress_roles() {
 /**
  * Returns an array of the roles that have users.
  *
- * @since  1.2.0
+ * @since  2.0.0
  * @access public
  * @return array
  */
@@ -190,7 +190,7 @@ function members_get_active_roles() {
 /**
  * Returns an array of the roles that have no users.
  *
- * @since  1.2.0
+ * @since  2.0.0
  * @access public
  * @return array
  */

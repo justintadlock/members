@@ -36,7 +36,7 @@ function members_explicitly_deny_caps() {
 /**
  * Whether to show human-readable caps.
  *
- * @since  1.2.0
+ * @since  2.0.0
  * @access public
  * @return bool
  */
@@ -131,7 +131,7 @@ function members_get_default_settings() {
 		'explicit_denied_caps' => true,
 		'multi_roles'          => true,
 
-		// @since 1.2.0
+		// @since 2.0.0
 		'show_human_caps'      => true,
 	);
 }

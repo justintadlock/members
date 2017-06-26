@@ -15,7 +15,7 @@ namespace Members;
 /**
  * Role group object class.
  *
- * @since  1.2.0
+ * @since  2.0.0
  * @access public
  */
 final class Role_Group {
@@ -23,7 +23,7 @@ final class Role_Group {
 	/**
 	 * Name/ID for the group.
 	 *
-	 * @since  1.2.0
+	 * @since  2.0.0
 	 * @access protected
 	 * @var    string
 	 */
@@ -32,7 +32,7 @@ final class Role_Group {
 	/**
 	 * Internationalized text label for the group.
 	 *
-	 * @since  1.2.0
+	 * @since  2.0.0
 	 * @access protected
 	 * @var    string
 	 */
@@ -42,7 +42,7 @@ final class Role_Group {
 	 * Internationalized text label for the group + the count in the form of
 	 * `_n_noop( 'Singular Name %s', 'Pluran Name %s', $textdomain )`
 	 *
-	 * @since  1.2.0
+	 * @since  2.0.0
 	 * @access protected
 	 * @var    string
 	 */
@@ -51,7 +51,7 @@ final class Role_Group {
 	/**
 	 * Array of roles that belong to the group.
 	 *
-	 * @since  1.2.0
+	 * @since  2.0.0
 	 * @access protected
 	 * @var    array
 	 */
@@ -60,7 +60,7 @@ final class Role_Group {
 	/**
 	 * Whether to create a view for the group on the Manage Roles screen.
 	 *
-	 * @since  1.2.0
+	 * @since  2.0.0
 	 * @access protected
 	 * @var    bool
 	 */
@@ -70,7 +70,7 @@ final class Role_Group {
 	 * Magic method to use in case someone tries to output the object as a string.
 	 * We'll just return the name.
 	 *
-	 * @since  1.2.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return string
 	 */
@@ -81,7 +81,7 @@ final class Role_Group {
 	/**
 	 * Register a new object.
 	 *
-	 * @since  1.2.0
+	 * @since  2.0.0
 	 * @access public
 	 * @param  string  $name
 	 * @param  array   $args

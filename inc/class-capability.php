@@ -15,7 +15,7 @@ namespace Members;
 /**
  * Capability class.
  *
- * @since  1.2.0
+ * @since  2.0.0
  * @access public
  */
 class Capability {
@@ -23,7 +23,7 @@ class Capability {
 	/**
 	 * The capability name.
 	 *
-	 * @since  1.2.0
+	 * @since  2.0.0
 	 * @access public
 	 * @var    string
 	 */
@@ -32,7 +32,7 @@ class Capability {
 	/**
 	 * The capability label.
 	 *
-	 * @since  1.2.0
+	 * @since  2.0.0
 	 * @access public
 	 * @var    string
 	 */
@@ -42,7 +42,7 @@ class Capability {
 	 * The group the capability belongs to.
 	 *
 	 * @see    Members_Cap_Group
-	 * @since  1.2.0
+	 * @since  2.0.0
 	 * @access public
 	 * @var    string
 	 */
@@ -51,7 +51,7 @@ class Capability {
 	/**
 	 * Return the role string in attempts to use the object as a string.
 	 *
-	 * @since  1.2.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return string
 	 */
@@ -62,7 +62,7 @@ class Capability {
 	/**
 	 * Creates a new role object.
 	 *
-	 * @since  1.2.0
+	 * @since  2.0.0
 	 * @access public
 	 * @global object  $wp_roles
 	 * @param  string  $role
