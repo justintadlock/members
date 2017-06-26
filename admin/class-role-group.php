@@ -10,13 +10,15 @@
  * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
+namespace Members;
+
 /**
  * Role group object class.
  *
  * @since  1.0.0
  * @access public
  */
-final class Members_Role_Group {
+final class Role_Group {
 
 	/**
 	 * Stores the properties for the object.
@@ -103,7 +105,7 @@ final class Members_Role_Group {
 	 * }
 	 * @return void
 	 */
-	public function __construct( $name, $args = array() ) {
+	public function __construct( string $name, array $args = array() ) {
 
 		$name = sanitize_key( $name );
 
@@ -117,7 +119,7 @@ final class Members_Role_Group {
 		$this->args = wp_parse_args( $args, $defaults );
 
 		// Get the roles that exist.
-		$existing_roles = array_keys( members_get_role_names() );
+		$existing_roles = array_keys( members_get_roles() );
 
 		// Remove roles that don't exist.
 		if ( $this->args['roles'] )

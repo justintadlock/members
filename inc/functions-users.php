@@ -107,7 +107,7 @@ function members_get_user_role_names( $user_id ) {
 	$names = array();
 
 	foreach ( $user->roles as $role )
-		$names[ $role ] = members_get_role_name( $role );
+		$names[ $role ] = members_get_role( $role )->label;
 
 	return $names;
 }

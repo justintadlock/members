@@ -10,19 +10,194 @@
  * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
+# Register roles.
+add_action( 'init',                   'members_register_roles',         95 );
+add_action( 'members_register_roles', 'members_register_default_roles',  5 );
+
 /**
- * Returns the instance of the `Members_Role_Factory`.
+ * Fires the role registration action hook.
  *
- * @since  1.0.0
+ * @since  1.2.0
  * @access public
- * @param  string
+ * @return void
+ */
+function members_register_roles() {
+
+	do_action( 'members_register_roles' );
+}
+
+/**
+ * Registers any roles stored globally with WordPress.
+ *
+ * @since  1.2.0
+ * @access public
+ * @return void
+ */
+function members_register_default_roles() {
+
+	foreach ( $GLOBALS['wp_roles']->roles as $name => $object ) {
+
+		$args = array(
+			'label' => $object['name'],
+			'caps'  => $object['capabilities']
+		);
+
+		members_register_role( $name, $args );
+	}
+}
+
+/**
+ * Returns the instance of the role registry.
+ *
+ * @since  1.2.0
+ * @access public
+ * @return object
+ */
+function members_role_registry() {
+
+	return \Members\Registry::get_instance( 'role' );
+}
+
+/**
+ * Returns all registered roles.
+ *
+ * @since  1.2.0
+ * @access public
+ * @return array
+ */
+function members_get_roles() {
+
+	return members_role_registry()->get_collection();
+}
+
+/**
+ * Registers a role.
+ *
+ * @since  1.2.0
+ * @access public
+ * @param  string  $name
+ * @param  array   $args
+ * @return void
+ */
+function members_register_role( $name, $args = array() ) {
+
+	members_role_registry()->register( $name, new \Members\Role( $name, $args ) );
+}
+
+/**
+ * Unregisters a role.
+ *
+ * @since  1.2.0
+ * @access public
+ * @param  string  $name
+ * @return void
+ */
+function members_unregister_role( $name ) {
+
+	members_role_registry()->unregister( $name );
+}
+
+/**
+ * Returns a role object.
+ *
+ * @since  1.2.0
+ * @access public
+ * @param  string  $name
+ * @return object
+ */
+function members_get_role( $name ) {
+
+	return members_role_registry()->get( $name );
+}
+
+/**
+ * Checks if a role object exists.
+ *
+ * @since  1.2.0
+ * @access public
+ * @param  string  $name
  * @return bool
  */
-function members_role_factory() {
-	return Members_Role_Factory::get_instance();
+function members_role_exists( $name ) {
+
+	return members_role_registry()->exists( $name );
 }
 
 /* ====== Multiple Role Functions ====== */
+
+/**
+ * Returns an array of editable roles.
+ *
+ * @since  1.2.0
+ * @access public
+ * @global array  $wp_roles
+ * @return array
+ */
+function members_get_editable_roles() {
+	global $wp_roles;
+
+	$editable = function_exists( 'get_editable_roles' ) ? get_editable_roles() : apply_filters( 'editable_roles', $wp_roles->roles );
+
+	return array_keys( $editable );
+}
+
+/**
+ * Returns an array of uneditable roles.
+ *
+ * @since  1.2.0
+ * @access public
+ * @return array
+ */
+function members_get_uneditable_roles() {
+
+	return array_diff( array_keys( members_get_roles() ), members_get_editable_roles() );
+}
+
+/**
+ * Returns an array of core WP roles.  Note that we remove any that are not registered.
+ *
+ * @since  1.2.0
+ * @access public
+ * @return array
+ */
+function members_get_wordpress_roles() {
+
+	$roles = array( 'administrator', 'editor', 'author', 'contributor', 'subscriber' );
+
+	return array_intersect( $roles, array_keys( members_get_roles() ) );
+}
+
+/**
+ * Returns an array of the roles that have users.
+ *
+ * @since  1.2.0
+ * @access public
+ * @return array
+ */
+function members_get_active_roles() {
+
+	$has_users = array();
+
+	foreach ( members_get_role_user_count() as $role => $count ) {
+
+		if ( 0 < $count )
+			$has_users[] = $role;
+	}
+
+	return $has_users;
+}
+
+/**
+ * Returns an array of the roles that have no users.
+ *
+ * @since  1.2.0
+ * @access public
+ * @return array
+ */
+function members_get_inactive_roles() {
+
+	return array_diff( array_keys( members_get_roles() ), members_get_active_roles() );
+}
 
 /**
  * Returns a count of all the available roles for the site.
@@ -42,202 +217,12 @@ function members_get_role_count() {
  * @access public
  * @return array
  */
-function members_get_roles() {
-	return members_role_factory()->roles;
-}
+//function members_get_roles() {
+//	return members_role_registry()->roles;
+//}
 
-/**
- * Returns an array of role names.
- *
- * @since  1.0.0
- * @access public
- * @return array
- */
-function members_get_role_names() {
-	$roles = array();
-
-	foreach ( members_role_factory()->roles as $role )
-		$roles[ $role->slug ] = $role->name;
-
-	return $roles;
-}
-
-/**
- * Returns an array of roles.
- *
- * @since  1.0.0
- * @access public
- * @return array
- */
-function members_get_role_slugs() {
-	return array_keys( members_role_factory()->roles );
-}
-
-/**
- * Returns an array of the role names of roles that have users.
- *
- * @since  1.0.0
- * @access public
- * @return array
- */
-function members_get_active_role_names() {
-	$has_users = array();
-
-	foreach ( members_get_active_role_slugs() as $role )
-		$has_users[ $role ] = members_get_role_name( $role );
-
-	return $has_users;
-}
-
-/**
- * Returns an array of the roles that have users.
- *
- * @since  1.0.0
- * @access public
- * @return array
- */
-function members_get_active_role_slugs() {
-
-	$has_users = array();
-
-	foreach ( members_get_role_user_count() as $role => $count ) {
-
-		if ( 0 < $count )
-			$has_users[] = $role;
-	}
-
-	return $has_users;
-}
-
-/**
- * Returns an array of the role names of roles that do not have users.
- *
- * @since  1.0.0
- * @access public
- * @return array
- */
-function members_get_inactive_role_names() {
-	return array_diff( members_get_role_names(), members_get_active_role_names() );
-}
-
-/**
- * Returns an array of the roles that have no users.
- *
- * @since  1.0.0
- * @access public
- * @return array
- */
-function members_get_inactive_role_slugs() {
-	return array_diff( members_get_role_slugs(), members_get_active_role_slugs() );
-}
-
-/**
- * Returns an array of editable role names.
- *
- * @since  1.0.0
- * @access public
- * @return array
- */
-function members_get_editable_role_names() {
-	$editable = array();
-
-	foreach ( members_role_factory()->editable as $role )
-		$editable[ $role->slug ] = $role->name;
-
-	return $editable;
-}
-
-/**
- * Returns an array of editable roles.
- *
- * @since  1.0.0
- * @access public
- * @return array
- */
-function members_get_editable_role_slugs() {
-	return array_keys( members_role_factory()->editable );
-}
-
-/**
- * Returns an array of uneditable role names.
- *
- * @since  1.0.0
- * @access public
- * @return array
- */
-function members_get_uneditable_role_names() {
-	$uneditable = array();
-
-	foreach ( members_role_factory()->uneditable as $role )
-		$uneditable[ $role->slug ] = $role->name;
-
-	return $uneditable;
-}
-
-/**
- * Returns an array of uneditable roles.
- *
- * @since  1.0.0
- * @access public
- * @return array
- */
-function members_get_uneditable_role_slugs() {
-	return array_keys( members_role_factory()->uneditable );
-}
-
-/**
- * Returns an array of core WordPress role names.
- *
- * @since  1.0.0
- * @access public
- * @return array
- */
-function members_get_wordpress_role_names() {
-	$names = array();
-
-	foreach ( members_role_factory()->wordpress as $role )
-		$names[ $role->slug ] = $role->name;
-
-	return $names;
-}
-
-/**
- * Returns an array of core WP roles.
- *
- * @since  1.0.0
- * @access public
- * @return array
- */
-function members_get_wordpress_role_slugs() {
-	return array_keys( members_role_factory()->wordpress );
-}
 
 /* ====== Single Role Functions ====== */
-
-/**
- * Conditional tag to check if a role exists.
- *
- * @since  1.0.0
- * @access public
- * @param  string
- * @return bool
- */
-function members_role_exists( $role ) {
-	return $GLOBALS['wp_roles']->is_role( $role );
-}
-
-/**
- * Gets a Members role object.
- *
- * @see    Members_Role
- * @since  1.0.0
- * @access public
- * @param  string
- * @return object
- */
-function members_get_role( $role ) {
-	return members_role_factory()->get_role( $role );
-}
 
 /**
  * Sanitizes a role name.  This is a wrapper for the `sanitize_key()` WordPress function.  Only
@@ -280,7 +265,8 @@ function members_translate_role( $role ) {
  * @return bool
  */
 function members_role_has_users( $role ) {
-	return in_array( $role, members_get_active_role_slugs() );
+
+	return in_array( $role, members_get_active_roles() );
 }
 
 /**
@@ -291,7 +277,8 @@ function members_role_has_users( $role ) {
  * @return bool
  */
 function members_role_has_caps( $role ) {
-	return members_role_factory()->get_role( $role )->has_caps;
+
+	return members_get_role( $role )->has_caps;
 }
 
 /**
@@ -333,7 +320,8 @@ function members_get_role_user_count( $role = '' ) {
  * @return int
  */
 function members_get_role_granted_cap_count( $role ) {
-	return members_role_factory()->get_role( $role )->granted_cap_count;
+
+	return members_get_role( $role )->granted_cap_count;
 }
 
 /**
@@ -345,19 +333,8 @@ function members_get_role_granted_cap_count( $role ) {
  * @return int
  */
 function members_get_role_denied_cap_count( $role ) {
-	return members_role_factory()->get_role( $role )->denied_cap_count;
-}
 
-/**
- * Returns the human-readable role name.
- *
- * @since  1.0.0
- * @access public
- * @param  string  $role
- * @return string
- */
-function members_get_role_name( $role ) {
-	return members_role_factory()->get_role( $role )->name;
+	return members_get_role( $role )->denied_cap_count;
 }
 
 /**
@@ -369,11 +346,12 @@ function members_get_role_name( $role ) {
  * @return bool
  */
 function members_is_role_editable( $role ) {
-	return members_role_factory()->get_role( $role )->is_editable;
+
+	return in_array( $role, members_get_editable_roles() );
 }
 
 /**
- * Conditional tag to check whether a role is a core WordPress URL.
+ * Conditional tag to check whether a role is a core WordPress role.
  *
  * @since  1.0.0
  * @access public
@@ -381,6 +359,7 @@ function members_is_role_editable( $role ) {
  * @return bool
  */
 function members_is_wordpress_role( $role ) {
+
 	return in_array( $role, array( 'administrator', 'editor', 'author', 'contributor', 'subscriber' ) );
 }
 

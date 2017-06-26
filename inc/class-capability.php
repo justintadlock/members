@@ -10,13 +10,15 @@
  * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
+namespace Members;
+
 /**
  * Capability class.
  *
  * @since  1.2.0
  * @access public
  */
-class Members_Capability {
+class Capability {
 
 	/**
 	 * The capability name.
@@ -66,7 +68,7 @@ class Members_Capability {
 	 * @param  string  $role
 	 * @return void
 	 */
-	public function __construct( $name, $args = array() ) {
+	public function __construct( string $name, array $args = array() ) {
 
 		foreach ( array_keys( get_object_vars( $this ) ) as $key ) {
 

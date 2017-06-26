@@ -97,7 +97,7 @@ class Members_Role_List_Table extends WP_List_Table {
 		// Get the roles for the default/All view.
 		if ( 'all' === $this->role_view ) {
 
-			$roles = members_get_role_slugs();
+			$roles = array_keys( members_get_roles() );
 
 		// If a custom view, get the roles.
 		} else {
@@ -245,7 +245,7 @@ class Members_Role_List_Table extends WP_List_Table {
 		}
 
 		// Add the title and role states.
-		$title = sprintf( '<strong><a class="row-title" href="%s">%s</a>%s</strong>', esc_url( members_get_edit_role_url( $role ) ), esc_html( members_get_role_name( $role ) ), $role_states );
+		$title = sprintf( '<strong><a class="row-title" href="%s">%s</a>%s</strong>', esc_url( members_get_edit_role_url( $role ) ), esc_html( members_get_role( $role )->label ), $role_states );
 
 		return apply_filters( 'members_manage_roles_column_role_name', $title, $role );
 	}
@@ -391,14 +391,14 @@ class Members_Role_List_Table extends WP_List_Table {
 		$inactive = members_get_role_group( 'inactive' );
 
 		if ( $active )
-			$active->roles = members_get_active_role_slugs();
+			$active->roles = members_get_active_roles();
 
 		if ( $inactive )
-			$inactive->roles = members_get_inactive_role_slugs();
+			$inactive->roles = members_get_inactive_roles();
 
 		$views     = array();
 		$current   = ' class="current"';
-		$all_count = count( members_get_role_slugs() );
+		$all_count = count( members_get_roles() );
 
 		// Add the default/all view.
 		$views['all'] = sprintf(

@@ -11,6 +11,209 @@
  */
 
 /**
+ * Returns an array of role names.
+ *
+ * @since  1.0.0
+ * @access public
+ * @return array
+ */
+function members_get_role_names() {
+	_deprecated_function( __FUNCTION__, '1.2.0', '' );
+
+	$roles = array();
+
+	foreach ( members_get_roles() as $role )
+		$roles[ $role->name ] = $role->name;
+
+	return $roles;
+}
+
+/**
+ * Returns an array of the role names of roles that have users.
+ *
+ * @since  1.0.0
+ * @access public
+ * @return array
+ */
+function members_get_active_role_names() {
+	_deprecated_function( __FUNCTION__, '1.2.0', '' );
+
+	$has_users = array();
+
+	foreach ( members_get_active_roles() as $role )
+		$has_users[ $role ] = members_get_role( $role )->label;
+
+	return $has_users;
+}
+
+/**
+ * Returns an array of the role names of roles that do not have users.
+ *
+ * @since  1.0.0
+ * @access public
+ * @return array
+ */
+function members_get_inactive_role_names() {
+	_deprecated_function( __FUNCTION__, '1.2.0', '' );
+
+	return array_diff( members_get_role_names(), members_get_active_role_names() );
+}
+
+/**
+ * Returns an array of editable role names.
+ *
+ * @since  1.0.0
+ * @access public
+ * @return array
+ */
+function members_get_editable_role_names() {
+	_deprecated_function( __FUNCTION__, '1.2.0', '' );
+
+	$editable = array();
+
+	foreach ( members_role_registry()->editable as $role )
+		$editable[ $role->slug ] = $role->name;
+
+	return $editable;
+}
+
+/**
+ * Returns an array of editable roles.
+ *
+ * @since  1.0.0
+ * @access public
+ * @return array
+ */
+function members_get_editable_role_slugs() {
+	_deprecated_function( __FUNCTION__, '1.2.0', '' );
+
+	return array_keys( members_role_registry()->editable );
+}
+
+/**
+ * Returns an array of uneditable role names.
+ *
+ * @since  1.0.0
+ * @access public
+ * @return array
+ */
+function members_get_uneditable_role_names() {
+	_deprecated_function( __FUNCTION__, '1.2.0', '' );
+
+	$uneditable = array();
+
+	foreach ( members_role_registry()->uneditable as $role )
+		$uneditable[ $role->slug ] = $role->name;
+
+	return $uneditable;
+}
+
+/**
+ * Returns an array of uneditable roles.
+ *
+ * @since  1.0.0
+ * @access public
+ * @return array
+ */
+function members_get_uneditable_role_slugs() {
+	_deprecated_function( __FUNCTION__, '1.2.0', '' );
+
+	return array_keys( members_role_registry()->uneditable );
+}
+
+/**
+ * Returns an array of core WordPress role names.
+ *
+ * @since  1.0.0
+ * @access public
+ * @return array
+ */
+function members_get_wordpress_role_names() {
+	_deprecated_function( __FUNCTION__, '1.2.0', '' );
+
+	$names = array();
+
+	foreach ( members_role_registry()->wordpress as $role )
+		$names[ $role->slug ] = $role->name;
+
+	return $names;
+}
+
+/**
+ * Returns an array of core WP roles.
+ *
+ * @since  1.0.0
+ * @access public
+ * @return array
+ */
+function members_get_wordpress_role_slugs() {
+	_deprecated_function( __FUNCTION__, '1.2.0', '' );
+
+	return array_keys( members_role_registry()->wordpress );
+}
+
+/**
+ * Returns the human-readable role name.
+ *
+ * @since  1.0.0
+ * @access public
+ * @param  string  $role
+ * @return string
+ */
+function members_get_role_name( $role ) {
+	_deprecated_function( __FUNCTION__, '1.2.0', '' );
+
+	return members_role_registry()->get( $role )->name;
+}
+
+/**
+ * Returns an array of roles.
+ *
+ * @since  1.0.0
+ * @access public
+ * @return array
+ */
+function members_get_role_slugs() {
+	_deprecated_function( __FUNCTION__, '1.2.0', '' );
+
+	return array_keys( members_get_roles() );
+}
+
+/**
+ * Returns an array of the roles that have users.
+ *
+ * @since  1.0.0
+ * @access public
+ * @return array
+ */
+function members_get_active_role_slugs() {
+	_deprecated_function( __FUNCTION__, '1.2.0', '' );
+
+	$has_users = array();
+
+	foreach ( members_get_role_user_count() as $role => $count ) {
+
+		if ( 0 < $count )
+			$has_users[] = $role;
+	}
+
+	return $has_users;
+}
+
+/**
+ * Returns an array of the roles that have no users.
+ *
+ * @since  1.0.0
+ * @access public
+ * @return array
+ */
+function members_get_inactive_role_slugs() {
+	_deprecated_function( __FUNCTION__, '1.2.0', '' );
+
+	return array_diff( array_keys( members_get_roles() ), members_get_active_roles() );
+}
+
+/**
  * Additional capabilities provided by the Members plugin that gives users permissions to handle
  * certain features of the plugin.
  *
@@ -107,19 +310,19 @@ function members_get_wp_capabilities() {
  * @since      0.2.0
  * @deprecated 1.0.0
  */
-function members_get_active_roles() {
-	_deprecated_function( __FUNCTION__, '1.0.0', 'members_get_active_role_names' );
-	return members_get_active_role_names();
-}
+//function members_get_active_roles() {
+//	_deprecated_function( __FUNCTION__, '1.0.0', 'members_get_active_role_names' );
+//	return members_get_active_role_names();
+//}
 
 /**
  * @since      0.2.0
  * @deprecated 1.0.0
  */
-function members_get_inactive_roles() {
-	_deprecated_function( __FUNCTION__, '1.0.0', 'members_get_inactive_role_names' );
-	return members_get_inactive_role_names();
-}
+//function members_get_inactive_roles() {
+//	_deprecated_function( __FUNCTION__, '1.0.0', 'members_get_inactive_role_names' );
+//	return members_get_inactive_role_names();
+//}
 
 /**
  * @since      0.2.0
@@ -147,6 +350,12 @@ function members_get_additional_capabilities() {
 	_deprecated_function( __FUNCTION__, '1.0.0', 'members_get_plugin_capabilities' );
 	return members_get_plugin_capabilities();
 }
+
+/* ====== Functions removed in the 1.2 branch. ====== */
+
+function members_role_factory() {}
+function members_role_group_factory() {}
+function members_cap_group_factory() {}
 
 /* ====== Functions removed in the 1.0 branch. ====== */
 

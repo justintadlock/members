@@ -197,9 +197,8 @@ class Members_Widget_Users extends WP_Widget {
 
 		$meta_key = array_merge( array( '' ), (array) members_get_user_meta_keys() );
 
-		$roles = members_get_role_names();
-		asort( $roles );
-		$roles = array_merge( array( '' => '' ), $roles ); ?>
+		$roles = members_get_roles();
+		asort( $roles ); ?>
 
 		<div style="float: left;width: 48%;">
 
@@ -226,8 +225,9 @@ class Members_Widget_Users extends WP_Widget {
 		<p>
 			<label for="<?php echo $this->get_field_id( 'role' ); ?>"><?php esc_html_e( 'Role:', 'members' ); ?></label>
 			<select class="widefat" id="<?php echo $this->get_field_id( 'role' ); ?>" name="<?php echo $this->get_field_name( 'role' ); ?>">
-				<?php foreach ( $roles as $role => $name ) : ?>
-					<option value="<?php echo esc_attr( $role ); ?>" <?php selected( $instance['role'], $role ); ?>><?php echo esc_html( $name ); ?></option>
+				<option value="" <?php selected( $instance['role'], '' ); ?>></option>
+				<?php foreach ( $roles as $name => $role ) : ?>
+					<option value="<?php echo esc_attr( $name ); ?>" <?php selected( $instance['role'], $name ); ?>><?php echo esc_html( $role->label ); ?></option>
 				<?php endforeach; ?>
 			</select>
 		</p>

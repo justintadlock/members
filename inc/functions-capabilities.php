@@ -129,35 +129,32 @@ function members_register_default_caps() {
 }
 
 /**
- * Returns the instance of the capability factory.
+ * Returns the instance of the capability registry.
  *
- * @see    Members_Capability_Factory::get_instance()
  * @since  1.2.0
  * @access public
  * @return object
  */
-function members_capability_factory() {
+function members_capability_registry() {
 
-	return Members_Capability_Factory::get_instance();
+	return \Members\Registry::get_instance( 'cap' );
 }
 
 /**
  * Returns all registered caps.
  *
- * @see    Members_Capability_Factory::caps
  * @since  1.2.0
  * @access public
  * @return array
  */
 function members_get_caps() {
 
-	return members_capability_factory()->caps;
+	return members_capability_registry()->get_collection();
 }
 
 /**
  * Registers a capability.
  *
- * @see    Members_Capability_Factory::register_cap()
  * @since  1.2.0
  * @access public
  * @param  string  $name
@@ -166,13 +163,12 @@ function members_get_caps() {
  */
 function members_register_cap( $name, $args = array() ) {
 
-	members_capability_factory()->register_cap( $name, $args );
+	members_capability_registry()->register( $name, new \Members\Capability( $name, $args ) );
 }
 
 /**
  * Unregisters a capability.
  *
- * @see    Members_Capability_Factory::unregister_cap()
  * @since  1.2.0
  * @access public
  * @param  string  $name
@@ -180,13 +176,12 @@ function members_register_cap( $name, $args = array() ) {
  */
 function members_unregister_cap( $name ) {
 
-	members_capability_factory()->unregister_cap( $name );
+	members_capability_registry()->unregister( $name );
 }
 
 /**
  * Returns a capability object.
  *
- * @see    Members_Capability_Factory::get_cap()
  * @since  1.2.0
  * @access public
  * @param  string  $name
@@ -194,7 +189,7 @@ function members_unregister_cap( $name ) {
  */
 function members_get_cap( $name ) {
 
-	return members_capability_factory()->get_cap( $name );
+	return members_capability_registry()->get( $name );
 }
 
 /**
@@ -202,7 +197,6 @@ function members_get_cap( $name ) {
  *
  * @note   In 1.2.0, the function was changed to only check from registered caps.
  *
- * @see    Members_Capability_Factory::unregister_cap()
  * @since  1.0.0
  * @access public
  * @param  string  $name
@@ -210,7 +204,7 @@ function members_get_cap( $name ) {
  */
 function members_cap_exists( $name ) {
 
-	return members_capability_factory()->cap_exists( $name );
+	return members_capability_registry()->exists( $name );
 }
 
 /**
@@ -236,7 +230,7 @@ function members_sanitize_cap( $cap ) {
  */
 function members_is_cap_editable( $cap ) {
 
-	$uneditable = array_keys( members_get_uneditable_role_names() );
+	$uneditable = array_keys( members_get_uneditable_roles() );
 
 	return ! in_array( $cap, members_get_wp_capabilities() ) && ! array_intersect( $uneditable, members_get_cap_roles( $cap ) );
 }

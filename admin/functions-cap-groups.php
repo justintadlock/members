@@ -14,21 +14,20 @@
 add_action( 'init', 'members_register_cap_groups', 95 );
 
 /**
- * Returns the instance of the `Members_Cap_Group_Factory` object. Use this function to access the object.
+ * Returns the instance of cap group registry.
  *
- * @see    Members_Cap_Group_Factory
- * @since  1.0.0
+ * @since  1.2.0
  * @access public
  * @return object
  */
-function members_cap_group_factory() {
-	return Members_Cap_Group_Factory::get_instance();
+function members_cap_group_registry() {
+
+	return \Members\Registry::get_instance( 'cap_group' );
 }
 
 /**
  * Function for registering a cap group.
  *
- * @see    Members_Cap_Group_Factory::register_group()
  * @since  1.0.0
  * @access public
  * @param  string  $name
@@ -36,59 +35,59 @@ function members_cap_group_factory() {
  * @return void
  */
 function members_register_cap_group( $name, $args = array() ) {
-	members_cap_group_factory()->register_group( $name, $args );
+
+	members_cap_group_registry()->register( $name, new \Members\Cap_Group( $name, $args ) );
 }
 
 /**
  * Unregisters a group.
  *
- * @see    Members_Cap_Group_Factory::unregister_group()
  * @since  1.0.0
  * @access public
  * @param  string  $name
  * @return void
  */
 function members_unregister_cap_group( $name ) {
-	members_cap_group_factory()->unregister_group( $name );
+
+	members_cap_group_registry()->unregister( $name );
 }
 
 /**
  * Checks if a group exists.
  *
- * @see    Members_Cap_Group_Factory::group_exists()
  * @since  1.0.0
  * @access public
  * @param  string  $name
  * @return bool
  */
 function members_cap_group_exists( $name ) {
-	return members_cap_group_factory()->group_exists( $name );
+
+	return members_cap_group_registry()->exists( $name );
 }
 
 /**
  * Returns an array of registered group objects.
  *
- * @see    Members_Cap_Group_Factory::group
  * @since  1.0.0
  * @access public
  * @return array
  */
 function members_get_cap_groups() {
-	return members_cap_group_factory()->groups;
+
+	return members_cap_group_registry()->get_collection();
 }
 
 /**
  * Returns a group object if it exists.  Otherwise, `FALSE`.
  *
- * @see    Members_Cap_Group_Factory::get_group()
- * @see    Members_Cap_Group
  * @since  1.0.0
  * @access public
  * @param  string      $name
  * @return object|bool
  */
 function members_get_cap_group( $name ) {
-	return members_cap_group_factory()->get_group( $name );
+
+	return members_cap_group_registry()->get( $name );
 }
 
 /**

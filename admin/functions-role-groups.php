@@ -11,24 +11,23 @@
  */
 
 # Registers default groups.
-add_action( 'init', 'members_register_role_groups', 15 );
+add_action( 'init', 'members_register_role_groups', 95 );
 
 /**
- * Returns the instance of the `Members_Role_Group_Factory` object. Use this function to access the object.
+ * Returns the instance of the role group registry.
  *
- * @see    Members_Role_Group_Factory
- * @since  1.0.0
+ * @since  1.2.0
  * @access public
  * @return object
  */
-function members_role_group_factory() {
-	return Members_Role_Group_Factory::get_instance();
+function members_role_group_registry() {
+
+	return \Members\Registry::get_instance( 'role_group' );
 }
 
 /**
  * Function for registering a role group.
  *
- * @see    Members_Role_Group_Factory::register_group()
  * @since  1.0.0
  * @access public
  * @param  string  $name
@@ -36,59 +35,59 @@ function members_role_group_factory() {
  * @return void
  */
 function members_register_role_group( $name, $args = array() ) {
-	members_role_group_factory()->register_group( $name, $args );
+
+	members_role_group_registry()->register( $name, new \Members\Role_Group( $name, $args ) );
 }
 
 /**
  * Unregisters a group.
  *
- * @see    Members_Role_Group_Factory::unregister_group()
  * @since  1.0.0
  * @access public
  * @param  string  $name
  * @return void
  */
 function members_unregister_role_group( $name ) {
-	members_role_group_factory()->unregister_group( $name );
+
+	members_role_group_registry()->unregister( $name );
 }
 
 /**
  * Checks if a group exists.
  *
- * @see    Members_Role_Group_Factory::group_exists()
  * @since  1.0.0
  * @access public
  * @param  string  $name
  * @return bool
  */
 function members_role_group_exists( $name ) {
-	return members_role_group_factory()->group_exists( $name );
+
+	return members_role_group_registry()->exists( $name );
 }
 
 /**
  * Returns an array of registered group objects.
  *
- * @see    Members_Role_Group_Factory::group
  * @since  1.0.0
  * @access public
  * @return array
  */
 function members_get_role_groups() {
-	return members_role_group_factory()->groups;
+
+	return members_role_group_registry()->get_collection();
 }
 
 /**
  * Returns a group object if it exists.  Otherwise, `FALSE`.
  *
- * @see    Members_Role_Group_Factory::get_group()
- * @see    Members_Role_Group
  * @since  1.0.0
  * @access public
  * @param  string      $name
  * @return object|bool
  */
 function members_get_role_group( $name ) {
-	return members_role_group_factory()->get_group( $name );
+
+	return members_role_group_registry()->get( $name );
 }
 
 /**
@@ -138,7 +137,7 @@ function members_register_role_groups() {
 		array(
 			'label'       => esc_html__( 'Editable', 'members' ),
 			'label_count' => _n_noop( 'Editable %s', 'Editable %s', 'members' ),
-			'roles'       => members_get_editable_role_slugs(),
+			'roles'       => members_get_editable_roles(),
 		)
 	);
 
@@ -147,7 +146,7 @@ function members_register_role_groups() {
 		array(
 			'label'       => esc_html__( 'Uneditable', 'members' ),
 			'label_count' => _n_noop( 'Uneditable %s', 'Uneditable %s', 'members' ),
-			'roles'       => members_get_uneditable_role_slugs(),
+			'roles'       => members_get_uneditable_roles(),
 		)
 	);
 
@@ -156,7 +155,7 @@ function members_register_role_groups() {
 		array(
 			'label'       => esc_html__( 'WordPress', 'members' ),
 			'label_count' => _n_noop( 'WordPress %s', 'WordPress %s', 'members' ),
-			'roles'       => members_get_wordpress_role_slugs(),
+			'roles'       => members_get_wordpress_roles(),
 		)
 	);
 

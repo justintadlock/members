@@ -10,13 +10,15 @@
  * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
+namespace Members;
+
 /**
  * Capability group object class.
  *
  * @since  1.0.0
  * @access public
  */
-final class Members_Cap_Group {
+final class Cap_Group {
 
 	/**
 	 * Name/ID for the group.
@@ -108,7 +110,7 @@ final class Members_Cap_Group {
 	 * }
 	 * @return void
 	 */
-	public function __construct( $name, $args = array() ) {
+	public function __construct( string $name, array $args = array() ) {
 
 		foreach ( array_keys( get_object_vars( $this ) ) as $key ) {
 

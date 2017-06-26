@@ -78,9 +78,9 @@ final class Members_Admin_User_Edit {
 
 		$user_roles = (array) $user->roles;
 
-		$editable_roles = members_get_editable_role_names();
+		$roles = members_get_roles();
 
-		asort( $editable_roles );
+		ksort( $roles );
 
 		wp_nonce_field( 'new_user_roles', 'members_new_user_roles_nonce' ); ?>
 
@@ -94,13 +94,17 @@ final class Members_Admin_User_Edit {
 				<td>
 					<div class="wp-tab-panel">
 						<ul>
-						<?php foreach ( $editable_roles as $role => $name ) : ?>
+						<?php foreach ( $roles as $role ) : ?>
+
+							<?php if ( members_is_role_editable( $role->name ) ) :?>
 							<li>
 								<label>
-									<input type="checkbox" name="members_user_roles[]" value="<?php echo esc_attr( $role ); ?>" <?php checked( in_array( $role, $user_roles ) ); ?> />
-									<?php echo esc_html( $name ); ?>
+									<input type="checkbox" name="members_user_roles[]" value="<?php echo esc_attr( $role->name ); ?>" <?php checked( in_array( $role->name, $user_roles ) ); ?> />
+									<?php echo esc_html( $role->label ); ?>
 								</label>
 							</li>
+							<?php endif; ?>
+
 						<?php endforeach; ?>
 						</ul>
 					</div>
