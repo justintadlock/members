@@ -59,7 +59,7 @@ final class Members_Admin_User_Edit {
 		add_action( 'edit_user_profile', array( $this, 'profile_fields' ) );
 
 		// Must use `profile_update` to change role. Otherwise, WP will wipe it out.
-		add_action( 'profile_update',  array( $this, 'role_update' ) );
+		add_action( 'profile_update',  array( $this, 'role_update' ), 10, 2 );
 	}
 
 	/**
@@ -122,9 +122,10 @@ final class Members_Admin_User_Edit {
 	 * @since  1.0.0
 	 * @access public
 	 * @param  int    $user_id
+	 * @param  object $old_user_data
 	 * @return void
 	 */
-	public function role_update( $user_id ) {
+	public function role_update( $user_id, $old_user_data ) {
 
 		// If the current user can't promote users or edit this particular user, bail.
 		if ( ! current_user_can( 'promote_users' ) || ! current_user_can( 'edit_user', $user_id ) )
@@ -135,13 +136,13 @@ final class Members_Admin_User_Edit {
 			return;
 
 		// Create a new user object.
-		$user = new WP_User( $user_id );
+		//$user = new WP_User( $user_id );
 
 		// If we have an array of roles.
 		if ( ! empty( $_POST['members_user_roles'] ) ) {
 
 			// Get the current user roles.
-			$old_roles = (array) $user->roles;
+			$old_roles = (array) $old_user_data->roles;
 
 			// Sanitize the posted roles.
 			$new_roles = array_map( 'members_sanitize_role', $_POST['members_user_roles'] );
@@ -150,8 +151,8 @@ final class Members_Admin_User_Edit {
 			foreach ( $new_roles as $new_role ) {
 
 				// If the user doesn't already have the role, add it.
-				if ( members_is_role_editable( $new_role ) && ! in_array( $new_role, (array) $user->roles ) )
-					$user->add_role( $new_role );
+				if ( members_is_role_editable( $new_role ) && ! in_array( $new_role, (array) $old_user_data->roles ) )
+					$old_user_data->add_role( $new_role );
 			}
 
 			// Loop through the current user roles.
@@ -159,7 +160,7 @@ final class Members_Admin_User_Edit {
 
 				// If the role is editable and not in the new roles array, remove it.
 				if ( members_is_role_editable( $old_role ) && ! in_array( $old_role, $new_roles ) )
-					$user->remove_role( $old_role );
+					$old_user_data->remove_role( $old_role );
 			}
 
 		// If the posted roles are empty.
@@ -170,7 +171,7 @@ final class Members_Admin_User_Edit {
 
 				// Remove the role if it is editable.
 				if ( members_is_role_editable( $old_role ) )
-					$user->remove_role( $old_role );
+					$old_user_data->remove_role( $old_role );
 			}
 		}
 	}
