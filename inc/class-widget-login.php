@@ -255,13 +255,13 @@ class Members_Widget_Login extends WP_Widget {
 		<p>
 			<label>
 				<input class="checkbox" type="checkbox" <?php checked( $instance['remember'] ); ?> name="<?php echo $this->get_field_name( 'remember' ); ?>" />
-				<?php _e( '"Remember me" checkbox?', 'members' ); ?>
+				<?php esc_html_e( '"Remember me" checkbox?', 'members' ); ?>
 			</label>
 		</p>
 		<p>
 			<label>
 				<input class="checkbox" type="checkbox" <?php checked( $instance['value_remember'] ); ?> name="<?php echo $this->get_field_name( 'value_remember' ); ?>" />
-				<?php _e( 'Check "remember me"?', 'members' ); ?>
+				<?php esc_html_e( 'Check "remember me"?', 'members' ); ?>
 			</label>
 		</p>
 		<p>
@@ -271,12 +271,12 @@ class Members_Widget_Login extends WP_Widget {
 			</label>
 		</p>
 		<p>
-			<label for="<?php echo $this->get_field_id( 'logged_out_text' ); ?>"><?php _e( 'Logged out text:', 'members' ); ?></label>
+			<label for="<?php echo $this->get_field_id( 'logged_out_text' ); ?>"><?php esc_html_e( 'Logged out text:', 'members' ); ?></label>
 			<textarea class="widefat" rows="4" cols="20" id="<?php echo $this->get_field_id( 'logged_out_text' ); ?>" name="<?php echo $this->get_field_name( 'logged_out_text' ); ?>" style="width:100%;"><?php echo esc_textarea( $instance['logged_out_text'] ); ?></textarea>
 		</p>
 
 		<p>
-			<label for="<?php echo $this->get_field_id( 'logged_in_text' ); ?>"><?php _e( 'Logged in text:', 'members' ); ?></label>
+			<label for="<?php echo $this->get_field_id( 'logged_in_text' ); ?>"><?php esc_html_e( 'Logged in text:', 'members' ); ?></label>
 			<textarea class="widefat" rows="4" cols="20" id="<?php echo $this->get_field_id( 'logged_in_text' ); ?>" name="<?php echo $this->get_field_name( 'logged_in_text' ); ?>" style="width:100%;"><?php echo esc_textarea( $instance['logged_in_text'] ); ?></textarea>
 		</p>
 
