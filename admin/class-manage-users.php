@@ -78,6 +78,9 @@ final class Manage_Users {
 		// Add custom bulk fields.
 		add_action( 'restrict_manage_users', array( $this, 'bulk_fields' ), 5 );
 
+		// Custom manage users columns.
+		add_filter( 'manage_users_columns', array( $this, 'manage_users_columns' ) );
+
 		// Print custom styles.
 		add_action( 'admin_head', array( $this, 'print_styles' ) );
 
@@ -151,7 +154,7 @@ final class Manage_Users {
 			if ( is_multisite() && ! is_user_member_of_blog( $user_id ) ) {
 
 				wp_die(
-					sprintf( 
+					sprintf(
 						'<h1>%s</h1> <p>%s</p>',
 						esc_html__( 'Whoah, partner!', 'members' ),
 						esc_html__( 'One of the selected users is not a member of this site.', 'members' )
@@ -226,7 +229,7 @@ final class Manage_Users {
 			if ( is_multisite() && ! is_user_member_of_blog( $user_id ) ) {
 
 				wp_die(
-					sprintf( 
+					sprintf(
 						'<h1>%s</h1> <p>%s</p>',
 						esc_html__( 'Whoah, partner!', 'members' ),
 						esc_html__( 'One of the selected users is not a member of this site.', 'members' )
@@ -338,6 +341,57 @@ final class Manage_Users {
 		</select>
 
 		<?php submit_button( esc_html__( 'Remove', 'members' ), 'secondary', esc_attr( "members-remove-role-submit-{$which}" ), false );
+	}
+
+	/**
+	 * Handles table column headers.
+	 *
+	 * @since  2.0.0
+	 * @access public
+	 * @param  array  $columns
+	 * @return array
+	 */
+	public function manage_users_columns( $columns ) {
+
+		// Make sure role column is named correctly.
+		if ( isset( $columns['role'] ) )
+			$columns['role'] = esc_html__( 'Roles', 'members' );
+
+		return $columns;
+	}
+
+	/**
+	 * Handles the output of the roles column on the `users.php` screen.
+	 *
+	 * @since  2.0.0
+	 * @access public
+	 * @param  string  $output
+	 * @param  string  $column
+	 * @param  int     $user_id
+	 * @return string
+	 */
+	public function manage_users_custom_column( $output, $column, $user_id ) {
+
+		if ( 'roles' === $column ) {
+
+			$user = new \WP_User( $user_id );
+
+			$user_roles = array();
+			$output = esc_html__( 'None', 'members' );
+
+			if ( is_array( $user->roles ) ) {
+
+				foreach ( $user->roles as $role ) {
+
+					if ( members_role_exists( $role ) )
+						$user_roles[] = members_translate_role( $role );
+				}
+
+				$output = join( ', ', $user_roles );
+			}
+		}
+
+		return $output;
 	}
 
 	/**

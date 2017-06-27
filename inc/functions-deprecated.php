@@ -351,11 +351,13 @@ function members_get_additional_capabilities() {
 	return members_get_plugin_capabilities();
 }
 
-/* ====== Functions removed in the 1.2 branch. ====== */
+/* ====== Functions removed in the 2.0 branch. ====== */
 
 function members_role_factory() {}
 function members_role_group_factory() {}
 function members_cap_group_factory() {}
+function members_manage_users_columns() {}
+function members_manage_users_custom_column() {}
 
 /* ====== Functions removed in the 1.0 branch. ====== */
 

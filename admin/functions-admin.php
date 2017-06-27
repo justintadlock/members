@@ -14,9 +14,6 @@
 add_action( 'admin_enqueue_scripts', 'members_admin_register_scripts', 0 );
 add_action( 'admin_enqueue_scripts', 'members_admin_register_styles',  0 );
 
-# Custom manage users columns.
-add_filter( 'manage_users_columns',       'members_manage_users_columns'              );
-add_filter( 'manage_users_custom_column', 'members_manage_users_custom_column', 10, 3 );
 
 /**
  * Get an Underscore JS template.
@@ -127,69 +124,4 @@ function members_get_user_meta_keys() {
 	global $wpdb;
 
 	return $wpdb->get_col( "SELECT meta_key FROM $wpdb->usermeta GROUP BY meta_key ORDER BY meta_key" );
-}
-
-/**
- * Adds custom columns to the `users.php` screen.
- *
- * @since  1.0.0
- * @access public
- * @param  array  $columns
- * @return array
- */
-function members_manage_users_columns( $columns ) {
-
-	// If multiple roles per user is not enabled, bail.
-	if ( ! members_multiple_user_roles_enabled() )
-		return $columns;
-
-	// Unset the core WP `role` column.
-	if ( isset( $columns['role'] ) )
-		unset( $columns['role'] );
-
-	// Add our new roles column.
-	$columns['roles'] = esc_html__( 'Roles', 'members' );
-
-	// Move the core WP `posts` column to the end.
-	if ( isset( $columns['posts'] ) ) {
-		$p = $columns['posts'];
-		unset( $columns['posts'] );
-		$columns['posts'] = $p;
-	}
-
-	return $columns;
-}
-
-/**
- * Handles the output of the roles column on the `users.php` screen.
- *
- * @since  1.0.0
- * @access public
- * @param  string  $output
- * @param  string  $column
- * @param  int     $user_id
- * @return string
- */
-function members_manage_users_custom_column( $output, $column, $user_id ) {
-
-	if ( 'roles' === $column && members_multiple_user_roles_enabled() ) {
-
-		$user = new WP_User( $user_id );
-
-		$user_roles = array();
-		$output = esc_html__( 'None', 'members' );
-
-		if ( is_array( $user->roles ) ) {
-
-			foreach ( $user->roles as $role ) {
-
-				if ( members_role_exists( $role ) )
-					$user_roles[] = members_translate_role( $role );
-			}
-
-			$output = join( ', ', $user_roles );
-		}
-	}
-
-	return $output;
 }
