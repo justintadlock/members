@@ -255,6 +255,7 @@ final class Members_Plugin {
 			// User management.
 			require_once( $this->admin_dir . 'class-manage-users.php' );
 			require_once( $this->admin_dir . 'class-user-edit.php'    );
+			require_once( $this->admin_dir . 'class-user-new.php'     );
 
 			// Edit posts.
 			require_once( $this->admin_dir . 'class-meta-box-content-permissions.php' );
