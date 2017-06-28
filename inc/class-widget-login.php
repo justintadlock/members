@@ -10,18 +10,20 @@
  * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
+namespace Members;
+
 /**
  * Login form widget class.
  *
- * @since  0.1.0
+ * @since  2.0.0
  * @access public
  */
-class Members_Widget_Login extends WP_Widget {
+class Widget_Login extends \WP_Widget {
 
 	/**
 	 * Default arguments for the widget settings.
 	 *
-	 * @since  1.0.3
+	 * @since  2.0.0
 	 * @access public
 	 * @var    array
 	 */
@@ -30,7 +32,7 @@ class Members_Widget_Login extends WP_Widget {
 	/**
 	 * Set up the widget's unique name, ID, class, description, and other options.
 	 *
-	 * @since  0.2.5
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */
@@ -76,7 +78,7 @@ class Members_Widget_Login extends WP_Widget {
 	/**
 	 * Outputs the widget based on the arguments input through the widget controls.
 	 *
-	 * @since  0.1.0
+	 * @since  2.0.0
 	 * @access public
 	 * @param  array  $sidebar
 	 * @param  array  $instance
@@ -154,7 +156,7 @@ class Members_Widget_Login extends WP_Widget {
 	/**
 	 * Sanitizes/Validates widget options before being saved.
 	 *
-	 * @since  0.1.0
+	 * @since  2.0.0
 	 * @access public
 	 * @param  array  $new_instance
 	 * @param  array  $old_instance
@@ -191,7 +193,7 @@ class Members_Widget_Login extends WP_Widget {
 	/**
 	 * Displays the widget control options in the Widgets admin screen.
 	 *
-	 * @since 0.1.0
+	 * @since  2.0.0
 	 * @access public
 	 * @param  array  $instance
 	 * @return void

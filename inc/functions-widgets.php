@@ -27,7 +27,7 @@ function members_register_widgets() {
 
 		require_once( members_plugin()->inc_dir . 'class-widget-login.php' );
 
-		register_widget( 'Members_Widget_Login' );
+		register_widget( '\Members\Widget_Login' );
 	}
 
 	// If the users widget is enabled.
@@ -35,6 +35,6 @@ function members_register_widgets() {
 
 		require_once( members_plugin()->inc_dir . 'class-widget-users.php' );
 
-		register_widget( 'Members_Widget_users' );
+		register_widget( '\Members\Widget_Users' );
 	}
 }
