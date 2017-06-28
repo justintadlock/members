@@ -200,8 +200,16 @@ final class Members_Admin_Role_Edit {
 				}
 			}
 
-			// Add the updated role to the role factory.
-			members_role_factory()->add_role( $this->role->name );
+			// Add the updated role to the role registry.
+			members_unregister_role( $this->role->name );
+
+			members_register_role(
+				$this->role->name,
+				array(
+					'label' => $this->members_role->label,
+					'caps'  => $this->role->capabilities
+				)
+			);
 
 			// Reset the Members role object.
 			$this->members_role = members_get_role( $this->role->name );
