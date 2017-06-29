@@ -171,7 +171,18 @@ final class Members_Meta_Box_Content_Permissions {
 
 		<p>
 			<label for="members_access_error"><?php esc_html_e( 'Custom error message:', 'members' ); ?></label>
-			<textarea class="widefat" id="members_access_error" name="members_access_error" rows="6"><?php echo esc_textarea( get_post_meta( $post->ID, '_members_access_error', true ) ); ?></textarea>
+		</p>
+
+		<?php wp_editor(
+			get_post_meta( $post->ID, '_members_access_error', true ),
+			'members_access_error',
+			array(
+				'drag_drop_upload' => true,
+				'editor_height'    => 200
+			)
+		); ?>
+
+		<p>
 			<span class="howto"><?php esc_html_e( 'Message shown to users that do not have permission to view the post.', 'members' ); ?></span>
 		</p><?php
 
