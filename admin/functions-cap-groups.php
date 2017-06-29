@@ -194,7 +194,7 @@ function members_register_cap_groups() {
 			'caps'       => members_get_capabilities(),
 			'icon'       => 'dashicons-admin-generic',
 			'diff_added' => true,
-			'priority'   => 90
+			'priority'   => 995
 		)
 	);
 
@@ -205,7 +205,7 @@ function members_register_cap_groups() {
 			'caps'        => members_get_all_group_caps(),
 			'icon'        => 'dashicons-plus',
 			'merge_added' => false,
-			'priority'    => 95
+			'priority'    => 995
 		)
 	);
 
