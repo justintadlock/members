@@ -38,6 +38,9 @@ function members_register_shortcodes() {
 	add_shortcode( 'members_logged_in', 'members_is_user_logged_in_shortcode' );
 	add_shortcode( 'is_user_logged_in', 'members_is_user_logged_in_shortcode' ); // @deprecated 1.0.0
 
+	// Add the `[members_not_logged_in]` shortcode.
+	add_shortcode( 'members_not_logged_in', 'members_not_logged_in_shortcode' );
+
 	// @deprecated 0.2.0.
 	add_shortcode( 'get_avatar', 'members_get_avatar_shortcode' );
 	add_shortcode( 'avatar',     'members_get_avatar_shortcode' );
@@ -56,6 +59,20 @@ function members_register_shortcodes() {
 function members_is_user_logged_in_shortcode( $attr, $content = null ) {
 
 	return is_feed() || ! is_user_logged_in() || is_null( $content ) ? '' : do_shortcode( $content );
+}
+
+/**
+ * Displays content if the user viewing it is not currently logged in.
+ *
+ * @since  2.0.0
+ * @access public
+ * @param  array   $attr
+ * @param  string  $content
+ * @return string
+ */
+function members_not_logged_in_shortcode( $attr, $content = null ) {
+
+	return is_user_logged_in() || is_null( $content ) ? '' : do_shortcode( $content );
 }
 
 /**
