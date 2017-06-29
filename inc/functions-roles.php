@@ -11,7 +11,7 @@
  */
 
 # Register roles.
-add_action( 'init',                   'members_register_roles',         95 );
+add_action( 'wp_roles_init',          'members_register_roles',         95 );
 add_action( 'members_register_roles', 'members_register_default_roles',  5 );
 
 /**
@@ -19,11 +19,12 @@ add_action( 'members_register_roles', 'members_register_default_roles',  5 );
  *
  * @since  2.0.0
  * @access public
+ * @param  object  $wp_roles
  * @return void
  */
-function members_register_roles() {
+function members_register_roles( $wp_roles ) {
 
-	do_action( 'members_register_roles' );
+	do_action( 'members_register_roles', $wp_roles );
 }
 
 /**
@@ -31,11 +32,12 @@ function members_register_roles() {
  *
  * @since  2.0.0
  * @access public
+ * @param  object  $wp_roles
  * @return void
  */
-function members_register_default_roles() {
+function members_register_default_roles( $wp_roles ) {
 
-	foreach ( $GLOBALS['wp_roles']->roles as $name => $object ) {
+	foreach ( $wp_roles->roles as $name => $object ) {
 
 		$args = array(
 			'label' => $object['name'],
