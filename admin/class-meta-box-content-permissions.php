@@ -28,6 +28,17 @@ final class Members_Meta_Box_Content_Permissions {
 	private static $instance;
 
 	/**
+	 * Whether this is a new post.  Once the post is saved and we're
+	 * no longer on the `post-new.php` screen, this is going to be
+	 * `false`.
+	 *
+	 * @since  2.0.0
+	 * @access public
+	 * @var    bool
+	 */
+	public $is_new_post = false;
+
+	/**
 	 * Sets up the appropriate actions.
 	 *
 	 * @since  1.0.0
@@ -57,6 +68,9 @@ final class Members_Meta_Box_Content_Permissions {
 		// Make sure meta box is allowed for this post type.
 		if ( ! $this->maybe_enable() )
 			return;
+
+		// Is this a new post?
+		$this->is_new_post = 'load-post-new.php' === current_action();
 
 		// Enqueue scripts/styles.
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue' ) );
@@ -134,6 +148,9 @@ final class Members_Meta_Box_Content_Permissions {
 
 		// Get the roles saved for the post.
 		$roles = get_post_meta( $post->ID, '_members_access_role', false );
+
+		if ( ! $roles && $this->is_new_post )
+			$roles = apply_filters( 'members_default_post_roles', array(), $post->ID );
 
 		// Convert old post meta to the new system if no roles were found.
 		if ( empty( $roles ) )
