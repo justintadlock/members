@@ -80,6 +80,7 @@ class Members_Settings_View_General extends Members_Settings_View {
 
 		// Private site fields.
 		add_settings_field( 'enable_private_site', esc_html__( 'Enable Private Site', 'members' ), array( $this, 'field_enable_private_site' ), 'members-settings', 'private_site' );
+		add_settings_field( 'private_rest_api',    esc_html__( 'REST API',            'members' ), array( $this, 'field_private_rest_api'    ), 'members-settings', 'private_site' );
 		add_settings_field( 'enable_private_feed', esc_html__( 'Disable Feed',        'members' ), array( $this, 'field_enable_private_feed' ), 'members-settings', 'private_site' );
 		add_settings_field( 'private_feed_error',  esc_html__( 'Feed Error Message',  'members' ), array( $this, 'field_private_feed_error'  ), 'members-settings', 'private_site' );
 	}
@@ -102,6 +103,7 @@ class Members_Settings_View_General extends Members_Settings_View {
 		$settings['login_form_widget']    = ! empty( $settings['login_form_widget'] )    ? true : false;
 		$settings['users_widget']         = ! empty( $settings['users_widget'] )         ? true : false;
 		$settings['private_blog']         = ! empty( $settings['private_blog'] )         ? true : false;
+		$settings['private_rest_api']     = ! empty( $settings['private_rest_api'] )     ? true : false;
 		$settings['private_feed']         = ! empty( $settings['private_feed'] )         ? true : false;
 
 		// Kill evil scripts.
@@ -272,6 +274,21 @@ class Members_Settings_View_General extends Members_Settings_View {
 		<label>
 			<input type="checkbox" name="members_settings[private_blog]" value="true" <?php checked( members_is_private_blog() ); ?> />
 			<?php esc_html_e( 'Redirect all logged-out users to the login page before allowing them to view the site.', 'members' ); ?>
+		</label>
+	<?php }
+
+	/**
+	 * Enable private REST API field callback.
+	 *
+	 * @since  2.0.0
+	 * @access public
+	 * @return void
+	 */
+	public function field_private_rest_api() { ?>
+
+		<label>
+			<input type="checkbox" name="members_settings[private_rest_api]" value="true" <?php checked( members_is_private_rest_api() ); ?> />
+			<?php esc_html_e( 'Require authentication for access to the REST API.', 'members' ); ?>
 		</label>
 	<?php }
 

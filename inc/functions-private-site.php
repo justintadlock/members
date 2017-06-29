@@ -30,6 +30,8 @@ add_filter( 'members_feed_error_message',                              'wpautop'
 add_filter( 'members_feed_error_message',                              'do_shortcode',      30 );
 add_filter( 'members_feed_error_message',                              'shortcode_unautop', 35 );
 
+add_filter( 'rest_authentication_errors', 'members_private_rest_api', 95 );
+
 /**
  * Conditional tag to see if we have a private blog.
  *
@@ -50,6 +52,18 @@ function members_is_private_blog() {
  */
 function members_is_private_feed() {
 	return members_get_setting( 'private_feed' );
+}
+
+/**
+ * Conditional tag to see if we have a private REST API
+ *
+ * @since  2.0.0
+ * @access public
+ * @return bool
+ */
+function members_is_private_rest_api() {
+
+	return members_get_setting( 'private_rest_api' );
 }
 
 /**
@@ -118,4 +132,21 @@ function members_private_feed( $content ) {
 function members_get_private_feed_message() {
 
 	return apply_filters( 'members_feed_error_message', members_get_setting( 'private_feed_error' ) );
+}
+
+/**
+ * Returns an error if the REST API is accessed by an unauthenticated user.
+ *
+ * @link   https://developer.wordpress.org/rest-api/using-the-rest-api/frequently-asked-questions/#require-authentication-for-all-requests
+ * @since  2.0.0
+ * @access public
+ * @param  object  $result
+ * @return object
+ */
+function members_private_rest_api( $result ) {
+
+	if ( empty( $result ) && members_is_private_rest_api() && ! is_user_logged_in() )
+		return new WP_Error( 'rest_not_logged_in', esc_html__( 'You are not currently logged in.', 'members' ), array( 'status' => 401 ) );
+
+	return $result;
 }
