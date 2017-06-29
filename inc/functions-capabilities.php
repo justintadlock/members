@@ -82,15 +82,15 @@ function members_register_default_caps() {
 	$caps['upload_files'] = array( 'label' => __( 'Upload Files', 'members' ), 'group' => 'type-attachment' );
 
 	// Taxonomy caps.
-	$caps['assign_categories'] = array( 'label' => __( 'Assign Categories', 'members' ), 'group' => 'taxonomy' );
-	$caps['edit_categories']   = array( 'label' => __( 'Edit Categories',   'members' ), 'group' => 'taxonomy' );
-	$caps['delete_categories'] = array( 'label' => __( 'Delete Categories', 'members' ), 'group' => 'taxonomy' );
+	//$caps['assign_categories'] = array( 'label' => __( 'Assign Categories', 'members' ), 'group' => 'taxonomy' );
+	//$caps['edit_categories']   = array( 'label' => __( 'Edit Categories',   'members' ), 'group' => 'taxonomy' );
+	//$caps['delete_categories'] = array( 'label' => __( 'Delete Categories', 'members' ), 'group' => 'taxonomy' );
 	$caps['manage_categories'] = array( 'label' => __( 'Manage Categories', 'members' ), 'group' => 'taxonomy' );
 
-	$caps['assign_post_tags'] = array( 'label' => __( 'Assign Tags', 'members' ), 'group' => 'taxonomy' );
-	$caps['edit_post_tags']   = array( 'label' => __( 'Edit Tags',   'members' ), 'group' => 'taxonomy' );
-	$caps['delete_post_tags'] = array( 'label' => __( 'Delete Tags', 'members' ), 'group' => 'taxonomy' );
-	$caps['manage_post_tags'] = array( 'label' => __( 'Manage Tags', 'members' ), 'group' => 'taxonomy' );
+	//$caps['assign_post_tags'] = array( 'label' => __( 'Assign Tags', 'members' ), 'group' => 'taxonomy' );
+	//$caps['edit_post_tags']   = array( 'label' => __( 'Edit Tags',   'members' ), 'group' => 'taxonomy' );
+	//$caps['delete_post_tags'] = array( 'label' => __( 'Delete Tags', 'members' ), 'group' => 'taxonomy' );
+	//$caps['manage_post_tags'] = array( 'label' => __( 'Manage Tags', 'members' ), 'group' => 'taxonomy' );
 
 	// Theme caps.
 	$caps['delete_themes']      = array( 'label' => __( 'Delete Themes',      'members' ), 'group' => 'theme' );
@@ -108,7 +108,6 @@ function members_register_default_caps() {
 	$caps['update_plugins']   = array( 'label' => __( 'Update Plugins',   'members' ), 'group' => 'plugin' );
 
 	// User caps.
-	$caps['add_users']     = array( 'label' => __( 'Add Users',     'members' ), 'group' => 'user' );
 	$caps['create_roles']  = array( 'label' => __( 'Create Roles',  'members' ), 'group' => 'user' );
 	$caps['create_users']  = array( 'label' => __( 'Create Users',  'members' ), 'group' => 'user' );
 	$caps['delete_roles']  = array( 'label' => __( 'Delete Roles',  'members' ), 'group' => 'user' );
