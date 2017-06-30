@@ -74,7 +74,7 @@ class Registry {
 	 * @param  object  $value
 	 * @return void
 	 */
-	public function register( string $name, $value ) {
+	public function register( $name, $value ) {
 
 		if ( ! $this->exists( $name ) )
 			$this->collection[ $name ] = $value;
@@ -88,7 +88,7 @@ class Registry {
 	 * @param  string  $name
 	 * @return void
 	 */
-	public function unregister( string $name ) {
+	public function unregister( $name ) {
 
 		if ( $this->exists( $name ) )
 			unset( $this->collection[ $name ] );
@@ -102,7 +102,7 @@ class Registry {
 	 * @param  string  $name
 	 * @return bool
 	 */
-	public function exists( string $name ) {
+	public function exists( $name ) {
 
 		return isset( $this->collection[ $name ] );
 	}
@@ -115,7 +115,7 @@ class Registry {
 	 * @param  string  $name
 	 * @return object|bool
 	 */
-	public function get( string $name ) {
+	public function get( $name ) {
 
 		return $this->exists( $name ) ? $this->collection[ $name ] : false;
 	}
@@ -139,7 +139,7 @@ class Registry {
 	 * @access public
 	 * @return object
 	 */
-	final public static function get_instance( string $name = '' ) {
+	final public static function get_instance( $name = '' ) {
 
 		if ( ! isset( self::$instances[ $name ] ) )
 			self::$instances[ $name ] = new static();

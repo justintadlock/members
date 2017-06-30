@@ -68,7 +68,7 @@ class Capability {
 	 * @param  string  $role
 	 * @return void
 	 */
-	public function __construct( string $name, array $args = array() ) {
+	public function __construct( $name, $args = array() ) {
 
 		foreach ( array_keys( get_object_vars( $this ) ) as $key ) {
 
