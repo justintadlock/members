@@ -75,6 +75,11 @@ function members_is_private_rest_api() {
  */
 function members_please_log_in() {
 
+	// If this is a multisite instance and the user is logged into the network.
+	if ( members_is_private_blog() && is_multisite() && is_user_logged_in() && ! is_user_member_of_blog() ) {
+		members_ms_private_blog_die();
+	}
+
 	// Check if the private blog feature is active and if the user is not logged in.
 	if ( members_is_private_blog() && ! is_user_logged_in() && members_is_private_page() ) {
 
@@ -149,4 +154,37 @@ function members_private_rest_api( $result ) {
 		return new WP_Error( 'rest_not_logged_in', esc_html__( 'You are not currently logged in.', 'members' ), array( 'status' => 401 ) );
 
 	return $result;
+}
+
+/**
+ * Outputs an error message if a user attempts to access a site that they do not have 
+ * access to on multisite.
+ *
+ * @since  2.0.0
+ * @access public
+ * @return void
+ */
+function members_ms_private_blog_die() {
+
+	$blogs = get_blogs_of_user( get_current_user_id() );
+
+	$blogname = get_bloginfo( 'name' );
+
+	$message = __( 'You do not currently have access to the "%s" site. If you believe you should have access, please contact your network administrator.', 'members' );
+
+	if ( empty( $blogs ) )
+		wp_die( sprintf( $message, $blogname ), 403 );
+
+	$output = '<p>' . sprintf( $message, $blogname ) . '</p>';
+
+	$output .= sprintf( '<p>%s</p>', __( 'If you reached this page by accident and meant to visit one of your own sites, try one of the following links.', 'members' ) );
+
+	$output .= '<ul>';
+
+	foreach ( $blogs as $blog )
+		$output .= sprintf( '<li><a href="%s">%s</a></li>', esc_url( get_home_url( $blog->userblog_id ) ), esc_html( $blog->blogname ) );
+
+	$output .= '</ul>';
+
+	wp_die( $output, 403 );
 }
