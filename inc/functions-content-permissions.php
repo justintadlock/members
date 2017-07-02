@@ -127,7 +127,7 @@ function members_enable_content_permissions() {
 		add_filter( 'get_the_excerpt',  'members_content_permissions_protect', 95 );
 		add_filter( 'the_excerpt',      'members_content_permissions_protect', 95 );
 		add_filter( 'the_content_feed', 'members_content_permissions_protect', 95 );
-		add_filter( 'comment_text_rss', 'members_content_permissions_protect', 95 );
+		add_filter( 'get_comment_text', 'members_content_permissions_protect', 95 );
 
 		// Filter the comments template to make sure comments aren't shown to users without access.
 		add_filter( 'comments_template', 'members_content_permissions_comments', 95 );
