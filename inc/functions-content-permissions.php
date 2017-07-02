@@ -23,6 +23,21 @@ function members_get_post_roles( $post_id ) {
 }
 
 /**
+ * Conditional check to determine if a post has roles assigned to it.
+ *
+ * @since  2.0.0
+ * @access public
+ * @param  int     $post_id
+ * @return bool
+ */
+function members_has_post_roles( $post_id ) {
+
+	$roles = members_get_post_roles( $post_id );
+
+	return ! empty( $roles );
+}
+
+/**
  * Adds a single role to a post's access roles.
  *
  * @since  1.0.0
