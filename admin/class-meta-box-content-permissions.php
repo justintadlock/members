@@ -91,6 +91,7 @@ final class Members_Meta_Box_Content_Permissions {
 	 */
 	public function enqueue() {
 
+		wp_enqueue_script( 'members-edit-post' );
 		wp_enqueue_style( 'members-admin' );
 	}
 
@@ -162,46 +163,69 @@ final class Members_Meta_Box_Content_Permissions {
 		// Hook for firing at the top of the meta box.
 		do_action( 'members_cp_meta_box_before', $post ); ?>
 
-		<p>
-			<?php esc_html_e( 'Limit access to the content to users of the selected roles.', 'members' ); ?>
-		</p>
+		<div class="members-tabs members-cp-tabs">
 
-		<div class="members-cp-role-list-wrap">
-
-			<ul class="members-cp-role-list">
-
-			<?php foreach ( $_wp_roles as $role => $name ) : ?>
-				<li>
-					<label>
-						<input type="checkbox" name="members_access_role[]" <?php checked( is_array( $roles ) && in_array( $role, $roles ) ); ?> value="<?php echo esc_attr( $role ); ?>" />
-						<?php echo esc_html( translate_user_role( $name ) ); ?>
-					</label>
+			<ul class="members-tab-nav">
+				<li class="members-tab-title">
+					<a href="#members-tab-cp-roles">
+						<i class="dashicons dashicons-groups"></i>
+						<span class="label"><?php esc_html_e( 'Roles', 'members' ); ?></span>
+					</a>
 				</li>
-			<?php endforeach; ?>
-
+				<li class="members-tab-title">
+					<a href="#members-tab-cp-message">
+						<i class="dashicons dashicons-edit"></i>
+						<span class="label"><?php esc_html_e( 'Error Message', 'members' ); ?></span>
+					</a>
+				</li>
 			</ul>
-		</div>
 
-		<p class="howto">
-			<?php printf( esc_html__( 'If no roles are selected, everyone can view the content. The author, any users who can edit the content, and users with the %s capability can view the content regardless of role.', 'members' ), '<code>restrict_content</code>' ); ?>
-		</p>
+			<div class="members-tab-wrap">
 
-		<p>
-			<label for="members_access_error"><?php esc_html_e( 'Custom error message:', 'members' ); ?></label>
-		</p>
+				<div id="members-tab-cp-roles" class="members-tab-content">
 
-		<?php wp_editor(
-			get_post_meta( $post->ID, '_members_access_error', true ),
-			'members_access_error',
-			array(
-				'drag_drop_upload' => true,
-				'editor_height'    => 200
-			)
-		); ?>
+					<span class="members-tabs-label">
+						<?php esc_html_e( 'Limit access to the content to users of the selected roles.', 'members' ); ?>
+					</span>
 
-		<p>
-			<span class="howto"><?php esc_html_e( 'Message shown to users that do not have permission to view the post.', 'members' ); ?></span>
-		</p><?php
+					<div class="members-cp-role-list-wrap">
+
+						<ul class="members-cp-role-list">
+
+						<?php foreach ( $_wp_roles as $role => $name ) : ?>
+							<li>
+								<label>
+									<input type="checkbox" name="members_access_role[]" <?php checked( is_array( $roles ) && in_array( $role, $roles ) ); ?> value="<?php echo esc_attr( $role ); ?>" />
+									<?php echo esc_html( translate_user_role( $name ) ); ?>
+								</label>
+							</li>
+						<?php endforeach; ?>
+
+						</ul>
+					</div>
+
+					<span class="members-tabs-description">
+						<?php printf( esc_html__( 'If no roles are selected, everyone can view the content. The author, any users who can edit the content, and users with the %s capability can view the content regardless of role.', 'members' ), '<code>restrict_content</code>' ); ?>
+					</span>
+
+				</div>
+
+				<div id="members-tab-cp-message" class="members-tab-content">
+
+					<?php wp_editor(
+						get_post_meta( $post->ID, '_members_access_error', true ),
+						'members_access_error',
+						array(
+							'drag_drop_upload' => true,
+							'editor_height'    => 200
+						)
+					); ?>
+
+				</div>
+
+			</div><!-- .members-tab-wrap -->
+
+		</div><!-- .members-tabs --><?php
 
 		// Hook that fires at the end of the meta box.
 		do_action( 'members_cp_meta_box_after', $post );
