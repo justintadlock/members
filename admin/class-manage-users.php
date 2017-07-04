@@ -81,8 +81,10 @@ final class Manage_Users {
 		// Custom manage users columns.
 		add_filter( 'manage_users_columns', array( $this, 'manage_users_columns' ) );
 
-		// Print custom styles.
-		add_action( 'admin_head', array( $this, 'print_styles' ) );
+		// Handle scripts and styles.
+		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue' ) );
+		add_action( 'admin_footer',          array( $this, 'print_scripts' ), 25 );
+		add_action( 'admin_head',            array( $this, 'print_styles' ) );
 
 		// If there was an update, add notices if they're from our plugin.
 		if ( isset( $_GET['update'] ) ) {
@@ -393,6 +395,38 @@ final class Manage_Users {
 
 		return $output;
 	}
+
+	/**
+	 * Enqueue scripts.
+	 *
+	 * @since  2.0.0
+	 * @access public
+	 * @return void
+	 */
+	public function enqueue() {
+
+		wp_enqueue_script( 'jquery' );
+	}
+
+	/**
+	 * Enqueue the plugin admin CSS.
+	 *
+	 * @since  2.0.0
+	 * @access public
+	 * @return void
+	 */
+	public function print_scripts() { ?>
+
+		<script>
+		jQuery( document ).ready( function() {
+
+			jQuery(
+				'label[for="new_role"], label[for="new_role2"], #new_role, #new_role2, #changeit, #changeit2'
+			).remove();
+		} );
+		</script>
+
+	<?php }
 
 	/**
 	 * Hides the core WP change role form fields because these are hardcoded in.

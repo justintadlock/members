@@ -53,7 +53,10 @@ final class Members_Admin_User_Edit {
 	 */
 	public function load_user_edit() {
 
-		add_action( 'admin_head', array( $this, 'print_styles' ) );
+		// Handle scripts and styles.
+		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue' ) );
+		add_action( 'admin_footer',          array( $this, 'print_scripts' ), 25 );
+		add_action( 'admin_head',            array( $this, 'print_styles' ) );
 
 		add_action( 'show_user_profile', array( $this, 'profile_fields' ) );
 		add_action( 'edit_user_profile', array( $this, 'profile_fields' ) );
@@ -175,6 +178,36 @@ final class Members_Admin_User_Edit {
 			}
 		}
 	}
+
+	/**
+	 * Enqueue scripts.
+	 *
+	 * @since  2.0.0
+	 * @access public
+	 * @return void
+	 */
+	public function enqueue() {
+
+		wp_enqueue_script( 'jquery' );
+	}
+
+	/**
+	 * Enqueue the plugin admin CSS.
+	 *
+	 * @since  2.0.0
+	 * @access public
+	 * @return void
+	 */
+	public function print_scripts() { ?>
+
+		<script>
+		jQuery( document ).ready( function() {
+
+			jQuery( '.user-role-wrap' ).remove();
+		} );
+		</script>
+
+	<?php }
 
 	/**
 	 * Enqueue the plugin admin CSS.
