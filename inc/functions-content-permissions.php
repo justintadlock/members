@@ -11,6 +11,20 @@
 add_action( 'after_setup_theme', 'members_enable_content_permissions', 0 );
 
 /**
+ * Conditional check to determine if a post any permissions rules assigned
+ * to it.
+ *
+ * @since  2.0.0
+ * @access public
+ * @param  $post_id
+ * @return bool
+ */
+function members_has_post_permissions( $post_id = '' ) {
+
+	return members_has_post_roles( $post_id );
+}
+
+/**
  * Returns an array of the roles for a given post.
  *
  * @since  1.0.0
@@ -30,7 +44,10 @@ function members_get_post_roles( $post_id ) {
  * @param  int     $post_id
  * @return bool
  */
-function members_has_post_roles( $post_id ) {
+function members_has_post_roles( $post_id = '' ) {
+
+	if ( ! $post_id )
+		$post_id = get_the_ID();
 
 	$roles = members_get_post_roles( $post_id );
 
