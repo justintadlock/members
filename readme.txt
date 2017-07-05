@@ -1,7 +1,7 @@
 === Members ===
 
 Contributors: greenshady
-Donate link: http://themehybrid.com/donate
+Donate link: https://themehybrid.com/donate
 Tags: admin, role, roles, member, members, profile, shortcode, user, users, widget, widgets
 Requires at least: 4.3
 Tested up to: 4.7.2
@@ -27,19 +27,19 @@ It puts you in control over permissions on your site by providing a user interfa
 * **Private Site:** You can make your site and its feed completely private if you want.
 * **Plugin Integration:** Members is highly recommended by  other WordPress developers. Many existing plugins integrate their custom roles and caps directly into it.
 
-For more info, vist the [Members plugin home page](http://themehybrid.com/plugins/members).
+For more info, vist the [Members plugin home page](https://themehybrid.com/plugins/members).
 
 ### Like this plugin?
 
 The Members plugin is a massive project with 1,000s of lines of code to maintain.  A major update can take weeks or months of work.  I don't make any money directly from this plugin while other, similar plugins charge substantial fees to even download them or get updates.  Please consider helping the cause by:
 
-* [Making a donation](http://themehybrid.com/donate).
-* [Signing up at my site](http://themehybrid.com/club).
+* [Making a donation](https://themehybrid.com/donate).
+* [Signing up at my site](https://themehybrid.com/club).
 * [Rating the plugin](https://wordpress.org/support/view/plugin-reviews/members?rate=5#postform).
 
 ### Professional Support
 
-If you need professional plugin support from me, the plugin author, you can access the support forums at [Theme Hybrid](http://themehybrid.com/board/topics), which is a professional WordPress help/support site where I handle support for all my plugins and themes for a community of 60,000+ users (and growing).
+If you need professional plugin support from me, the plugin author, you can access the support forums at [Theme Hybrid](https://themehybrid.com/board/topics), which is a professional WordPress help/support site where I handle support for all my plugins and themes for a community of 60,000+ users (and growing).
 
 ### Plugin Development
 
@@ -77,7 +77,7 @@ If, for some reason, you do have the administrator role and the role manager is 
 
 Please read the documentation for the plugin before actually using it, especially a plugin that controls permissions for your site.  I cannot stress this enough.  This is a powerful plugin that allows you to make direct changes to roles and capabilities in the database.
 
-You'll need to stop by my [support forums](http://themehybrid.com/board/topics) to see if we can get your site fixed if you managed to lock yourself out.  I know that this can be a bit can be a bit scary, but it's not that tough to fix with a little custom code.
+You'll need to stop by my [support forums](https://themehybrid.com/board/topics) to see if we can get your site fixed if you managed to lock yourself out.  I know that this can be a bit can be a bit scary, but it's not that tough to fix with a little custom code.
 
 == Screenshots ==
 

@@ -6,7 +6,7 @@
  * @subpackage Admin
  * @author     Justin Tadlock <justintadlock@gmail.com>
  * @copyright  Copyright (c) 2009 - 2017, Justin Tadlock
- * @link       http://themehybrid.com/plugins/members
+ * @link       https://themehybrid.com/plugins/members
  * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
@@ -394,7 +394,7 @@ class Members_Settings_View_General extends Members_Settings_View {
 
 		// Get docs and help links.
 		$docs_link = sprintf( '<li><a href="https://github.com/justintadlock/members/blob/master/readme.md">%s</a></li>', esc_html__( 'Documentation',  'members' ) );
-		$help_link = sprintf( '<li><a href="http://themehybrid.com/board/topics">%s</a></li>',                            esc_html__( 'Support Forums', 'members' ) );
+		$help_link = sprintf( '<li><a href="https://themehybrid.com/board/topics">%s</a></li>',                            esc_html__( 'Support Forums', 'members' ) );
 		$tut_link  = sprintf( '<li><a href="http://justintadlock.com/archives/2009/08/30/users-roles-and-capabilities-in-wordpress">%s</a></li>', esc_html__( 'Users, Roles, and Capabilities', 'members' ) );
 
 		// Set the help sidebar.

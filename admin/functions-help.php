@@ -6,7 +6,7 @@
  * @subpackage Admin
  * @author     Justin Tadlock <justintadlock@gmail.com>
  * @copyright  Copyright (c) 2009 - 2017, Justin Tadlock
- * @link       http://themehybrid.com/plugins/members
+ * @link       https://themehybrid.com/plugins/members
  * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
@@ -21,7 +21,7 @@ function members_get_help_sidebar_text() {
 
 	// Get docs and help links.
 	$docs_link = sprintf( '<li><a href="https://github.com/justintadlock/members/blob/master/readme.md">%s</a></li>', esc_html__( 'Documentation',  'members' ) );
-	$help_link = sprintf( '<li><a href="http://themehybrid.com/board/topics">%s</a></li>',                            esc_html__( 'Support Forums', 'members' ) );
+	$help_link = sprintf( '<li><a href="https://themehybrid.com/board/topics">%s</a></li>',                            esc_html__( 'Support Forums', 'members' ) );
 
 	// Return the text.
 	return sprintf(
