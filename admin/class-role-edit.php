@@ -229,7 +229,7 @@ final class Members_Admin_Role_Edit {
 
 		// If editing the core administrator role.
 		if ( 'administrator' === $this->role->name )
-			add_settings_error( 'members_edit_role', 'role_is_admin', sprintf( esc_html__( 'The %s role is typically the most important role on the site. Please take extreme caution that you do no inadvertently remove necessary capabilities.', 'members' ), members_get_role( $this->role->name )->label ) );
+			add_settings_error( 'members_edit_role', 'role_is_admin', sprintf( esc_html__( 'The %s role is typically the most important role on the site. Please take extreme caution that you do not inadvertently remove necessary capabilities.', 'members' ), members_get_role( $this->role->name )->label ) );
 
 		// If a new role was added (redirect from new role screen).
 		if ( isset( $_GET['message'] ) && 'role_added' === $_GET['message'] )
