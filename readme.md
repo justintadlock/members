@@ -101,12 +101,17 @@ The `[members_access]` shortcode is for hiding content from particular roles and
 
 * `capability`:  A capability that has been assigned to a role.
 * `role`: A user role from WordPress or one that you've created.
+* `operator`: Accepts `!` to negate the role or capability.
 
 Note that `capability` and `role` parameters aren't used in conjunction.  The code first checks for the capability (if input) then checks for the role (if input).
 
 To check for multiple capabilities or multiple roles, simply add a comma between each capability/role.  For example, the following code checks for an editor or administrator:
 
-	[members_access role="administrator,editor"]Hide this content from everyone but administrators and editors.[/members_access]
+	[members_access role="administrator,editor"]Show this content to administrators or editors only.[/members_access]
+
+To check that the user does not have a role:
+
+	[members_access role="administrator" operator="!"]Show this content to anyone who is not an administrator.[/members_access]
 
 #### [members_logged_in]
 

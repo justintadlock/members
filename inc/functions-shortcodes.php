@@ -108,14 +108,20 @@ function members_access_check_shortcode( $attr, $content = null ) {
 	if ( is_null( $content ) || is_feed() )
 		return '';
 
+	$user_can = false;
+
 	// Set up the default attributes.
 	$defaults = array(
 		'capability' => '',  // Single capability or comma-separated multiple capabilities.
 		'role'       => '',  // Single role or comma-separated multiple roles.
+		'operator'   => 'or' // Only the `!` operator is supported for now.  Everything else falls back to `or`.
 	);
 
 	// Merge the input attributes and the defaults.
 	$attr = shortcode_atts( $defaults, $attr, 'members_access' );
+
+	// Get the operator.
+	$operator = strtolower( $attr['operator'] );
 
 	// If the current user has the capability, show the content.
 	if ( $attr['capability'] ) {
@@ -123,13 +129,10 @@ function members_access_check_shortcode( $attr, $content = null ) {
 		// Get the capabilities.
 		$caps = explode( ',', $attr['capability'] );
 
-		// Loop through each capability.
-		foreach ( $caps as $cap ) {
+		if ( '!' === $operator )
+			return members_current_user_can_any( $caps ) ? '' : do_shortcode( $content );
 
-			// If the current user can perform the capability, return the content.
-			if ( current_user_can( trim( $cap ) ) )
-				return do_shortcode( $content );
-		}
+		return members_current_user_can_any( $caps ) ? do_shortcode( $content ) : '';
 	}
 
 	// If the current user has the role, show the content.
@@ -138,13 +141,10 @@ function members_access_check_shortcode( $attr, $content = null ) {
 		// Get the roles.
 		$roles = explode( ',', $attr['role'] );
 
-		// Loop through each of the roles.
-		foreach ( $roles as $role ) {
+		if ( '!' === $operator )
+			return members_current_user_has_role( $roles ) ? '' : do_shortcode( $content );
 
-			// If the current user has the role, return the content.
-			if ( members_current_user_has_role( trim( $role ) ) )
-				return do_shortcode( $content );
-		}
+		return members_current_user_has_role( $roles ) ? do_shortcode( $content ) : '';
 	}
 
 	// Return an empty string if we've made it to this point.

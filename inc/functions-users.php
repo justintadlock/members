@@ -68,15 +68,21 @@ function members_user_has_cap_filter( $allcaps, $caps, $args, $user ) {
  *
  * @since  1.0.0
  * @access public
- * @param  int     $user_id
- * @param  string  $role
+ * @param  int           $user_id
+ * @param  string|array  $roles
  * @return bool
  */
-function members_user_has_role( $user_id, $role ) {
+function members_user_has_role( $user_id, $roles ) {
 
 	$user = new WP_User( $user_id );
 
-	return in_array( $role, (array) $user->roles );
+	foreach ( (array) $roles as $role ) {
+
+		if ( in_array( $role, (array) $user->roles ) )
+			return true;
+	}
+
+	return false;
 }
 
 /**
@@ -84,12 +90,52 @@ function members_user_has_role( $user_id, $role ) {
  *
  * @since  1.0.0
  * @access public
- * @param  string  $role
+ * @param  string|array  $roles
  * @return bool
  */
-function members_current_user_has_role( $role ) {
+function members_current_user_has_role( $roles ) {
 
-	return is_user_logged_in() ? members_user_has_role( get_current_user_id(), $role ) : false;
+	return is_user_logged_in() ? members_user_has_role( get_current_user_id(), $roles ) : false;
+}
+
+/**
+ * Wrapper for `current_user_can()` that checks if the user can perform any action.
+ * Accepts an array of caps instead of a single cap.
+ *
+ * @since  2.0.0
+ * @access public
+ * @param  array   $caps
+ * @return bool
+ */
+function members_current_user_can_any( $caps = array() ) {
+
+	foreach ( $caps as $cap ) {
+
+		if ( current_user_can( $cap ) )
+			return true;
+	}
+
+	return false;
+}
+
+/**
+ * Wrapper for `current_user_can()` that checks if the user can perform all actions.
+ * Accepts an array of caps instead of a single cap.
+ *
+ * @since  2.0.0
+ * @access public
+ * @param  array   $caps
+ * @return bool
+ */
+function members_current_user_can_all( $caps = array() ) {
+
+	foreach ( $caps as $cap ) {
+
+		if ( ! current_user_can( $cap ) )
+			return false;
+	}
+
+	return true;
 }
 
 /**
