@@ -296,6 +296,16 @@ function members_get_post_type_group_caps( $post_type = 'post' ) {
  */
 function members_get_taxonomy_group_caps() {
 
+	$do_not_add = array(
+		'assign_categories',
+		'edit_categories',
+		'delete_categories',
+		'assign_post_tags',
+		'edit_post_tags',
+		'delete_post_tags',
+		'manage_post_tags'
+	);
+
 	$taxi = get_taxonomies( array(), 'objects' );
 
 	$caps = array();
@@ -308,7 +318,7 @@ function members_get_taxonomy_group_caps() {
 	if ( $registered_caps )
 		array_merge( $caps, $registered_caps );
 
-	return array_unique( $caps );
+	return array_diff( array_unique( $caps ), $do_not_add );
 }
 
 /**

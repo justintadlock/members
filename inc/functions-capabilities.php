@@ -28,6 +28,17 @@ add_filter( 'members_get_capabilities', 'members_remove_hidden_caps' );
 function members_register_caps() {
 
 	do_action( 'members_register_caps' );
+
+	// The following is a quick way to register capabilities that technically
+	// exist (i.e., caps that have been added to a role).  These are caps that
+	// we don't know about because they haven't been registered.
+
+	$role_caps    = array_values( members_get_role_capabilities() );
+	$unregistered = array_diff( $role_caps, array_keys( members_get_caps() ) );
+
+	foreach ( $unregistered as $cap )
+		members_register_cap( $cap, array( 'label' => $cap ) );
+
 }
 
 /**
@@ -82,15 +93,7 @@ function members_register_default_caps() {
 	$caps['upload_files'] = array( 'label' => __( 'Upload Files', 'members' ), 'group' => 'type-attachment' );
 
 	// Taxonomy caps.
-	//$caps['assign_categories'] = array( 'label' => __( 'Assign Categories', 'members' ), 'group' => 'taxonomy' );
-	//$caps['edit_categories']   = array( 'label' => __( 'Edit Categories',   'members' ), 'group' => 'taxonomy' );
-	//$caps['delete_categories'] = array( 'label' => __( 'Delete Categories', 'members' ), 'group' => 'taxonomy' );
 	$caps['manage_categories'] = array( 'label' => __( 'Manage Categories', 'members' ), 'group' => 'taxonomy' );
-
-	//$caps['assign_post_tags'] = array( 'label' => __( 'Assign Tags', 'members' ), 'group' => 'taxonomy' );
-	//$caps['edit_post_tags']   = array( 'label' => __( 'Edit Tags',   'members' ), 'group' => 'taxonomy' );
-	//$caps['delete_post_tags'] = array( 'label' => __( 'Delete Tags', 'members' ), 'group' => 'taxonomy' );
-	//$caps['manage_post_tags'] = array( 'label' => __( 'Manage Tags', 'members' ), 'group' => 'taxonomy' );
 
 	// Theme caps.
 	$caps['delete_themes']      = array( 'label' => __( 'Delete Themes',      'members' ), 'group' => 'theme' );
@@ -125,6 +128,29 @@ function members_register_default_caps() {
 	// Register each of the capabilities.
 	foreach ( $caps as $name => $args )
 		members_register_cap( $name, $args );
+
+	// === Category and Tag caps. ===
+	// These are mapped to `manage_categories` in a default WP install.  However, it's possible
+	// for another plugin to map these differently and handle them correctly.  So, we're only
+	// going to register the caps if they've been assigned to a role.  There's no other way
+	// to reliably detect if they've been mapped.
+
+	$role_caps = array_values( members_get_role_capabilities() );
+	$tax_caps  = array();
+
+	$tax_caps['assign_categories'] = array( 'label' => __( 'Assign Categories', 'members' ), 'group' => 'taxonomy' );
+	$tax_caps['edit_categories']   = array( 'label' => __( 'Edit Categories',   'members' ), 'group' => 'taxonomy' );
+	$tax_caps['delete_categories'] = array( 'label' => __( 'Delete Categories', 'members' ), 'group' => 'taxonomy' );
+	$tax_caps['assign_post_tags']  = array( 'label' => __( 'Assign Post Tags',  'members' ), 'group' => 'taxonomy' );
+	$tax_caps['edit_post_tags']    = array( 'label' => __( 'Edit Post Tags',    'members' ), 'group' => 'taxonomy' );
+	$tax_caps['delete_post_tags']  = array( 'label' => __( 'Delete Post Tags',  'members' ), 'group' => 'taxonomy' );
+	$tax_caps['manage_post_tags']  = array( 'label' => __( 'Manage Post Tags',  'members' ), 'group' => 'taxonomy' );
+
+	foreach ( $tax_caps as $tax_cap => $args ) {
+
+		if ( in_array( $tax_cap, $role_caps ) )
+			members_register_cap( $tax_cap, $args );
+	}
 }
 
 /**
@@ -268,14 +294,8 @@ function members_get_cap_roles( $cap ) {
  */
 function members_get_capabilities() {
 
-	// Merge the default WP, role, and plugin caps together.
-	$capabilities = array_merge(
-		array_keys( members_get_caps() ),
-		members_get_role_capabilities()
-	);
-
 	// Apply filters to the array of capabilities.
-	$capabilities = apply_filters( 'members_get_capabilities', $capabilities );
+	$capabilities = apply_filters( 'members_get_capabilities', array_keys( members_get_caps() ) );
 
 	// Sort the capabilities alphabetically.
 	sort( $capabilities );
