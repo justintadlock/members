@@ -108,6 +108,13 @@ function members_edit_role_help_overview_cb() { ?>
 	<p>
 		<?php esc_html_e( 'This screen allows you to edit an individual role and its capabilities.', 'members' ); ?>
 	<p>
+
+	<p>
+		<?php printf(
+			esc_html__( 'Visit the %s page in the WordPress Codex to see a complete list of roles, capabilities, and their definitions.', 'members' ),
+			'<a href="https://codex.wordpress.org/Roles_and_Capabilities">' . esc_html__( 'Roles and Capabilities', 'members' ) . '</a>'
+		); ?>
+	</p>
 <?php }
 
 /**
