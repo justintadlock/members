@@ -25,54 +25,123 @@ class Members_Settings_View_Add_Ons extends Members_Settings_View {
 	 * @access public
 	 * @return void
 	 */
-	public function template() { ?>
+	public function template() {
+
+		require_once( members_plugin()->admin_dir . 'class-addon.php'      );
+		require_once( members_plugin()->admin_dir . 'functions-addons.php' );
+
+		do_action( 'members_register_addons' );
+
+		$addons = members_get_addons(); ?>
 
 		<div class="widefat">
 
-		<?php foreach ( $this->get_add_ons() as $addon ) : ?>
+			<?php if ( $addons ) : ?>
 
-			<div class="plugin-card plugin-card-<?php echo esc_attr( $addon->slug ); ?>">
+				<?php foreach ( $addons as $addon ) : ?>
 
-				<div class="plugin-card-top">
+					<?php $this->addon_card( $addon ); ?>
 
-					<div class="name column-name">
-						<h3>
-							<a href="<?php echo esc_url( $addon->url ); ?>">
-								<?php echo esc_html( $addon->title ); ?>
-								<img class="plugin-icon" src="<?php echo esc_url( $addon->icon_url ); ?>" alt="" />
-							</a>
-						</h3>
-					</div>
+				<?php endforeach; ?>
 
-					<div class="action-links">
-						<ul class="plugin-action-buttons">
-							<li>
+			<?php else : ?>
 
-							<?php if ( $addon->purchase_url ) : ?>
-								<a class="install-now button" href="<?php echo esc_url( $addon->purchase_url ); ?>"><?php esc_html_e( 'Purchase', 'members' ); ?></a>
-							<?php else : ?>
-								<a class="install-now button" href="<?php echo esc_url( $addon->url ); ?>"><?php esc_html_e( 'Download', 'members' ); ?></a>
-							<?php endif; ?>
-
-							</li>
-						</ul>
-					</div>
-
-					<div class="desc column-description">
-						<?php echo wpautop( wp_strip_all_tags( $addon->excerpt ) ); ?>
-
-						<p class="authors">
-							<?php $author = sprintf( '<a href="%s">%s</a>', esc_url( $addon->author_url ), esc_html( $addon->author ) ); ?>
-
-							<cite><?php printf( esc_html__( 'By %s', 'members' ), $author ); ?></cite>
-						</p>
-					</div>
+				<div class="error notice">
+					<p>
+						<strong><?php esc_html_e( 'There are currently no add-ons to show. Please try again later.', 'members' ); ?></strong>
+					</p>
 				</div>
-			</div>
 
-		<?php endforeach; ?>
+			<?php endif; ?>
 
-		</div>
+		</div><!-- .widefat -->
+	<?php }
+
+	/**
+	 * Renders an individual add-on plugin card.
+	 *
+	 * @since  2.0.0
+	 * @access public
+	 * @return void
+	 */
+	public function addon_card( $addon ) { ?>
+
+		<div class="plugin-card plugin-card-<?php echo esc_attr( $addon->name ); ?>">
+
+			<div class="plugin-card-top">
+
+				<div class="name column-name">
+					<h3>
+						<a href="<?php echo esc_url( $addon->url ); ?>">
+							<?php echo esc_html( $addon->title ); ?>
+
+							<?php if ( $addon->icon_url ) : ?>
+								<img class="plugin-icon" src="<?php echo esc_url( $addon->icon_url ); ?>" alt="" />
+							<?php endif; ?>
+						</a>
+					</h3>
+				</div>
+
+				<div class="action-links">
+
+					<ul class="plugin-action-buttons">
+						<li>
+							<?php if ( $addon->purchase_url ) : ?>
+
+								<a class="install-now button" href="<?php echo esc_url( $addon->purchase_url ); ?>"><?php esc_html_e( 'Purchase', 'members' ); ?></a>
+
+							<?php elseif ( $addon->download_url ) : ?>
+
+								<a class="install-now button" href="<?php echo esc_url( $addon->download_url ); ?>"><?php esc_html_e( 'Download', 'members' ); ?></a>
+
+							<?php else : ?>
+
+								<a class="install-now button" href="<?php echo esc_url( $addon->url ); ?>"><?php esc_html_e( 'Download', 'members' ); ?></a>
+
+							<?php endif; ?>
+						</li>
+					</ul>
+				</div>
+
+				<div class="desc column-description">
+
+					<?php echo wpautop( wp_strip_all_tags( $addon->excerpt ) ); ?>
+
+					<p class="authors">
+						<?php $author = sprintf( '<a href="%s">%s</a>', esc_url( $addon->author_url ), esc_html( $addon->author_name ) ); ?>
+
+						<cite><?php printf( esc_html__( 'By %s', 'members' ), $author ); ?></cite>
+					</p>
+
+				</div>
+
+			</div><!-- .plugin-card-top -->
+
+			<div class="plugin-card-bottom">
+
+				<?php if ( $addon->rating && $addon->rating_count ) : ?>
+
+					<div class="vers column-rating">
+						<?php wp_star_rating( array( 'type' => 'rating', 'rating' => floatval( $addon->rating ), 'number' => absint( $addon->rating_count ) ) ); ?>
+						<span class="num-ratings" aria-hidden="true">(<?php echo absint( $addon->rating_count ); ?>)</span>
+					</div>
+
+				<?php endif; ?>
+
+				<?php if ( $addon->install_count ) : ?>
+
+					<div class="column-downloaded">
+						<?php printf(
+							esc_html__( '%s+ Active Installs', 'members' ),
+							number_format_i18n( absint( $addon->install_count ) )
+						); ?>
+					</div>
+
+				<?php endif; ?>
+
+			</div><!-- .plugin-card-bottom -->
+
+		</div><!-- .plugin-card -->
 
 	<?php }
 
@@ -99,63 +168,5 @@ class Members_Settings_View_Add_Ons extends Members_Settings_View {
 	*/
 		// Set the help sidebar.
 		$screen->set_help_sidebar( members_get_help_sidebar_text() );
-	}
-
-	/**
-	 * Returns a list of add-ons for the Members plugin.  This function is temporary until
-	 * we can get a proper API set up on Theme Hybrid to allow this data to be sent over.
-	 *
-	 * @since  2.0.0
-	 * @access private
-	 * @return array
-	 */
-	private function get_add_ons() {
-
-		$addons = array();
-
-		$defaults = array(
-			'title'          => '',
-			'excerpt'        => '',
-			'url'            => '',
-			'author'         => '',
-			'author_url'     => '',
-			'purchase_url'   => '',
-			'wporg_slug'     => '',
-			'download_count' => '',
-			'install_count'  => '',
-			'icon_url'       => '',
-			'slug'           => ''
-		);
-
-		$_addons = array(
-
-			'members-role-hierarchy' =>  array(
-				'title'       => 'Members - Role Hierarchy',
-				'url'         => 'https://themehybrid.com/plugins/members-role-hierarchy',
-				'excerpt'     => 'Add-on plugin for Members for hierarchical user roles.',
-				'icon_url'    => members_plugin()->dir_uri . 'img/add-ons/icon-members-role-hierarchy.png',
-				'author'      => 'Justin Tadlock',
-				'author_url'  => 'https://themehybrid.com'
-			),
-
-			'members-role-levels' => array(
-				'title'        => 'Members - Role Levels',
-				'url'          => 'https://themehybrid.com/plugins/members-role-levels',
-				'purchase_url' => 'https://themehybrid.com/plugins/members-role-levels',
-				'excerpt'      => "Exposes the old user levels system, which fixes the WordPress author drop-down bug.",
-				'icon_url'     => members_plugin()->dir_uri . 'img/add-ons/icon-members-role-levels.png',
-				'author'       => 'Justin Tadlock',
-				'author_url'   => 'https://themehybrid.com'
-			)
-		);
-
-		foreach ( $_addons as $slug => $args ) {
-
-			$addons[ $slug ] = (object) wp_parse_args( $args, $defaults );
-
-			$addons[ $slug ]->slug = $slug;
-		}
-
-		return $addons;
 	}
 }
