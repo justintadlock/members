@@ -1,0 +1,43 @@
+[
+	{
+		"title" : "Members - Role Levels",
+		"url" : "https:\/\/themehybrid.com\/plugins\/members-role-levels",
+		"slug" : "members-role-levels",
+		"excerpt" : "<p>Exposes the old user levels system, which fixes the WordPress author drop-down bug when users don&#8217;t have a role with one of the assigned levels.<\/p>\n",
+		"author" : {
+			"name" : "Justin Tadlock",
+			"url" : "https:\/\/themehybrid.com\/plugins\/authors\/admin"
+		},
+		"meta" : {
+			"purchase_url" : "https:\/\/themehybrid.com\/plugins\/members-role-levels",
+			"download_url" : "",
+			"rating" : 0,
+			"rating_count" : 0,
+			"install_count" : 0
+		},"media" : {
+			"banner" : {"url" : ""},
+			"icon" : {"url" : ""}
+		}
+	},
+	{
+		"title" : "Members - Role Hierarchy",
+		"url" : "https:\/\/themehybrid.com\/plugins\/members-role-hierarchy",
+		"slug" : "members-role-hierarchy",
+		"excerpt" : "<p>Add-on plugin for Members for hierarchical user roles.<\/p>\n",
+		"author" : {
+			"name" : "Justin Tadlock",
+			"url" : "https:\/\/themehybrid.com\/plugins\/authors\/admin"
+		},
+		"meta" : {
+			"purchase_url" : "",
+			"download_url" : "https:\/\/themehybrid.com\/plugins\/members-role-hierarchy",
+			"rating" : 0,
+			"rating_count" : 0,
+			"install_count" : 100
+		},"media" : {
+			"banner" : { "url" : "" },
+			"icon" : { "url" : "" }
+		}
+	}
+]
+

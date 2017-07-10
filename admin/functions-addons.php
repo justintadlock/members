@@ -24,13 +24,9 @@ add_action( 'members_register_addons', 'members_register_default_addons', 5 );
  */
 function members_register_default_addons() {
 
-	/**/
-	// Comment out for local testing.
-	return;
-	/**/
-
 	// Sandbox URL for the time being.
-	$url = 'http://localhost/api/th/v1/plugins?addons=members';
+	// $url = 'http://localhost/api/th/v1/plugins?addons=members';
+	$url = members_plugin()->dir_uri . 'admin/addons.json';
 
 	// Get data from the remote URL.
 	$response = wp_remote_get( $url );
