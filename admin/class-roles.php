@@ -10,18 +10,20 @@
  * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
+namespace Members\Admin;
+
 /**
  * Class that displays the roles admin screen and handles requests for that page.
  *
- * @since  1.0.0
+ * @since  2.0.0
  * @access public
  */
-final class Members_Admin_Roles {
+final class Roles {
 
 	/**
 	 * Sets up some necessary actions/filters.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */
@@ -40,7 +42,7 @@ final class Members_Admin_Roles {
 	/**
 	 * Modifies the current screen object.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */
@@ -53,7 +55,7 @@ final class Members_Admin_Roles {
 	/**
 	 * Sets up the roles column headers.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @param  array  $columns
 	 * @return array
@@ -75,7 +77,7 @@ final class Members_Admin_Roles {
 	/**
 	 * Runs on the `load-{$page}` hook.  This is the handler for form submissions and requests.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */
@@ -141,7 +143,7 @@ final class Members_Admin_Roles {
 	/**
 	 * Enqueue scripts/styles.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */
@@ -154,7 +156,7 @@ final class Members_Admin_Roles {
 	/**
 	 * Displays the page content.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */
@@ -178,7 +180,7 @@ final class Members_Admin_Roles {
 
 				<form id="roles" action="<?php echo esc_url( members_get_edit_roles_url() ); ?>" method="post">
 
-					<?php $table = new Members_Role_List_Table(); ?>
+					<?php $table = new Role_List_Table(); ?>
 					<?php $table->prepare_items(); ?>
 					<?php $table->display(); ?>
 
@@ -192,7 +194,7 @@ final class Members_Admin_Roles {
 	/**
 	 * Adds help tabs.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */
@@ -244,7 +246,7 @@ final class Members_Admin_Roles {
 	/**
 	 * Overview help tab callback function.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */
@@ -258,7 +260,7 @@ final class Members_Admin_Roles {
 	/**
 	 * Screen content help tab callback function.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */
@@ -277,7 +279,7 @@ final class Members_Admin_Roles {
 	/**
 	 * Row actions help tab callback function.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */
@@ -298,7 +300,7 @@ final class Members_Admin_Roles {
 	/**
 	 * Bulk actions help tab callback function.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */

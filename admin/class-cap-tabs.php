@@ -10,18 +10,20 @@
  * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
+namespace Members\Admin;
+
 /**
  * Handles building the edit caps tabs.
  *
- * @since  1.0.0
+ * @since  2.0.0
  * @access public
  */
-final class Members_Cap_Tabs {
+final class Cap_Tabs {
 
 	/**
 	 * The role object that we're creating tabs for.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @var    object
 	 */
@@ -30,7 +32,7 @@ final class Members_Cap_Tabs {
 	/**
 	 * Array of caps shown by the cap tabs.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @var    array
 	 */
@@ -40,7 +42,7 @@ final class Members_Cap_Tabs {
 	 * The caps the role has. Note that if this is a new role (new role screen), the default
 	 * new role caps will be passed in.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @var    array
 	 */
@@ -49,7 +51,7 @@ final class Members_Cap_Tabs {
 	/**
 	 * Array of tab sections.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @var    array
 	 */
@@ -58,7 +60,7 @@ final class Members_Cap_Tabs {
 	/**
 	 * Array of single cap controls.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @var    array
 	 */
@@ -67,7 +69,7 @@ final class Members_Cap_Tabs {
 	/**
 	 * Array of section json data.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @var    array
 	 */
@@ -76,7 +78,7 @@ final class Members_Cap_Tabs {
 	/**
 	 * Array of control json data.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @var    array
 	 */
@@ -85,7 +87,7 @@ final class Members_Cap_Tabs {
 	/**
 	 * Sets up the cap tabs.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @param  string  $role
 	 * @param  array   $has_caps
@@ -118,7 +120,7 @@ final class Members_Cap_Tabs {
 	 * Registers the sections (and each section's controls) that will be used for
 	 * the tab content.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */
@@ -145,7 +147,7 @@ final class Members_Cap_Tabs {
 				$this->added_caps = array_unique( array_merge( $this->added_caps, $caps ) );
 
 			// Create a new section.
-			$this->sections[] = $section = new Members_Cap_Section( $this, $group->name, array( 'icon' => $group->icon, 'label' => $group->label ) );
+			$this->sections[] = $section = new Cap_Section( $this, $group->name, array( 'icon' => $group->icon, 'label' => $group->label ) );
 
 			// Get the section json data.
 			$this->sections_json[] = $section->json();
@@ -153,7 +155,7 @@ final class Members_Cap_Tabs {
 			// Create new controls for each cap.
 			foreach ( $caps as $cap ) {
 
-				$this->controls[] = $control = new Members_Cap_Control( $this, $cap, array( 'section' => $group->name ) );
+				$this->controls[] = $control = new Cap_Control( $this, $cap, array( 'section' => $group->name ) );
 
 				// Get the control json data.
 				$this->controls_json[] = $control->json();
@@ -167,7 +169,7 @@ final class Members_Cap_Tabs {
 	/**
 	 * Displays the cap tabs.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */
@@ -192,7 +194,7 @@ final class Members_Cap_Tabs {
 	/**
 	 * Outputs the tab nav.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */
@@ -216,7 +218,7 @@ final class Members_Cap_Tabs {
 	/**
 	 * Passes our sections and controls data as json to the `edit-role.js` file.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */
@@ -229,7 +231,7 @@ final class Members_Cap_Tabs {
 	/**
 	 * Outputs the Underscore JS templates.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */

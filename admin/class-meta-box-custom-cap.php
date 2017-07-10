@@ -10,18 +10,20 @@
  * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
+namespace Members\Admin;
+
 /**
  * Class to handle the new cap meta box on the edit/new role screen.
  *
- * @since  1.0.0
+ * @since  2.0.0
  * @access public
  */
-final class Members_Meta_Box_Custom_Cap {
+final class Meta_Box_Custom_Cap {
 
 	/**
 	 * Holds the instances of this class.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access private
 	 * @var    object
 	 */
@@ -30,7 +32,7 @@ final class Members_Meta_Box_Custom_Cap {
 	/**
 	 * Adds our methods to the proper hooks.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */
@@ -43,7 +45,7 @@ final class Members_Meta_Box_Custom_Cap {
 	/**
 	 * Runs on the page load hook to hook in the meta boxes.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */
@@ -55,7 +57,7 @@ final class Members_Meta_Box_Custom_Cap {
 	/**
 	 * Adds the meta box.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @param  string  $screen_id
 	 * @param  string  $role
@@ -74,7 +76,7 @@ final class Members_Meta_Box_Custom_Cap {
 	/**
 	 * Outputs the meta box HTML.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */
@@ -92,7 +94,7 @@ final class Members_Meta_Box_Custom_Cap {
 	/**
 	 * Returns the instance.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return object
 	 */
@@ -105,4 +107,4 @@ final class Members_Meta_Box_Custom_Cap {
 	}
 }
 
-Members_Meta_Box_Custom_Cap::get_instance();
+Meta_Box_Custom_Cap::get_instance();

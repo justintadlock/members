@@ -10,19 +10,21 @@
  * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
+namespace Members\Admin;
+
 /**
  * Role list table for the roles management page in the admin. Extends the core `WP_List_Table`
  * class in the admin.
  *
- * @since  1.0.0
+ * @since  2.0.0
  * @access public
  */
-class Members_Role_List_Table extends WP_List_Table {
+class Role_List_Table extends \WP_List_Table {
 
 	/**
 	 * The current view.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @var    string
 	 */
@@ -31,7 +33,7 @@ class Members_Role_List_Table extends WP_List_Table {
 	/**
 	 * Allowed role views.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @var    array
 	 */
@@ -40,7 +42,7 @@ class Members_Role_List_Table extends WP_List_Table {
 	/**
 	 * The default role.  This will be assigned the value of `get_option( 'default_role' )`.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @var    string
 	 */
@@ -49,7 +51,7 @@ class Members_Role_List_Table extends WP_List_Table {
 	/**
 	 * The current user object.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @var    object
 	 */
@@ -58,7 +60,7 @@ class Members_Role_List_Table extends WP_List_Table {
 	/**
 	 * Sets up the list table.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */
@@ -72,7 +74,7 @@ class Members_Role_List_Table extends WP_List_Table {
 		parent::__construct( $args );
 
 		// Get the current user object.
-		$this->current_user = new WP_User( get_current_user_id() );
+		$this->current_user = new \WP_User( get_current_user_id() );
 
 		// Get the defined default role.
 		$this->default_role = get_option( 'default_role', $this->default_role );
@@ -88,7 +90,7 @@ class Members_Role_List_Table extends WP_List_Table {
 	/**
 	 * Sets up the items (roles) to list.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */
@@ -168,7 +170,7 @@ class Members_Role_List_Table extends WP_List_Table {
 	 * Returns an array of columns to show.
 	 *
 	 * @see    members_manage_roles_columns()
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return array
 	 */
@@ -195,7 +197,7 @@ class Members_Role_List_Table extends WP_List_Table {
 	/**
 	 * The checkbox column callback.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access protected
 	 * @param  string     $role
 	 * @return string
@@ -214,7 +216,7 @@ class Members_Role_List_Table extends WP_List_Table {
 	/**
 	 * The role name column callback.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access protected
 	 * @param  string     $role
 	 * @return string
@@ -253,7 +255,7 @@ class Members_Role_List_Table extends WP_List_Table {
 	/**
 	 * The role column callback.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access protected
 	 * @param  string     $role
 	 * @return string
@@ -265,7 +267,7 @@ class Members_Role_List_Table extends WP_List_Table {
 	/**
 	 * The users column callback.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access protected
 	 * @param  string     $role
 	 * @return string
@@ -277,7 +279,7 @@ class Members_Role_List_Table extends WP_List_Table {
 	/**
 	 * The caps column callback.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access protected
 	 * @param  string     $role
 	 * @return string
@@ -289,7 +291,7 @@ class Members_Role_List_Table extends WP_List_Table {
 	/**
 	 * The caps column callback.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access protected
 	 * @param  string     $role
 	 * @return string
@@ -301,7 +303,7 @@ class Members_Role_List_Table extends WP_List_Table {
 	/**
 	 * Returns the name of the primary column.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access protected
 	 * @return string
 	 */
@@ -312,7 +314,7 @@ class Members_Role_List_Table extends WP_List_Table {
 	/**
 	 * Handles the row actions.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access protected
 	 * @param  string     $role
 	 * @param  string     $column_name
@@ -366,7 +368,7 @@ class Members_Role_List_Table extends WP_List_Table {
 	/**
 	 * Returns an array of sortable columns.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access protected
 	 * @return array
 	 */
@@ -381,7 +383,7 @@ class Members_Role_List_Table extends WP_List_Table {
 	/**
 	 * Returns an array of views for the list table.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access protected
 	 * @return array
 	 */
@@ -438,7 +440,7 @@ class Members_Role_List_Table extends WP_List_Table {
 	/**
 	 * Displays the list table.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */
@@ -452,7 +454,7 @@ class Members_Role_List_Table extends WP_List_Table {
 	/**
 	 * Returns an array of bulk actions available.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access protected
 	 * @return array
 	 */

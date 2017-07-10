@@ -10,19 +10,21 @@
  * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
+namespace Members\Admin;
+
 /**
  * Cap control class.
  *
- * @since  1.0.0
+ * @since  2.0.0
  * @access public
  */
-final class Members_Cap_Control {
+final class Cap_Control {
 
 	/**
 	 * Stores the cap tabs object.
 	 *
 	 * @see    Members_Cap_Tabs
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @var    object
 	 */
@@ -31,7 +33,7 @@ final class Members_Cap_Control {
 	/**
 	 * Name of the capability the control is for.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @var    string
 	 */
@@ -40,7 +42,7 @@ final class Members_Cap_Control {
 	/**
 	 * ID of the section the control is for.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @var    string
 	 */
@@ -49,7 +51,7 @@ final class Members_Cap_Control {
 	/**
 	 * Array of data to pass as a json object to the Underscore template.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @var    array
 	 */
@@ -58,7 +60,7 @@ final class Members_Cap_Control {
 	/**
 	 * Creates a new control object.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @param  object  $manager
 	 * @param  string  $cap
@@ -80,7 +82,7 @@ final class Members_Cap_Control {
 	/**
 	 * Returns the json array.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return array
 	 */
@@ -92,7 +94,7 @@ final class Members_Cap_Control {
 	/**
 	 * Adds custom data to the json array. This data is passed to the Underscore template.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */

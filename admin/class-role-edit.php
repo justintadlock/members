@@ -10,18 +10,20 @@
  * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
+namespace Members\Admin;
+
 /**
  * Class that displays the edit role screen and handles the form submissions for that page.
  *
- * @since  1.0.0
+ * @since  2.0.0
  * @access public
  */
-final class Members_Admin_Role_Edit {
+final class Role_Edit {
 
 	/**
 	 * Current role object to be edited/viewed.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access protected
 	 * @var    object
 	 */
@@ -30,7 +32,7 @@ final class Members_Admin_Role_Edit {
 	/**
 	 * Current Members role object to be edited/viewed.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access protected
 	 * @var    object
 	 */
@@ -39,7 +41,7 @@ final class Members_Admin_Role_Edit {
 	/**
 	 * Whether the current role can be edited.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access protected
 	 * @var    bool
 	 */
@@ -48,7 +50,7 @@ final class Members_Admin_Role_Edit {
 	/**
 	 * Available capabilities.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access protected
 	 * @var    array
 	 */
@@ -57,7 +59,7 @@ final class Members_Admin_Role_Edit {
 	/**
 	 * Whether the page was updated.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access protected
 	 * @var    bool
 	 */
@@ -66,7 +68,7 @@ final class Members_Admin_Role_Edit {
 	/**
 	 * Sets up some necessary actions/filters.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */
@@ -79,7 +81,7 @@ final class Members_Admin_Role_Edit {
 	/**
 	 * Runs on the `load-{$page}` hook.  This is the handler for form submissions.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */
@@ -249,7 +251,7 @@ final class Members_Admin_Role_Edit {
 	/**
 	 * Adds help tabs.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */
@@ -271,7 +273,7 @@ final class Members_Admin_Role_Edit {
 	/**
 	 * Enqueue scripts/styles.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */
@@ -284,7 +286,7 @@ final class Members_Admin_Role_Edit {
 	/**
 	 * Displays the page content.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */
@@ -327,7 +329,7 @@ final class Members_Admin_Role_Edit {
 
 							</div><!-- .members-title-div -->
 
-							<?php $cap_tabs = new Members_Cap_Tabs( $this->role->name ); ?>
+							<?php $cap_tabs = new Cap_Tabs( $this->role->name ); ?>
 							<?php $cap_tabs->display(); ?>
 
 						</div><!-- #post-body-content -->

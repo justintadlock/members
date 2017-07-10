@@ -10,18 +10,20 @@
  * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
+namespace Members\Admin;
+
 /**
  * Class to handle the content permissios meta box and saving the meta.
  *
- * @since  1.0.0
+ * @since  2.0.0
  * @access public
  */
-final class Members_Meta_Box_Content_Permissions {
+final class Meta_Box_Content_Permissions {
 
 	/**
 	 * Holds the instances of this class.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access private
 	 * @var    object
 	 */
@@ -41,7 +43,7 @@ final class Members_Meta_Box_Content_Permissions {
 	/**
 	 * Sets up the appropriate actions.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access protected
 	 * @return void
 	 */
@@ -59,7 +61,7 @@ final class Members_Meta_Box_Content_Permissions {
 	 * Fires on the page load hook to add actions specifically for the post and
 	 * new post screens.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */
@@ -85,7 +87,7 @@ final class Members_Meta_Box_Content_Permissions {
 	/**
 	 * Enqueues scripts styles.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */
@@ -98,7 +100,7 @@ final class Members_Meta_Box_Content_Permissions {
 	/**
 	 * Adds the meta box.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @param  string  $post_type
 	 * @return void
@@ -134,7 +136,7 @@ final class Members_Meta_Box_Content_Permissions {
 	/**
 	 * Outputs the meta box HTML.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @param  object  $post
 	 * @global object  $wp_roles
@@ -234,7 +236,7 @@ final class Members_Meta_Box_Content_Permissions {
 	/**
 	 * Saves the post meta.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @param  int     $post_id
 	 * @param  object  $post
@@ -294,7 +296,7 @@ final class Members_Meta_Box_Content_Permissions {
 	/**
 	 * Returns the instance.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return object
 	 */
@@ -307,4 +309,4 @@ final class Members_Meta_Box_Content_Permissions {
 	}
 }
 
-Members_Meta_Box_Content_Permissions::get_instance();
+Meta_Box_Content_Permissions::get_instance();
