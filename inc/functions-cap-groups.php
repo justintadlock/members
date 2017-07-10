@@ -11,93 +11,48 @@
  */
 
 # Registers default groups.
-add_action( 'init', 'members_register_cap_groups', 95 );
+add_action( 'init',                        'members_register_cap_groups',         95 );
+add_action( 'members_register_cap_groups', 'members_register_default_cap_groups',  5 );
 
 /**
- * Returns the instance of cap group registry.
- *
- * @since  2.0.0
- * @access public
- * @return object
- */
-function members_cap_group_registry() {
-
-	return \Members\Registry::get_instance( 'cap_group' );
-}
-
-/**
- * Function for registering a cap group.
- *
- * @since  1.0.0
- * @access public
- * @param  string  $name
- * @param  array   $args
- * @return void
- */
-function members_register_cap_group( $name, $args = array() ) {
-
-	members_cap_group_registry()->register( $name, new \Members\Cap_Group( $name, $args ) );
-}
-
-/**
- * Unregisters a group.
- *
- * @since  1.0.0
- * @access public
- * @param  string  $name
- * @return void
- */
-function members_unregister_cap_group( $name ) {
-
-	members_cap_group_registry()->unregister( $name );
-}
-
-/**
- * Checks if a group exists.
- *
- * @since  1.0.0
- * @access public
- * @param  string  $name
- * @return bool
- */
-function members_cap_group_exists( $name ) {
-
-	return members_cap_group_registry()->exists( $name );
-}
-
-/**
- * Returns an array of registered group objects.
- *
- * @since  1.0.0
- * @access public
- * @return array
- */
-function members_get_cap_groups() {
-
-	return members_cap_group_registry()->get_collection();
-}
-
-/**
- * Returns a group object if it exists.  Otherwise, `FALSE`.
- *
- * @since  1.0.0
- * @access public
- * @param  string      $name
- * @return object|bool
- */
-function members_get_cap_group( $name ) {
-
-	return members_cap_group_registry()->get( $name );
-}
-
-/**
- * Registers the default cap groups.
+ * Fires the cap group registration action hook.
  *
  * @since  1.0.0
  * @access public
  * @return void
  */
 function members_register_cap_groups() {
+
+	// Hook for registering cap groups. Plugins should always register on this hook.
+	do_action( 'members_register_cap_groups' );
+
+	// Check if the `all` group is registered.
+	if ( members_cap_group_exists( 'all' ) ) {
+
+		// Set up an empty caps array and get the `all` group object.
+		$caps   = array();
+		$_group = members_get_cap_group( 'all' );
+
+		// Get the caps from every registered group.
+		foreach ( members_get_cap_groups() as $group )
+			$caps = array_merge( $caps, $group->caps );
+
+		// Sort the caps alphabetically.
+		asort( $caps );
+
+		// Assign all caps to the `all` group.
+		$_group->caps = array_unique( $caps );
+	}
+}
+
+/**
+ * Registers the default cap groups.
+ *
+ * @since  2.0.0
+ * @access public
+ * @return void
+ */
+function members_register_default_cap_groups() {
 
 	// Registers the general group.
 	members_register_cap_group( 'general',
@@ -208,27 +163,83 @@ function members_register_cap_groups() {
 			'priority'    => 995
 		)
 	);
+}
 
-	// Hook for registering cap groups. Plugins should always register on this hook.
-	do_action( 'members_register_cap_groups' );
+/**
+ * Returns the instance of cap group registry.
+ *
+ * @since  2.0.0
+ * @access public
+ * @return object
+ */
+function members_cap_group_registry() {
 
-	// Check if the `all` group is registered.
-	if ( members_cap_group_exists( 'all' ) ) {
+	return \Members\Registry::get_instance( 'cap_group' );
+}
 
-		// Set up an empty caps array and get the `all` group object.
-		$caps   = array();
-		$_group = members_get_cap_group( 'all' );
+/**
+ * Function for registering a cap group.
+ *
+ * @since  1.0.0
+ * @access public
+ * @param  string  $name
+ * @param  array   $args
+ * @return void
+ */
+function members_register_cap_group( $name, $args = array() ) {
 
-		// Get the caps from every registered group.
-		foreach ( members_get_cap_groups() as $group )
-			$caps = array_merge( $caps, $group->caps );
+	members_cap_group_registry()->register( $name, new \Members\Cap_Group( $name, $args ) );
+}
 
-		// Sort the caps alphabetically.
-		asort( $caps );
+/**
+ * Unregisters a group.
+ *
+ * @since  1.0.0
+ * @access public
+ * @param  string  $name
+ * @return void
+ */
+function members_unregister_cap_group( $name ) {
 
-		// Assign all caps to the `all` group.
-		$_group->caps = array_unique( $caps );
-	}
+	members_cap_group_registry()->unregister( $name );
+}
+
+/**
+ * Checks if a group exists.
+ *
+ * @since  1.0.0
+ * @access public
+ * @param  string  $name
+ * @return bool
+ */
+function members_cap_group_exists( $name ) {
+
+	return members_cap_group_registry()->exists( $name );
+}
+
+/**
+ * Returns an array of registered group objects.
+ *
+ * @since  1.0.0
+ * @access public
+ * @return array
+ */
+function members_get_cap_groups() {
+
+	return members_cap_group_registry()->get_collection();
+}
+
+/**
+ * Returns a group object if it exists.  Otherwise, `FALSE`.
+ *
+ * @since  1.0.0
+ * @access public
+ * @param  string      $name
+ * @return object|bool
+ */
+function members_get_cap_group( $name ) {
+
+	return members_cap_group_registry()->get( $name );
 }
 
 /**
