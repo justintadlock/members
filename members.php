@@ -223,18 +223,22 @@ final class Members_Plugin {
 
 		// Load class files.
 		require_once( $this->inc_dir . 'class-capability.php' );
+		require_once( $this->inc_dir . 'class-cap-group.php'  );
 		require_once( $this->inc_dir . 'class-registry.php'   );
+		require_once( $this->inc_dir . 'class-role-group.php' );
 		require_once( $this->inc_dir . 'class-role.php'       );
 
 		// Load includes files.
 		require_once( $this->inc_dir . 'functions.php'                     );
 		require_once( $this->inc_dir . 'functions-admin-bar.php'           );
 		require_once( $this->inc_dir . 'functions-capabilities.php'        );
+		require_once( $this->inc_dir . 'functions-cap-groups.php'          );
 		require_once( $this->inc_dir . 'functions-content-permissions.php' );
 		require_once( $this->inc_dir . 'functions-deprecated.php'          );
 		require_once( $this->inc_dir . 'functions-options.php'             );
 		require_once( $this->inc_dir . 'functions-private-site.php'        );
 		require_once( $this->inc_dir . 'functions-roles.php'               );
+		require_once( $this->inc_dir . 'functions-role-groups.php'         );
 		require_once( $this->inc_dir . 'functions-shortcodes.php'          );
 		require_once( $this->inc_dir . 'functions-users.php'               );
 		require_once( $this->inc_dir . 'functions-widgets.php'             );
@@ -268,16 +272,10 @@ final class Members_Plugin {
 			require_once( $this->admin_dir . 'class-meta-box-publish-role.php' );
 			require_once( $this->admin_dir . 'class-meta-box-custom-cap.php'   );
 
-			// Role groups.
-			require_once( $this->admin_dir . 'class-role-group.php'      );
-			require_once( $this->admin_dir . 'functions-role-groups.php' );
-
 			// Edit capabilities tabs and groups.
 			require_once( $this->admin_dir . 'class-cap-tabs.php'       );
 			require_once( $this->admin_dir . 'class-cap-section.php'    );
 			require_once( $this->admin_dir . 'class-cap-control.php'    );
-			require_once( $this->admin_dir . 'class-cap-group.php'      );
-			require_once( $this->admin_dir . 'functions-cap-groups.php' );
 		}
 	}
 
