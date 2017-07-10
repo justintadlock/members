@@ -80,9 +80,9 @@ final class Settings_Page {
 		require_once( members_plugin()->admin_dir . 'functions-settings.php' );
 
 		// Load settings view classes.
-		require_once( members_plugin()->admin_dir . 'views/class-settings-view.php'         );
-		require_once( members_plugin()->admin_dir . 'views/class-settings-view-general.php' );
-		require_once( members_plugin()->admin_dir . 'views/class-settings-view-add-ons.php' );
+		require_once( members_plugin()->admin_dir . 'views/class-view.php'         );
+		require_once( members_plugin()->admin_dir . 'views/class-view-general.php' );
+		require_once( members_plugin()->admin_dir . 'views/class-view-addons.php'  );
 	}
 
 	/**
