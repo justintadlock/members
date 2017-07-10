@@ -25,7 +25,7 @@ function members_register_default_settings_views( $manager ) {
 
 	// Register general settings view (default view).
 	$manager->register_view(
-		new Members_Settings_View_General(
+		new \Members\Admin\View_General(
 			'general',
 			array(
 				'label'    => esc_html__( 'General', 'members' ),
@@ -36,7 +36,7 @@ function members_register_default_settings_views( $manager ) {
 
 	// Register add-ons view.
 	$manager->register_view(
-		new Members_Settings_View_Add_Ons(
+		new \Members\Admin\View_Addons(
 			'add-ons',
 			array(
 				'label'    => esc_html__( 'Add-Ons', 'members' ),

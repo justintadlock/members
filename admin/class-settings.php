@@ -10,13 +10,15 @@
  * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
+namespace Members\Admin;
+
 /**
  * Sets up and handles the plugin settings screen.
  *
  * @since  1.0.0
  * @access public
  */
-final class Members_Settings_Page {
+final class Settings_Page {
 
 	/**
 	 * Settings page name.
@@ -312,4 +314,4 @@ final class Members_Settings_Page {
 	public function add_help_tabs() {}
 }
 
-Members_Settings_Page::get_instance();
+Settings_Page::get_instance();

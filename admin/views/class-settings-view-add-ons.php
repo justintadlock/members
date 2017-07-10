@@ -10,13 +10,15 @@
  * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
+namespace Members\Admin;
+
 /**
  * Sets up and handles the add-ons settings view.
  *
  * @since  2.0.0
  * @access public
  */
-class Members_Settings_View_Add_Ons extends Members_Settings_View {
+class View_Addons extends View {
 
 	/**
 	 * Renders the settings page.

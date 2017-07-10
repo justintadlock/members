@@ -10,13 +10,15 @@
  * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
+namespace Members\Admin;
+
 /**
  * Settings view base class.
  *
  * @since  2.0.0
  * @access public
  */
-class Members_Settings_View {
+class View {
 
 	/**
 	 * Name/ID for the group.

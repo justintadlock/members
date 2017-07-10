@@ -10,13 +10,15 @@
  * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
+namespace Members\Admin;
+
 /**
  * Sets up and handles the general settings view.
  *
  * @since  2.0.0
  * @access public
  */
-class Members_Settings_View_General extends Members_Settings_View {
+class View_General extends View {
 
 	/**
 	 * Holds an array the plugin settings.
