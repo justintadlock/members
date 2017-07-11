@@ -77,8 +77,14 @@ class View_Addons extends View {
 						<a href="<?php echo esc_url( $addon->url ); ?>">
 							<?php echo esc_html( $addon->title ); ?>
 
-							<?php if ( $addon->icon_url ) : ?>
+							<?php if ( file_exists( members_plugin()->dir_path . "img/icon-{$addon->name}.png" ) ) : ?>
+
+								<img class="plugin-icon" src="<?php echo esc_url( members_plugin()->dir_uri . "img/icon-{$addon->name}.png" ); ?>" alt="" />
+
+							<?php elseif ( $addon->icon_url ) : ?>
+
 								<img class="plugin-icon" src="<?php echo esc_url( $addon->icon_url ); ?>" alt="" />
+
 							<?php endif; ?>
 						</a>
 					</h3>
