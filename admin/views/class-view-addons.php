@@ -125,29 +125,33 @@ class View_Addons extends View {
 
 			</div><!-- .plugin-card-top -->
 
-			<div class="plugin-card-bottom">
+			<?php if ( ( $addon->rating && $addon->rating_count ) || $addon->install_count ) : ?>
 
-				<?php if ( $addon->rating && $addon->rating_count ) : ?>
+				<div class="plugin-card-bottom">
 
-					<div class="vers column-rating">
-						<?php wp_star_rating( array( 'type' => 'rating', 'rating' => floatval( $addon->rating ), 'number' => absint( $addon->rating_count ) ) ); ?>
-						<span class="num-ratings" aria-hidden="true">(<?php echo absint( $addon->rating_count ); ?>)</span>
-					</div>
+					<?php if ( $addon->rating && $addon->rating_count ) : ?>
 
-				<?php endif; ?>
+						<div class="vers column-rating">
+							<?php wp_star_rating( array( 'type' => 'rating', 'rating' => floatval( $addon->rating ), 'number' => absint( $addon->rating_count ) ) ); ?>
+							<span class="num-ratings" aria-hidden="true">(<?php echo absint( $addon->rating_count ); ?>)</span>
+						</div>
 
-				<?php if ( $addon->install_count ) : ?>
+					<?php endif; ?>
 
-					<div class="column-downloaded">
-						<?php printf(
-							esc_html__( '%s+ Active Installs', 'members' ),
-							number_format_i18n( absint( $addon->install_count ) )
-						); ?>
-					</div>
+					<?php if ( $addon->install_count ) : ?>
 
-				<?php endif; ?>
+						<div class="column-downloaded">
+							<?php printf(
+								esc_html__( '%s+ Active Installs', 'members' ),
+								number_format_i18n( absint( $addon->install_count ) )
+							); ?>
+						</div>
 
-			</div><!-- .plugin-card-bottom -->
+					<?php endif; ?>
+
+				</div><!-- .plugin-card-bottom -->
+
+			<?php endif; ?>
 
 		</div><!-- .plugin-card -->
 
