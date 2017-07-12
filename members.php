@@ -43,65 +43,20 @@ final class Members_Plugin {
 	/**
 	 * Plugin directory path.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @var    string
 	 */
-	public $dir_path = '';
+	public $dir = '';
 
 	/**
 	 * Plugin directory URI.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @var    string
 	 */
-	public $dir_uri = '';
-
-	/**
-	 * Plugin admin directory path.
-	 *
-	 * @since  1.0.0
-	 * @access public
-	 * @var    string
-	 */
-	public $admin_dir = '';
-
-	/**
-	 * Plugin includes directory path.
-	 *
-	 * @since  1.0.0
-	 * @access public
-	 * @var    string
-	 */
-	public $inc_dir = '';
-
-	/**
-	 * Plugin templates directory path.
-	 *
-	 * @since  1.0.0
-	 * @access public
-	 * @var    string
-	 */
-	public $templates_dir = '';
-
-	/**
-	 * Plugin CSS directory URI.
-	 *
-	 * @since  1.0.0
-	 * @access public
-	 * @var    string
-	 */
-	public $css_uri = '';
-
-	/**
-	 * Plugin JS directory URI.
-	 *
-	 * @since  1.0.0
-	 * @access public
-	 * @var    string
-	 */
-	public $js_uri = '';
+	public $uri = '';
 
 	/**
 	 * User count of all roles.
@@ -125,7 +80,7 @@ final class Members_Plugin {
 		static $instance = null;
 
 		if ( is_null( $instance ) ) {
-			$instance = new Members_Plugin;
+			$instance = new self;
 			$instance->setup();
 			$instance->includes();
 			$instance->setup_actions();
@@ -199,17 +154,8 @@ final class Members_Plugin {
 	private function setup() {
 
 		// Main plugin directory path and URI.
-		$this->dir_path = trailingslashit( plugin_dir_path( __FILE__ ) );
-		$this->dir_uri  = trailingslashit( plugin_dir_url(  __FILE__ ) );
-
-		// Plugin directory paths.
-		$this->inc_dir       = trailingslashit( $this->dir_path . 'inc'       );
-		$this->admin_dir     = trailingslashit( $this->dir_path . 'admin'     );
-		$this->templates_dir = trailingslashit( $this->dir_path . 'templates' );
-
-		// Plugin directory URIs.
-		$this->css_uri = trailingslashit( $this->dir_uri . 'css' );
-		$this->js_uri  = trailingslashit( $this->dir_uri . 'js'  );
+		$this->dir = trailingslashit( plugin_dir_path( __FILE__ ) );
+		$this->uri  = trailingslashit( plugin_dir_url(  __FILE__ ) );
 	}
 
 	/**
@@ -222,60 +168,60 @@ final class Members_Plugin {
 	private function includes() {
 
 		// Load class files.
-		require_once( $this->inc_dir . 'class-capability.php' );
-		require_once( $this->inc_dir . 'class-cap-group.php'  );
-		require_once( $this->inc_dir . 'class-registry.php'   );
-		require_once( $this->inc_dir . 'class-role-group.php' );
-		require_once( $this->inc_dir . 'class-role.php'       );
+		require_once( $this->dir . 'inc/class-capability.php' );
+		require_once( $this->dir . 'inc/class-cap-group.php'  );
+		require_once( $this->dir . 'inc/class-registry.php'   );
+		require_once( $this->dir . 'inc/class-role-group.php' );
+		require_once( $this->dir . 'inc/class-role.php'       );
 
 		// Load includes files.
-		require_once( $this->inc_dir . 'functions.php'                     );
-		require_once( $this->inc_dir . 'functions-admin-bar.php'           );
-		require_once( $this->inc_dir . 'functions-capabilities.php'        );
-		require_once( $this->inc_dir . 'functions-cap-groups.php'          );
-		require_once( $this->inc_dir . 'functions-content-permissions.php' );
-		require_once( $this->inc_dir . 'functions-deprecated.php'          );
-		require_once( $this->inc_dir . 'functions-options.php'             );
-		require_once( $this->inc_dir . 'functions-private-site.php'        );
-		require_once( $this->inc_dir . 'functions-roles.php'               );
-		require_once( $this->inc_dir . 'functions-role-groups.php'         );
-		require_once( $this->inc_dir . 'functions-shortcodes.php'          );
-		require_once( $this->inc_dir . 'functions-users.php'               );
-		require_once( $this->inc_dir . 'functions-widgets.php'             );
+		require_once( $this->dir . 'inc/functions.php'                     );
+		require_once( $this->dir . 'inc/functions-admin-bar.php'           );
+		require_once( $this->dir . 'inc/functions-capabilities.php'        );
+		require_once( $this->dir . 'inc/functions-cap-groups.php'          );
+		require_once( $this->dir . 'inc/functions-content-permissions.php' );
+		require_once( $this->dir . 'inc/functions-deprecated.php'          );
+		require_once( $this->dir . 'inc/functions-options.php'             );
+		require_once( $this->dir . 'inc/functions-private-site.php'        );
+		require_once( $this->dir . 'inc/functions-roles.php'               );
+		require_once( $this->dir . 'inc/functions-role-groups.php'         );
+		require_once( $this->dir . 'inc/functions-shortcodes.php'          );
+		require_once( $this->dir . 'inc/functions-users.php'               );
+		require_once( $this->dir . 'inc/functions-widgets.php'             );
 
 		// Load template files.
-		require_once( $this->inc_dir . 'template.php' );
+		require_once( $this->dir . 'inc/template.php' );
 
 		// Load admin files.
 		if ( is_admin() ) {
 
 			// General admin functions.
-			require_once( $this->admin_dir . 'functions-admin.php' );
-			require_once( $this->admin_dir . 'functions-help.php'  );
+			require_once( $this->dir . 'admin/functions-admin.php' );
+			require_once( $this->dir . 'admin/functions-help.php'  );
 
 			// Plugin settings.
-			require_once( $this->admin_dir . 'class-settings.php' );
+			require_once( $this->dir . 'admin/class-settings.php' );
 
 			// User management.
-			require_once( $this->admin_dir . 'class-manage-users.php' );
-			require_once( $this->admin_dir . 'class-user-edit.php'    );
-			require_once( $this->admin_dir . 'class-user-new.php'     );
+			require_once( $this->dir . 'admin/class-manage-users.php' );
+			require_once( $this->dir . 'admin/class-user-edit.php'    );
+			require_once( $this->dir . 'admin/class-user-new.php'     );
 
 			// Edit posts.
-			require_once( $this->admin_dir . 'class-meta-box-content-permissions.php' );
+			require_once( $this->dir . 'admin/class-meta-box-content-permissions.php' );
 
 			// Role management.
-			require_once( $this->admin_dir . 'class-manage-roles.php'          );
-			require_once( $this->admin_dir . 'class-roles.php'                 );
-			require_once( $this->admin_dir . 'class-role-edit.php'             );
-			require_once( $this->admin_dir . 'class-role-new.php'              );
-			require_once( $this->admin_dir . 'class-meta-box-publish-role.php' );
-			require_once( $this->admin_dir . 'class-meta-box-custom-cap.php'   );
+			require_once( $this->dir . 'admin/class-manage-roles.php'          );
+			require_once( $this->dir . 'admin/class-roles.php'                 );
+			require_once( $this->dir . 'admin/class-role-edit.php'             );
+			require_once( $this->dir . 'admin/class-role-new.php'              );
+			require_once( $this->dir . 'admin/class-meta-box-publish-role.php' );
+			require_once( $this->dir . 'admin/class-meta-box-custom-cap.php'   );
 
 			// Edit capabilities tabs and groups.
-			require_once( $this->admin_dir . 'class-cap-tabs.php'       );
-			require_once( $this->admin_dir . 'class-cap-section.php'    );
-			require_once( $this->admin_dir . 'class-cap-control.php'    );
+			require_once( $this->dir . 'admin/class-cap-tabs.php'       );
+			require_once( $this->dir . 'admin/class-cap-section.php'    );
+			require_once( $this->dir . 'admin/class-cap-control.php'    );
 		}
 	}
 

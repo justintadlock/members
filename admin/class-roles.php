@@ -162,7 +162,7 @@ final class Roles {
 	 */
 	public function page() {
 
-		require_once( members_plugin()->admin_dir . 'class-role-list-table.php' ); ?>
+		require_once( members_plugin()->dir . 'admin/class-role-list-table.php' ); ?>
 
 		<div class="wrap">
 

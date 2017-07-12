@@ -77,12 +77,12 @@ final class Settings_Page {
 	private function includes() {
 
 		// Include the settings functions.
-		require_once( members_plugin()->admin_dir . 'functions-settings.php' );
+		require_once( members_plugin()->dir . 'admin/functions-settings.php' );
 
 		// Load settings view classes.
-		require_once( members_plugin()->admin_dir . 'views/class-view.php'         );
-		require_once( members_plugin()->admin_dir . 'views/class-view-general.php' );
-		require_once( members_plugin()->admin_dir . 'views/class-view-addons.php'  );
+		require_once( members_plugin()->dir . 'admin/views/class-view.php'         );
+		require_once( members_plugin()->dir . 'admin/views/class-view-general.php' );
+		require_once( members_plugin()->dir . 'admin/views/class-view-addons.php'  );
 	}
 
 	/**

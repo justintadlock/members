@@ -29,8 +29,8 @@ class View_Addons extends View {
 	 */
 	public function template() {
 
-		require_once( members_plugin()->admin_dir . 'class-addon.php'      );
-		require_once( members_plugin()->admin_dir . 'functions-addons.php' );
+		require_once( members_plugin()->dir . 'admin/class-addon.php'      );
+		require_once( members_plugin()->dir . 'admin/functions-addons.php' );
 
 		do_action( 'members_register_addons' );
 
@@ -77,9 +77,9 @@ class View_Addons extends View {
 						<a href="<?php echo esc_url( $addon->url ); ?>">
 							<?php echo esc_html( $addon->title ); ?>
 
-							<?php if ( file_exists( members_plugin()->dir_path . "img/icon-{$addon->name}.png" ) ) : ?>
+							<?php if ( file_exists( members_plugin()->dir . "img/icon-{$addon->name}.png" ) ) : ?>
 
-								<img class="plugin-icon" src="<?php echo esc_url( members_plugin()->dir_uri . "img/icon-{$addon->name}.png" ); ?>" alt="" />
+								<img class="plugin-icon" src="<?php echo esc_url( members_plugin()->uri . "img/icon-{$addon->name}.png" ); ?>" alt="" />
 
 							<?php elseif ( $addon->icon_url ) : ?>
 

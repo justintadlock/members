@@ -24,7 +24,7 @@ add_action( 'admin_enqueue_scripts', 'members_admin_register_styles',  0 );
  * @return bool
  */
 function members_get_underscore_template( $name ) {
-	require_once( members_plugin()->admin_dir . "tmpl/{$name}.php" );
+	require_once( members_plugin()->dir . "admin/tmpl/{$name}.php" );
 }
 
 /**
@@ -38,9 +38,9 @@ function members_admin_register_scripts() {
 
 	$min = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
-	wp_register_script( 'members-settings',  members_plugin()->js_uri . "settings{$min}.js",  array( 'jquery'  ), '', true );
-	wp_register_script( 'members-edit-post', members_plugin()->js_uri . "edit-post{$min}.js", array( 'jquery'  ), '', true );
-	wp_register_script( 'members-edit-role', members_plugin()->js_uri . "edit-role{$min}.js", array( 'postbox', 'wp-util' ), '', true );
+	wp_register_script( 'members-settings',  members_plugin()->uri . "js/settings{$min}.js",  array( 'jquery'  ), '', true );
+	wp_register_script( 'members-edit-post', members_plugin()->uri . "js/edit-post{$min}.js", array( 'jquery'  ), '', true );
+	wp_register_script( 'members-edit-role', members_plugin()->uri . "js/edit-role{$min}.js", array( 'postbox', 'wp-util' ), '', true );
 
 	// Localize our script with some text we want to pass in.
 	$i18n = array(
@@ -65,7 +65,7 @@ function members_admin_register_styles() {
 
 	$min = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
-	wp_register_style( 'members-admin', members_plugin()->css_uri . "admin{$min}.css" );
+	wp_register_style( 'members-admin', members_plugin()->uri . "css/admin{$min}.css" );
 }
 
 /**
