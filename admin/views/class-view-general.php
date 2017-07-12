@@ -70,7 +70,6 @@ class View_General extends View {
 		add_settings_field( 'enable_role_manager',  esc_html__( 'Role Manager',        'members' ), array( $this, 'field_enable_role_manager'  ), 'members-settings', 'roles_caps' );
 		add_settings_field( 'enable_multi_roles',   esc_html__( 'Multiple User Roles', 'members' ), array( $this, 'field_enable_multi_roles'   ), 'members-settings', 'roles_caps' );
 		add_settings_field( 'explicit_denied_caps', esc_html__( 'Capabilities',        'members' ), array( $this, 'field_explicit_denied_caps' ), 'members-settings', 'roles_caps' );
-	//	add_settings_field( 'show_human_caps',      esc_html__( 'Human Capabilities',  'members' ), array( $this, 'field_show_human_caps'      ), 'members-settings', 'roles_caps' );
 
 		// Content permissions fields.
 		add_settings_field( 'enable_content_permissions', esc_html__( 'Enable Permissions', 'members' ), array( $this, 'field_enable_content_permissions' ), 'members-settings', 'content_permissions' );
@@ -201,17 +200,6 @@ class View_General extends View {
 			<input type="checkbox" name="members_settings[content_permissions]" value="true" <?php checked( members_content_permissions_enabled() ); ?> />
 			<?php esc_html_e( 'Enable the content permissions feature.', 'members' ); ?>
 		</label>
-	<?php }
-
-	/**
-	 * Enable content permissions field callback.
-	 *
-	 * @since  2.0.0
-	 * @access public
-	 * @return void
-	 */
-	public function field_show_human_caps() { ?>
-
 	<?php }
 
 	/**
