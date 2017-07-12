@@ -249,7 +249,8 @@ final class Members_Plugin {
 	 * @return void
 	 */
 	public function i18n() {
-		load_plugin_textdomain( 'members', false, trailingslashit( dirname( plugin_basename( __FILE__ ) ) ). 'languages' );
+
+		load_plugin_textdomain( 'members', false, trailingslashit( dirname( plugin_basename( __FILE__ ) ) ). 'lang' );
 	}
 
 	/**
