@@ -170,15 +170,75 @@ class View_Addons extends View {
 		$screen = get_current_screen();
 
 		// Roles/Caps help tab.
-	/*	$screen->add_help_tab(
+		$screen->add_help_tab(
 			array(
-				'id'       => 'roles-caps',
-				'title'    => esc_html__( 'Role and Capabilities', 'members' ),
-				'callback' => array( $this, 'help_tab_roles_caps' )
+				'id'       => 'overview',
+				'title'    => esc_html__( 'Overview', 'members' ),
+				'callback' => array( $this, 'help_tab_overview' )
 			)
 		);
-	*/
+
+		// Roles/Caps help tab.
+		$screen->add_help_tab(
+			array(
+				'id'       => 'download',
+				'title'    => esc_html__( 'Download', 'members' ),
+				'callback' => array( $this, 'help_tab_download' )
+			)
+		);
+
+		// Roles/Caps help tab.
+		$screen->add_help_tab(
+			array(
+				'id'       => 'purchase',
+				'title'    => esc_html__( 'Purchase', 'members' ),
+				'callback' => array( $this, 'help_tab_purchase' )
+			)
+		);
+
 		// Set the help sidebar.
 		$screen->set_help_sidebar( members_get_help_sidebar_text() );
 	}
+
+	/**
+	 * Displays the overview help tab.
+	 *
+	 * @since  2.0.0
+	 * @access public
+	 * @return void
+	 */
+	public function help_tab_overview() { ?>
+
+		<p>
+			<?php esc_html_e( 'The Add-Ons screen allows you to view available add-ons for the Members plugin. You can download some plugins directly. Others may be available to purchase.', 'members' ); ?>
+		</p>
+	<?php }
+
+	/**
+	 * Displays the download help tab.
+	 *
+	 * @since  2.0.0
+	 * @access public
+	 * @return void
+	 */
+	public function help_tab_download() { ?>
+
+		<p>
+			<?php esc_html_e( 'Some plugins may be available for direct download. In such cases, you can click the download button to get a ZIP file of the plugin.', 'members' ); ?>
+		</p>
+	<?php }
+
+	/**
+	 * Displays the purchase help tab.
+	 *
+	 * @since  2.0.0
+	 * @access public
+	 * @return void
+	 */
+	public function help_tab_purchase() { ?>
+
+		<p>
+			<?php esc_html_e( 'Some downloads may require purchase before downloading them. Clicking the purchase button will take you off-site to view the add-on in more detail.', 'members' ); ?>
+		</p>
+	<?php }
 }
