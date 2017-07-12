@@ -24,22 +24,31 @@ add_action( 'members_register_addons', 'members_register_default_addons', 5 );
  */
 function members_register_default_addons() {
 
-	// Sandbox URL for the time being.
-	// $url = 'http://localhost/api/th/v1/plugins?addons=members';
-	$url = members_plugin()->dir_uri . 'admin/addons.json';
+	// Get the transient where the Members addons are stored on-site.
+	$data = get_transient( 'members_addons' );
 
-	// Get data from the remote URL.
-	$response = wp_remote_get( $url );
+	if ( ! $data || ! is_array( $data ) ) {
 
-	// Bail if we get no response.
-	if ( is_wp_error( $response ) )
-		return;
+		// `localhost` is the sandbox URL.
+		// $url = 'http://localhost/api/th/v1/plugins?addons=members';
+		$url = 'https://themehybrid.com/api/th/v1/plugins?addons=members';
 
-	// Decode the data that we got.
-	$data = json_decode( wp_remote_retrieve_body( $response ) );
+		// Get data from the remote URL.
+		$response = wp_remote_get( $url );
+
+		// Bail if we get no response.
+		if ( is_wp_error( $response ) )
+			return;
+
+		// Decode the data that we got.
+		$data = json_decode( wp_remote_retrieve_body( $response ) );
+	}
 
 	// If we have an array of data, let's roll.
 	if ( ! empty( $data ) && is_array( $data ) ) {
+
+		// Set the transient with the new data.
+		set_transient( 'members_addons', $data, 7 * DAY_IN_SECONDS );
 
 		foreach ( $data as $addon ) {
 
