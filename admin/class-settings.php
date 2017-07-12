@@ -21,6 +21,15 @@ namespace Members\Admin;
 final class Settings_Page {
 
 	/**
+	 * Admin page name/ID.
+	 *
+	 * @since  2.0.0
+	 * @access public
+	 * @var    string
+	 */
+	public $name = 'members-settings';
+
+	/**
 	 * Settings page name.
 	 *
 	 * @since  1.0.0

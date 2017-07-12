@@ -23,6 +23,10 @@ add_action( 'members_register_settings_views', 'members_register_default_setting
  */
 function members_register_default_settings_views( $manager ) {
 
+	// Bail if not on the settings screen.
+	if ( 'members-settings' !== $manager->name )
+		return;
+
 	// Register general settings view (default view).
 	$manager->register_view(
 		new \Members\Admin\View_General(
