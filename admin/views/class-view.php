@@ -18,7 +18,7 @@ namespace Members\Admin;
  * @since  2.0.0
  * @access public
  */
-class View {
+abstract class View {
 
 	/**
 	 * Name/ID for the group.
