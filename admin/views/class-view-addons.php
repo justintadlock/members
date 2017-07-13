@@ -238,7 +238,7 @@ class View_Addons extends View {
 	public function help_tab_purchase() { ?>
 
 		<p>
-			<?php esc_html_e( 'Some downloads may require purchase before downloading them. Clicking the purchase button will take you off-site to view the add-on in more detail.', 'members' ); ?>
+			<?php esc_html_e( 'Some add-ons may require purchase before downloading them. Clicking the purchase button will take you off-site to view the add-on in more detail.', 'members' ); ?>
 		</p>
 	<?php }
 }
