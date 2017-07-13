@@ -93,6 +93,15 @@ class View {
 	}
 
 	/**
+	 * Runs on the `load-{$page}` hook
+	 *
+	 * @since  2.0.0
+	 * @access public
+	 * @return void
+	 */
+	public function load() {}
+
+	/**
 	 * Enqueue scripts/styles for the control.
 	 *
 	 * @since  2.0.0
