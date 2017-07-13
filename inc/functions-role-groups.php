@@ -36,57 +36,6 @@ function members_register_role_groups() {
  */
 function members_register_default_role_groups() {
 
-	// Get the current user.
-	$current_user = wp_get_current_user();
-
-	if ( is_object( $current_user ) ) {
-
-		// Register the mine group.
-		members_register_role_group( 'mine',
-			array(
-				'label'       => esc_html__( 'Mine', 'members' ),
-				'label_count' => _n_noop( 'Mine %s', 'Mine %s', 'members' ),
-				'roles'       => $current_user->roles,
-			)
-		);
-	}
-
-	// Register the active group.
-	members_register_role_group( 'active',
-		array(
-			'label'       => esc_html__( 'Has Users', 'members' ),
-			'label_count' => _n_noop( 'Has Users %s', 'Has Users %s', 'members' ),
-			'roles'       => array(), // These will be updated on the fly b/c it requires counting users.
-		)
-	);
-
-	// Register the inactive group.
-	members_register_role_group( 'inactive',
-		array(
-			'label'       => esc_html__( 'No Users', 'members' ),
-			'label_count' => _n_noop( 'No Users %s', 'No Users %s', 'members' ),
-			'roles'       => array(), // These will be updated on the fly b/c it requires counting users.
-		)
-	);
-
-	// Register the editable group.
-	members_register_role_group( 'editable',
-		array(
-			'label'       => esc_html__( 'Editable', 'members' ),
-			'label_count' => _n_noop( 'Editable %s', 'Editable %s', 'members' ),
-			'roles'       => members_get_editable_roles(),
-		)
-	);
-
-	// Register the uneditable group.
-	members_register_role_group( 'uneditable',
-		array(
-			'label'       => esc_html__( 'Uneditable', 'members' ),
-			'label_count' => _n_noop( 'Uneditable %s', 'Uneditable %s', 'members' ),
-			'roles'       => members_get_uneditable_roles(),
-		)
-	);
-
 	// Register the WordPress group.
 	members_register_role_group( 'wordpress',
 		array(

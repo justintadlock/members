@@ -30,6 +30,8 @@ class Role_List_Table extends \WP_List_Table {
 	 */
 	public $role_view = 'all';
 
+	public $role_views = array();
+
 	/**
 	 * Allowed role views.
 	 *
@@ -83,8 +85,8 @@ class Role_List_Table extends \WP_List_Table {
 		$this->allowed_role_views = array_keys( $this->get_views() );
 
 		// Get the current view.
-		if ( isset( $_GET['role_view'] ) && in_array( $_GET['role_view'], $this->allowed_role_views ) )
-			$this->role_view = $_GET['role_view'];
+		if ( isset( $_GET['view'] ) && in_array( $_GET['view'], $this->allowed_role_views ) )
+			$this->role_view = $_GET['view'];
 	}
 
 	/**
@@ -97,18 +99,18 @@ class Role_List_Table extends \WP_List_Table {
 	public function prepare_items() {
 
 		// Get the roles for the default/All view.
-		if ( 'all' === $this->role_view ) {
+		//if ( 'all' === $this->role_view ) {
 
-			$roles = array_keys( members_get_roles() );
+		//	$roles = array_keys( members_get_roles() );
 
 		// If a custom view, get the roles.
-		} else {
+		//} else {
 			// Get the current group being viewed.
-			$group = members_get_role_group( $this->role_view );
+			//$group = members_get_role_group( $this->role_view );
 
 			// Set the roles array.
-			$roles = $group ? $group->roles : array();
-		}
+			$roles = $this->role_views[ $this->role_view ]['roles'];//$group ? $group->roles : array();
+		//}
 
 		// Allow devs to filter the items.
 		$roles = apply_filters( 'members_manage_roles_items', $roles, $this->role_view );
@@ -389,25 +391,40 @@ class Role_List_Table extends \WP_List_Table {
 	 */
 	protected function get_views() {
 
-		$active   = members_get_role_group( 'active' );
-		$inactive = members_get_role_group( 'inactive' );
-
-		if ( $active )
-			$active->roles = members_get_active_roles();
-
-		if ( $inactive )
-			$inactive->roles = members_get_inactive_roles();
+		// Get the current user.
+		$current_user = wp_get_current_user();
 
 		$views     = array();
 		$current   = ' class="current"';
-		$all_count = count( members_get_roles() );
 
-		// Add the default/all view.
-		$views['all'] = sprintf(
-			'<a%s href="%s">%s</a>',
-			'all' === $this->role_view ? $current : '',
-			esc_url( members_get_edit_roles_url() ),
-			sprintf( _n( 'All %s', 'All %s', $all_count, 'members' ), sprintf( '<span class="count">(%s)</span>', number_format_i18n( $all_count ) ) )
+		$this->role_views['all'] = array(
+			'label_count' => _n_noop( 'All %s', 'All %s', 'members' ),
+			'roles'       => array_keys( members_get_roles() )
+		);
+
+		$this->role_views['mine'] = array(
+			'label_count' => _n_noop( 'Mine %s', 'Mine %s', 'members' ),
+			'roles'       => $current_user->roles
+		);
+
+		$this->role_views['active'] = array(
+			'label_count' => _n_noop( 'Has Users %s', 'Has Users %s', 'members' ),
+			'roles'       => members_get_active_roles()
+		);
+
+		$this->role_views['inactive'] = array(
+			'label_count' => _n_noop( 'No Users %s', 'No Users %s', 'members' ),
+			'roles'       =>members_get_inactive_roles()
+		);
+
+		$this->role_views['editable'] = array(
+			'label_count' => _n_noop( 'Editable %s', 'Editable %s', 'members' ),
+			'roles'       => members_get_editable_roles()
+		);
+
+		$this->role_views['uneditable'] = array(
+			'label_count' => _n_noop( 'Uneditable %s', 'Uneditable %s', 'members' ),
+			'roles'       => members_get_uneditable_roles()
 		);
 
 		// Loop through the role groups and put them into the view list.
@@ -417,19 +434,28 @@ class Role_List_Table extends \WP_List_Table {
 			if ( ! $group->show_in_view_list )
 				continue;
 
-			$count = count( $group->roles );
+			$this->role_views[ "group-{$group->name}" ] = array(
+				'label_count' => $group->label_count,
+				'roles'       => $group->roles
+			);
+		}
+
+		// Loop through the default views and put them into the view list.
+		foreach ( $this->role_views as $view => $args ) {
+
+			$count = count( $args['roles'] );
 
 			// Skip any views with 0 roles.
 			if ( 0 >= $count )
 				continue;
 
-			$noop = $group->label_count;
+			$noop = $args['label_count'];
 
 			// Add the view link.
-			$views[ $group->name ] = sprintf(
+			$views[ $view ] = sprintf(
 				'<a%s href="%s">%s</a>',
-				$group->name === $this->role_view ? $current : '',
-				'all' === $group->name ? esc_url( members_get_edit_roles_url() ) : esc_url( members_get_role_view_url( $group->name ) ),
+				$view === $this->role_view ? $current : '',
+				'all' === $view ? esc_url( members_get_edit_roles_url() ) : esc_url( members_get_role_view_url( $view ) ),
 				sprintf( translate_nooped_plural( $noop, $count, $noop['domain'] ), sprintf( '<span class="count">(%s)</span>', number_format_i18n( $count ) ) )
 			);
 		}

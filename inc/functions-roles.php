@@ -410,7 +410,7 @@ function members_get_edit_roles_url() {
  * @return string
  */
 function members_get_role_view_url( $view ) {
-	return add_query_arg( 'role_view', $view, members_get_edit_roles_url() );
+	return add_query_arg( 'view', $view, members_get_edit_roles_url() );
 }
 
 /**
