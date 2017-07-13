@@ -30,7 +30,7 @@ class Registry {
 	private static $instances = array();
 
 	/**
-	 * Array of objects in the collection.
+	 * Array of items in the collection.
 	 *
 	 * @since  2.0.0
 	 * @access protected
@@ -66,12 +66,12 @@ class Registry {
 	private function __wakeup() {}
 
 	/**
-	 * Register a new cap object
+	 * Register an item.
 	 *
 	 * @since  2.0.0
 	 * @access public
 	 * @param  string  $name
-	 * @param  object  $value
+	 * @param  mixed   $value
 	 * @return void
 	 */
 	public function register( $name, $value ) {
@@ -81,7 +81,7 @@ class Registry {
 	}
 
 	/**
-	 * Unregisters a cap object.
+	 * Unregisters an item.
 	 *
 	 * @since  2.0.0
 	 * @access public
@@ -95,7 +95,7 @@ class Registry {
 	}
 
 	/**
-	 * Checks if a cap exists.
+	 * Checks if an item exists.
 	 *
 	 * @since  2.0.0
 	 * @access public
@@ -108,12 +108,12 @@ class Registry {
 	}
 
 	/**
-	 * Gets a cap object.
+	 * Returns an item.
 	 *
 	 * @since  2.0.0
 	 * @access public
 	 * @param  string  $name
-	 * @return object|bool
+	 * @return mixed
 	 */
 	public function get( $name ) {
 
