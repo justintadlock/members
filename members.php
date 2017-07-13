@@ -41,6 +41,15 @@
 final class Members_Plugin {
 
 	/**
+	 * Minimum required PHP version.
+	 *
+	 * @since  2.0.0
+	 * @access public
+	 * @var    string
+	 */
+	private $php_version = '5.3.0';
+
+	/**
 	 * Plugin directory path.
 	 *
 	 * @since  2.0.0
@@ -250,6 +259,9 @@ final class Members_Plugin {
 	 */
 	public function i18n() {
 
+//if ( version_compare( PHP_VERSION, '7.1.7', '<' ) )
+//	wp_die( PHP_VERSION . 'hello' );
+
 		load_plugin_textdomain( 'members', false, trailingslashit( dirname( plugin_basename( __FILE__ ) ) ). 'lang' );
 	}
 
@@ -261,6 +273,20 @@ final class Members_Plugin {
 	 * @return void
 	 */
 	public function activation() {
+
+		// Check PHP version requirements.
+		if ( version_compare( PHP_VERSION, $this->php_version, '<' ) ) {
+
+			// Make sure the plugin is deactivated.
+			deactivate_plugins( plugin_basename( __FILE__ ) );
+
+			// Add an error message and die.
+			wp_die( sprintf(
+				__( 'Members requires PHP version %1$s. You are running version %2$s. Please upgrade and try again.', 'members' ),
+				$this->php_version,
+				PHP_VERSION
+			) );
+		}
 
 		// Get the administrator role.
 		$role = get_role( 'administrator' );
