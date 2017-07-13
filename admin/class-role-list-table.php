@@ -30,6 +30,13 @@ class Role_List_Table extends \WP_List_Table {
 	 */
 	public $role_view = 'all';
 
+	/**
+	 * Array of role views.
+	 *
+	 * @since  2.0.0
+	 * @access public
+	 * @var    array
+	 */
 	public $role_views = array();
 
 	/**
@@ -98,19 +105,11 @@ class Role_List_Table extends \WP_List_Table {
 	 */
 	public function prepare_items() {
 
-		// Get the roles for the default/All view.
-		//if ( 'all' === $this->role_view ) {
+		$roles = array();
 
-		//	$roles = array_keys( members_get_roles() );
-
-		// If a custom view, get the roles.
-		//} else {
-			// Get the current group being viewed.
-			//$group = members_get_role_group( $this->role_view );
-
-			// Set the roles array.
-			$roles = $this->role_views[ $this->role_view ]['roles'];//$group ? $group->roles : array();
-		//}
+		// Get the roles for the view.
+		if ( ! empty( $this->role_views[ $this->role_view ]['roles'] ) )
+			$roles = $this->role_views[ $this->role_view ]['roles'];
 
 		// Allow devs to filter the items.
 		$roles = apply_filters( 'members_manage_roles_items', $roles, $this->role_view );
