@@ -174,7 +174,7 @@ final class Settings_Page {
 			esc_html_x( 'Members', 'admin screen', 'members' ),
 			esc_html_x( 'Members', 'admin screen', 'members' ),
 			apply_filters( 'members_settings_capability', 'manage_options' ),
-			'members-settings',
+			$this->name,
 			array( $this, 'settings_page' )
 		);
 
@@ -210,8 +210,10 @@ final class Settings_Page {
 		// Add help tabs for the current view.
 		$view = $this->get_view( members_get_current_settings_view() );
 
-		if ( $view )
+		if ( $view ) {
+			$view->load();
 			$view->add_help_tabs();
+		}
 	}
 
 	/**
