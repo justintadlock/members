@@ -214,6 +214,19 @@ function members_get_inactive_role_slugs() {
 }
 
 /**
+ * Returns the caps for the all capability group.
+ *
+ * @since  1.0.0
+ * @access public
+ * @return array
+ */
+function members_get_all_group_caps() {
+	_deprecated_function( __FUNCTION__, '2.0.0', '' );
+
+	return members_get_capabilities();
+}
+
+/**
  * Additional capabilities provided by the Members plugin that gives users permissions to handle
  * certain features of the plugin.
  *

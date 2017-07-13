@@ -143,8 +143,7 @@ final class Cap_Tabs {
 				$caps = array_diff( $group->caps, $this->added_caps );
 
 			// Add group's caps to the added caps array.
-			if ( $group->merge_added )
-				$this->added_caps = array_unique( array_merge( $this->added_caps, $caps ) );
+			$this->added_caps = array_unique( array_merge( $this->added_caps, $caps ) );
 
 			// Create a new section.
 			$this->sections[] = $section = new Cap_Section( $this, $group->name, array( 'icon' => $group->icon, 'label' => $group->label ) );
@@ -160,6 +159,21 @@ final class Cap_Tabs {
 				// Get the control json data.
 				$this->controls_json[] = $control->json();
 			}
+		}
+
+		// Create a new "All" section.
+		$this->sections[] = $section = new Cap_Section( $this, 'all', array( 'icon' => 'dashicons-plus', 'label' => esc_html__( 'All', 'members' ) ) );
+
+		// Get the section json data.
+		$this->sections_json[] = $section->json();
+
+		// Create new controls for each cap.
+		foreach ( $this->added_caps as $cap ) {
+
+			$this->controls[] = $control = new Cap_Control( $this, $cap, array( 'section' => 'all' ) );
+
+			// Get the control json data.
+			$this->controls_json[] = $control->json();
 		}
 
 		// Hook after registering.

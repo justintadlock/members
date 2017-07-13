@@ -25,24 +25,6 @@ function members_register_cap_groups() {
 
 	// Hook for registering cap groups. Plugins should always register on this hook.
 	do_action( 'members_register_cap_groups' );
-
-	// Check if the `all` group is registered.
-	if ( members_cap_group_exists( 'all' ) ) {
-
-		// Set up an empty caps array and get the `all` group object.
-		$caps   = array();
-		$_group = members_get_cap_group( 'all' );
-
-		// Get the caps from every registered group.
-		foreach ( members_get_cap_groups() as $group )
-			$caps = array_merge( $caps, $group->caps );
-
-		// Sort the caps alphabetically.
-		asort( $caps );
-
-		// Assign all caps to the `all` group.
-		$_group->caps = array_unique( $caps );
-	}
 }
 
 /**
@@ -152,17 +134,6 @@ function members_register_default_cap_groups() {
 			'priority'   => 995
 		)
 	);
-
-	// Register the all group.
-	members_register_cap_group( 'all',
-		array(
-			'label'       => esc_html__( 'All', 'members' ),
-			'caps'        => members_get_all_group_caps(),
-			'icon'        => 'dashicons-plus',
-			'merge_added' => false,
-			'priority'    => 995
-		)
-	);
 }
 
 /**
@@ -240,18 +211,6 @@ function members_get_cap_groups() {
 function members_get_cap_group( $name ) {
 
 	return members_cap_group_registry()->get( $name );
-}
-
-/**
- * Returns the caps for the all capability group.
- *
- * @since  1.0.0
- * @access public
- * @return array
- */
-function members_get_all_group_caps() {
-
-	return members_get_capabilities();
 }
 
 /**

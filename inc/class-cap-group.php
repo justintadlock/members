@@ -66,15 +66,6 @@ final class Cap_Group {
 	public $priority = 10;
 
 	/**
-	 * Whether to merge this group's caps with the added caps array.
-	 *
-	 * @since  1.0.0
-	 * @access protected
-	 * @var    bool
-	 */
-	public $merge_added = true;
-
-	/**
 	 * Whether to remove previously-added caps from this group's caps.
 	 *
 	 * @since  1.0.0
