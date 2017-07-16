@@ -56,7 +56,7 @@ class Capability {
 	 * @return string
 	 */
 	public function __toString() {
-		return $this->slug;
+		return $this->name;
 	}
 
 	/**

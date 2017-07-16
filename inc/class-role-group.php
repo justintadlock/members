@@ -24,7 +24,7 @@ final class Role_Group {
 	 * Name/ID for the group.
 	 *
 	 * @since  2.0.0
-	 * @access protected
+	 * @access public
 	 * @var    string
 	 */
 	public $name = '';
@@ -33,17 +33,17 @@ final class Role_Group {
 	 * Internationalized text label for the group.
 	 *
 	 * @since  2.0.0
-	 * @access protected
+	 * @access public
 	 * @var    string
 	 */
 	public $label = '';
 
 	/**
 	 * Internationalized text label for the group + the count in the form of
-	 * `_n_noop( 'Singular Name %s', 'Pluran Name %s', $textdomain )`
+	 * `_n_noop( 'Singular Name %s', 'Plural Name %s', $textdomain )`
 	 *
 	 * @since  2.0.0
-	 * @access protected
+	 * @access public
 	 * @var    string
 	 */
 	public $label_count = '';
@@ -52,7 +52,7 @@ final class Role_Group {
 	 * Array of roles that belong to the group.
 	 *
 	 * @since  2.0.0
-	 * @access protected
+	 * @access public
 	 * @var    array
 	 */
 	public $roles = array();
@@ -61,7 +61,7 @@ final class Role_Group {
 	 * Whether to create a view for the group on the Manage Roles screen.
 	 *
 	 * @since  2.0.0
-	 * @access protected
+	 * @access public
 	 * @var    bool
 	 */
 	public $show_in_view_list = true;

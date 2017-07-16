@@ -18,6 +18,7 @@
  * @return bool
  */
 function members_role_manager_enabled() {
+
 	return apply_filters( 'members_role_manager_enabled', members_get_setting( 'role_manager' ) );
 }
 
@@ -30,6 +31,7 @@ function members_role_manager_enabled() {
  * @return bool
  */
 function members_explicitly_deny_caps() {
+
 	return apply_filters( 'members_explicitly_deny_caps', members_get_setting( 'explicit_denied_caps' ) );
 }
 
@@ -41,6 +43,7 @@ function members_explicitly_deny_caps() {
  * @return bool
  */
 function members_show_human_caps() {
+
 	return apply_filters( 'members_show_human_caps', members_get_setting( 'show_human_caps' ) );
 }
 
@@ -52,6 +55,7 @@ function members_show_human_caps() {
  * @return bool
  */
 function members_multiple_user_roles_enabled() {
+
 	return apply_filters( 'members_multiple_roles_enabled', members_get_setting( 'multi_roles' ) );
 }
 
@@ -63,6 +67,7 @@ function members_multiple_user_roles_enabled() {
  * @return bool
  */
 function members_content_permissions_enabled() {
+
 	return apply_filters( 'members_content_permissions_enabled', members_get_setting( 'content_permissions' ) );
 }
 
@@ -74,6 +79,7 @@ function members_content_permissions_enabled() {
  * @return bool
  */
 function members_login_widget_enabled() {
+
 	return apply_filters( 'members_login_widget_enabled', members_get_setting( 'login_form_widget' ) );
 }
 
@@ -85,6 +91,7 @@ function members_login_widget_enabled() {
  * @return bool
  */
 function members_users_widget_enabled() {
+
 	return apply_filters( 'members_users_widget_enabled', members_get_setting( 'users_widget' ) );
 }
 

@@ -241,6 +241,7 @@ function members_cap_exists( $name ) {
  * @return string
  */
 function members_sanitize_cap( $cap ) {
+
 	return apply_filters( 'members_sanitize_cap', sanitize_key( $cap ) );
 }
 
@@ -414,6 +415,7 @@ function members_get_hidden_caps() {
  * @return array
  */
 function members_remove_hidden_caps( $caps ) {
+
 	return apply_filters( 'members_remove_hidden_caps', true ) ? array_diff( $caps, members_get_hidden_caps() ) : $caps;
 }
 
@@ -453,6 +455,7 @@ function members_get_old_levels() {
  * @return array
  */
 function members_remove_old_levels( $caps ) {
+
 	return apply_filters( 'members_remove_old_levels', true ) ? array_diff( $caps, members_get_old_levels() ) : $caps;
 }
 

@@ -159,5 +159,6 @@ function members_access_check_shortcode( $attr, $content = null ) {
  * @return string
  */
 function members_login_form_shortcode() {
+
 	return wp_login_form( array( 'echo' => false ) );
 }

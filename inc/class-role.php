@@ -77,7 +77,7 @@ class Role {
 	public $denied_cap_count = 0;
 
 	/**
-	 * Array of capabilities that the role has.
+	 * Array of capabilities that the role has in the form of `array( $cap => $bool )`.
 	 *
 	 * @since  2.0.0
 	 * @access public

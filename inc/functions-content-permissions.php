@@ -64,6 +64,7 @@ function members_has_post_roles( $post_id = '' ) {
  * @return int|false
  */
 function members_add_post_role( $post_id, $role ) {
+
 	return add_post_meta( $post_id, '_members_access_role', $role, false );
 }
 
@@ -77,6 +78,7 @@ function members_add_post_role( $post_id, $role ) {
  * @return bool
  */
 function members_remove_post_role( $post_id, $role ) {
+
 	return delete_post_meta( $post_id, '_members_access_role', $role );
 }
 
@@ -122,6 +124,7 @@ function members_set_post_roles( $post_id, $roles ) {
  * @return bool
  */
 function members_delete_post_roles( $post_id ) {
+
 	return delete_post_meta( $post_id, '_members_access_role' );
 }
 
@@ -194,7 +197,7 @@ function members_content_permissions_comments( $template ) {
 		$has_template = locate_template( array( 'comments-no-access.php' ) );
 
 		// If the template was found, use it.  Otherwise, fall back to the Members comments.php template.
-		$template = $has_template ? $has_template : members_plugin()->templates_dir . 'comments.php';
+		$template = $has_template ? $has_template : members_plugin()->dir . 'templates/comments.php';
 
 		// Allow devs to overwrite the comments template.
 		$template = apply_filters( 'members_comments_template', $template );
@@ -236,6 +239,7 @@ function members_get_post_error_message( $post_id ) {
  * @return string
  */
 function members_get_post_access_message( $post_id ) {
+
 	return get_post_meta( $post_id, '_members_access_error', true );
 }
 
@@ -249,6 +253,7 @@ function members_get_post_access_message( $post_id ) {
  * @return bool
  */
 function members_set_post_access_message( $post_id, $message ) {
+
 	return update_post_meta( $post_id, '_members_access_error', $message );
 }
 
@@ -261,6 +266,7 @@ function members_set_post_access_message( $post_id, $message ) {
  * @return bool
  */
 function members_delete_post_access_message( $post_id ) {
+
 	return delete_post_meta( $post_id, '_members_access_error' );
 }
 

@@ -15,7 +15,7 @@ namespace Members;
 /**
  * Capability group object class.
  *
- * @since  1.0.0
+ * @since  2.0.0
  * @access public
  */
 final class Cap_Group {
@@ -23,8 +23,8 @@ final class Cap_Group {
 	/**
 	 * Name/ID for the group.
 	 *
-	 * @since  1.0.0
-	 * @access protected
+	 * @since  2.0.0
+	 * @access public
 	 * @var    string
 	 */
 	public $name = '';
@@ -32,8 +32,8 @@ final class Cap_Group {
 	/**
 	 * Internationalized text label for the group.
 	 *
-	 * @since  1.0.0
-	 * @access protected
+	 * @since  2.0.0
+	 * @access public
 	 * @var    string
 	 */
 	public $label = '';
@@ -41,8 +41,8 @@ final class Cap_Group {
 	/**
 	 * Icon for the group.  This can be a dashicons class or a custom class.
 	 *
-	 * @since  1.0.0
-	 * @access protected
+	 * @since  2.0.0
+	 * @access public
 	 * @var    string
 	 */
 	public $icon = 'dashicons-admin-generic';
@@ -50,8 +50,8 @@ final class Cap_Group {
 	/**
 	 * Capabilities for the group.
 	 *
-	 * @since  1.0.0
-	 * @access protected
+	 * @since  2.0.0
+	 * @access public
 	 * @var    array
 	 */
 	public $caps = array();
@@ -59,7 +59,7 @@ final class Cap_Group {
 	/**
 	 * Sort order priority.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @var    int
 	 */
@@ -68,8 +68,8 @@ final class Cap_Group {
 	/**
 	 * Whether to remove previously-added caps from this group's caps.
 	 *
-	 * @since  1.0.0
-	 * @access protected
+	 * @since  2.0.0
+	 * @access public
 	 * @var    bool
 	 */
 	public $diff_added = false;
@@ -78,7 +78,7 @@ final class Cap_Group {
 	 * Magic method to use in case someone tries to output the object as a string.
 	 * We'll just return the name.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return string
 	 */
@@ -89,7 +89,7 @@ final class Cap_Group {
 	/**
 	 * Register a new object.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @param  string  $name
 	 * @param  array   $args  {

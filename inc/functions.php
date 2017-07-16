@@ -20,6 +20,7 @@
  * @return bool
  */
 function members_validate_boolean( $val ) {
+
 	return filter_var( $val, FILTER_VALIDATE_BOOLEAN );
 }
 

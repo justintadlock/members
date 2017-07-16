@@ -30,6 +30,7 @@ add_filter( 'members_feed_error_message',                              'wpautop'
 add_filter( 'members_feed_error_message',                              'do_shortcode',      30 );
 add_filter( 'members_feed_error_message',                              'shortcode_unautop', 35 );
 
+# Authenticate when accessing the REST API.
 add_filter( 'rest_authentication_errors', 'members_private_rest_api', 95 );
 
 /**
@@ -40,6 +41,7 @@ add_filter( 'rest_authentication_errors', 'members_private_rest_api', 95 );
  * @return bool
  */
 function members_is_private_blog() {
+
 	return members_get_setting( 'private_blog' );
 }
 
@@ -51,6 +53,7 @@ function members_is_private_blog() {
  * @return bool
  */
 function members_is_private_feed() {
+
 	return members_get_setting( 'private_feed' );
 }
 
@@ -157,7 +160,7 @@ function members_private_rest_api( $result ) {
 }
 
 /**
- * Outputs an error message if a user attempts to access a site that they do not have 
+ * Outputs an error message if a user attempts to access a site that they do not have
  * access to on multisite.
  *
  * @since  2.0.0
