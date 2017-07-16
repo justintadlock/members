@@ -227,6 +227,58 @@ function members_get_all_group_caps() {
 }
 
 /**
+ * Returns the caps for the general capability group.
+ *
+ * @since      1.0.0
+ * @deprecated 2.0.0
+ * @access     public
+ * @return     array
+ */
+function members_get_general_group_caps() {
+
+	return array_keys( wp_list_filter( members_get_caps(), array( 'group' => 'general' ) ) );
+}
+
+/**
+ * Returns the caps for the theme capability group.
+ *
+ * @since      1.0.0
+ * @deprecated 2.0.0
+ * @access     public
+ * @return     array
+ */
+function members_get_theme_group_caps() {
+
+	return array_keys( wp_list_filter( members_get_caps(), array( 'group' => 'theme' ) ) );
+}
+
+/**
+ * Returns the caps for the plugin capability group.
+ *
+ * @since      1.0.0
+ * @deprecated 2.0.0
+ * @access     public
+ * @return     array
+ */
+function members_get_plugin_group_caps() {
+
+	return array_keys( wp_list_filter( members_get_caps(), array( 'group' => 'plugin' ) ) );
+}
+
+/**
+ * Returns the caps for the user capability group.
+ *
+ * @since      1.0.0
+ * @deprecated 2.0.0
+ * @access     public
+ * @return     array
+ */
+function members_get_user_group_caps() {
+
+	return array_keys( wp_list_filter( members_get_caps(), array( 'group' => 'user' ) ) );
+}
+
+/**
  * Additional capabilities provided by the Members plugin that gives users permissions to handle
  * certain features of the plugin.
  *
