@@ -96,5 +96,9 @@ final class Role_Group {
 		}
 
 		$this->name = sanitize_key( $name );
+
+		$registered_roles = array_keys( wp_list_filter( members_get_roles(), array( 'group' => $this->name ) ) );
+
+		$this->roles = array_unique( array_merge( $this->roles, $registered_roles ) );
 	}
 }
