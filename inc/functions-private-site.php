@@ -42,7 +42,7 @@ add_filter( 'rest_authentication_errors', 'members_private_rest_api', 95 );
  */
 function members_is_private_blog() {
 
-	return members_get_setting( 'private_blog' );
+	return apply_filters( 'members_is_private_blog', members_get_setting( 'private_blog' ) );
 }
 
 /**
@@ -54,7 +54,7 @@ function members_is_private_blog() {
  */
 function members_is_private_feed() {
 
-	return members_get_setting( 'private_feed' );
+	return apply_filters( 'members_is_private_feed', members_get_setting( 'private_feed' ) );
 }
 
 /**
@@ -66,7 +66,7 @@ function members_is_private_feed() {
  */
 function members_is_private_rest_api() {
 
-	return members_get_setting( 'private_rest_api' );
+	return apply_filters( 'members_is_private_rest_api', members_get_setting( 'private_rest_api' ) );
 }
 
 /**
@@ -153,8 +153,19 @@ function members_get_private_feed_message() {
  */
 function members_private_rest_api( $result ) {
 
-	if ( empty( $result ) && members_is_private_rest_api() && ! is_user_logged_in() )
-		return new WP_Error( 'rest_not_logged_in', esc_html__( 'You are not currently logged in.', 'members' ), array( 'status' => 401 ) );
+	if ( empty( $result ) && members_is_private_rest_api() && ! is_user_logged_in() ) {
+
+		return new WP_Error(
+			'rest_not_logged_in',
+			esc_html(
+				apply_filters(
+					'members_rest_api_error_message',
+					__( 'You are not currently logged in.', 'members' )
+				)
+			),
+			array( 'status' => 401 )
+		);
+	}
 
 	return $result;
 }
