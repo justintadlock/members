@@ -67,6 +67,10 @@ Most things should be fairly straightforward, but I've included an in-depth guid
 
 You can also [view the readme](https://github.com/justintadlock/members/blob/master/readme.md) online.
 
+### Minimum PHP requirements.
+
+Since version 2.0.0 of Members, PHP 5.3.0+ is required to use the plugin.  The plugin will not allow itself to be activated and will output an error message if an earlier version of PHP is detected.
+
 ### I can't access the "Role Manager" features.
 
 When the plugin is first activated, it runs a script that sets specific capabilities to the "Administrator" role on your site that grants you access to this feature.  So, you must be logged in with the administrator account to access the role manager.
@@ -86,6 +90,10 @@ You'll need to stop by my [support forums](https://themehybrid.com/board/topics)
 3. Content permissions meta box (edit post/page screen)
 4. Plugin settings screen
 5. Select multiple roles per user (edit user screen)
+
+== Upgrade Notice ==
+
+If upgrading from a version prior to 2.0.0, please note that the plugin now requires PHP 5.3.0 or later.
 
 == Changelog ==
 
