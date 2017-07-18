@@ -157,7 +157,7 @@ final class Members_Plugin {
 	 * Sets up globals.
 	 *
 	 * @since  1.0.0
-	 * @access public
+	 * @access private
 	 * @return void
 	 */
 	private function setup() {
@@ -171,7 +171,7 @@ final class Members_Plugin {
 	 * Loads files needed by the plugin.
 	 *
 	 * @since  1.0.0
-	 * @access public
+	 * @access private
 	 * @return void
 	 */
 	private function includes() {
@@ -238,7 +238,7 @@ final class Members_Plugin {
 	 * Sets up main plugin actions and filters.
 	 *
 	 * @since  1.0.0
-	 * @access public
+	 * @access private
 	 * @return void
 	 */
 	private function setup_actions() {
@@ -259,10 +259,7 @@ final class Members_Plugin {
 	 */
 	public function i18n() {
 
-//if ( version_compare( PHP_VERSION, '7.1.7', '<' ) )
-//	wp_die( PHP_VERSION . 'hello' );
-
-		load_plugin_textdomain( 'members', false, trailingslashit( dirname( plugin_basename( __FILE__ ) ) ). 'lang' );
+		load_plugin_textdomain( 'members', false, trailingslashit( dirname( plugin_basename( __FILE__ ) ) ) . 'lang' );
 	}
 
 	/**

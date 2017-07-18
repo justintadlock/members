@@ -14,7 +14,6 @@
 add_action( 'admin_enqueue_scripts', 'members_admin_register_scripts', 0 );
 add_action( 'admin_enqueue_scripts', 'members_admin_register_styles',  0 );
 
-
 /**
  * Get an Underscore JS template.
  *
