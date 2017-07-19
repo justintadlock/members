@@ -4,7 +4,6 @@
 
 ### Added
 
-* Roles states on the manage role screen now have array keys so they can more easily be overwritten.
 * Created a new admin view system, where there can be multiple views ("tabs", if you like) on the settings screen and other potential screens in the future.
 * Added an "Add-Ons" view for the Members Settings page, which lists add-ons for the plugin.  The default add-ons are pulled from Theme Hybrid.
 * Created an add-ons API for other developers to list their own add-ons.
@@ -18,11 +17,12 @@
 
 ### Changed
 
+* Roles states on the manage role screen now have array keys so they can more easily be overwritten.
 * Created a `.wp-tab-panel` wrapper around the user roles checklist on the edit user screen. This is to prevent long lists of roles from taking up too much screen space.
 * Moved the All capability tab to the bottom of the capability tabs list.
 * Removed the All cap group, since it is not a true cap group.
 * Removed the All, Mine, Active, Inactive, Editable, and Uneditable role groups.  These are merely views for the role management screen.  They are not true role groups.
-* Created a new, internal registry class for storing various collections of data.  Note that this does break back-compat for developers who were directly access factory classes in previous versions rather than using the wrapper functions.
+* Created a new, internal registry class for storing various collections of data.  Note that this does break back-compat for developers who were directly accessing factory classes in previous versions rather than using the wrapper functions.
 * Old classes were added to the `Members` namespace or `Members\Admin` namespace.  Again, this breaks back-compat for anyone not using the appropriate wrapper functions.  This also bumps the requirement to PHP 5.3.0+.
 * Changed the text in the Content Permissions meta box to not specifically use the term "post".
 * Changed the Content Permissions meta box to have a tabbed UI so that it doesn't take up so much screen space.
@@ -30,11 +30,10 @@
 
 ### Fixed
 
-* Removes the `customize_changeset` and `custom_css` post type cap groups so that they don't appear in the capability tabs on the edit role screen.
 * No longer save content permissions on autosave or for post revisions.
 * Prevent users from adding the internal core WP `do_not_allow` capability to their role.
 * On multisite with the private site feature enabled, block access to logged-in users who do not have access to the specific blog.
-* Make sure the comments show an error in the comments feed if they belong to a private post.
+* Make sure comments show an error in the comments feed if they belong to a private post.
 
 ### Security
 
