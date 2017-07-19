@@ -2,7 +2,7 @@
 
 Contributors: greenshady
 Donate link: https://themehybrid.com/donate
-Tags: admin, role, roles, member, members, profile, shortcode, user, users, widget, widgets
+Tags: capabilities, roles, members, users
 Requires at least: 4.7
 Tested up to: 4.8
 Stable tag: 2.0.0
