@@ -101,11 +101,11 @@ final class Cap_Tabs {
 
 		// Check if we have a role.
 		if ( $role ) {
-			$this->role = get_role( $role );
+			$this->role = members_get_role( $role );
 
 			// If no explicit caps were passed in, use the role's caps.
 			if ( ! $has_caps )
-				$this->has_caps = $this->role->capabilities;
+				$this->has_caps = $this->role->caps;
 		}
 
 		// Add sections and controls.
