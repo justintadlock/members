@@ -3,21 +3,21 @@
 Contributors: greenshady
 Donate link: https://themehybrid.com/donate
 Tags: admin, role, roles, member, members, profile, shortcode, user, users, widget, widgets
-Requires at least: 4.3
-Tested up to: 4.7.2
-Stable tag: 1.1.3
+Requires at least: 4.7
+Tested up to: 4.8
+Stable tag: 2.0.0
 
 The most powerful user, role, and capability management plugin for WordPress.
 
 == Description ==
 
-Members is a plugin that extends your control over your blog.  It's a user, role, and capability management plugin that was created to make WordPress a more powerful CMS.
+Members is a plugin that extends your control over your blog.  It's a user, role, and capability editor plugin that was created to make WordPress a more powerful CMS.
 
 It puts you in control over permissions on your site by providing a user interface (UI) for WordPress' powerful role and cap system, which is traditionally only available to developers who know how to code this by hand.
 
 ### Plugin Features
 
-* **Role Manager:** Allows you to edit, create, and delete roles as well as capabilities for these roles.
+* **Role Editor:** Allows you to edit, create, and delete roles as well as capabilities for these roles.
 * **Multiple User Roles:** Give one, two, or even more roles to any user.
 * **Explicitly Deny Capabilities:** Deny specific caps to specific user roles.
 * **Clone Roles:** Build a new role by cloning an existing role.
@@ -39,7 +39,7 @@ The Members plugin is a massive project with 1,000s of lines of code to maintain
 
 ### Professional Support
 
-If you need professional plugin support from me, the plugin author, you can access the support forums at [Theme Hybrid](https://themehybrid.com/board/topics), which is a professional WordPress help/support site where I handle support for all my plugins and themes for a community of 60,000+ users (and growing).
+If you need professional plugin support from me, the plugin author, you can access the support forums at [Theme Hybrid](https://themehybrid.com/board/topics), which is a professional WordPress help/support site where I handle support for all my plugins and themes for a community of 75,000+ users (and growing).
 
 ### Plugin Development
 
