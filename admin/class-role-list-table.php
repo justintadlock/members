@@ -4,34 +4,45 @@
  *
  * @package    Members
  * @subpackage Admin
- * @author     Justin Tadlock <justin@justintadlock.com>
- * @copyright  Copyright (c) 2009 - 2016, Justin Tadlock
- * @link       http://themehybrid.com/plugins/members
+ * @author     Justin Tadlock <justintadlock@gmail.com>
+ * @copyright  Copyright (c) 2009 - 2017, Justin Tadlock
+ * @link       https://themehybrid.com/plugins/members
  * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
+
+namespace Members\Admin;
 
 /**
  * Role list table for the roles management page in the admin. Extends the core `WP_List_Table`
  * class in the admin.
  *
- * @since  1.0.0
+ * @since  2.0.0
  * @access public
  */
-class Members_Role_List_Table extends WP_List_Table {
+class Role_List_Table extends \WP_List_Table {
 
 	/**
 	 * The current view.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @var    string
 	 */
 	public $role_view = 'all';
 
 	/**
+	 * Array of role views.
+	 *
+	 * @since  2.0.0
+	 * @access public
+	 * @var    array
+	 */
+	public $role_views = array();
+
+	/**
 	 * Allowed role views.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @var    array
 	 */
@@ -40,7 +51,7 @@ class Members_Role_List_Table extends WP_List_Table {
 	/**
 	 * The default role.  This will be assigned the value of `get_option( 'default_role' )`.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @var    string
 	 */
@@ -49,7 +60,7 @@ class Members_Role_List_Table extends WP_List_Table {
 	/**
 	 * The current user object.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @var    object
 	 */
@@ -58,7 +69,7 @@ class Members_Role_List_Table extends WP_List_Table {
 	/**
 	 * Sets up the list table.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */
@@ -72,7 +83,7 @@ class Members_Role_List_Table extends WP_List_Table {
 		parent::__construct( $args );
 
 		// Get the current user object.
-		$this->current_user = new WP_User( get_current_user_id() );
+		$this->current_user = new \WP_User( get_current_user_id() );
 
 		// Get the defined default role.
 		$this->default_role = get_option( 'default_role', $this->default_role );
@@ -81,32 +92,24 @@ class Members_Role_List_Table extends WP_List_Table {
 		$this->allowed_role_views = array_keys( $this->get_views() );
 
 		// Get the current view.
-		if ( isset( $_GET['role_view'] ) && in_array( $_GET['role_view'], $this->allowed_role_views ) )
-			$this->role_view = $_GET['role_view'];
+		if ( isset( $_GET['view'] ) && in_array( $_GET['view'], $this->allowed_role_views ) )
+			$this->role_view = $_GET['view'];
 	}
 
 	/**
 	 * Sets up the items (roles) to list.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */
 	public function prepare_items() {
 
-		// Get the roles for the default/All view.
-		if ( 'all' === $this->role_view ) {
+		$roles = array();
 
-			$roles = members_get_role_slugs();
-
-		// If a custom view, get the roles.
-		} else {
-			// Get the current group being viewed.
-			$group = members_get_role_group( $this->role_view );
-
-			// Set the roles array.
-			$roles = $group ? $group->roles : array();
-		}
+		// Get the roles for the view.
+		if ( ! empty( $this->role_views[ $this->role_view ]['roles'] ) )
+			$roles = $this->role_views[ $this->role_view ]['roles'];
 
 		// Allow devs to filter the items.
 		$roles = apply_filters( 'members_manage_roles_items', $roles, $this->role_view );
@@ -168,7 +171,7 @@ class Members_Role_List_Table extends WP_List_Table {
 	 * Returns an array of columns to show.
 	 *
 	 * @see    members_manage_roles_columns()
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return array
 	 */
@@ -195,7 +198,7 @@ class Members_Role_List_Table extends WP_List_Table {
 	/**
 	 * The checkbox column callback.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access protected
 	 * @param  string     $role
 	 * @return string
@@ -214,7 +217,7 @@ class Members_Role_List_Table extends WP_List_Table {
 	/**
 	 * The role name column callback.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access protected
 	 * @param  string     $role
 	 * @return string
@@ -226,11 +229,11 @@ class Members_Role_List_Table extends WP_List_Table {
 
 		// If the role is the default role.
 		if ( $role == get_option( 'default_role' ) )
-			$states[] = esc_html__( 'Default Role', 'members' );
+			$states['default'] = esc_html__( 'Default Role', 'members' );
 
 		// If the current user has this role.
 		if ( members_current_user_has_role( $role ) )
-			$states[] = esc_html__( 'Your Role', 'members' );
+			$states['mine'] = esc_html__( 'Your Role', 'members' );
 
 		// Allow devs to filter the role states.
 		$states = apply_filters( 'members_role_states', $states, $role );
@@ -238,14 +241,14 @@ class Members_Role_List_Table extends WP_List_Table {
 		// If we have states, string them together.
 		if ( ! empty( $states ) ) {
 
-			foreach ( $states as $state )
-				$role_states .= sprintf( '<span class="role-state">%s</span>', $state );
+			foreach ( $states as $state => $label )
+				$states[ $state ] = sprintf( '<span class="role-state">%s</span>', $label );
 
-			$role_states = ' &ndash; ' . $role_states;
+			$role_states = ' &ndash; ' . join( ', ', $states );
 		}
 
 		// Add the title and role states.
-		$title = sprintf( '<strong><a class="row-title" href="%s">%s</a>%s</strong>', esc_url( members_get_edit_role_url( $role ) ), esc_html( members_get_role_name( $role ) ), $role_states );
+		$title = sprintf( '<strong><a class="row-title" href="%s">%s</a>%s</strong>', esc_url( members_get_edit_role_url( $role ) ), esc_html( members_get_role( $role )->label ), $role_states );
 
 		return apply_filters( 'members_manage_roles_column_role_name', $title, $role );
 	}
@@ -253,7 +256,7 @@ class Members_Role_List_Table extends WP_List_Table {
 	/**
 	 * The role column callback.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access protected
 	 * @param  string     $role
 	 * @return string
@@ -265,7 +268,7 @@ class Members_Role_List_Table extends WP_List_Table {
 	/**
 	 * The users column callback.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access protected
 	 * @param  string     $role
 	 * @return string
@@ -277,7 +280,7 @@ class Members_Role_List_Table extends WP_List_Table {
 	/**
 	 * The caps column callback.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access protected
 	 * @param  string     $role
 	 * @return string
@@ -289,7 +292,7 @@ class Members_Role_List_Table extends WP_List_Table {
 	/**
 	 * The caps column callback.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access protected
 	 * @param  string     $role
 	 * @return string
@@ -301,7 +304,7 @@ class Members_Role_List_Table extends WP_List_Table {
 	/**
 	 * Returns the name of the primary column.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access protected
 	 * @return string
 	 */
@@ -312,7 +315,7 @@ class Members_Role_List_Table extends WP_List_Table {
 	/**
 	 * Handles the row actions.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access protected
 	 * @param  string     $role
 	 * @param  string     $column_name
@@ -366,7 +369,7 @@ class Members_Role_List_Table extends WP_List_Table {
 	/**
 	 * Returns an array of sortable columns.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access protected
 	 * @return array
 	 */
@@ -381,31 +384,46 @@ class Members_Role_List_Table extends WP_List_Table {
 	/**
 	 * Returns an array of views for the list table.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access protected
 	 * @return array
 	 */
 	protected function get_views() {
 
-		$active   = members_get_role_group( 'active' );
-		$inactive = members_get_role_group( 'inactive' );
-
-		if ( $active )
-			$active->roles = members_get_active_role_slugs();
-
-		if ( $inactive )
-			$inactive->roles = members_get_inactive_role_slugs();
+		// Get the current user.
+		$current_user = wp_get_current_user();
 
 		$views     = array();
 		$current   = ' class="current"';
-		$all_count = count( members_get_role_slugs() );
 
-		// Add the default/all view.
-		$views['all'] = sprintf(
-			'<a%s href="%s">%s</a>',
-			'all' === $this->role_view ? $current : '',
-			esc_url( members_get_edit_roles_url() ),
-			sprintf( _n( 'All %s', 'All %s', $all_count, 'members' ), sprintf( '<span class="count">(%s)</span>', number_format_i18n( $all_count ) ) )
+		$this->role_views['all'] = array(
+			'label_count' => _n_noop( 'All %s', 'All %s', 'members' ),
+			'roles'       => array_keys( members_get_roles() )
+		);
+
+		$this->role_views['mine'] = array(
+			'label_count' => _n_noop( 'Mine %s', 'Mine %s', 'members' ),
+			'roles'       => $current_user->roles
+		);
+
+		$this->role_views['active'] = array(
+			'label_count' => _n_noop( 'Has Users %s', 'Has Users %s', 'members' ),
+			'roles'       => members_get_active_roles()
+		);
+
+		$this->role_views['inactive'] = array(
+			'label_count' => _n_noop( 'No Users %s', 'No Users %s', 'members' ),
+			'roles'       =>members_get_inactive_roles()
+		);
+
+		$this->role_views['editable'] = array(
+			'label_count' => _n_noop( 'Editable %s', 'Editable %s', 'members' ),
+			'roles'       => members_get_editable_roles()
+		);
+
+		$this->role_views['uneditable'] = array(
+			'label_count' => _n_noop( 'Uneditable %s', 'Uneditable %s', 'members' ),
+			'roles'       => members_get_uneditable_roles()
 		);
 
 		// Loop through the role groups and put them into the view list.
@@ -415,19 +433,28 @@ class Members_Role_List_Table extends WP_List_Table {
 			if ( ! $group->show_in_view_list )
 				continue;
 
-			$count = count( $group->roles );
+			$this->role_views[ "group-{$group->name}" ] = array(
+				'label_count' => $group->label_count,
+				'roles'       => $group->roles
+			);
+		}
+
+		// Loop through the default views and put them into the view list.
+		foreach ( $this->role_views as $view => $args ) {
+
+			$count = count( $args['roles'] );
 
 			// Skip any views with 0 roles.
 			if ( 0 >= $count )
 				continue;
 
-			$noop = $group->label_count;
+			$noop = $args['label_count'];
 
 			// Add the view link.
-			$views[ $group->name ] = sprintf(
+			$views[ $view ] = sprintf(
 				'<a%s href="%s">%s</a>',
-				$group->name === $this->role_view ? $current : '',
-				'all' === $group->name ? esc_url( members_get_edit_roles_url() ) : esc_url( members_get_role_view_url( $group->name ) ),
+				$view === $this->role_view ? $current : '',
+				'all' === $view ? esc_url( members_get_edit_roles_url() ) : esc_url( members_get_role_view_url( $view ) ),
 				sprintf( translate_nooped_plural( $noop, $count, $noop['domain'] ), sprintf( '<span class="count">(%s)</span>', number_format_i18n( $count ) ) )
 			);
 		}
@@ -438,7 +465,7 @@ class Members_Role_List_Table extends WP_List_Table {
 	/**
 	 * Displays the list table.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */
@@ -452,7 +479,7 @@ class Members_Role_List_Table extends WP_List_Table {
 	/**
 	 * Returns an array of bulk actions available.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access protected
 	 * @return array
 	 */

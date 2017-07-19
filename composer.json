@@ -1,0 +1,23 @@
+{
+	"name"        : "justintadlock/members",
+	"description" : "A user and role management plugin that puts you in full control of your site's permissions. This plugin allows you to edit your roles and their capabilities, clone existing roles, assign multiple roles per user, block post content, or even make your site completely private.",
+	"keywords"    : ["wordpress"],
+	"homepage"    : "https://themehybrid.com/plugins/members",
+	"license"     : "GPL-2.0+",
+	"type"        : "wordpress-plugin",
+	"authors"     : [
+		{
+			"name"     : "Justin Tadlock",
+			"email"    : "justintadlock@gmail.com",
+			"homepage" : "http://justintadlock.com"
+		}
+	],
+	"require"     : {
+		"composer/installers" : "^1.0",
+		"php"                 : ">=5.3.0"
+	},
+	"support"     : {
+		"issues": "https://github.com/justintadlock/members/issues",
+		"forum" : "https://themehybrid.com/board/topics"
+	}
+}

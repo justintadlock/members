@@ -4,24 +4,26 @@
  *
  * @package    Members
  * @subpackage Admin
- * @author     Justin Tadlock <justin@justintadlock.com>
- * @copyright  Copyright (c) 2009 - 2016, Justin Tadlock
- * @link       http://themehybrid.com/plugins/members
+ * @author     Justin Tadlock <justintadlock@gmail.com>
+ * @copyright  Copyright (c) 2009 - 2017, Justin Tadlock
+ * @link       https://themehybrid.com/plugins/members
  * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
+
+namespace Members\Admin;
 
 /**
  * Handles building the edit caps tabs.
  *
- * @since  1.0.0
+ * @since  2.0.0
  * @access public
  */
-final class Members_Cap_Tabs {
+final class Cap_Tabs {
 
 	/**
 	 * The role object that we're creating tabs for.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @var    object
 	 */
@@ -30,7 +32,7 @@ final class Members_Cap_Tabs {
 	/**
 	 * Array of caps shown by the cap tabs.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @var    array
 	 */
@@ -40,7 +42,7 @@ final class Members_Cap_Tabs {
 	 * The caps the role has. Note that if this is a new role (new role screen), the default
 	 * new role caps will be passed in.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @var    array
 	 */
@@ -49,7 +51,7 @@ final class Members_Cap_Tabs {
 	/**
 	 * Array of tab sections.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @var    array
 	 */
@@ -58,7 +60,7 @@ final class Members_Cap_Tabs {
 	/**
 	 * Array of single cap controls.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @var    array
 	 */
@@ -67,7 +69,7 @@ final class Members_Cap_Tabs {
 	/**
 	 * Array of section json data.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @var    array
 	 */
@@ -76,7 +78,7 @@ final class Members_Cap_Tabs {
 	/**
 	 * Array of control json data.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @var    array
 	 */
@@ -85,7 +87,7 @@ final class Members_Cap_Tabs {
 	/**
 	 * Sets up the cap tabs.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @param  string  $role
 	 * @param  array   $has_caps
@@ -99,11 +101,11 @@ final class Members_Cap_Tabs {
 
 		// Check if we have a role.
 		if ( $role ) {
-			$this->role = get_role( $role );
+			$this->role = members_get_role( $role );
 
 			// If no explicit caps were passed in, use the role's caps.
 			if ( ! $has_caps )
-				$this->has_caps = $this->role->capabilities;
+				$this->has_caps = $this->role->caps;
 		}
 
 		// Add sections and controls.
@@ -118,7 +120,7 @@ final class Members_Cap_Tabs {
 	 * Registers the sections (and each section's controls) that will be used for
 	 * the tab content.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */
@@ -127,8 +129,12 @@ final class Members_Cap_Tabs {
 		// Hook before registering.
 		do_action( 'members_pre_edit_caps_manager_register' );
 
+		$groups = members_get_cap_groups();
+
+		uasort( $groups, 'members_priority_sort' );
+
 		// Get and loop through the available capability groups.
-		foreach ( members_get_cap_groups() as $group ) {
+		foreach ( $groups as $group ) {
 
 			$caps = $group->caps;
 
@@ -137,11 +143,10 @@ final class Members_Cap_Tabs {
 				$caps = array_diff( $group->caps, $this->added_caps );
 
 			// Add group's caps to the added caps array.
-			if ( $group->merge_added )
-				$this->added_caps = array_unique( array_merge( $this->added_caps, $caps ) );
+			$this->added_caps = array_unique( array_merge( $this->added_caps, $caps ) );
 
 			// Create a new section.
-			$this->sections[] = $section = new Members_Cap_Section( $this, $group->name, array( 'icon' => $group->icon, 'label' => $group->label ) );
+			$this->sections[] = $section = new Cap_Section( $this, $group->name, array( 'icon' => $group->icon, 'label' => $group->label ) );
 
 			// Get the section json data.
 			$this->sections_json[] = $section->json();
@@ -149,11 +154,26 @@ final class Members_Cap_Tabs {
 			// Create new controls for each cap.
 			foreach ( $caps as $cap ) {
 
-				$this->controls[] = $control = new Members_Cap_Control( $this, $cap, array( 'section' => $group->name ) );
+				$this->controls[] = $control = new Cap_Control( $this, $cap, array( 'section' => $group->name ) );
 
 				// Get the control json data.
 				$this->controls_json[] = $control->json();
 			}
+		}
+
+		// Create a new "All" section.
+		$this->sections[] = $section = new Cap_Section( $this, 'all', array( 'icon' => 'dashicons-plus', 'label' => esc_html__( 'All', 'members' ) ) );
+
+		// Get the section json data.
+		$this->sections_json[] = $section->json();
+
+		// Create new controls for each cap.
+		foreach ( $this->added_caps as $cap ) {
+
+			$this->controls[] = $control = new Cap_Control( $this, $cap, array( 'section' => 'all' ) );
+
+			// Get the control json data.
+			$this->controls_json[] = $control->json();
 		}
 
 		// Hook after registering.
@@ -163,7 +183,7 @@ final class Members_Cap_Tabs {
 	/**
 	 * Displays the cap tabs.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */
@@ -171,7 +191,7 @@ final class Members_Cap_Tabs {
 
 		<div id="tabcapsdiv" class="postbox">
 
-			<h3><?php printf( esc_html__( 'Edit Capabilities: %s', 'members' ), '<span class="members-which-tab"></span>' ); ?></h3>
+			<h2 class="hndle"><?php printf( esc_html__( 'Edit Capabilities: %s', 'members' ), '<span class="members-which-tab"></span>' ); ?></h2>
 
 			<div class="inside">
 
@@ -188,7 +208,7 @@ final class Members_Cap_Tabs {
 	/**
 	 * Outputs the tab nav.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */
@@ -212,7 +232,7 @@ final class Members_Cap_Tabs {
 	/**
 	 * Passes our sections and controls data as json to the `edit-role.js` file.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */
@@ -225,7 +245,7 @@ final class Members_Cap_Tabs {
 	/**
 	 * Outputs the Underscore JS templates.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */

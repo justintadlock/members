@@ -5,60 +5,54 @@
  *
  * @package    Members
  * @subpackage Includes
- * @author     Justin Tadlock <justin@justintadlock.com>
- * @copyright  Copyright (c) 2009 - 2016, Justin Tadlock
- * @link       http://themehybrid.com/plugins/members
+ * @author     Justin Tadlock <justintadlock@gmail.com>
+ * @copyright  Copyright (c) 2009 - 2017, Justin Tadlock
+ * @link       https://themehybrid.com/plugins/members
  * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
+
+namespace Members;
 
 /**
  * Role class.
  *
- * @since  1.0.0
+ * @since  2.0.0
  * @access public
  */
-class Members_Role {
-
-	/**
-	 * The role/slug.
-	 *
-	 * @since  1.0.0
-	 * @access public
-	 * @var    string
-	 */
-	public $slug = '';
+class Role {
 
 	/**
 	 * The role name.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @var    string
 	 */
 	public $name = '';
 
 	/**
-	 * Whether the role can be edited.
+	 * The role label.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
-	 * @var    bool
+	 * @var    string
 	 */
-	public $is_editable = false;
+	public $label = '';
 
 	/**
-	 * Whether the role is a core WP role.
+	 * The group the role belongs to.
 	 *
-	 * @since  1.0.0
+	 * @see    Members\Role_Group
+	 * @since  2.0.0
 	 * @access public
-	 * @var    bool
+	 * @var    string
 	 */
-	public $is_wordpress_role = false;
+	public $group = '';
 
 	/**
 	 * Whether the role has caps (granted).
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @var    bool
 	 */
@@ -67,7 +61,7 @@ class Members_Role {
 	/**
 	 * Capability count for the role.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @var    int
 	 */
@@ -76,16 +70,16 @@ class Members_Role {
 	/**
 	 * Capability count for the role.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @var    int
 	 */
 	public $denied_cap_count = 0;
 
 	/**
-	 * Array of capabilities that the role has.
+	 * Array of capabilities that the role has in the form of `array( $cap => $bool )`.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @var    array
 	 */
@@ -94,7 +88,7 @@ class Members_Role {
 	/**
 	 * Array of granted capabilities that the role has.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @var    array
 	 */
@@ -103,7 +97,7 @@ class Members_Role {
 	/**
 	 * Array of denied capabilities that the role has.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @var    array
 	 */
@@ -112,71 +106,56 @@ class Members_Role {
 	/**
 	 * Return the role string in attempts to use the object as a string.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return string
 	 */
 	public function __toString() {
-		return $this->slug;
+		return $this->name;
 	}
 
 	/**
 	 * Creates a new role object.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
-	 * @global object  $wp_roles
 	 * @param  string  $role
+	 * @param  array   $args
 	 * @return void
 	 */
-	public function __construct( $role ) {
-		global $wp_roles;
+	public function __construct( $name, $args = array() ) {
 
-		// Get the WP role object.
-		$_role = get_role( $role );
+		foreach ( array_keys( get_object_vars( $this ) ) as $key ) {
 
-		// Set the slug.
-		$this->slug = $_role->name;
-
-		// Set the role name.
-		if ( isset( $wp_roles->role_names[ $role ] ) )
-			$this->name = members_translate_role( $role );
-
-		// Check whether the role is editable.
-		$editable_roles    = function_exists( 'get_editable_roles' ) ? get_editable_roles() : apply_filters( 'editable_roles', $wp_roles->roles );
-		$this->is_editable = array_key_exists( $role, $editable_roles );
-
-		// Loop through the role's caps.
-		foreach ( (array) $_role->capabilities as $cap => $grant ) {
-
-			// Validate any boolean grant/denied in case they are stored as strings.
-			$grant = members_validate_boolean( $grant );
-
-			// Add to all caps array.
-			$this->caps[ $cap ] = $grant;
-
-			// If a granted cap.
-			if ( true === $grant )
-				$this->granted_caps[] = $cap;
-
-			// If a denied cap.
-			elseif ( false === $grant )
-				$this->denied_caps[] = $cap;
+			if ( isset( $args[ $key ] ) )
+				$this->$key = $args[ $key ];
 		}
 
-		// Remove user levels from granted/denied caps.
-		$this->granted_caps = members_remove_old_levels( $this->granted_caps );
-		$this->denied_caps  = members_remove_old_levels( $this->denied_caps  );
+		$this->name = members_sanitize_role( $name );
 
-		// Remove hidden caps from granted/denied caps.
-		$this->granted_caps = members_remove_hidden_caps( $this->granted_caps );
-		$this->denied_caps  = members_remove_hidden_caps( $this->denied_caps  );
+		if ( $this->caps ) {
 
-		// Set the cap count.
-		$this->granted_cap_count = count( $this->granted_caps );
-		$this->denied_cap_count  = count( $this->denied_caps  );
+			// Validate cap values as booleans in case they are stored as strings.
+			$this->caps = array_map( 'members_validate_boolean', $this->caps );
 
-		// Check if we have caps.
-		$this->has_caps = 0 < $this->granted_cap_count;
+			// Get granted and denied caps.
+			$this->granted_caps = array_keys( $this->caps, true  );
+			$this->denied_caps  = array_keys( $this->caps, false );
+
+			// Remove user levels from granted/denied caps.
+			$this->granted_caps = members_remove_old_levels( $this->granted_caps );
+			$this->denied_caps  = members_remove_old_levels( $this->denied_caps  );
+
+			// Remove hidden caps from granted/denied caps.
+			$this->granted_caps = members_remove_hidden_caps( $this->granted_caps );
+			$this->denied_caps  = members_remove_hidden_caps( $this->denied_caps  );
+
+			// Set the cap count.
+			$this->granted_cap_count = count( $this->granted_caps );
+			$this->denied_cap_count  = count( $this->denied_caps  );
+
+			// Check if we have caps.
+			$this->has_caps = 0 < $this->granted_cap_count;
+		}
 	}
 }

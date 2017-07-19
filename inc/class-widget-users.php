@@ -4,24 +4,26 @@
  *
  * @package    Members
  * @subpackage Includes
- * @author     Justin Tadlock <justin@justintadlock.com>
- * @copyright  Copyright (c) 2009 - 2016, Justin Tadlock
- * @link       http://themehybrid.com/plugins/members
+ * @author     Justin Tadlock <justintadlock@gmail.com>
+ * @copyright  Copyright (c) 2009 - 2017, Justin Tadlock
+ * @link       https://themehybrid.com/plugins/members
  * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
+
+namespace Members;
 
 /**
  * Users widget archive class.
  *
- * @since  0.1.0
+ * @since  2.0.0
  * @access public
  */
-class Members_Widget_Users extends WP_Widget {
+class Widget_Users extends \WP_Widget {
 
 	/**
 	 * Default arguments for the widget settings.
 	 *
-	 * @since  1.0.3
+	 * @since  2.0.0
 	 * @access public
 	 * @var    array
 	 */
@@ -30,7 +32,7 @@ class Members_Widget_Users extends WP_Widget {
 	/**
 	 * Set up the widget's unique name, ID, class, description, and other options.
 	 *
-	 * @since  0.2.5
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */
@@ -71,7 +73,7 @@ class Members_Widget_Users extends WP_Widget {
 	/**
 	 * Outputs the widget based on the arguments input through the widget controls.
 	 *
-	 * @since  0.1.0
+	 * @since  2.0.0
 	 * @access public
 	 * @param  array  $sidebar
 	 * @param  array  $instance
@@ -136,7 +138,7 @@ class Members_Widget_Users extends WP_Widget {
 	/**
 	 * Sanitizes/Validates widget options before being saved.
 	 *
-	 * @since  0.1.0
+	 * @since  2.0.0
 	 * @access public
 	 * @param  array   $new_instance
 	 * @param  array   $old_instance
@@ -169,7 +171,7 @@ class Members_Widget_Users extends WP_Widget {
 	/**
 	 * Displays the widget control options in the Widgets admin screen.
 	 *
-	 * @since 0.1.0
+	 * @since  2.0.0
 	 * @access public
 	 * @param  array  $instance
 	 * @return void
@@ -197,9 +199,8 @@ class Members_Widget_Users extends WP_Widget {
 
 		$meta_key = array_merge( array( '' ), (array) members_get_user_meta_keys() );
 
-		$roles = members_get_role_names();
-		asort( $roles );
-		$roles = array_merge( array( '' => '' ), $roles ); ?>
+		$roles = members_get_roles();
+		asort( $roles ); ?>
 
 		<div style="float: left;width: 48%;">
 
@@ -226,8 +227,9 @@ class Members_Widget_Users extends WP_Widget {
 		<p>
 			<label for="<?php echo $this->get_field_id( 'role' ); ?>"><?php esc_html_e( 'Role:', 'members' ); ?></label>
 			<select class="widefat" id="<?php echo $this->get_field_id( 'role' ); ?>" name="<?php echo $this->get_field_name( 'role' ); ?>">
-				<?php foreach ( $roles as $role => $name ) : ?>
-					<option value="<?php echo esc_attr( $role ); ?>" <?php selected( $instance['role'], $role ); ?>><?php echo esc_html( $name ); ?></option>
+				<option value="" <?php selected( $instance['role'], '' ); ?>></option>
+				<?php foreach ( $roles as $name => $role ) : ?>
+					<option value="<?php echo esc_attr( $name ); ?>" <?php selected( $instance['role'], $name ); ?>><?php echo esc_html( $role->label ); ?></option>
 				<?php endforeach; ?>
 			</select>
 		</p>

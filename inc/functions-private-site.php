@@ -6,9 +6,9 @@
  *
  * @package    Members
  * @subpackage Includes
- * @author     Justin Tadlock <justin@justintadlock.com>
- * @copyright  Copyright (c) 2009 - 2016, Justin Tadlock
- * @link       http://themehybrid.com/plugins/members
+ * @author     Justin Tadlock <justintadlock@gmail.com>
+ * @copyright  Copyright (c) 2009 - 2017, Justin Tadlock
+ * @link       https://themehybrid.com/plugins/members
  * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
@@ -30,6 +30,9 @@ add_filter( 'members_feed_error_message',                              'wpautop'
 add_filter( 'members_feed_error_message',                              'do_shortcode',      30 );
 add_filter( 'members_feed_error_message',                              'shortcode_unautop', 35 );
 
+# Authenticate when accessing the REST API.
+add_filter( 'rest_authentication_errors', 'members_private_rest_api', 95 );
+
 /**
  * Conditional tag to see if we have a private blog.
  *
@@ -38,7 +41,8 @@ add_filter( 'members_feed_error_message',                              'shortcod
  * @return bool
  */
 function members_is_private_blog() {
-	return members_get_setting( 'private_blog' );
+
+	return apply_filters( 'members_is_private_blog', members_get_setting( 'private_blog' ) );
 }
 
 /**
@@ -49,7 +53,20 @@ function members_is_private_blog() {
  * @return bool
  */
 function members_is_private_feed() {
-	return members_get_setting( 'private_feed' );
+
+	return apply_filters( 'members_is_private_feed', members_get_setting( 'private_feed' ) );
+}
+
+/**
+ * Conditional tag to see if we have a private REST API
+ *
+ * @since  2.0.0
+ * @access public
+ * @return bool
+ */
+function members_is_private_rest_api() {
+
+	return apply_filters( 'members_is_private_rest_api', members_get_setting( 'private_rest_api' ) );
 }
 
 /**
@@ -61,17 +78,43 @@ function members_is_private_feed() {
  */
 function members_please_log_in() {
 
+	// If this is a multisite instance and the user is logged into the network.
+	if ( members_is_private_blog() && is_multisite() && is_user_logged_in() && ! is_user_member_of_blog() ) {
+		members_ms_private_blog_die();
+	}
+
 	// Check if the private blog feature is active and if the user is not logged in.
-	if ( members_is_private_blog() && ! is_user_logged_in() ) {
+	if ( members_is_private_blog() && ! is_user_logged_in() && members_is_private_page() ) {
 
-		// If using BuddyPress and on the register/activate page, don't do anything.
-		if ( function_exists( 'bp_is_current_component' ) && ( bp_is_current_component( 'register' ) || bp_is_current_component( 'activate' ) ) )
-			return;
-
-		// Redirect to the login page.
 		auth_redirect();
 		exit;
 	}
+}
+
+/**
+ * Function for determining whether a page should be public even though we're in private
+ * site mode.  Plugin devs can filter this to make specific pages public.
+ *
+ * @since  2.0.0
+ * @access public
+ * @return bool
+ */
+function members_is_private_page() {
+
+	$is_private = true;
+
+	if ( function_exists( 'bp_is_current_component' ) && ( bp_is_current_component( 'register' ) || bp_is_current_component( 'activate' ) ) )
+		$is_private = false;
+
+	// WooCommerce support.
+	if ( class_exists( 'WooCommerce' ) ) {
+		$page_id = get_option( 'woocommerce_myaccount_page_id' );
+
+		if ( is_page( $page_id ) )
+			$is_private = false;
+	}
+
+	return apply_filters( 'members_is_private_page', $is_private );
 }
 
 /**
@@ -97,4 +140,65 @@ function members_private_feed( $content ) {
 function members_get_private_feed_message() {
 
 	return apply_filters( 'members_feed_error_message', members_get_setting( 'private_feed_error' ) );
+}
+
+/**
+ * Returns an error if the REST API is accessed by an unauthenticated user.
+ *
+ * @link   https://developer.wordpress.org/rest-api/using-the-rest-api/frequently-asked-questions/#require-authentication-for-all-requests
+ * @since  2.0.0
+ * @access public
+ * @param  object  $result
+ * @return object
+ */
+function members_private_rest_api( $result ) {
+
+	if ( empty( $result ) && members_is_private_rest_api() && ! is_user_logged_in() ) {
+
+		return new WP_Error(
+			'rest_not_logged_in',
+			esc_html(
+				apply_filters(
+					'members_rest_api_error_message',
+					__( 'You are not currently logged in.', 'members' )
+				)
+			),
+			array( 'status' => 401 )
+		);
+	}
+
+	return $result;
+}
+
+/**
+ * Outputs an error message if a user attempts to access a site that they do not have
+ * access to on multisite.
+ *
+ * @since  2.0.0
+ * @access public
+ * @return void
+ */
+function members_ms_private_blog_die() {
+
+	$blogs = get_blogs_of_user( get_current_user_id() );
+
+	$blogname = get_bloginfo( 'name' );
+
+	$message = __( 'You do not currently have access to the "%s" site. If you believe you should have access, please contact your network administrator.', 'members' );
+
+	if ( empty( $blogs ) )
+		wp_die( sprintf( $message, $blogname ), 403 );
+
+	$output = '<p>' . sprintf( $message, $blogname ) . '</p>';
+
+	$output .= sprintf( '<p>%s</p>', __( 'If you reached this page by accident and meant to visit one of your own sites, try one of the following links.', 'members' ) );
+
+	$output .= '<ul>';
+
+	foreach ( $blogs as $blog )
+		$output .= sprintf( '<li><a href="%s">%s</a></li>', esc_url( get_home_url( $blog->userblog_id ) ), esc_html( $blog->blogname ) );
+
+	$output .= '</ul>';
+
+	wp_die( $output, 403 );
 }

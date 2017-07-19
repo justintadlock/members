@@ -38,19 +38,21 @@
 
 #tabcapsdiv { margin-top: 1em; }
 
-	#tabcapsdiv > h3 {
+	#tabcapsdiv > .hndle {
 		padding:       10px;
 		border-bottom: 1px solid #eee;
 	}
 
-	#tabcapsdiv .inside {
+	#tabcapsdiv .inside,
+	#members-cp .inside {
 		margin:  0;
 		padding: 0;
 	}
 
 /* Tabs wrapper. */
 
-.members-cap-tabs {
+.members-cap-tabs,
+.members-tabs {
 	overflow:   hidden;
 	background: #fff;
 	background: linear-gradient( 90deg, #fafafa 0%, #fafafa 20%, #fff 20%, #fff 100% );
@@ -58,14 +60,16 @@
 
 	@media only screen and ( max-width: 782px ) {
 
-		.members-cap-tabs {
+		.members-cap-tabs,
+		.members-tabs {
 			background: linear-gradient( 90deg, #fafafa 0%, #fafafa 48px, #fff 48px, #fff 100% );
 		}
 	}
 
 	/* Tab nav. */
 
-	.members-cap-tabs .members-tab-nav {
+	.members-cap-tabs .members-tab-nav,
+	.members-tabs .members-tab-nav {
 		position:         relative;
 		float:            left;
 		list-style:       none;
@@ -78,7 +82,8 @@
 		box-sizing:       border-box;
 	}
 
-		.members-cap-tabs .members-tab-nav li {
+		.members-cap-tabs .members-tab-nav li,
+		.members-tabs .members-tab-nav li {
 			display:     block;
 			position:    relative;
 			margin:      0;
@@ -86,7 +91,8 @@
 			line-height: 20px;
 		}
 
-			.members-cap-tabs .members-tab-nav li a {
+			.members-cap-tabs .members-tab-nav li a,
+			.members-tabs .members-tab-nav li a {
 				display:         block;
 				margin:          0;
 				padding:         10px;
@@ -96,12 +102,14 @@
 				box-shadow:      none;
 			}
 
-				.members-cap-tabs .members-tab-nav li a .dashicons {
+				.members-cap-tabs .members-tab-nav li a .dashicons,
+				.members-tabs .members-tab-nav li a .dashicons {
 					line-height:  20px;
 					margin-right: 3px;
 				}
 
-			.members-cap-tabs .members-tab-nav li[aria-selected="true"] a {
+			.members-cap-tabs .members-tab-nav li[aria-selected="true"] a,
+			.members-tabs .members-tab-nav li[aria-selected="true"] a {
 				position:         relative;
 				font-weight:      bold;
 				color:            #555;
@@ -110,15 +118,18 @@
 
 	@media only screen and ( max-width: 782px ) {
 
-		.members-cap-tabs .members-tab-nav { width: 48px; }
+		.members-cap-tabs .members-tab-nav,
+		.members-tabs .members-tab-nav { width: 48px; }
 
-		.members-cap-tabs .members-tab-nav li a .dashicons {
+		.members-cap-tabs .members-tab-nav li a .dashicons,
+		.members-tabs .members-tab-nav li a .dashicons {
 			width:       24px;
 			height:      24px;
 			font-size:   24px;
 			line-height: 24px;
 		}
 
+			.members-tab-nav li .dashicons::before,
 			.members-tab-nav li .dashicons::before {
 				width:  24px;
 				height: 24px;
@@ -136,7 +147,8 @@
 
 	/* Tab content wrapper */
 
-	.members-cap-tabs .members-tab-wrap {
+	.members-cap-tabs .members-tab-wrap,
+	.members-tabs .members-tab-wrap {
 		float:       left;
 		width:       80%;
 		margin-left: -1px;
@@ -144,10 +156,86 @@
 
 	@media only screen and ( max-width: 782px ) {
 
-		.members-cap-tabs .members-tab-wrap {
+		.members-cap-tabs .members-tab-wrap,
+		.members-tabs .members-tab-wrap {
 			width: calc( 100% - 48px );
 		}
 	}
+
+#members-cp .members-tab-content {
+	padding: 10px;
+	border-left: 1px solid #e5e5e5;
+}
+
+/* === Manager when in the side meta box. === */
+
+@media only screen and ( min-width: 850px ) {
+
+	#side-sortables .members-tabs { background: #fff; }
+
+	#side-sortables .members-tabs .members-tab-wrap { width: 100%; }
+
+	#side-sortables .members-tabs .members-tab-nav {
+		display: table;
+		width:   100%;
+	}
+
+		#side-sortables .members-tabs .members-tab-nav li {
+			display:      table-cell;
+			text-align:   center;
+			border-right: 1px solid #eee;
+		}
+
+			#side-sortables .members-tabs .members-tab-nav li:last-of-type { border-right: none; }
+
+		#side-sortables .members-tabs .members-tab-nav li a {
+			padding:     10px 0;
+		}
+
+		#side-sortables .members-tabs .members-tab-nav .dashicons {
+			width:       24px;
+			height:      24px;
+			font-size:   24px;
+			line-height: 24px;
+		}
+
+			#side-sortables .members-tabs .members-tab-nav .dashicons::before {
+				width:  24px;
+				height: 24px;
+			}
+
+			#side-sortables .members-tabs .members-tab-nav .label {
+				overflow: hidden;
+				position: absolute;
+				top:      -1000em;
+				left:     -1000em;
+				width:    1px;
+				height:   1px;
+			}
+	}
+
+
+	.members-tabs .members-tabs-label {
+		display       : block !important;
+		font-weight   : bold;
+		display       : inline-block;
+		margin-bottom : 4px;
+	}
+
+		.members-tabs .butterbean-control-checkbox .members-tabs-label {
+			display: inline !important;
+		}
+
+	.members-tabs .members-tabs-description {
+		display       : block;
+		font-style    : italic;
+		margin-top    : 4px;
+	}
+
+		.members-tabs .members-tabs-label + .members-tabs-description {
+			margin-top    : 0;
+			margin-bottom : 4px;
+		}
 
 /* Tab tables. */
 

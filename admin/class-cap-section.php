@@ -4,25 +4,27 @@
  *
  * @package    Members
  * @subpackage Admin
- * @author     Justin Tadlock <justin@justintadlock.com>
- * @copyright  Copyright (c) 2009 - 2016, Justin Tadlock
- * @link       http://themehybrid.com/plugins/members
+ * @author     Justin Tadlock <justintadlock@gmail.com>
+ * @copyright  Copyright (c) 2009 - 2017, Justin Tadlock
+ * @link       https://themehybrid.com/plugins/members
  * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
+
+namespace Members\Admin;
 
 /**
  * Cap section class.
  *
- * @since  1.0.0
+ * @since  2.0.0
  * @access public
  */
-final class Members_Cap_Section {
+final class Cap_Section {
 
 	/**
 	 * Stores the cap tabs object.
 	 *
 	 * @see    Members_Cap_Tabs
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @var    object
 	 */
@@ -31,7 +33,7 @@ final class Members_Cap_Section {
 	/**
 	 * ID of the section.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @var    string
 	 */
@@ -40,7 +42,7 @@ final class Members_Cap_Section {
 	/**
 	 * Dashicons icon for the section.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @var    string
 	 */
@@ -49,7 +51,7 @@ final class Members_Cap_Section {
 	/**
 	 * Label for the section.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @var    string
 	 */
@@ -58,7 +60,7 @@ final class Members_Cap_Section {
 	/**
 	 * Array of data to pass as a json object to the Underscore template.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @var    array
 	 */
@@ -67,7 +69,7 @@ final class Members_Cap_Section {
 	/**
 	 * Creates a new section object.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @param  object  $manager
 	 * @param  string  $section
@@ -89,7 +91,7 @@ final class Members_Cap_Section {
 	/**
 	 * Returns the json array.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return array
 	 */
@@ -101,7 +103,7 @@ final class Members_Cap_Section {
 	/**
 	 * Adds custom data to the json array. This data is passed to the Underscore template.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */

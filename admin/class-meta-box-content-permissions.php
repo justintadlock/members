@@ -4,33 +4,46 @@
  *
  * @package    Members
  * @subpackage Admin
- * @author     Justin Tadlock <justin@justintadlock.com>
- * @copyright  Copyright (c) 2009 - 2016, Justin Tadlock
- * @link       http://themehybrid.com/plugins/members
+ * @author     Justin Tadlock <justintadlock@gmail.com>
+ * @copyright  Copyright (c) 2009 - 2017, Justin Tadlock
+ * @link       https://themehybrid.com/plugins/members
  * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
+
+namespace Members\Admin;
 
 /**
  * Class to handle the content permissios meta box and saving the meta.
  *
- * @since  1.0.0
+ * @since  2.0.0
  * @access public
  */
-final class Members_Meta_Box_Content_Permissions {
+final class Meta_Box_Content_Permissions {
 
 	/**
 	 * Holds the instances of this class.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access private
 	 * @var    object
 	 */
 	private static $instance;
 
 	/**
+	 * Whether this is a new post.  Once the post is saved and we're
+	 * no longer on the `post-new.php` screen, this is going to be
+	 * `false`.
+	 *
+	 * @since  2.0.0
+	 * @access public
+	 * @var    bool
+	 */
+	public $is_new_post = false;
+
+	/**
 	 * Sets up the appropriate actions.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access protected
 	 * @return void
 	 */
@@ -48,11 +61,18 @@ final class Members_Meta_Box_Content_Permissions {
 	 * Fires on the page load hook to add actions specifically for the post and
 	 * new post screens.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */
 	public function load() {
+
+		// Make sure meta box is allowed for this post type.
+		if ( ! $this->maybe_enable() )
+			return;
+
+		// Is this a new post?
+		$this->is_new_post = 'load-post-new.php' === current_action();
 
 		// Enqueue scripts/styles.
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue' ) );
@@ -67,19 +87,20 @@ final class Members_Meta_Box_Content_Permissions {
 	/**
 	 * Enqueues scripts styles.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */
 	public function enqueue() {
 
+		wp_enqueue_script( 'members-edit-post' );
 		wp_enqueue_style( 'members-admin' );
 	}
 
 	/**
 	 * Adds the meta box.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @param  string  $post_type
 	 * @return void
@@ -90,19 +111,32 @@ final class Members_Meta_Box_Content_Permissions {
 		if ( ! current_user_can( 'restrict_content' ) )
 			return;
 
-		// Get the post type object.
-		$type = get_post_type_object( $post_type );
+		// Add the meta box.
+		add_meta_box( 'members-cp', esc_html__( 'Content Permissions', 'members' ), array( $this, 'meta_box' ), $post_type, 'advanced', 'high' );
+	}
 
-		// If this is a public post type, add the meta box.
-		// Note that we're disabling for attachments b/c users get confused between "content" and "file".
-		if ( 'attachment' !== $type->name && $type->public )
-			add_meta_box( 'members-cp', esc_html__( 'Content Permissions', 'members' ), array( $this, 'meta_box' ), $post_type, 'advanced', 'high' );
+	/**
+	 * Checks if Content Permissions should appear for the given post type.
+	 *
+	 * @since  2.0.0
+	 * @access public
+	 * @return bool
+	 */
+	public function maybe_enable() {
+
+		// Get the post type object.
+		$type = get_post_type_object( get_current_screen()->post_type );
+
+		// Only enable for public post types and non-attachments by default.
+		$enable = 'attachment' !== $type->name && $type->public;
+
+		return apply_filters( "members_enable_{$type->name}_content_permissions", $enable );
 	}
 
 	/**
 	 * Outputs the meta box HTML.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @param  object  $post
 	 * @global object  $wp_roles
@@ -118,6 +152,9 @@ final class Members_Meta_Box_Content_Permissions {
 		// Get the roles saved for the post.
 		$roles = get_post_meta( $post->ID, '_members_access_role', false );
 
+		if ( ! $roles && $this->is_new_post )
+			$roles = apply_filters( 'members_default_post_roles', array(), $post->ID );
+
 		// Convert old post meta to the new system if no roles were found.
 		if ( empty( $roles ) )
 			$roles = members_convert_old_post_meta( $post->ID );
@@ -128,35 +165,69 @@ final class Members_Meta_Box_Content_Permissions {
 		// Hook for firing at the top of the meta box.
 		do_action( 'members_cp_meta_box_before', $post ); ?>
 
-		<p>
-			<?php esc_html_e( "Limit access to this post's content to users of the selected roles.", 'members' ); ?>
-		</p>
+		<div class="members-tabs members-cp-tabs">
 
-		<div class="members-cp-role-list-wrap">
-
-			<ul class="members-cp-role-list">
-
-			<?php foreach ( $_wp_roles as $role => $name ) : ?>
-				<li>
-					<label>
-						<input type="checkbox" name="members_access_role[]" <?php checked( is_array( $roles ) && in_array( $role, $roles ) ); ?> value="<?php echo esc_attr( $role ); ?>" />
-						<?php echo esc_html( translate_user_role( $name ) ); ?>
-					</label>
+			<ul class="members-tab-nav">
+				<li class="members-tab-title">
+					<a href="#members-tab-cp-roles">
+						<i class="dashicons dashicons-groups"></i>
+						<span class="label"><?php esc_html_e( 'Roles', 'members' ); ?></span>
+					</a>
 				</li>
-			<?php endforeach; ?>
-
+				<li class="members-tab-title">
+					<a href="#members-tab-cp-message">
+						<i class="dashicons dashicons-edit"></i>
+						<span class="label"><?php esc_html_e( 'Error Message', 'members' ); ?></span>
+					</a>
+				</li>
 			</ul>
-		</div>
 
-		<p class="howto">
-			<?php printf( esc_html__( 'If no roles are selected, everyone can view the content. The post author, any users who can edit this post, and users with the %s capability can view the content regardless of role.', 'members' ), '<code>restrict_content</code>' ); ?>
-		</p>
+			<div class="members-tab-wrap">
 
-		<p>
-			<label for="members_access_error"><?php esc_html_e( 'Custom error message:', 'members' ); ?></label>
-			<textarea class="widefat" id="members_access_error" name="members_access_error" rows="6"><?php echo esc_textarea( get_post_meta( $post->ID, '_members_access_error', true ) ); ?></textarea>
-			<span class="howto"><?php _e( 'Message shown to users that do not have permission to view the post.', 'members' ); ?></span>
-		</p><?php
+				<div id="members-tab-cp-roles" class="members-tab-content">
+
+					<span class="members-tabs-label">
+						<?php esc_html_e( 'Limit access to the content to users of the selected roles.', 'members' ); ?>
+					</span>
+
+					<div class="members-cp-role-list-wrap">
+
+						<ul class="members-cp-role-list">
+
+						<?php foreach ( $_wp_roles as $role => $name ) : ?>
+							<li>
+								<label>
+									<input type="checkbox" name="members_access_role[]" <?php checked( is_array( $roles ) && in_array( $role, $roles ) ); ?> value="<?php echo esc_attr( $role ); ?>" />
+									<?php echo esc_html( translate_user_role( $name ) ); ?>
+								</label>
+							</li>
+						<?php endforeach; ?>
+
+						</ul>
+					</div>
+
+					<span class="members-tabs-description">
+						<?php printf( esc_html__( 'If no roles are selected, everyone can view the content. The author, any users who can edit the content, and users with the %s capability can view the content regardless of role.', 'members' ), '<code>restrict_content</code>' ); ?>
+					</span>
+
+				</div>
+
+				<div id="members-tab-cp-message" class="members-tab-content">
+
+					<?php wp_editor(
+						get_post_meta( $post->ID, '_members_access_error', true ),
+						'members_access_error',
+						array(
+							'drag_drop_upload' => true,
+							'editor_height'    => 200
+						)
+					); ?>
+
+				</div>
+
+			</div><!-- .members-tab-wrap -->
+
+		</div><!-- .members-tabs --><?php
 
 		// Hook that fires at the end of the meta box.
 		do_action( 'members_cp_meta_box_after', $post );
@@ -165,13 +236,20 @@ final class Members_Meta_Box_Content_Permissions {
 	/**
 	 * Saves the post meta.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @param  int     $post_id
 	 * @param  object  $post
 	 * @return void
 	 */
 	public function update( $post_id, $post = '' ) {
+
+		$do_autosave = defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE;
+		$is_autosave = wp_is_post_autosave( $post_id );
+		$is_revision = wp_is_post_revision( $post_id );
+
+		if ( $do_autosave || $is_autosave || $is_revision )
+			return;
 
 		// Fix for attachment save issue in WordPress 3.5.
 		// @link http://core.trac.wordpress.org/ticket/21963
@@ -204,7 +282,7 @@ final class Members_Meta_Box_Content_Permissions {
 		$old_message = members_get_post_access_message( $post_id );
 
 		// Get the new message.
-		$new_message = isset( $_POST['members_access_error'] ) ? stripslashes( wp_filter_post_kses( addslashes( $_POST['members_access_error'] ) ) ) : '';
+		$new_message = isset( $_POST['members_access_error'] ) ? wp_kses_post( wp_unslash( $_POST['members_access_error'] ) ) : '';
 
 		// If we have don't have a new message but do have an old one, delete it.
 		if ( '' == $new_message && $old_message )
@@ -218,7 +296,7 @@ final class Members_Meta_Box_Content_Permissions {
 	/**
 	 * Returns the instance.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return object
 	 */
@@ -231,4 +309,4 @@ final class Members_Meta_Box_Content_Permissions {
 	}
 }
 
-Members_Meta_Box_Content_Permissions::get_instance();
+Meta_Box_Content_Permissions::get_instance();
