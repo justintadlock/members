@@ -81,7 +81,7 @@ function members_register_default_cap_groups() {
 				'label'    => $type->labels->name,
 				'caps'     => $has_caps,
 				'icon'     => $icon,
-				'priority' => 5
+				'priority' => 10
 			)
 		);
 	}
@@ -93,7 +93,7 @@ function members_register_default_cap_groups() {
 			'caps'       => members_get_taxonomy_group_caps(),
 			'icon'       => 'dashicons-tag',
 			'diff_added' => true,
-			'priority'   => 10
+			'priority'   => 15
 		)
 	);
 
@@ -102,7 +102,7 @@ function members_register_default_cap_groups() {
 		array(
 			'label'    => esc_html__( 'Appearance', 'members' ),
 			'icon'     => 'dashicons-admin-appearance',
-			'priority' => 15
+			'priority' => 20
 		)
 	);
 
@@ -111,7 +111,7 @@ function members_register_default_cap_groups() {
 		array(
 			'label'    => esc_html__( 'Plugins', 'members' ),
 			'icon'     => 'dashicons-admin-plugins',
-			'priority' => 20
+			'priority' => 25
 		)
 	);
 
@@ -120,7 +120,7 @@ function members_register_default_cap_groups() {
 		array(
 			'label'    => esc_html__( 'Users', 'members' ),
 			'icon'     => 'dashicons-admin-users',
-			'priority' => 25
+			'priority' => 30
 		)
 	);
 
