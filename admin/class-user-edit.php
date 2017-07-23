@@ -172,7 +172,7 @@ final class User_Edit {
 		} else {
 
 			// Loop through the current user roles.
-			foreach ( (array) $user->roles as $old_role ) {
+			foreach ( (array) $old_user_data->roles as $old_role ) {
 
 				// Remove the role if it is editable.
 				if ( members_is_role_editable( $old_role ) )
