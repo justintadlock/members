@@ -21,8 +21,11 @@ add_filter( 'the_excerpt_rss',  'members_private_feed', 95 );
 add_filter( 'comment_text_rss', 'members_private_feed', 95 );
 
 # Filters for the feed error message.
-add_filter( 'members_feed_error_message', array( $GLOBALS['wp_embed'], 'run_shortcode' ),   5 );
-add_filter( 'members_feed_error_message', array( $GLOBALS['wp_embed'], 'autoembed'     ),   5 );
+if (!empty($GLOBALS['wp_embed']))
+{
+    add_filter( 'members_feed_error_message', array( $GLOBALS['wp_embed'], 'run_shortcode' ),   5 );
+    add_filter( 'members_feed_error_message', array( $GLOBALS['wp_embed'], 'autoembed'     ),   5 );
+}
 add_filter( 'members_feed_error_message',                              'wptexturize',       10 );
 add_filter( 'members_feed_error_message',                              'convert_smilies',   15 );
 add_filter( 'members_feed_error_message',                              'convert_chars',     20 );
