@@ -176,6 +176,16 @@ final class Members_Plugin {
 	 */
 	private function includes() {
 
+		// Check if we meet the minimum PHP version.
+		if ( version_compare( PHP_VERSION, $this->php_version, '<' ) ) {
+
+			// Add admin notice.
+			add_action( 'admin_notices', array( $this, 'php_admin_notice' ) );
+
+			// Bail.
+			return;
+		}
+
 		// Load class files.
 		require_once( $this->dir . 'inc/class-capability.php' );
 		require_once( $this->dir . 'inc/class-cap-group.php'  );
@@ -278,11 +288,7 @@ final class Members_Plugin {
 			deactivate_plugins( plugin_basename( __FILE__ ) );
 
 			// Add an error message and die.
-			wp_die( sprintf(
-				__( 'Members requires PHP version %1$s. You are running version %2$s. Please upgrade and try again.', 'members' ),
-				$this->php_version,
-				PHP_VERSION
-			) );
+			wp_die( $this->get_min_php_message() );
 		}
 
 		// Get the administrator role.
@@ -297,6 +303,42 @@ final class Members_Plugin {
 			$role->add_cap( 'edit_roles'       ); // Edit existing roles/caps.
 			$role->add_cap( 'restrict_content' ); // Edit per-post content permissions.
 		}
+	}
+
+	/**
+	 * Returns a message noting the minimum version of PHP required.
+	 *
+	 * @since  2.0.1
+	 * @access private
+	 * @return void
+	 */
+	private function get_min_php_message() {
+
+		return sprintf(
+			__( 'Members requires PHP version %1$s. You are running version %2$s. Please upgrade and try again.', 'members' ),
+			$this->php_version,
+			PHP_VERSION
+		);
+	}
+
+	/**
+	 * Outputs the admin notice that the user needs to upgrade their PHP version. It also
+	 * auto-deactivates the plugin.
+	 *
+	 * @since  2.0.1
+	 * @access public
+	 * @return void
+	 */
+	public function php_admin_notice() {
+
+		// Output notice.
+		printf(
+			'<div class="notice notice-error is-dismissible"><p><strong>%s</strong></p></div>',
+			esc_html( $this->get_min_php_message() )
+		);
+
+		// Make sure the plugin is deactivated.
+		deactivate_plugins( plugin_basename( __FILE__ ) );
 	}
 }
 
