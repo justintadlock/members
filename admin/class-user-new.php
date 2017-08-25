@@ -199,7 +199,7 @@ final class User_New {
 		}
 	}
 
-	public function signup_user_meta( $meta ) {
+	public function mu_signup_user_meta( $meta ) {
 
 		// If the current user can't promote users or edit this particular user, bail.
 		if ( ! current_user_can( 'promote_users' ) )
