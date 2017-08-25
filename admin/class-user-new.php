@@ -53,6 +53,21 @@ final class User_New {
 
 		// Only run our customization on the 'user-edit.php' page in the admin.
 		add_action( 'load-user-new.php', array( $this, 'load' ) );
+
+		if ( is_multisite() ) {
+
+			add_filter( 'signup_user_meta', array( $this, 'mu_signup_user_meta' ) );
+
+			// Note that `add_new_user_to_blog()` is called with a priority of 10.  That
+			// function sets the role.  So, we need to execute after that.
+			add_action( 'wpmu_activate_user', array( $this, 'mu_activate_user' ), 15, 3 );
+
+		} else {
+
+			// Sets the new user's roles.
+			add_action( 'user_register', array( $this, 'user_register' ) );
+		}
+
 	}
 
 	/**
@@ -66,9 +81,6 @@ final class User_New {
 
 		// Adds the profile fields.
 		add_action( 'user_new_form', array( $this, 'profile_fields' ) );
-
-		// Sets the new user's roles.
-		add_action( 'user_register', array( $this, 'user_register' ) );
 
 		// Handle scripts.
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue' ) );
@@ -182,6 +194,73 @@ final class User_New {
 
 				// Remove the role if it is editable.
 				if ( members_is_role_editable( $old_role ) )
+					$user->remove_role( $old_role );
+			}
+		}
+	}
+
+	public function signup_user_meta( $meta ) {
+
+		// If the current user can't promote users or edit this particular user, bail.
+		if ( ! current_user_can( 'promote_users' ) )
+			return;
+
+		// Is this a role change?
+		if ( ! isset( $_POST['members_new_user_roles_nonce'] ) || ! wp_verify_nonce( $_POST['members_new_user_roles_nonce'], 'new_user_roles' ) )
+			return;
+
+		// If we have an array of roles.
+		if ( ! empty( $_POST['members_user_roles'] ) ) {
+
+			// Sanitize the posted roles.
+			$new_roles = array_map( 'members_sanitize_role', $_POST['members_user_roles'] );
+
+			$meta['members_user_roles'] = array();
+
+			foreach ( $new_roles as $new_role ) {
+
+				if ( members_is_role_editable( $new_role ) )
+					$meta['members_user_roles'][] = $new_role;
+			}
+
+			// Makes sure that the `new_role` meta gets passed through.  WP needs this when first setting
+			// up the user signup.  We're going to fix roles later.
+			if ( empty( $_REQUEST['role'] ) || ! $meta['new_role'] && isset( $meta['members_user_roles'][0] ) ) {
+
+				$meta['new_role'] = $meta['members_user_roles'][0];
+			}
+		}
+
+		return $meta;
+	}
+
+	public function mu_activate_user( $user_id, $password, $meta ) {
+
+		// Create a new user object.
+		$user = new \WP_User( $user_id );
+
+		// If we have an array of roles.
+		if ( ! empty( $meta['members_user_roles'] ) ) {
+
+			// Get the current user roles.
+			$old_roles = (array) $user->roles;
+
+			// Sanitize the posted roles.
+			$new_roles = array_map( 'members_sanitize_role', $meta['members_user_roles'] );
+
+			// Loop through the posted roles.
+			foreach ( $new_roles as $new_role ) {
+
+				// If the user doesn't already have the role, add it.
+				if ( ! in_array( $new_role, (array) $user->roles ) )
+					$user->add_role( $new_role );
+			}
+
+			// Loop through the current user roles.
+			foreach ( $old_roles as $old_role ) {
+
+				// If the role is not in the new roles array, remove it.
+				if ( ! in_array( $old_role, $new_roles ) )
 					$user->remove_role( $old_role );
 			}
 		}
