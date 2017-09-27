@@ -199,15 +199,25 @@ final class User_New {
 		}
 	}
 
+	/**
+	 * Called on multisite when a new user is created. We need to store the roles
+	 * as part of the signup metadata.  These will get assigned to the user once
+	 * the user has been activated.
+	 *
+	 * @since  2.0.1
+	 * @access public
+	 * @param  array   $meta
+	 * @return array
+	 */
 	public function mu_signup_user_meta( $meta ) {
 
 		// If the current user can't promote users or edit this particular user, bail.
 		if ( ! current_user_can( 'promote_users' ) )
-			return;
+			return $meta;
 
-		// Is this a role change?
+		// Verify the new role nonce?
 		if ( ! isset( $_POST['members_new_user_roles_nonce'] ) || ! wp_verify_nonce( $_POST['members_new_user_roles_nonce'], 'new_user_roles' ) )
-			return;
+			return $meta;
 
 		// If we have an array of roles.
 		if ( ! empty( $_POST['members_user_roles'] ) ) {
@@ -223,24 +233,40 @@ final class User_New {
 					$meta['members_user_roles'][] = $new_role;
 			}
 
-			// Makes sure that the `new_role` meta gets passed through.  WP needs this when first setting
-			// up the user signup.  We're going to fix roles later.
+			// Makes sure that the `new_role` meta gets passed through.  WP needs this
+			// when first setting up the user signup.  We're going to fix roles later.
 			if ( empty( $_REQUEST['role'] ) || ! $meta['new_role'] && isset( $meta['members_user_roles'][0] ) ) {
 
 				$meta['new_role'] = $meta['members_user_roles'][0];
 			}
+
+		// If no roles were chosen and no new role is set, give the new user the default role.
+		} elseif ( empty( $meta['new_role'] ) ) {
+
+			$meta['new_role'] = get_option( 'default_role' );
 		}
 
 		return $meta;
 	}
 
+	/**
+	 * Callback function when a new user is activated in multisite.  This function
+	 * gets the roles we stored as meta upon signup and assigns them to the user.
+	 *
+	 * @since  2.0.1
+	 * @access public
+	 * @param  int     $user_id
+	 * @param  string  $password
+	 * @param  array   $meta
+	 * @return void
+	 */
 	public function mu_activate_user( $user_id, $password, $meta ) {
-
-		// Create a new user object.
-		$user = new \WP_User( $user_id );
 
 		// If we have an array of roles.
 		if ( ! empty( $meta['members_user_roles'] ) ) {
+
+			// Create a new user object.
+			$user = new \WP_User( $user_id );
 
 			// Get the current user roles.
 			$old_roles = (array) $user->roles;
