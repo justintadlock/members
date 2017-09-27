@@ -40,7 +40,7 @@ function members_register_default_roles( $wp_roles ) {
 	foreach ( $wp_roles->roles as $name => $object ) {
 
 		$args = array(
-			'label' => $object['name'],
+			'label' => members_translate_role_hook( $object['name'], $name ),
 			'caps'  => $object['capabilities']
 		);
 
@@ -247,7 +247,23 @@ function members_sanitize_role( $role ) {
 function members_translate_role( $role ) {
 	global $wp_roles;
 
-	return apply_filters( 'members_translate_role', translate_user_role( $wp_roles->role_names[ $role ] ), $role );
+	return members_translate_role_hook( $wp_roles->role_names[ $role ], $role );
+}
+
+/**
+ * Hook for translating user roles. I needed to separate this from the primary
+ * `members_translate_role()` function in case `$wp_roles` was not yet available
+ * but both the role and role label were.
+ *
+ * @since  2.0.1
+ * @access public
+ * @param  string  $label
+ * @param  string  $role
+ * @return string
+ */
+function members_translate_role_hook( $label, $role ) {
+
+	return apply_filters( 'members_translate_role', translate_user_role( $label ), $role );
 }
 
 /**
