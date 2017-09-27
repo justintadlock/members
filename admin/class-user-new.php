@@ -62,6 +62,9 @@ final class User_New {
 			// function sets the role.  So, we need to execute after that.
 			add_action( 'wpmu_activate_user', array( $this, 'mu_activate_user' ), 15, 3 );
 
+			// Hook into the notification email.
+			add_filter( 'wpmu_signup_user_notification_email', 'mu_user_notify_email', 5 );
+
 		} else {
 
 			// Sets the new user's roles.
@@ -290,6 +293,27 @@ final class User_New {
 					$user->remove_role( $old_role );
 			}
 		}
+	}
+
+	/**
+	 * The core WP function `admin_created_user_email()` relies on a hardcoded
+	 * `$_REQUEST['role']`.  So, we're hijacking the email and sending our own.
+	 *
+	 * @since  2.0.1
+	 * @access public
+	 * @param  string  $text
+	 * @return string
+	 */
+	public function ms_user_notify_email( $text ) {
+
+		remove_filter( 'wpmu_signup_user_notification_email', 'admin_created_user_email' );
+
+		return sprintf(
+			// Translators: 1 is the site name, 2 is the site URL, and %%s is replaced with the activate URL.
+			esc_html__( "You've been invited to join %1$s at %2$s. Please click the following link to activate your user account: %%s", 'members' ),
+			esc_html( get_bloginfo( 'name' ) ),
+			esc_url( home_url() )
+		);
 	}
 
 	/**
