@@ -63,7 +63,7 @@ final class User_New {
 			add_action( 'wpmu_activate_user', array( $this, 'mu_activate_user' ), 15, 3 );
 
 			// Hook into the notification email.
-			add_filter( 'wpmu_signup_user_notification_email', 'mu_user_notify_email', 5 );
+			add_filter( 'wpmu_signup_user_notification_email', array( $this, 'mu_user_notify_email' ), 5 );
 
 		} else {
 
