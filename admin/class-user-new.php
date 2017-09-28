@@ -58,7 +58,7 @@ final class User_New {
 		add_action( 'load-user-new.php', array( $this, 'load' ) );
 
 		// Sets the new user's roles.
-		add_action( 'user_register', array( $this, 'user_register' ) );
+		add_action( 'user_register', array( $this, 'user_register' ), 5 );
 	}
 
 	/**
