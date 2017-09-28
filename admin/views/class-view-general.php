@@ -99,6 +99,7 @@ class View_General extends View {
 		// Validate true/false checkboxes.
 		$settings['role_manager']         = ! empty( $settings['role_manager'] )         ? true : false;
 		$settings['explicit_denied_caps'] = ! empty( $settings['explicit_denied_caps'] ) ? true : false;
+		$settings['show_human_caps']      = ! empty( $settings['show_human_caps'] )      ? true : false;
 		$settings['multi_roles']          = ! empty( $settings['multi_roles'] )          ? true : false;
 		$settings['content_permissions']  = ! empty( $settings['content_permissions'] )  ? true : false;
 		$settings['login_form_widget']    = ! empty( $settings['login_form_widget'] )    ? true : false;

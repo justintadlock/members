@@ -48,11 +48,17 @@ final class User_New {
 	private function setup_actions() {
 
 		// If multiple roles per user is not enabled, bail.
-		if ( ! members_multiple_user_roles_enabled() )
+		//
+		// @since 2.0.1 Added a check to not run on multisite.
+		// @link https://github.com/justintadlock/members/issues/153
+		if ( ! members_multiple_user_roles_enabled() || is_multisite() )
 			return;
 
 		// Only run our customization on the 'user-edit.php' page in the admin.
 		add_action( 'load-user-new.php', array( $this, 'load' ) );
+
+		// Sets the new user's roles.
+		add_action( 'user_register', array( $this, 'user_register' ), 5 );
 	}
 
 	/**
@@ -66,9 +72,6 @@ final class User_New {
 
 		// Adds the profile fields.
 		add_action( 'user_new_form', array( $this, 'profile_fields' ) );
-
-		// Sets the new user's roles.
-		add_action( 'user_register', array( $this, 'user_register' ) );
 
 		// Handle scripts.
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue' ) );

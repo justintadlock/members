@@ -78,13 +78,17 @@ function members_is_private_rest_api() {
  */
 function members_please_log_in() {
 
+	// If private blog is not enabled, bail.
+	if ( ! members_is_private_blog() )
+		return;
+
 	// If this is a multisite instance and the user is logged into the network.
-	if ( members_is_private_blog() && is_multisite() && is_user_logged_in() && ! is_user_member_of_blog() ) {
+	if ( is_multisite() && is_user_logged_in() && ! is_user_member_of_blog() && ! is_super_admin() ) {
 		members_ms_private_blog_die();
 	}
 
 	// Check if the private blog feature is active and if the user is not logged in.
-	if ( members_is_private_blog() && ! is_user_logged_in() && members_is_private_page() ) {
+	if ( ! is_user_logged_in() && members_is_private_page() ) {
 
 		auth_redirect();
 		exit;

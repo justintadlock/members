@@ -1,5 +1,20 @@
 # Change Log
 
+## [2.0.1] - 2017-09-28
+
+### Changed
+
+* Cap groups registered by the plugin bumped up 5 in priority. Primarily, this was to make sure post type cap groups were registered earlier than the default of `10`.
+* Better handling of the PHP notice.  We're going to check prior to loading any other code and add an admin notice if the site doesn't meet minimum requirements.
+
+### Fixed
+
+* The `show_human_caps` setting was not properly saving because it wasn't accounted for in the validation callback.
+* Make sure to use the correct `$old_user_data` variable when removing all roles from a user. Otherwise, this doesn't work.
+* Super admins should be able to see any private site when multisite is enabled.
+* Make sure that role labels (where the plugin outputs them) are the translated version.
+* Multi-role selection has been removed for the Add New User screen on multisite installs.  This was to address multiple issues in core with hardcoded values that the plugin couldn't filter.  The feature may return in the future in a different form.  Note that this doesn't change single-site installs.
+
 ## [2.0.0] - 2017-07-19
 
 ### Added
