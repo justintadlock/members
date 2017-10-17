@@ -93,9 +93,9 @@ function members_can_user_view_post( $user_id, $post_id = '' ) {
 	if ( apply_filters( 'members_check_parent_post_permission', $check_parent, $post_id, $user_id ) ) {
 
 		$parent_id = 0;
-        	$post_id = get_post($post_id);
+        	$post_id = get_post( $post_id );
 
-		if (is_object($post_id)) {
+		if ( is_object( $post_id ) ) {
 		    $parent_id = $post_id->post_parent;
 		}
 
