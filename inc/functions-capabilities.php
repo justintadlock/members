@@ -372,6 +372,23 @@ function members_get_hidden_caps() {
 	// This is always a hidden cap and should never be added to the caps list.
 	$caps[] = 'do_not_allow';
 
+	// Network-level caps.
+	// These shouldn't show on single-site installs anyway.
+	// On multisite installs, they should only appear for super-admins.
+	if ( ! is_multisite() || ( is_multisite() && ! is_super_admin() ) ) {
+
+		$caps[] = 'create_sites';
+		$caps[] = 'delete_sites';
+		$caps[] = 'manage_network';
+		$caps[] = 'manage_sites';
+		$caps[] = 'manage_network_users';
+		$caps[] = 'manage_network_plugins';
+		$caps[] = 'manage_network_themes';
+		$caps[] = 'manage_network_options';
+		$caps[] = 'setup_network';
+		$caps[] = 'upgrade_network';
+	}
+
 	// Unfiltered uploads.
 	if ( is_multisite() || ! defined( 'ALLOW_UNFILTERED_UPLOADS' ) || ! ALLOW_UNFILTERED_UPLOADS )
 		$caps[] = 'unfiltered_upload';

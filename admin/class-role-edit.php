@@ -120,12 +120,12 @@ final class Role_Edit {
 			check_admin_referer( 'edit_role', 'members_edit_role_nonce' );
 
 			// Get the granted and denied caps.
-			$grant_caps = ! empty( $_POST['grant-caps'] ) ? array_unique( $_POST['grant-caps'] ) : array();
-			$deny_caps  = ! empty( $_POST['deny-caps'] )  ? array_unique( $_POST['deny-caps']  ) : array();
+			$grant_caps = ! empty( $_POST['grant-caps'] ) ? members_remove_hidden_caps( array_unique( $_POST['grant-caps'] ) ) : array();
+			$deny_caps  = ! empty( $_POST['deny-caps'] )  ? members_remove_hidden_caps( array_unique( $_POST['deny-caps']  ) ) : array();
 
 			// Get the new (custom) granted and denied caps.
-			$grant_new_caps = ! empty( $_POST['grant-new-caps'] ) ? array_unique( $_POST['grant-new-caps'] ) : array();
-			$deny_new_caps  = ! empty( $_POST['deny-new-caps'] )  ? array_unique( $_POST['deny-new-caps']  ) : array();
+			$grant_new_caps = ! empty( $_POST['grant-new-caps'] ) ? members_remove_hidden_caps( array_unique( $_POST['grant-new-caps'] ) ) : array();
+			$deny_new_caps  = ! empty( $_POST['deny-new-caps'] )  ? members_remove_hidden_caps( array_unique( $_POST['deny-new-caps']  ) ) : array();
 
 			// Get the all and custom cap group objects.
 			$all_group    = members_get_cap_group( 'all'    );

@@ -161,8 +161,8 @@ final class Role_New {
 			// Check if any capabilities were selected.
 			if ( isset( $_POST['grant-caps'] ) || isset( $_POST['deny-caps'] ) ) {
 
-				$grant_caps = ! empty( $_POST['grant-caps'] ) ? array_unique( $_POST['grant-caps'] ) : array();
-				$deny_caps  = ! empty( $_POST['deny-caps'] )  ? array_unique( $_POST['deny-caps']  ) : array();
+				$grant_caps = ! empty( $_POST['grant-caps'] ) ? members_remove_hidden_caps( array_unique( $_POST['grant-caps'] ) ) : array();
+				$deny_caps  = ! empty( $_POST['deny-caps'] )  ? members_remove_hidden_caps( array_unique( $_POST['deny-caps']  ) ) : array();
 
 				foreach ( $_m_caps as $cap ) {
 
@@ -174,14 +174,14 @@ final class Role_New {
 				}
 			}
 
-			$grant_new_caps = ! empty( $_POST['grant-new-caps'] ) ? array_unique( $_POST['grant-new-caps'] ) : array();
-			$deny_new_caps  = ! empty( $_POST['deny-new-caps'] )  ? array_unique( $_POST['deny-new-caps']  ) : array();
+			$grant_new_caps = ! empty( $_POST['grant-new-caps'] ) ? members_remove_hidden_caps( array_unique( $_POST['grant-new-caps'] ) ) : array();
+			$deny_new_caps  = ! empty( $_POST['deny-new-caps'] )  ? members_remove_hidden_caps( array_unique( $_POST['deny-new-caps']  ) ) : array();
 
 			foreach ( $grant_new_caps as $grant_new_cap ) {
 
 				$_cap = members_sanitize_cap( $grant_new_cap );
 
-				if ( 'do_not_allow' !== $_cap && ! in_array( $_cap, $_m_caps ) )
+				if ( ! in_array( $_cap, $_m_caps ) )
 					$new_caps[ $_cap ] = true;
 			}
 
@@ -189,7 +189,7 @@ final class Role_New {
 
 				$_cap = members_sanitize_cap( $deny_new_cap );
 
-				if ( 'do_not_allow' !== $_cap && ! in_array( $_cap, $_m_caps ) )
+				if ( ! in_array( $_cap, $_m_caps ) )
 					$new_caps[ $_cap ] = false;
 			}
 
