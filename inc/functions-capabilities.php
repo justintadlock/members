@@ -383,8 +383,11 @@ function members_get_hidden_caps() {
 	$caps[] = 'manage_network_plugins';
 	$caps[] = 'manage_network_themes';
 	$caps[] = 'manage_network_options';
-	$caps[] = 'setup_network';
 	$caps[] = 'upgrade_network';
+
+	// This cap is needed on single site to set up a multisite network.
+	if ( is_multisite() )
+		$caps[] = 'setup_network';
 
 	// Unfiltered uploads.
 	if ( is_multisite() || ! defined( 'ALLOW_UNFILTERED_UPLOADS' ) || ! ALLOW_UNFILTERED_UPLOADS )
