@@ -229,7 +229,7 @@ class Widget_Users extends \WP_Widget {
 			<select class="widefat" id="<?php echo $this->get_field_id( 'role' ); ?>" name="<?php echo $this->get_field_name( 'role' ); ?>">
 				<option value="" <?php selected( $instance['role'], '' ); ?>></option>
 				<?php foreach ( $roles as $name => $role ) : ?>
-					<option value="<?php echo esc_attr( $name ); ?>" <?php selected( $instance['role'], $name ); ?>><?php echo esc_html( $role->label ); ?></option>
+					<option value="<?php echo esc_attr( $name ); ?>" <?php selected( $instance['role'], $name ); ?>><?php echo esc_html( $role->get( 'label' ) ); ?></option>
 				<?php endforeach; ?>
 			</select>
 		</p>

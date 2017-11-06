@@ -41,7 +41,7 @@ function members_get_active_role_names() {
 	$has_users = array();
 
 	foreach ( members_get_active_roles() as $role )
-		$has_users[ $role ] = members_get_role( $role )->label;
+		$has_users[ $role ] = members_get_role( $role )->get( 'label' );
 
 	return $has_users;
 }

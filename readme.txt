@@ -4,9 +4,9 @@ Contributors: greenshady
 Donate link: https://themehybrid.com/donate
 Tags: capabilities, roles, members, users
 Requires at least: 4.7
-Tested up to: 4.8.2
+Tested up to: 4.8.3
 Requires PHP: 5.3
-Stable tag: 2.0.1
+Stable tag: 2.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -79,6 +79,12 @@ Since version 2.0.0 of Members, PHP 5.3.0+ is required to use the plugin.  The p
 When the plugin is first activated, it runs a script that sets specific capabilities to the "Administrator" role on your site that grants you access to this feature.  So, you must be logged in with the administrator account to access the role manager.
 
 If, for some reason, you do have the administrator role and the role manager is still inaccessible to you, deactivate the plugin.  Then, reactivate it.
+
+### On multisite, why can't administrators cannot manage roles?
+
+If you have a multisite installation, only Super Admins can create, edit, and delete roles by default.  This is a security measure to make sure that you absolutely trust sub-site admins to make these types of changes to roles.  If you're certain you want to allow this, add the Create Roles (`create_roles`), Edit Roles (`edit_roles`), and/or Delete Roles (`delete_roles`) capabilities to the role on each sub-site where you want to allow this.
+
+_Note: This change was made in version 2.0.2 and has no effect on existing installs of Members on existing sub-sites._
 
 ### Help! I've locked myself out of my site!
 

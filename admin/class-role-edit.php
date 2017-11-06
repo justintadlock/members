@@ -120,12 +120,12 @@ final class Role_Edit {
 			check_admin_referer( 'edit_role', 'members_edit_role_nonce' );
 
 			// Get the granted and denied caps.
-			$grant_caps = ! empty( $_POST['grant-caps'] ) ? array_unique( $_POST['grant-caps'] ) : array();
-			$deny_caps  = ! empty( $_POST['deny-caps'] )  ? array_unique( $_POST['deny-caps']  ) : array();
+			$grant_caps = ! empty( $_POST['grant-caps'] ) ? members_remove_hidden_caps( array_unique( $_POST['grant-caps'] ) ) : array();
+			$deny_caps  = ! empty( $_POST['deny-caps'] )  ? members_remove_hidden_caps( array_unique( $_POST['deny-caps']  ) ) : array();
 
 			// Get the new (custom) granted and denied caps.
-			$grant_new_caps = ! empty( $_POST['grant-new-caps'] ) ? array_unique( $_POST['grant-new-caps'] ) : array();
-			$deny_new_caps  = ! empty( $_POST['deny-new-caps'] )  ? array_unique( $_POST['deny-new-caps']  ) : array();
+			$grant_new_caps = ! empty( $_POST['grant-new-caps'] ) ? members_remove_hidden_caps( array_unique( $_POST['grant-new-caps'] ) ) : array();
+			$deny_new_caps  = ! empty( $_POST['deny-new-caps'] )  ? members_remove_hidden_caps( array_unique( $_POST['deny-new-caps']  ) ) : array();
 
 			// Get the all and custom cap group objects.
 			$all_group    = members_get_cap_group( 'all'    );
@@ -208,7 +208,7 @@ final class Role_Edit {
 			members_register_role(
 				$this->role->name,
 				array(
-					'label' => $this->members_role->label,
+					'label' => $this->members_role->get( 'label' ),
 					'caps'  => $this->role->capabilities
 				)
 			);
@@ -223,19 +223,19 @@ final class Role_Edit {
 
 		// If successful update.
 		if ( $this->role_updated )
-			add_settings_error( 'members_edit_role', 'role_updated', sprintf( esc_html__( '%s role updated.', 'members' ), members_get_role( $this->role->name )->label ), 'updated' );
+			add_settings_error( 'members_edit_role', 'role_updated', sprintf( esc_html__( '%s role updated.', 'members' ), members_get_role( $this->role->name )->get( 'label' ) ), 'updated' );
 
 		// If the role is not editable.
 		if ( ! $this->is_editable )
-			add_settings_error( 'members_edit_role', 'role_uneditable', sprintf( esc_html__( 'The %s role is not editable. This means that it is most likely added via another plugin for a special use or that you do not have permission to edit it.', 'members' ), members_get_role( $this->role->name )->label ) );
+			add_settings_error( 'members_edit_role', 'role_uneditable', sprintf( esc_html__( 'The %s role is not editable. This means that it is most likely added via another plugin for a special use or that you do not have permission to edit it.', 'members' ), members_get_role( $this->role->name )->get( 'label' ) ) );
 
 		// If editing the core administrator role.
 		if ( 'administrator' === $this->role->name )
-			add_settings_error( 'members_edit_role', 'role_is_admin', sprintf( esc_html__( 'The %s role is typically the most important role on the site. Please take extreme caution that you do not inadvertently remove necessary capabilities.', 'members' ), members_get_role( $this->role->name )->label ) );
+			add_settings_error( 'members_edit_role', 'role_is_admin', sprintf( esc_html__( 'The %s role is typically the most important role on the site. Please take extreme caution that you do not inadvertently remove necessary capabilities.', 'members' ), members_get_role( $this->role->name )->get( 'label' ) ) );
 
 		// If a new role was added (redirect from new role screen).
 		if ( isset( $_GET['message'] ) && 'role_added' === $_GET['message'] )
-			add_settings_error( 'members_edit_role', 'role_added', sprintf( esc_html__( 'The %s role has been created.', 'members' ), members_get_role( $this->role->name )->label ), 'updated' );
+			add_settings_error( 'members_edit_role', 'role_added', sprintf( esc_html__( 'The %s role has been created.', 'members' ), members_get_role( $this->role->name )->get( 'label' ) ), 'updated' );
 
 		// Load page hook.
 		do_action( 'members_load_role_edit' );
@@ -318,7 +318,7 @@ final class Role_Edit {
 
 								<div id="titlewrap">
 									<span class="screen-reader-text"><?php esc_html_e( 'Role Name', 'members' ); ?></span>
-									<input type="text" disabled="disabled" readonly="readonly" value="<?php echo esc_attr( members_get_role( $this->role->name )->label ); ?>" />
+									<input type="text" disabled="disabled" readonly="readonly" value="<?php echo esc_attr( members_get_role( $this->role->name )->get( 'label' ) ); ?>" />
 								</div><!-- #titlewrap -->
 
 								<div class="inside">

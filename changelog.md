@@ -1,5 +1,15 @@
 # Change Log
 
+## [2.0.2] - 2017-11-06
+
+### Fixed
+
+* Role labels should now be handled correctly where the plugin outputs them.  This was not corrected in 2.0.1 as previously thought.
+
+### Security
+
+* Corrected a capability escalation issue on multisite where administrators could assign themselves network caps.  Administrators are no longer given the `create_role`, `edit_role`, and `delete_role` caps on multisite.  A Super Admin must manually set these caps if they want to grant them to a site administrator.  Additionally, network caps are always blocked from being assigned.
+
 ## [2.0.1] - 2017-09-28
 
 ### Changed

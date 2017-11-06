@@ -3,7 +3,7 @@
  * Plugin Name: Members
  * Plugin URI:  https://themehybrid.com/plugins/members
  * Description: A user and role management plugin that puts you in full control of your site's permissions. This plugin allows you to edit your roles and their capabilities, clone existing roles, assign multiple roles per user, block post content, or even make your site completely private.
- * Version:     2.0.1
+ * Version:     2.0.2
  * Author:      Justin Tadlock
  * Author URI:  https://themehybrid.com
  * Text Domain: members
@@ -25,7 +25,7 @@
  * write to the Free Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
  *
  * @package   Members
- * @version   2.0.1
+ * @version   2.0.2
  * @author    Justin Tadlock <justintadlock@gmail.com>
  * @copyright Copyright (c) 2009 - 2017, Justin Tadlock
  * @link      https://themehybrid.com/plugins/members
@@ -297,11 +297,16 @@ final class Members_Plugin {
 		// If the administrator role exists, add required capabilities for the plugin.
 		if ( ! empty( $role ) ) {
 
-			$role->add_cap( 'list_roles'       ); // View roles in backend.
-			$role->add_cap( 'create_roles'     ); // Create new roles.
-			$role->add_cap( 'delete_roles'     ); // Delete existing roles.
-			$role->add_cap( 'edit_roles'       ); // Edit existing roles/caps.
 			$role->add_cap( 'restrict_content' ); // Edit per-post content permissions.
+			$role->add_cap( 'list_roles'       ); // View roles in backend.
+
+			// Do not allow administrators to edit, create, or delete roles
+			// in a multisite setup. Super admins should assign these manually.
+			if ( ! is_multisite() ) {
+				$role->add_cap( 'create_roles' ); // Create new roles.
+				$role->add_cap( 'delete_roles' ); // Delete existing roles.
+				$role->add_cap( 'edit_roles'   ); // Edit existing roles/caps.
+			}
 		}
 	}
 

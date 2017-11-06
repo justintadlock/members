@@ -325,7 +325,8 @@ jQuery( document ).ready( function() {
 		function() {
 
 			// If there's a value in the input, enable the add new button.
-			if ( 'do_not_allow' !== jQuery( this ).val() ) {
+			//if ( 'do_not_allow' !== jQuery( this ).val() ) {
+			if ( -1 === jQuery.inArray( jQuery( this ).val(), members_i18n.hidden_caps ) ) {
 
 				jQuery( '#members-add-new-cap' ).prop( 'disabled', false );
 
@@ -364,7 +365,8 @@ jQuery( document ).ready( function() {
 			if ( new_cap ) {
 
 				// Don't allow the 'do_not_allow' cap.
-				if ( 'do_not_allow' === new_cap ) {
+				//if ( 'do_not_allow' === new_cap ) {
+				if ( -1 !== jQuery.inArray( jQuery( this ).val(), members_i18n.hidden_caps ) ) {
 					return;
 				}
 
