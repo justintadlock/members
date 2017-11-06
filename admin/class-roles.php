@@ -128,7 +128,7 @@ final class Roles {
 				if ( members_role_exists( $role ) ) {
 
 					// Add role deleted message.
-					add_settings_error( 'members_roles', 'role_deleted', sprintf( esc_html__( '%s role deleted.', 'members' ), members_get_role( $role )->label ), 'updated' );
+					add_settings_error( 'members_roles', 'role_deleted', sprintf( esc_html__( '%s role deleted.', 'members' ), members_get_role( $role )->get( 'label' ) ), 'updated' );
 
 					// Delete the role.
 					members_delete_role( $role );

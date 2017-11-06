@@ -117,7 +117,7 @@ final class User_New {
 							<li>
 								<label>
 									<input type="checkbox" name="members_user_roles[]" value="<?php echo esc_attr( $role->name ); ?>" <?php checked( in_array( $role->name, $new_user_roles ) ); ?> />
-									<?php echo esc_html( $role->label ); ?>
+									<?php echo esc_html( $role->get( 'label' ) ); ?>
 								</label>
 							</li>
 							<?php endif; ?>

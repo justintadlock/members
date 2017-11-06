@@ -40,7 +40,7 @@ function members_register_default_roles( $wp_roles ) {
 	foreach ( $wp_roles->roles as $name => $object ) {
 
 		$args = array(
-			'label' => members_translate_role_hook( $object['name'], $name ),
+			'label' => $object['name'],
 			'caps'  => $object['capabilities']
 		);
 

@@ -249,10 +249,10 @@ class Role_List_Table extends \WP_List_Table {
 
 		// Add the title and role states.
 		if ( current_user_can( 'edit_roles' ) )
-			$title = sprintf( '<strong><a class="row-title" href="%s">%s</a>%s</strong>', esc_url( members_get_edit_role_url( $role ) ), esc_html( members_get_role( $role )->label ), $role_states );
+			$title = sprintf( '<strong><a class="row-title" href="%s">%s</a>%s</strong>', esc_url( members_get_edit_role_url( $role ) ), esc_html( members_get_role( $role )->get( 'label' ) ), $role_states );
 
 		else
-			$title = sprintf( '<strong><span class="row-title">%s</span>%s</strong>', esc_html( members_get_role( $role )->label ), $role_states );
+			$title = sprintf( '<strong><span class="row-title">%s</span>%s</strong>', esc_html( members_get_role( $role )->get( 'label' ) ), $role_states );
 
 		return apply_filters( 'members_manage_roles_column_role_name', $title, $role );
 	}

@@ -325,7 +325,7 @@ final class Role_New {
 
 								<div id="titlewrap">
 									<span class="screen-reader-text"><?php esc_html_e( 'Role Name', 'members' ); ?></span>
-									<input type="text" name="role_name" value="<?php echo ! $this->role && $this->clone_role ? esc_attr( sprintf( __( '%s Clone', 'members' ), members_get_role( $this->clone_role )->label ) ) : esc_attr( $this->role_name ); ?>" placeholder="<?php esc_attr_e( 'Enter role name', 'members' ); ?>" />
+									<input type="text" name="role_name" value="<?php echo ! $this->role && $this->clone_role ? esc_attr( sprintf( __( '%s Clone', 'members' ), members_get_role( $this->clone_role )->get( 'label' ) ) ) : esc_attr( $this->role_name ); ?>" placeholder="<?php esc_attr_e( 'Enter role name', 'members' ); ?>" />
 								</div><!-- #titlewrap -->
 
 								<div class="inside">

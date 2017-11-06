@@ -158,4 +158,21 @@ class Role {
 			$this->has_caps = 0 < $this->granted_cap_count;
 		}
 	}
+
+	/**
+	 * Magic method for getting media object properties.  Let's keep from failing if a theme
+	 * author attempts to access a property that doesn't exist.
+	 *
+	 * @since  2.0.2
+	 * @access public
+	 * @param  string  $property
+	 * @return mixed
+	 */
+	public function get( $property ) {
+
+		if ( 'label' === $property )
+			return members_translate_role( $this->name );
+
+		return isset( $this->$property ) ? $this->$property : false;
+	}
 }
