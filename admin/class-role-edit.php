@@ -4,24 +4,26 @@
  *
  * @package    Members
  * @subpackage Admin
- * @author     Justin Tadlock <justin@justintadlock.com>
- * @copyright  Copyright (c) 2009 - 2016, Justin Tadlock
- * @link       http://themehybrid.com/plugins/members
+ * @author     Justin Tadlock <justintadlock@gmail.com>
+ * @copyright  Copyright (c) 2009 - 2017, Justin Tadlock
+ * @link       https://themehybrid.com/plugins/members
  * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
+
+namespace Members\Admin;
 
 /**
  * Class that displays the edit role screen and handles the form submissions for that page.
  *
- * @since  1.0.0
+ * @since  2.0.0
  * @access public
  */
-final class Members_Admin_Role_Edit {
+final class Role_Edit {
 
 	/**
 	 * Current role object to be edited/viewed.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access protected
 	 * @var    object
 	 */
@@ -30,7 +32,7 @@ final class Members_Admin_Role_Edit {
 	/**
 	 * Current Members role object to be edited/viewed.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access protected
 	 * @var    object
 	 */
@@ -39,7 +41,7 @@ final class Members_Admin_Role_Edit {
 	/**
 	 * Whether the current role can be edited.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access protected
 	 * @var    bool
 	 */
@@ -48,7 +50,7 @@ final class Members_Admin_Role_Edit {
 	/**
 	 * Available capabilities.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access protected
 	 * @var    array
 	 */
@@ -57,7 +59,7 @@ final class Members_Admin_Role_Edit {
 	/**
 	 * Whether the page was updated.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access protected
 	 * @var    bool
 	 */
@@ -66,7 +68,7 @@ final class Members_Admin_Role_Edit {
 	/**
 	 * Sets up some necessary actions/filters.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */
@@ -79,7 +81,7 @@ final class Members_Admin_Role_Edit {
 	/**
 	 * Runs on the `load-{$page}` hook.  This is the handler for form submissions.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */
@@ -118,6 +120,7 @@ final class Members_Admin_Role_Edit {
 			check_admin_referer( 'edit_role', 'members_edit_role_nonce' );
 
 			// Get the granted and denied caps.
+<<<<<<< HEAD
 			$grant_caps = ! empty( $_POST['grant-caps'] ) ? array_map( 'members_sanitize_role', wp_unslash( $_POST['grant-caps'] ) ) : array();
 			$deny_caps  = ! empty( $_POST['deny-caps'] )  ? array_map( 'members_sanitize_role', wp_unslash( $_POST['deny-caps']  ) ) : array();
 
@@ -130,6 +133,14 @@ final class Members_Admin_Role_Edit {
 
 			$grant_new_caps = array_unique( $grant_new_caps );
 			$deny_new_caps  = array_unique( $deny_new_caps );
+=======
+			$grant_caps = ! empty( $_POST['grant-caps'] ) ? members_remove_hidden_caps( array_unique( $_POST['grant-caps'] ) ) : array();
+			$deny_caps  = ! empty( $_POST['deny-caps'] )  ? members_remove_hidden_caps( array_unique( $_POST['deny-caps']  ) ) : array();
+
+			// Get the new (custom) granted and denied caps.
+			$grant_new_caps = ! empty( $_POST['grant-new-caps'] ) ? members_remove_hidden_caps( array_unique( $_POST['grant-new-caps'] ) ) : array();
+			$deny_new_caps  = ! empty( $_POST['deny-new-caps'] )  ? members_remove_hidden_caps( array_unique( $_POST['deny-new-caps']  ) ) : array();
+>>>>>>> upstream/master
 
 			// Get the all and custom cap group objects.
 			$all_group    = members_get_cap_group( 'all'    );
@@ -172,7 +183,7 @@ final class Members_Admin_Role_Edit {
 				$_cap = members_sanitize_cap( $grant_new_cap );
 
 				// If not an existing cap, add it.
-				if ( ! in_array( $_cap, $this->capabilities ) ) {
+				if ( 'do_not_allow' !== $_cap && ! in_array( $_cap, $this->capabilities ) ) {
 					$this->role->add_cap( $_cap );
 
 					$push_caps[] = $_cap;
@@ -185,7 +196,7 @@ final class Members_Admin_Role_Edit {
 				$_cap = members_sanitize_cap( $deny_new_cap );
 
 				// If not a granted cap and not an existing cap, add it.
-				if ( ! in_array( $_cap, $this->capabilities ) && ! in_array( $_cap, $grant_new_caps ) ) {
+				if ( 'do_not_allow' !== $_cap && ! in_array( $_cap, $this->capabilities ) && ! in_array( $_cap, $grant_new_caps ) ) {
 					$this->role->add_cap( $_cap, false );
 
 					$push_caps[] = $_cap;
@@ -206,8 +217,16 @@ final class Members_Admin_Role_Edit {
 				}
 			}
 
-			// Add the updated role to the role factory.
-			members_role_factory()->add_role( $this->role->name );
+			// Add the updated role to the role registry.
+			members_unregister_role( $this->role->name );
+
+			members_register_role(
+				$this->role->name,
+				array(
+					'label' => $this->members_role->get( 'label' ),
+					'caps'  => $this->role->capabilities
+				)
+			);
 
 			// Reset the Members role object.
 			$this->members_role = members_get_role( $this->role->name );
@@ -219,6 +238,7 @@ final class Members_Admin_Role_Edit {
 
 		// If successful update.
 		if ( $this->role_updated )
+<<<<<<< HEAD
 			add_settings_error( 'members_edit_role', 'role_updated', sprintf( esc_html__( '%s role updated.', 'members' ), esc_html( members_get_role_name( $this->role->name ) ) ), 'updated' );
 
 		// If the role is not editable.
@@ -228,6 +248,21 @@ final class Members_Admin_Role_Edit {
 		// If a new role was added (redirect from new role screen).
 		if ( isset( $_GET['message'] ) && 'role_added' === $_GET['message'] )
 			add_settings_error( 'members_edit_role', 'role_added', sprintf( esc_html__( 'The %s role has been created.', 'members' ), esc_html( members_get_role_name( $this->role->name ) ) ), 'updated' );
+=======
+			add_settings_error( 'members_edit_role', 'role_updated', sprintf( esc_html__( '%s role updated.', 'members' ), members_get_role( $this->role->name )->get( 'label' ) ), 'updated' );
+
+		// If the role is not editable.
+		if ( ! $this->is_editable )
+			add_settings_error( 'members_edit_role', 'role_uneditable', sprintf( esc_html__( 'The %s role is not editable. This means that it is most likely added via another plugin for a special use or that you do not have permission to edit it.', 'members' ), members_get_role( $this->role->name )->get( 'label' ) ) );
+
+		// If editing the core administrator role.
+		if ( 'administrator' === $this->role->name )
+			add_settings_error( 'members_edit_role', 'role_is_admin', sprintf( esc_html__( 'The %s role is typically the most important role on the site. Please take extreme caution that you do not inadvertently remove necessary capabilities.', 'members' ), members_get_role( $this->role->name )->get( 'label' ) ) );
+
+		// If a new role was added (redirect from new role screen).
+		if ( isset( $_GET['message'] ) && 'role_added' === $_GET['message'] )
+			add_settings_error( 'members_edit_role', 'role_added', sprintf( esc_html__( 'The %s role has been created.', 'members' ), members_get_role( $this->role->name )->get( 'label' ) ), 'updated' );
+>>>>>>> upstream/master
 
 		// Load page hook.
 		do_action( 'members_load_role_edit' );
@@ -243,7 +278,7 @@ final class Members_Admin_Role_Edit {
 	/**
 	 * Adds help tabs.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */
@@ -265,7 +300,7 @@ final class Members_Admin_Role_Edit {
 	/**
 	 * Enqueue scripts/styles.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */
@@ -278,7 +313,7 @@ final class Members_Admin_Role_Edit {
 	/**
 	 * Displays the page content.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */
@@ -290,7 +325,7 @@ final class Members_Admin_Role_Edit {
 				<?php esc_html_e( 'Edit Role', 'members' ); ?>
 
 				<?php if ( current_user_can( 'create_roles' ) ) : ?>
-					<?php printf( '<a class="page-title-action" href="%s">%s</a>', esc_url( members_get_new_role_url() ), esc_html__( 'Add New', 'members' ) ); ?>
+					<?php printf( '<a class="page-title-action" href="%s">%s</a>', esc_url( members_get_new_role_url() ), esc_html_x( 'Add New', 'role', 'members' ) ); ?>
 				<?php endif; ?>
 			</h1>
 
@@ -310,7 +345,7 @@ final class Members_Admin_Role_Edit {
 
 								<div id="titlewrap">
 									<span class="screen-reader-text"><?php esc_html_e( 'Role Name', 'members' ); ?></span>
-									<input type="text" disabled="disabled" readonly="readonly" value="<?php echo esc_attr( members_get_role_name( $this->role->name ) ); ?>" />
+									<input type="text" disabled="disabled" readonly="readonly" value="<?php echo esc_attr( members_get_role( $this->role->name )->get( 'label' ) ); ?>" />
 								</div><!-- #titlewrap -->
 
 								<div class="inside">
@@ -321,7 +356,7 @@ final class Members_Admin_Role_Edit {
 
 							</div><!-- .members-title-div -->
 
-							<?php $cap_tabs = new Members_Cap_Tabs( $this->role->name ); ?>
+							<?php $cap_tabs = new Cap_Tabs( $this->role->name ); ?>
 							<?php $cap_tabs->display(); ?>
 
 						</div><!-- #post-body-content -->

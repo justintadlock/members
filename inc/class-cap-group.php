@@ -4,25 +4,27 @@
  *
  * @package    Members
  * @subpackage Admin
- * @author     Justin Tadlock <justin@justintadlock.com>
- * @copyright  Copyright (c) 2009 - 2016, Justin Tadlock
- * @link       http://themehybrid.com/plugins/members
+ * @author     Justin Tadlock <justintadlock@gmail.com>
+ * @copyright  Copyright (c) 2009 - 2017, Justin Tadlock
+ * @link       https://themehybrid.com/plugins/members
  * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
+
+namespace Members;
 
 /**
  * Capability group object class.
  *
- * @since  1.0.0
+ * @since  2.0.0
  * @access public
  */
-final class Members_Cap_Group {
+final class Cap_Group {
 
 	/**
 	 * Name/ID for the group.
 	 *
-	 * @since  1.0.0
-	 * @access protected
+	 * @since  2.0.0
+	 * @access public
 	 * @var    string
 	 */
 	public $name = '';
@@ -30,8 +32,8 @@ final class Members_Cap_Group {
 	/**
 	 * Internationalized text label for the group.
 	 *
-	 * @since  1.0.0
-	 * @access protected
+	 * @since  2.0.0
+	 * @access public
 	 * @var    string
 	 */
 	public $label = '';
@@ -39,8 +41,8 @@ final class Members_Cap_Group {
 	/**
 	 * Icon for the group.  This can be a dashicons class or a custom class.
 	 *
-	 * @since  1.0.0
-	 * @access protected
+	 * @since  2.0.0
+	 * @access public
 	 * @var    string
 	 */
 	public $icon = 'dashicons-admin-generic';
@@ -48,26 +50,26 @@ final class Members_Cap_Group {
 	/**
 	 * Capabilities for the group.
 	 *
-	 * @since  1.0.0
-	 * @access protected
+	 * @since  2.0.0
+	 * @access public
 	 * @var    array
 	 */
-	public $caps = array( 'read' );
+	public $caps = array();
 
 	/**
-	 * Whether to merge this groups caps with the added caps array.
+	 * Sort order priority.
 	 *
-	 * @since  1.0.0
-	 * @access protected
-	 * @var    bool
+	 * @since  2.0.0
+	 * @access public
+	 * @var    int
 	 */
-	public $merge_added = true;
+	public $priority = 10;
 
 	/**
 	 * Whether to remove previously-added caps from this group's caps.
 	 *
-	 * @since  1.0.0
-	 * @access protected
+	 * @since  2.0.0
+	 * @access public
 	 * @var    bool
 	 */
 	public $diff_added = false;
@@ -76,7 +78,7 @@ final class Members_Cap_Group {
 	 * Magic method to use in case someone tries to output the object as a string.
 	 * We'll just return the name.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return string
 	 */
@@ -87,7 +89,7 @@ final class Members_Cap_Group {
 	/**
 	 * Register a new object.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @param  string  $name
 	 * @param  array   $args  {
@@ -108,6 +110,10 @@ final class Members_Cap_Group {
 		}
 
 		$this->name = sanitize_key( $name );
+
+		$registered_caps = array_keys( wp_list_filter( members_get_caps(), array( 'group' => $this->name ) ) );
+
+		$this->caps = array_unique( array_merge( $this->caps, $registered_caps ) );
 
 		$this->caps = members_remove_hidden_caps( $this->caps );
 	}

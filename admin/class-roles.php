@@ -4,24 +4,26 @@
  *
  * @package    Members
  * @subpackage Admin
- * @author     Justin Tadlock <justin@justintadlock.com>
- * @copyright  Copyright (c) 2009 - 2016, Justin Tadlock
- * @link       http://themehybrid.com/plugins/members
+ * @author     Justin Tadlock <justintadlock@gmail.com>
+ * @copyright  Copyright (c) 2009 - 2017, Justin Tadlock
+ * @link       https://themehybrid.com/plugins/members
  * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
+
+namespace Members\Admin;
 
 /**
  * Class that displays the roles admin screen and handles requests for that page.
  *
- * @since  1.0.0
+ * @since  2.0.0
  * @access public
  */
-final class Members_Admin_Roles {
+final class Roles {
 
 	/**
 	 * Sets up some necessary actions/filters.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */
@@ -40,7 +42,7 @@ final class Members_Admin_Roles {
 	/**
 	 * Modifies the current screen object.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */
@@ -53,7 +55,7 @@ final class Members_Admin_Roles {
 	/**
 	 * Sets up the roles column headers.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @param  array  $columns
 	 * @return array
@@ -75,7 +77,7 @@ final class Members_Admin_Roles {
 	/**
 	 * Runs on the `load-{$page}` hook.  This is the handler for form submissions and requests.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */
@@ -127,7 +129,11 @@ final class Members_Admin_Roles {
 				if ( members_role_exists( $role ) ) {
 
 					// Add role deleted message.
+<<<<<<< HEAD
 					add_settings_error( 'members_roles', 'role_deleted', sprintf( esc_html__( '%s role deleted.', 'members' ), esc_html( members_get_role_name( $role ) ) ), 'updated' );
+=======
+					add_settings_error( 'members_roles', 'role_deleted', sprintf( esc_html__( '%s role deleted.', 'members' ), members_get_role( $role )->get( 'label' ) ), 'updated' );
+>>>>>>> upstream/master
 
 					// Delete the role.
 					members_delete_role( $role );
@@ -142,7 +148,7 @@ final class Members_Admin_Roles {
 	/**
 	 * Enqueue scripts/styles.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */
@@ -155,13 +161,13 @@ final class Members_Admin_Roles {
 	/**
 	 * Displays the page content.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */
 	public function page() {
 
-		require_once( members_plugin()->admin_dir . 'class-role-list-table.php' ); ?>
+		require_once( members_plugin()->dir . 'admin/class-role-list-table.php' ); ?>
 
 		<div class="wrap">
 
@@ -169,7 +175,7 @@ final class Members_Admin_Roles {
 				<?php esc_html_e( 'Roles', 'members' ); ?>
 
 				<?php if ( current_user_can( 'create_roles' ) ) : ?>
-					<a href="<?php echo esc_url( members_get_new_role_url() ); ?>" class="page-title-action"><?php esc_html_e( 'Add New', 'members' ); ?></a>
+					<a href="<?php echo esc_url( members_get_new_role_url() ); ?>" class="page-title-action"><?php echo esc_html_x( 'Add New', 'role', 'members' ); ?></a>
 				<?php endif; ?>
 			</h1>
 
@@ -179,7 +185,7 @@ final class Members_Admin_Roles {
 
 				<form id="roles" action="<?php echo esc_url( members_get_edit_roles_url() ); ?>" method="post">
 
-					<?php $table = new Members_Role_List_Table(); ?>
+					<?php $table = new Role_List_Table(); ?>
 					<?php $table->prepare_items(); ?>
 					<?php $table->display(); ?>
 
@@ -193,7 +199,7 @@ final class Members_Admin_Roles {
 	/**
 	 * Adds help tabs.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */
@@ -245,7 +251,7 @@ final class Members_Admin_Roles {
 	/**
 	 * Overview help tab callback function.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */
@@ -259,7 +265,7 @@ final class Members_Admin_Roles {
 	/**
 	 * Screen content help tab callback function.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */
@@ -278,7 +284,7 @@ final class Members_Admin_Roles {
 	/**
 	 * Row actions help tab callback function.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */
@@ -299,7 +305,7 @@ final class Members_Admin_Roles {
 	/**
 	 * Bulk actions help tab callback function.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */

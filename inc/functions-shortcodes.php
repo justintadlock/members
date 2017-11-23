@@ -4,9 +4,9 @@
  *
  * @package    Members
  * @subpackage Includes
- * @author     Justin Tadlock <justin@justintadlock.com>
- * @copyright  Copyright (c) 2009 - 2016, Justin Tadlock
- * @link       http://themehybrid.com/plugins/members
+ * @author     Justin Tadlock <justintadlock@gmail.com>
+ * @copyright  Copyright (c) 2009 - 2017, Justin Tadlock
+ * @link       https://themehybrid.com/plugins/members
  * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
@@ -38,6 +38,9 @@ function members_register_shortcodes() {
 	add_shortcode( 'members_logged_in', 'members_is_user_logged_in_shortcode' );
 	add_shortcode( 'is_user_logged_in', 'members_is_user_logged_in_shortcode' ); // @deprecated 1.0.0
 
+	// Add the `[members_not_logged_in]` shortcode.
+	add_shortcode( 'members_not_logged_in', 'members_not_logged_in_shortcode' );
+
 	// @deprecated 0.2.0.
 	add_shortcode( 'get_avatar', 'members_get_avatar_shortcode' );
 	add_shortcode( 'avatar',     'members_get_avatar_shortcode' );
@@ -56,6 +59,20 @@ function members_register_shortcodes() {
 function members_is_user_logged_in_shortcode( $attr, $content = null ) {
 
 	return is_feed() || ! is_user_logged_in() || is_null( $content ) ? '' : do_shortcode( $content );
+}
+
+/**
+ * Displays content if the user viewing it is not currently logged in.
+ *
+ * @since  2.0.0
+ * @access public
+ * @param  array   $attr
+ * @param  string  $content
+ * @return string
+ */
+function members_not_logged_in_shortcode( $attr, $content = null ) {
+
+	return is_user_logged_in() || is_null( $content ) ? '' : do_shortcode( $content );
 }
 
 /**
@@ -91,14 +108,20 @@ function members_access_check_shortcode( $attr, $content = null ) {
 	if ( is_null( $content ) || is_feed() )
 		return '';
 
+	$user_can = false;
+
 	// Set up the default attributes.
 	$defaults = array(
 		'capability' => '',  // Single capability or comma-separated multiple capabilities.
 		'role'       => '',  // Single role or comma-separated multiple roles.
+		'operator'   => 'or' // Only the `!` operator is supported for now.  Everything else falls back to `or`.
 	);
 
 	// Merge the input attributes and the defaults.
 	$attr = shortcode_atts( $defaults, $attr, 'members_access' );
+
+	// Get the operator.
+	$operator = strtolower( $attr['operator'] );
 
 	// If the current user has the capability, show the content.
 	if ( $attr['capability'] ) {
@@ -106,13 +129,10 @@ function members_access_check_shortcode( $attr, $content = null ) {
 		// Get the capabilities.
 		$caps = explode( ',', $attr['capability'] );
 
-		// Loop through each capability.
-		foreach ( $caps as $cap ) {
+		if ( '!' === $operator )
+			return members_current_user_can_any( $caps ) ? '' : do_shortcode( $content );
 
-			// If the current user can perform the capability, return the content.
-			if ( current_user_can( trim( $cap ) ) )
-				return do_shortcode( $content );
-		}
+		return members_current_user_can_any( $caps ) ? do_shortcode( $content ) : '';
 	}
 
 	// If the current user has the role, show the content.
@@ -121,13 +141,10 @@ function members_access_check_shortcode( $attr, $content = null ) {
 		// Get the roles.
 		$roles = explode( ',', $attr['role'] );
 
-		// Loop through each of the roles.
-		foreach ( $roles as $role ) {
+		if ( '!' === $operator )
+			return members_current_user_has_role( $roles ) ? '' : do_shortcode( $content );
 
-			// If the current user has the role, return the content.
-			if ( members_current_user_has_role( trim( $role ) ) )
-				return do_shortcode( $content );
-		}
+		return members_current_user_has_role( $roles ) ? do_shortcode( $content ) : '';
 	}
 
 	// Return an empty string if we've made it to this point.
@@ -142,5 +159,6 @@ function members_access_check_shortcode( $attr, $content = null ) {
  * @return string
  */
 function members_login_form_shortcode() {
+
 	return wp_login_form( array( 'echo' => false ) );
 }

@@ -325,7 +325,8 @@ jQuery( document ).ready( function() {
 		function() {
 
 			// If there's a value in the input, enable the add new button.
-			if ( jQuery( this ).val() ) {
+			//if ( 'do_not_allow' !== jQuery( this ).val() ) {
+			if ( -1 === jQuery.inArray( jQuery( this ).val(), members_i18n.hidden_caps ) ) {
 
 				jQuery( '#members-add-new-cap' ).prop( 'disabled', false );
 
@@ -363,6 +364,12 @@ jQuery( document ).ready( function() {
 			// If there's a new cap value.
 			if ( new_cap ) {
 
+				// Don't allow the 'do_not_allow' cap.
+				//if ( 'do_not_allow' === new_cap ) {
+				if ( -1 !== jQuery.inArray( jQuery( this ).val(), members_i18n.hidden_caps ) ) {
+					return;
+				}
+
 				// Trigger a click event on the "custom" tab in the edit caps box.
 				jQuery( 'a[href="#members-tab-custom"]' ).trigger( 'click' );
 
@@ -377,7 +384,7 @@ jQuery( document ).ready( function() {
 					name           : { grant : 'grant-new-caps[]', deny : 'deny-new-caps[]' },
 					is_granted_cap : true,
 					is_denied_cap  : false,
-					label          : { grant : members_i18n.label_grant_cap, deny : members_i18n.label_deny_cap }
+					label          : { cap : new_cap, grant : members_i18n.label_grant_cap, deny : members_i18n.label_deny_cap }
 				};
 
 				// Prepend our template to the "custom" edit caps tab content.

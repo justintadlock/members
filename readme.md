@@ -17,13 +17,13 @@ It puts you in control over permissions on your site by providing a user interfa
 
 ## Professional Support
 
-If you need professional plugin support from me, the plugin author, you can access the support forums at [Theme Hybrid](http://themehybrid.com/board/topics), which is a professional WordPress help/support site where I handle support for all my plugins and themes for a community of 60,000+ users (and growing).
+If you need professional plugin support from me, the plugin author, you can access the support forums at [Theme Hybrid](https://themehybrid.com/board/topics), which is a professional WordPress help/support site where I handle support for all my plugins and themes for a community of 75,000+ users (and growing).
 
 ## Copyright and License
 
 This project is licensed under the [GNU GPL](http://www.gnu.org/licenses/old-licenses/gpl-2.0.html), version 2 or later.
 
-2009&thinsp;&ndash;&thinsp;2016 &copy; [Justin Tadlock](http://justintadlock.com).
+2009&thinsp;&ndash;&thinsp;2017 &copy; [Justin Tadlock](http://justintadlock.com).
 
 ## Documentation
 
@@ -75,7 +75,9 @@ Every capability can have one of three "states" for a role.  The role can be *gr
 
 You can assign a user more than one role by going to that edit user screen in the admin and locating the "Roles" section.  There will be a checkbox for every role.
 
-Note that the roles dropdown on the "Users" screen in the admin will overwrite all roles with a single role.  So, you'll need to edit the individual users to give them multiple roles.
+You can also multiple roles to a user from the add new user screen.
+
+On the "Users" screen in the admin, you can bulk add or remove single roles from multiple users.
 
 ### Content permissions feature
 
@@ -101,12 +103,17 @@ The `[members_access]` shortcode is for hiding content from particular roles and
 
 * `capability`:  A capability that has been assigned to a role.
 * `role`: A user role from WordPress or one that you've created.
+* `operator`: Accepts `!` to negate the role or capability.
 
 Note that `capability` and `role` parameters aren't used in conjunction.  The code first checks for the capability (if input) then checks for the role (if input).
 
 To check for multiple capabilities or multiple roles, simply add a comma between each capability/role.  For example, the following code checks for an editor or administrator:
 
-	[members_access role="administrator,editor"]Hide this content from everyone but administrators and editors.[/members_access]
+	[members_access role="administrator,editor"]Show this content to administrators or editors only.[/members_access]
+
+To check that the user does not have a role:
+
+	[members_access role="administrator" operator="!"]Show this content to anyone who is not an administrator.[/members_access]
 
 #### [members_logged_in]
 
@@ -115,6 +122,12 @@ The `[members_logged_in]` shortcode should be used to check if a user is current
 	[members_logged_in]This content is only shown to logged-in users.[/members_logged_in]
 
 This shortcode has no parameters.
+
+##### [members_not_logged_in]
+
+The `[members_not_logged_in]` shortcode should be used to show content to users who are not logged into the site.  If the user is logged in, the content will be hidden.
+
+	[members_not_logged_in]This content is only shown to logged-out visitors.[/members_not_logged_in]
 
 #### [members_login_form]
 
@@ -173,3 +186,52 @@ Some plugins and themes might rely on the old user level system in WordPress.  T
 By default, the levels aren't shown.  They still exist, but are tucked away behind the scenes.  While not recommended, if you need to control who has what level (levels are just capabilities), add this to your plugin or your theme's `functions.php`:
 
 	add_filter( 'members_remove_old_levels', '__return_false' );
+
+### Registering capabilities
+
+If you're a plugin developer with custom capabilities, beginning with version 2.0.0 of Members, you can register your capabilities with Members.  Essentially, this allows users to see your capabilities in a nicely-formatted, human-readable form (e.g., `Publish Posts` instead of `publish_posts`).  This also means that it can be translated so that it's easier to understand for users who do not read English.
+
+	add_action( 'members_register_caps', 'th_register_caps' );
+
+	function th_register_caps() {
+
+		members_register_cap(
+			'your_cap_name',
+			array(
+				'label' => __( 'Your Capability Label', 'example-textdomain' ),
+				'group' => 'example'
+			)
+		);
+	}
+
+The `group` argument is not required, but will allow you to assign the capability to a cap group.
+
+### Registering cap groups
+
+Members groups capabilities so that users can more easily find them when editing roles.  If your plugin has multiple capabilities, you should consider creating a custom cap group.
+
+	add_action( 'members_register_cap_groups', 'th_register_cap_groups' );
+
+	function th_register_cap_groups() {
+
+		members_register_cap_group(
+			'your_group_name',
+			array(
+				'label'    => __( 'Your Group Label', 'example-textdomain' ),
+				'caps'     => array(),
+				'icon'     => 'dashicons-admin-generic',
+				'priority' => 10
+			)
+		);
+	}
+
+The arguments for the array are:
+
+* `label` - An internationalized text label for your group.
+* `caps` - An array of initial capabilities to add to your group.
+* `icon` - The name of one of core WP's [dashicons](https://developer.wordpress.org/resource/dashicons/) or a custom class (would need to be styled by your plugin in this case).
+* `priority` - The priority of your group compared to other groups.  `10` is the default.
+
+_Note that custom post types are automatically registered as groups with Members.  So, if you want to do something custom with that, you simply need to unregister the group before registering your own._
+
+	members_unregister_cap_group( "type-{$post_type}" );

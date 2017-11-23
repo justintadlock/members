@@ -4,24 +4,26 @@
  *
  * @package    Members
  * @subpackage Admin
- * @author     Justin Tadlock <justin@justintadlock.com>
- * @copyright  Copyright (c) 2009 - 2016, Justin Tadlock
- * @link       http://themehybrid.com/plugins/members
+ * @author     Justin Tadlock <justintadlock@gmail.com>
+ * @copyright  Copyright (c) 2009 - 2017, Justin Tadlock
+ * @link       https://themehybrid.com/plugins/members
  * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
+
+namespace Members\Admin;
 
 /**
  * Class that displays the new role screen and handles the form submissions for that page.
  *
- * @since  1.0.0
+ * @since  2.0.0
  * @access public
  */
-final class Members_Admin_Role_New {
+final class Role_New {
 
 	/**
 	 * Holds the instances of this class.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access private
 	 * @var    object
 	 */
@@ -30,7 +32,7 @@ final class Members_Admin_Role_New {
 	/**
 	 * Name of the page we've created.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @var    string
 	 */
@@ -39,7 +41,7 @@ final class Members_Admin_Role_New {
 	/**
 	 * Role that's being created.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @var    string
 	 */
@@ -48,7 +50,7 @@ final class Members_Admin_Role_New {
 	/**
 	 * Name of the role that's being created.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @var    string
 	 */
@@ -57,7 +59,7 @@ final class Members_Admin_Role_New {
 	/**
 	 * Array of the role's capabilities.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @var    array
 	 */
@@ -66,7 +68,7 @@ final class Members_Admin_Role_New {
 	/**
 	 * Conditional to see if we're cloning a role.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @var    bool
 	 */
@@ -75,7 +77,7 @@ final class Members_Admin_Role_New {
 	/**
 	 * Role that is being cloned.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @var    string
 	 */
@@ -84,7 +86,7 @@ final class Members_Admin_Role_New {
 	/**
 	 * Sets up our initial actions.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */
@@ -98,7 +100,7 @@ final class Members_Admin_Role_New {
 	/**
 	 * Adds the roles page to the admin.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */
@@ -117,7 +119,7 @@ final class Members_Admin_Role_New {
 	/**
 	 * Checks posted data on load and performs actions if needed.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */
@@ -159,11 +161,16 @@ final class Members_Admin_Role_New {
 			// Check if any capabilities were selected.
 			if ( isset( $_POST['grant-caps'] ) || isset( $_POST['deny-caps'] ) ) {
 
+<<<<<<< HEAD
 				$grant_caps = ! empty( $_POST['grant-caps'] ) ? array_map( 'members_sanitize_cap', wp_unslash( $_POST['grant-caps'] ) ) : array();
 				$deny_caps  = ! empty( $_POST['deny-caps'] )  ? array_map( 'members_sanitize_cap', wp_unslash( $_POST['deny-caps']  ) ) : array();
 
 				$grant_caps = array_unique( $grant_caps );
 				$deny_caps  = array_unique( $deny_caps );
+=======
+				$grant_caps = ! empty( $_POST['grant-caps'] ) ? members_remove_hidden_caps( array_unique( $_POST['grant-caps'] ) ) : array();
+				$deny_caps  = ! empty( $_POST['deny-caps'] )  ? members_remove_hidden_caps( array_unique( $_POST['deny-caps']  ) ) : array();
+>>>>>>> upstream/master
 
 				foreach ( $_m_caps as $cap ) {
 
@@ -175,11 +182,16 @@ final class Members_Admin_Role_New {
 				}
 			}
 
+<<<<<<< HEAD
 			$grant_new_caps = ! empty( $_POST['grant-new-caps'] ) ? array_map( 'members_sanitize_cap', wp_unslash( $_POST['grant-new-caps'] ) ) : array();
 			$deny_new_caps  = ! empty( $_POST['deny-new-caps'] )  ? array_map( 'members_sanitize_cap', wp_unslash( $_POST['deny-new-caps']  ) ) : array();
 
 			$grant_new_caps = array_unique( $grant_new_caps );
 			$deny_new_caps  = array_unique( $deny_new_caps );
+=======
+			$grant_new_caps = ! empty( $_POST['grant-new-caps'] ) ? members_remove_hidden_caps( array_unique( $_POST['grant-new-caps'] ) ) : array();
+			$deny_new_caps  = ! empty( $_POST['deny-new-caps'] )  ? members_remove_hidden_caps( array_unique( $_POST['deny-new-caps']  ) ) : array();
+>>>>>>> upstream/master
 
 			foreach ( $grant_new_caps as $grant_new_cap ) {
 
@@ -268,7 +280,7 @@ final class Members_Admin_Role_New {
 	/**
 	 * Adds help tabs.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */
@@ -290,7 +302,7 @@ final class Members_Admin_Role_New {
 	/**
 	 * Enqueue scripts/styles.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */
@@ -303,7 +315,7 @@ final class Members_Admin_Role_New {
 	/**
 	 * Outputs the page.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */
@@ -329,7 +341,7 @@ final class Members_Admin_Role_New {
 
 								<div id="titlewrap">
 									<span class="screen-reader-text"><?php esc_html_e( 'Role Name', 'members' ); ?></span>
-									<input type="text" name="role_name" value="<?php echo ! $this->role && $this->clone_role ? esc_attr( sprintf( __( '%s Clone', 'members' ), members_get_role_name( $this->clone_role ) ) ) : esc_attr( $this->role_name ); ?>" placeholder="<?php esc_attr_e( 'Enter role name', 'members' ); ?>" />
+									<input type="text" name="role_name" value="<?php echo ! $this->role && $this->clone_role ? esc_attr( sprintf( __( '%s Clone', 'members' ), members_get_role( $this->clone_role )->get( 'label' ) ) ) : esc_attr( $this->role_name ); ?>" placeholder="<?php esc_attr_e( 'Enter role name', 'members' ); ?>" />
 								</div><!-- #titlewrap -->
 
 								<div class="inside">
@@ -342,7 +354,7 @@ final class Members_Admin_Role_New {
 
 							</div><!-- .members-title-div -->
 
-							<?php $cap_tabs = new Members_Cap_Tabs( '', $this->capabilities ); ?>
+							<?php $cap_tabs = new Cap_Tabs( '', $this->capabilities ); ?>
 							<?php $cap_tabs->display(); ?>
 
 						</div><!-- #post-body-content -->
@@ -368,7 +380,7 @@ final class Members_Admin_Role_New {
 	/**
 	 * Filters the new role default caps in the case that we're cloning a role.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @param  array  $capabilities
 	 * @param  array
@@ -389,7 +401,7 @@ final class Members_Admin_Role_New {
 	/**
 	 * Returns the instance.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access public
 	 * @return object
 	 */
@@ -402,4 +414,4 @@ final class Members_Admin_Role_New {
 	}
 }
 
-Members_Admin_Role_New::get_instance();
+Role_New::get_instance();

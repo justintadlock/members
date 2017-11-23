@@ -4,24 +4,26 @@
  *
  * @package    Members
  * @subpackage Includes
- * @author     Justin Tadlock <justin@justintadlock.com>
- * @copyright  Copyright (c) 2009 - 2016, Justin Tadlock
- * @link       http://themehybrid.com/plugins/members
+ * @author     Justin Tadlock <justintadlock@gmail.com>
+ * @copyright  Copyright (c) 2009 - 2017, Justin Tadlock
+ * @link       https://themehybrid.com/plugins/members
  * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
+
+namespace Members;
 
 /**
  * Login form widget class.
  *
- * @since  0.1.0
+ * @since  2.0.0
  * @access public
  */
-class Members_Widget_Login extends WP_Widget {
+class Widget_Login extends \WP_Widget {
 
 	/**
 	 * Default arguments for the widget settings.
 	 *
-	 * @since  1.0.3
+	 * @since  2.0.0
 	 * @access public
 	 * @var    array
 	 */
@@ -30,7 +32,7 @@ class Members_Widget_Login extends WP_Widget {
 	/**
 	 * Set up the widget's unique name, ID, class, description, and other options.
 	 *
-	 * @since  0.2.5
+	 * @since  2.0.0
 	 * @access public
 	 * @return void
 	 */
@@ -54,11 +56,11 @@ class Members_Widget_Login extends WP_Widget {
 
 		// Set up the defaults.
 		$this->defaults = array(
-			'title'           => esc_attr__( 'Log In',     'members' ),
-			'label_username'  => esc_attr__( 'Username',   'members' ),
-			'label_password'  => esc_attr__( 'Password',   'members' ),
-			'label_log_in'    => esc_attr__( 'Log In',     'members' ),
-			'label_remember'  => esc_attr__('Remember Me', 'members' ),
+			'title'           => esc_attr__( 'Log In',      'members' ),
+			'label_username'  => esc_attr__( 'Username',    'members' ),
+			'label_password'  => esc_attr__( 'Password',    'members' ),
+			'label_log_in'    => esc_attr__( 'Log In',      'members' ),
+			'label_remember'  => esc_attr__( 'Remember Me', 'members' ),
 			'form_id'         => 'loginform',
 			'id_username'     => 'user_login',
 			'id_password'     => 'user_pass',
@@ -76,7 +78,7 @@ class Members_Widget_Login extends WP_Widget {
 	/**
 	 * Outputs the widget based on the arguments input through the widget controls.
 	 *
-	 * @since  0.1.0
+	 * @since  2.0.0
 	 * @access public
 	 * @param  array  $sidebar
 	 * @param  array  $instance
@@ -97,8 +99,8 @@ class Members_Widget_Login extends WP_Widget {
 			'label_log_in'   => esc_html( $instance['label_log_in']   ),
 			'id_username'    => esc_attr( $instance['id_username']    ),
 			'id_password'    => esc_attr( $instance['id_password']    ),
-			'id_remember'    => esc_attr( $instance['id_submit']      ),
-			'id_submit'      => esc_attr( $instance['remember']       ),
+			'id_remember'    => esc_attr( $instance['id_remember']    ),
+			'id_submit'      => esc_attr( $instance['id_submit']      ),
 			'value_username' => esc_attr( $instance['value_username'] ),
 
 			'remember'       => ! empty( $instance['remember']       ) ? true : false,
@@ -154,7 +156,7 @@ class Members_Widget_Login extends WP_Widget {
 	/**
 	 * Sanitizes/Validates widget options before being saved.
 	 *
-	 * @since  0.1.0
+	 * @since  2.0.0
 	 * @access public
 	 * @param  array  $new_instance
 	 * @param  array  $old_instance
@@ -191,7 +193,7 @@ class Members_Widget_Login extends WP_Widget {
 	/**
 	 * Displays the widget control options in the Widgets admin screen.
 	 *
-	 * @since 0.1.0
+	 * @since  2.0.0
 	 * @access public
 	 * @param  array  $instance
 	 * @return void
@@ -261,7 +263,11 @@ class Members_Widget_Login extends WP_Widget {
 		<p>
 			<label>
 				<input class="checkbox" type="checkbox" <?php checked( $instance['value_remember'] ); ?> name="<?php echo $this->get_field_name( 'value_remember' ); ?>" />
+<<<<<<< HEAD
 				<?php edc_html_e( 'Check "remember me"?', 'members' ); ?>
+=======
+				<?php esc_html_e( 'Check "remember me"?', 'members' ); ?>
+>>>>>>> upstream/master
 			</label>
 		</p>
 		<p>
