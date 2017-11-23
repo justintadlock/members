@@ -120,7 +120,7 @@ class Widget_Login extends \WP_Widget {
 
 		// If a title was input by the user, display it.
 		if ( $instance['title'] )
-			echo $sidebar['before_title'] . apply_filters( 'widget_title',  $instance['title'], $instance, $this->id_base ) . $sidebar['after_title'];
+			echo $sidebar['before_title'] . esc_html( apply_filters( 'widget_title',  $instance['title'], $instance, $this->id_base ) ) . $sidebar['after_title'];
 
 		// If the current user is logged in.
 		if ( is_user_logged_in() ) {
@@ -131,7 +131,7 @@ class Widget_Login extends \WP_Widget {
 
 			// Show logged in text if any is written.
 			if ( $logged_in_text )
-				echo do_shortcode( shortcode_unautop( wpautop( $logged_in_text ) ) );
+				echo wp_kses_data( do_shortcode( shortcode_unautop( wpautop( $logged_in_text ) ) ) );
 		}
 
 		// If the current user is not logged in.
@@ -143,7 +143,7 @@ class Widget_Login extends \WP_Widget {
 
 			// Show logged out text if any is written.
 			if ( $logged_out_text )
-				echo do_shortcode( shortcode_unautop( wpautop( $logged_out_text ) ) );
+				echo wp_kses_data( do_shortcode( shortcode_unautop( wpautop( $logged_out_text ) ) ) );
 
 			// Output the login form.
 			echo '<div class="members-login-form">' . wp_login_form( $args ) . '</div>';
@@ -263,7 +263,11 @@ class Widget_Login extends \WP_Widget {
 		<p>
 			<label>
 				<input class="checkbox" type="checkbox" <?php checked( $instance['value_remember'] ); ?> name="<?php echo $this->get_field_name( 'value_remember' ); ?>" />
+<<<<<<< HEAD
+				<?php edc_html_e( 'Check "remember me"?', 'members' ); ?>
+=======
 				<?php esc_html_e( 'Check "remember me"?', 'members' ); ?>
+>>>>>>> upstream/master
 			</label>
 		</p>
 		<p>

@@ -210,6 +210,13 @@ final class Meta_Box_Content_Permissions {
 						<?php printf( esc_html__( 'If no roles are selected, everyone can view the content. The author, any users who can edit the content, and users with the %s capability can view the content regardless of role.', 'members' ), '<code>restrict_content</code>' ); ?>
 					</span>
 
+<<<<<<< HEAD
+		<p>
+			<label for="members_access_error"><?php esc_html_e( 'Custom error message:', 'members' ); ?></label>
+			<textarea class="widefat" id="members_access_error" name="members_access_error" rows="6"><?php echo esc_textarea( get_post_meta( $post->ID, '_members_access_error', true ) ); ?></textarea>
+			<span class="howto"><?php esc_html_e( 'Message shown to users that do not have permission to view the post.', 'members' ); ?></span>
+		</p><?php
+=======
 				</div>
 
 				<div id="members-tab-cp-message" class="members-tab-content">
@@ -228,6 +235,7 @@ final class Meta_Box_Content_Permissions {
 			</div><!-- .members-tab-wrap -->
 
 		</div><!-- .members-tabs --><?php
+>>>>>>> upstream/master
 
 		// Hook that fires at the end of the meta box.
 		do_action( 'members_cp_meta_box_after', $post );
@@ -266,7 +274,7 @@ final class Meta_Box_Content_Permissions {
 		$current_roles = members_get_post_roles( $post_id );
 
 		// Get the new roles.
-		$new_roles = isset( $_POST['members_access_role'] ) ? $_POST['members_access_role'] : '';
+		$new_roles = isset( $_POST['members_access_role'] ) ? array_map( 'members_sanitize_role', wp_unslash( $_POST['members_access_role'] ) ) : '';
 
 		// If we have an array of new roles, set the roles.
 		if ( is_array( $new_roles ) )

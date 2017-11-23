@@ -272,11 +272,15 @@ final class Settings_Page {
 	public function settings_page() { ?>
 
 		<div class="wrap">
+<<<<<<< HEAD
+			<h1><?php esc_html_e( 'Members Settings', 'members' ); ?></h1>
+=======
 			<h1><?php echo esc_html_x( 'Members', 'admin screen', 'members' ); ?></h1>
 
 			<div class="wp-filter">
 				<?php $this->filter_links(); ?>
 			</div>
+>>>>>>> upstream/master
 
 			<?php $this->get_view( members_get_current_settings_view() )->template(); ?>
 

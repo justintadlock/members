@@ -27,8 +27,8 @@ function members_get_help_sidebar_text() {
 	return sprintf(
 		'<p><strong>%s</strong></p><ul>%s%s</ul>',
 		esc_html__( 'For more information:', 'members' ),
-		$docs_link,
-		$help_link
+		wp_kses_post( $docs_link ),
+		wp_kses_post( $help_link )
 	);
 }
 
@@ -149,8 +149,8 @@ function members_edit_role_help_edit_caps_cb() { ?>
 	</p>
 
 	<ul>
-		<li><?php _e( '<strong>Grant</strong> allows you to grant the role a capability.', 'members' ); ?></li>
-		<li><?php _e( '<strong>Deny</strong> allows you to explicitly deny the role a capability.', 'members' ); ?></li>
+		<li><?php echo wp_kses_post( __( '<strong>Grant</strong> allows you to grant the role a capability.', 'members' ) ); ?></li>
+		<li><?php echo wp_kses_post( __( '<strong>Deny</strong> allows you to explicitly deny the role a capability.', 'members' ) ); ?></li>
 		<li><?php esc_html_e( 'You may also opt to neither grant nor deny the role a capability.', 'members' ); ?></li>
 	</ul>
 <?php }

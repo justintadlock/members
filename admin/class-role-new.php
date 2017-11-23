@@ -126,7 +126,7 @@ final class Role_New {
 	public function load() {
 
 		// Are we cloning a role?
-		$this->is_clone = isset( $_GET['clone'] ) && members_role_exists( $_GET['clone'] );
+		$this->is_clone = isset( $_GET['clone'] ) && members_role_exists( members_sanitize_role( wp_unslash( $_GET['clone'] ) ) );
 
 		if ( $this->is_clone ) {
 
@@ -134,7 +134,7 @@ final class Role_New {
 			add_filter( 'members_new_role_default_caps', array( $this, 'clone_default_caps' ), 15 );
 
 			// Set the clone role.
-			$this->clone_role = members_sanitize_role( $_GET['clone'] );
+			$this->clone_role = members_sanitize_role( wp_unslash( $_GET['clone'] ) );
 		}
 
 		// Check if the current user can create roles and the form has been submitted.
@@ -161,8 +161,16 @@ final class Role_New {
 			// Check if any capabilities were selected.
 			if ( isset( $_POST['grant-caps'] ) || isset( $_POST['deny-caps'] ) ) {
 
+<<<<<<< HEAD
+				$grant_caps = ! empty( $_POST['grant-caps'] ) ? array_map( 'members_sanitize_cap', wp_unslash( $_POST['grant-caps'] ) ) : array();
+				$deny_caps  = ! empty( $_POST['deny-caps'] )  ? array_map( 'members_sanitize_cap', wp_unslash( $_POST['deny-caps']  ) ) : array();
+
+				$grant_caps = array_unique( $grant_caps );
+				$deny_caps  = array_unique( $deny_caps );
+=======
 				$grant_caps = ! empty( $_POST['grant-caps'] ) ? members_remove_hidden_caps( array_unique( $_POST['grant-caps'] ) ) : array();
 				$deny_caps  = ! empty( $_POST['deny-caps'] )  ? members_remove_hidden_caps( array_unique( $_POST['deny-caps']  ) ) : array();
+>>>>>>> upstream/master
 
 				foreach ( $_m_caps as $cap ) {
 
@@ -174,8 +182,16 @@ final class Role_New {
 				}
 			}
 
+<<<<<<< HEAD
+			$grant_new_caps = ! empty( $_POST['grant-new-caps'] ) ? array_map( 'members_sanitize_cap', wp_unslash( $_POST['grant-new-caps'] ) ) : array();
+			$deny_new_caps  = ! empty( $_POST['deny-new-caps'] )  ? array_map( 'members_sanitize_cap', wp_unslash( $_POST['deny-new-caps']  ) ) : array();
+
+			$grant_new_caps = array_unique( $grant_new_caps );
+			$deny_new_caps  = array_unique( $deny_new_caps );
+=======
 			$grant_new_caps = ! empty( $_POST['grant-new-caps'] ) ? members_remove_hidden_caps( array_unique( $_POST['grant-new-caps'] ) ) : array();
 			$deny_new_caps  = ! empty( $_POST['deny-new-caps'] )  ? members_remove_hidden_caps( array_unique( $_POST['deny-new-caps']  ) ) : array();
+>>>>>>> upstream/master
 
 			foreach ( $grant_new_caps as $grant_new_cap ) {
 
@@ -195,11 +211,11 @@ final class Role_New {
 
 			// Sanitize the new role name/label. We just want to strip any tags here.
 			if ( ! empty( $_POST['role_name'] ) )
-				$this->role_name = wp_strip_all_tags( $_POST['role_name'] );
+				$this->role_name = wp_strip_all_tags( wp_unslash( $_POST['role_name'] ) );
 
 			// Sanitize the new role, removing any unwanted characters.
 			if ( ! empty( $_POST['role'] ) )
-				$this->role = members_sanitize_role( $_POST['role'] );
+				$this->role = members_sanitize_role( wp_unslash( $_POST['role'] ) );
 
 			else if ( $this->role_name )
 				$this->role = members_sanitize_role( $this->role_name );
@@ -223,7 +239,7 @@ final class Role_New {
 				}
 
 				// Add role added message.
-				add_settings_error( 'members_role_new', 'role_added', sprintf( esc_html__( 'The %s role has been created.', 'members' ), $this->role_name ), 'updated' );
+				add_settings_error( 'members_role_new', 'role_added', sprintf( esc_html__( 'The %s role has been created.', 'members' ), esc_html( $this->role_name ) ), 'updated' );
 			}
 
 			// If there are new caps, let's assign them.
@@ -236,7 +252,7 @@ final class Role_New {
 
 			// Add error if this is a duplicate role.
 			if ( $is_duplicate )
-				add_settings_error( 'members_role_new', 'duplicate_role', sprintf( esc_html__( 'The %s role already exists.', 'members' ), $this->role ) );
+				add_settings_error( 'members_role_new', 'duplicate_role', sprintf( esc_html__( 'The %s role already exists.', 'members' ), esc_html( $this->role ) ) );
 
 			// Add error if there's no role name.
 			if ( ! $this->role_name )
