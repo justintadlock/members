@@ -113,7 +113,7 @@ class View_Addons extends View {
 
 				<div class="desc column-description">
 
-					<?php echo wpautop( wp_strip_all_tags( $addon->excerpt ) ); ?>
+					<?php echo wp_kses_post( wpautop( wp_strip_all_tags( $addon->excerpt ) ) ); ?>
 
 					<p class="authors">
 						<?php $author = sprintf( '<a href="%s">%s</a>', esc_url( $addon->author_url ), esc_html( $addon->author_name ) ); ?>
@@ -142,8 +142,9 @@ class View_Addons extends View {
 
 						<div class="column-downloaded">
 							<?php printf(
+								/* translators: number of active installs */
 								esc_html__( '%s+ Active Installs', 'members' ),
-								number_format_i18n( absint( $addon->install_count ) )
+								esc_html( number_format_i18n( absint( $addon->install_count ) ) )
 							); ?>
 						</div>
 
