@@ -306,7 +306,7 @@ final class Settings_Page {
 					$url = remove_query_arg( 'view', $url ); ?>
 
 				<li class="<?php echo sanitize_html_class( $view->name ); ?>">
-					<a href="<?php echo esc_url( $url ); ?>" <?php echo $class; ?>><?php echo esc_html( $view->label ); ?></a>
+					<a href="<?php echo esc_url( $url ); ?>" <?php echo esc_attr( $class ); ?>><?php echo esc_html( $view->label ); ?></a>
 				</li>
 
 			<?php endforeach; ?>
