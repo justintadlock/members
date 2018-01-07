@@ -195,7 +195,7 @@ final class Role_New {
 
 			// Sanitize the new role name/label. We just want to strip any tags here.
 			if ( ! empty( $_POST['role_name'] ) )
-				$this->role_name = wp_strip_all_tags( $_POST['role_name'] );
+				$this->role_name = wp_strip_all_tags( wp_unslash( $_POST['role_name'] ) );
 
 			// Sanitize the new role, removing any unwanted characters.
 			if ( ! empty( $_POST['role'] ) )
