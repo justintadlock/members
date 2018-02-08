@@ -46,6 +46,13 @@ function members_register_default_roles( $wp_roles ) {
 
 		members_register_role( $name, $args );
 	}
+
+	// Unset any roles that were registered previously but are not currently available.
+	foreach ( members_get_roles() as $role ) {
+
+		if ( ! isset( $wp_roles->roles[ $role->name ] ) )
+			members_unregister_role( $role->name );
+	}
 }
 
 /**
