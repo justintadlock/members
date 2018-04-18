@@ -114,7 +114,7 @@ function members_is_private_page() {
 	if ( class_exists( 'WooCommerce' ) ) {
 		$page_id = get_option( 'woocommerce_myaccount_page_id' );
 
-		if ( is_page( $page_id ) )
+		if ( $page_id && is_page( $page_id ) )
 			$is_private = false;
 	}
 
