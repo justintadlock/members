@@ -168,6 +168,6 @@ final class Addon {
 		$this->name = sanitize_key( $name );
 
 		if ( ! $this->icon_url )
-			$this->icon_url = members_plugin()->dir_uri . 'img/addon.png';
+			$this->icon_url = members_plugin()->uri . 'img/icon-addon.png';
 	}
 }
