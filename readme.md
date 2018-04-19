@@ -23,7 +23,7 @@ If you need professional plugin support from me, the plugin author, you can acce
 
 This project is licensed under the [GNU GPL](http://www.gnu.org/licenses/old-licenses/gpl-2.0.html), version 2 or later.
 
-2009&thinsp;&ndash;&thinsp;2017 &copy; [Justin Tadlock](http://justintadlock.com).
+2009&thinsp;&ndash;&thinsp;2018 &copy; [Justin Tadlock](http://justintadlock.com).
 
 ## Documentation
 
@@ -98,6 +98,14 @@ There are several shortcodes that you can use in your post editor or any shortco
 The `[members_access]` shortcode is for hiding content from particular roles and capabilities.  You need to wrap your content when using this shortcode:
 
 	[members_access role="editor"]Hide this content from everyone but editors.[/members_access]
+
+The plugin accepts the following parameters (mixing and matching won't work):
+
+* `role` - A single or comma-separated list of roles.
+* `capability` - A single or comma-separated list of capabilities.
+* `user_name` - A single or comma-separated list of usernames.
+* `user_id` - A single or comma-separated list of user IDs.
+* `user_email` - A single or comma-separated list of user email addresses.
 
 **Parameters:**
 

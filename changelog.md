@@ -1,5 +1,24 @@
 # Change Log
 
+## [2.1.0] - 2018-04-19
+
+### Added
+
+* `user_name` parameter for the `[members_access]` shortcode.
+* `user_id` parameter for the `[members_access]` shortcode.
+* `user_email` parameter for the `[members_access]` shortcode.
+* `icon-members-core-create-caps.png` file for local access to the corresponding add-on thumbnail.
+
+### Fixed
+
+* Incorrect roles (or empty roles) appearing on sub-sites when running multisite.
+* Invalid icon URL on the Settings > Members > Add-ons admin screen.
+* Fix for WooCommerce empty page ID in the private site feature.
+
+### Changed
+
+* Bumped minimum PHP requirement to 5.6+. However, the code should still work on PHP 5.3. This is in preparation for a hard requirement of 5.6+ when version 3.0.0 is released.
+
 ## [2.0.2] - 2017-11-06
 
 ### Fixed

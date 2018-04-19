@@ -7,7 +7,7 @@
  * @package    Members
  * @subpackage Includes
  * @author     Justin Tadlock <justintadlock@gmail.com>
- * @copyright  Copyright (c) 2009 - 2017, Justin Tadlock
+ * @copyright  Copyright (c) 2009 - 2018, Justin Tadlock
  * @link       https://themehybrid.com/plugins/members
  * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
@@ -114,7 +114,7 @@ function members_is_private_page() {
 	if ( class_exists( 'WooCommerce' ) ) {
 		$page_id = get_option( 'woocommerce_myaccount_page_id' );
 
-		if ( is_page( $page_id ) )
+		if ( $page_id && is_page( $page_id ) )
 			$is_private = false;
 	}
 
