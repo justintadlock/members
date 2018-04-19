@@ -99,6 +99,14 @@ The `[members_access]` shortcode is for hiding content from particular roles and
 
 	[members_access role="editor"]Hide this content from everyone but editors.[/members_access]
 
+The plugin accepts the following parameters (mixing and matching won't work):
+
+* `role` - A single or comma-separated list of roles.
+* `capability` - A single or comma-separated list of capabilities.
+* `user_name` - A single or comma-separated list of usernames.
+* `user_id` - A single or comma-separated list of user IDs.
+* `user_email` - A single or comma-separated list of user email addresses.
+
 **Parameters:**
 
 * `capability`:  A capability that has been assigned to a role.
