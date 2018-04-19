@@ -4,9 +4,9 @@ Contributors: greenshady
 Donate link: https://themehybrid.com/donate
 Tags: capabilities, roles, members, users
 Requires at least: 4.7
-Tested up to: 4.8.3
-Requires PHP: 5.3
-Stable tag: 2.0.2
+Tested up to: 4.9
+Requires PHP: 5.6
+Stable tag: 2.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -72,7 +72,9 @@ You can also [view the readme](https://github.com/justintadlock/members/blob/mas
 
 ### Minimum PHP requirements.
 
-Since version 2.0.0 of Members, PHP 5.3.0+ is required to use the plugin.  The plugin will not allow itself to be activated and will output an error message if an earlier version of PHP is detected.
+Since version 2.1.0 of Members, PHP 5.6+ is a soft requirement to use the plugin. The plugin will still work on PHP 5.3+, but it is not recommended.
+
+When Members version 3.0.0 is released, PHP 5.6+ will be a hard requirement and won't work on older versions of PHP.
 
 ### I can't access the "Role Manager" features.
 

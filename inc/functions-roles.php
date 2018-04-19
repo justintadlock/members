@@ -5,7 +5,7 @@
  * @package    Members
  * @subpackage Includes
  * @author     Justin Tadlock <justintadlock@gmail.com>
- * @copyright  Copyright (c) 2009 - 2017, Justin Tadlock
+ * @copyright  Copyright (c) 2009 - 2018, Justin Tadlock
  * @link       https://themehybrid.com/plugins/members
  * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
@@ -45,6 +45,13 @@ function members_register_default_roles( $wp_roles ) {
 		);
 
 		members_register_role( $name, $args );
+	}
+
+	// Unset any roles that were registered previously but are not currently available.
+	foreach ( members_get_roles() as $role ) {
+
+		if ( ! isset( $wp_roles->roles[ $role->name ] ) )
+			members_unregister_role( $role->name );
 	}
 }
 
