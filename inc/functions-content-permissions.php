@@ -179,7 +179,7 @@ function members_enable_content_permissions() {
 function members_content_permissions_protect( $content ) {
 
 	$post_id = get_the_ID();
-	if(!$post_id)
+	if ( ! $post_id )
 		return false;
 
 	return members_can_current_user_view_post( $post_id ) ? $content : members_get_post_error_message( $post_id );
@@ -196,7 +196,7 @@ function members_content_permissions_protect( $content ) {
 function members_content_permissions_comments( $template ) {
 
 	$post_id = get_the_ID();
-	if(!$post_id)
+	if ( ! $post_id )
 		return false;
 	
 	// Check if the current user has permission to view the comments' post.
