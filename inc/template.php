@@ -31,6 +31,9 @@ function members_can_user_view_post( $user_id, $post_id = '' ) {
 	// If no post ID is given, assume we're in The Loop and get the current post's ID.
 	if ( ! $post_id )
 		$post_id = get_the_ID();
+	
+	if ( ! $post_id )
+		return false;
 
 	// Assume the user can view the post at this point. */
 	$can_view = true;
