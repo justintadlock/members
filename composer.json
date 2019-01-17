@@ -12,9 +12,14 @@
 			"homepage" : "http://justintadlock.com"
 		}
 	],
+	"autoload"    : {
+		"psr-4" : {
+			"Members\\" : "src/"
+		}
+	},
 	"require"     : {
 		"composer/installers" : "^1.0",
-		"php"                 : ">=5.3.0"
+		"php"                 : ">=5.6.0"
 	},
 	"support"     : {
 		"issues": "https://github.com/justintadlock/members/issues",

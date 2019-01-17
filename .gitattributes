@@ -1,0 +1,8 @@
+# Handle line endings.
+# See https://help.github.com/articles/dealing-with-line-endings/
+
+* text eol=lf
+*.gif binary
+*.ico binary
+*.jpg binary
+*.png binary
