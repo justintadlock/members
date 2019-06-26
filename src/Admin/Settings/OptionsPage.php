@@ -8,16 +8,23 @@ class OptionsPage implements Bootable {
 
 	protected $name = 'members-settings';
 
-	protected $args = [];
-
 	protected $page = '';
 
-	public $views = array();
+	protected $label = '';
+	protected $capability = 'manage_options';
+
+	public $views = [];
 
 	public function __construct( $name, array $args = [] ) {
 
+		foreach ( array_keys( get_object_vars( $this ) ) as $key ) {
+
+			if ( isset( $args[ $key ] ) ) {
+				$this->$key = $args[ $key ];
+			}
+		}
+
 		$this->name = $name;
-		$this->args = $args;
 	}
 
 	public function boot() {
@@ -30,13 +37,13 @@ class OptionsPage implements Bootable {
 		return $this->name;
 	}
 
-	public function admin_menu() {
+	public function adminMenu() {
 
 		$this->page = add_options_page(
 			esc_html( $this->label ),
 			esc_html( $this->label ),
 			$this->capability,
-			$this->name
+			$this->name,
 			[ $this, 'template' ]
 		);
 
@@ -51,7 +58,11 @@ class OptionsPage implements Bootable {
 	}
 
 	public function init() {
-		$this->registerProviders();
+
+		$this->addView( Views\General::class );
+		$this->addView( Views\Addons::class  );
+
+		$this->registerViews();
 	}
 
 	public function load() {
@@ -60,7 +71,7 @@ class OptionsPage implements Bootable {
 		add_action( 'admin_head', array( $this, 'print_styles' ) );
 
 		// Add help tabs for the current view.
-		$view = $this->get_view( members_get_current_settings_view() );
+	//	$view = $this->get_view( members_get_current_settings_view() );
 
 		$view = $this->currentView();
 
@@ -93,13 +104,13 @@ class OptionsPage implements Bootable {
 	 */
 	public function enqueue( $hook_suffix ) {
 
-		if ( $this->settings_page !== $hook_suffix )
+		if ( $this->page !== $hook_suffix )
 			return;
 
-		$view = $this->get_view( members_get_current_settings_view() );
+	//	$view = $this->get_view( members_get_current_settings_view() );
 
-		if ( $view )
-			$view->enqueue();
+	//	if ( $view )
+	//		$view->enqueue();
 	}
 
 	function register_settings() {
@@ -128,16 +139,22 @@ class OptionsPage implements Bootable {
 			<?php foreach ( $this->views as $view ) :
 
 				// Determine current class.
-				$class = $view->name() === $this->currentView->name() ? 'class="current"' : '';
+				$class = $view->name() === $this->currentView()->name() ? 'class="current"' : '';
 
 				// Get the URL.
-				$url = members_get_settings_view_url( $view->name );
+				//$url = members_get_settings_view_url( $view->name );
+				$url = admin_url( 'options-general.php' );
 
-				if ( 'general' === $view->name )
+				$url = add_query_arg( [
+					'page' => $this->name,
+					'view' => $view->name()
+				], $url );
+
+				if ( 'general' === $view->name() )
 					$url = remove_query_arg( 'view', $url ); ?>
 
-				<li class="<?php echo sanitize_html_class( $view->name ); ?>">
-					<a href="<?php echo esc_url( $url ); ?>" <?php echo $class; ?>><?php echo esc_html( $view->label ); ?></a>
+				<li class="<?php echo sanitize_html_class( $view->name() ); ?>">
+					<a href="<?php echo esc_url( $url ); ?>" <?php echo $class; ?>><?php echo esc_html( $view->label() ); ?></a>
 				</li>
 
 			<?php endforeach; ?>

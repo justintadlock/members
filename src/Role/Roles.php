@@ -17,7 +17,7 @@ class Roles extends Collection {
 
 		foreach ( $this->all() as $role ) {
 
-			if ( $role->group() === $group ) {
+			if ( $role->group()->name() === $group ) {
 
 				$roles[ $role->name() ] = $roles[ $role ];
 			}

@@ -10,11 +10,11 @@ class AddonProvider extends ServiceProvider {
 
 		$this->app->singleton( AddonManager::class );
 
-		$this->app->alias( AddonManager::class, 'addons' );
+	//	$this->app->alias( AddonManager::class, 'addons' );
 	}
 
 	public function boot() {
 
-		$this->app->resolve( 'addons' )->boot();
+	//	$this->app->resolve( AddonManager::class )->boot();
 	}
 }

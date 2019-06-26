@@ -16,6 +16,9 @@
  * @license   http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
+define( 'MEMBERS_DIR', plugin_dir_path( __FILE__ ) );
+define( 'MEMBERS_URI', plugin_dir_url(  __FILE__ ) );
+
 # todo: bootstrap compatibility file if not meeting WP or PHP req.
 # require_once( 'src/bootstrap-compat.php' );
 

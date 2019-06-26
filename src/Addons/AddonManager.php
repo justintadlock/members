@@ -13,6 +13,10 @@ class AddonManager implements Bootable {
 		$this->addons = $addons;
 	}
 
+	public function addons() {
+		return $this->addons;
+	}
+
 	public function boot() {
 
 		add_action( 'members/addons/register', [ $this, 'registerDefaultAddons' ], 5 );
@@ -46,13 +50,15 @@ class AddonManager implements Bootable {
 
 			// Decode the data that we got.
 			$data = json_decode( wp_remote_retrieve_body( $response ) );
+
+			if ( ! empty( $data ) && is_array( $data ) ) {
+				// Set the transient with the new data.
+				set_transient( 'members_addons', $data, 7 * DAY_IN_SECONDS );
+			}
 		}
 
 		// If we have an array of data, let's roll.
 		if ( ! empty( $data ) && is_array( $data ) ) {
-
-			// Set the transient with the new data.
-			set_transient( 'members_addons', $data, 7 * DAY_IN_SECONDS );
 
 			foreach ( $data as $addon ) {
 

@@ -20,62 +20,47 @@ namespace Members\Role;
  */
 class Group {
 
-	/**
-	 * Name/ID for the group.
-	 *
-	 * @since  2.0.0
-	 * @access public
-	 * @var    string
-	 */
-	public $name = '';
-
-	/**
-	 * Internationalized text label for the group.
-	 *
-	 * @since  2.0.0
-	 * @access public
-	 * @var    string
-	 */
-	public $label = '';
+	protected $name = '';
+	protected $label = '';
 
 	/**
 	 * Internationalized text label for the group + the count in the form of
 	 * `_n_noop( 'Singular Name %s', 'Plural Name %s', $textdomain )`
 	 *
-	 * @since  2.0.0
-	 * @access public
+	 * @since  3.0.0
+	 * @access protected
 	 * @var    string
 	 */
-	public $label_count = '';
+	protected $label_count = '';
 
 	/**
 	 * Array of roles that belong to the group.
 	 *
-	 * @since  2.0.0
-	 * @access public
+	 * @since  3.0.0
+	 * @access protected
 	 * @var    array
 	 */
-	public $roles = array();
+	protected $roles = [];
 
 	/**
 	 * Whether to create a view for the group on the Manage Roles screen.
 	 *
 	 * @since  2.0.0
-	 * @access public
+	 * @access protected
 	 * @var    bool
 	 */
-	public $show_in_view_list = true;
+	protected $show_in_view_list = true;
 
 	/**
-	 * Magic method to use in case someone tries to output the object as a string.
-	 * We'll just return the name.
+	 * Magic method to use in case someone tries to output the object as a
+	 * string. We'll just return the name.
 	 *
-	 * @since  2.0.0
+	 * @since  3.0.0
 	 * @access public
 	 * @return string
 	 */
 	public function __toString() {
-		return $this->name;
+		return $this->name();
 	}
 
 	/**

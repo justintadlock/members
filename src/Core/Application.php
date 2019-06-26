@@ -102,6 +102,9 @@ class Application extends Container implements ApplicationContract, Bootable {
 		// Adds the directory path for the framework.
 		$this->instance( 'path', untrailingslashit( MEMBERS_DIR ) );
 
+		// Adds the directory URI to the plugin.
+		$this->instance( 'uri', untrailingslashit( MEMBERS_URI ) );
+
 		// Add the version for the framework.
 		$this->instance( 'version', static::VERSION );
 	}

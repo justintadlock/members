@@ -13,113 +13,41 @@
 
 namespace Members\Role;
 
-/**
- * Role class.
- *
- * @since  2.0.0
- * @access public
- */
+use Members\Proxies\App;
+
 class Role {
 
-	/**
-	 * The role name.
-	 *
-	 * @since  2.0.0
-	 * @access public
-	 * @var    string
-	 */
-	public $name = '';
+	protected $name = '';
+	protected $label = '';
 
-	/**
-	 * The role label.
-	 *
-	 * @since  2.0.0
-	 * @access public
-	 * @var    string
-	 */
-	public $label = '';
+	protected $group = '';
 
-	/**
-	 * The group the role belongs to.
-	 *
-	 * @see    Members\Role_Group
-	 * @since  2.0.0
-	 * @access public
-	 * @var    string
-	 */
-	public $group = '';
+	protected $caps = [];
 
-	/**
-	 * Whether the role has caps (granted).
-	 *
-	 * @since  2.0.0
-	 * @access public
-	 * @var    bool
-	 */
-	public $has_caps = false;
+	protected $granted_caps = [];
 
-	/**
-	 * Capability count for the role.
-	 *
-	 * @since  2.0.0
-	 * @access public
-	 * @var    int
-	 */
-	public $granted_cap_count = 0;
-
-	/**
-	 * Capability count for the role.
-	 *
-	 * @since  2.0.0
-	 * @access public
-	 * @var    int
-	 */
-	public $denied_cap_count = 0;
-
-	/**
-	 * Array of capabilities that the role has in the form of `array( $cap => $bool )`.
-	 *
-	 * @since  2.0.0
-	 * @access public
-	 * @var    array
-	 */
-	public $caps = array();
-
-	/**
-	 * Array of granted capabilities that the role has.
-	 *
-	 * @since  2.0.0
-	 * @access public
-	 * @var    array
-	 */
-	public $granted_caps = array();
-
-	/**
-	 * Array of denied capabilities that the role has.
-	 *
-	 * @since  2.0.0
-	 * @access public
-	 * @var    array
-	 */
-	public $denied_caps = array();
+	protected $denied_caps = [];
 
 	/**
 	 * Return the role string in attempts to use the object as a string.
 	 *
-	 * @since  2.0.0
+	 * Important! Need to keep this for back-compat when passing to some
+	 * filters that expect a string name.
+	 *
+	 * @since  3.0.0
 	 * @access public
 	 * @return string
 	 */
 	public function __toString() {
-		return $this->name;
+		return $this->name();
 	}
 
 	/**
 	 * Creates a new role object.
 	 *
-	 * @since  2.0.0
+	 * @since  3.0.0
 	 * @access public
-	 * @param  string  $role
+	 * @param  string  $name
 	 * @param  array   $args
 	 * @return void
 	 */
@@ -127,11 +55,12 @@ class Role {
 
 		foreach ( array_keys( get_object_vars( $this ) ) as $key ) {
 
-			if ( isset( $args[ $key ] ) )
+			if ( isset( $args[ $key ] ) ) {
 				$this->$key = $args[ $key ];
+			}
 		}
 
-		$this->name = members_sanitize_role( $name );
+		$this->name = sanitize_name( $name );
 
 		if ( $this->caps ) {
 
@@ -143,36 +72,48 @@ class Role {
 			$this->denied_caps  = array_keys( $this->caps, false );
 
 			// Remove user levels from granted/denied caps.
-			$this->granted_caps = members_remove_old_levels( $this->granted_caps );
-			$this->denied_caps  = members_remove_old_levels( $this->denied_caps  );
+			$this->granted_caps = \Members\Cap\remove_levels( $this->granted_caps );
+			$this->denied_caps  = \Members\Cap\remove_levels( $this->denied_caps  );
 
 			// Remove hidden caps from granted/denied caps.
-			$this->granted_caps = members_remove_hidden_caps( $this->granted_caps );
-			$this->denied_caps  = members_remove_hidden_caps( $this->denied_caps  );
-
-			// Set the cap count.
-			$this->granted_cap_count = count( $this->granted_caps );
-			$this->denied_cap_count  = count( $this->denied_caps  );
-
-			// Check if we have caps.
-			$this->has_caps = 0 < $this->granted_cap_count;
+			$this->granted_caps = \Members\Cap\remove_hidden_caps( $this->granted_caps );
+			$this->denied_caps  = \Members\Cap\remove_hidden_caps( $this->denied_caps  );
 		}
 	}
 
-	/**
-	 * Magic method for getting media object properties.  Let's keep from failing if a theme
-	 * author attempts to access a property that doesn't exist.
-	 *
-	 * @since  2.0.2
-	 * @access public
-	 * @param  string  $property
-	 * @return mixed
-	 */
-	public function get( $property ) {
+	public function name() {
+		return $this->name;
+	}
 
-		if ( 'label' === $property )
-			return members_translate_role( $this->name );
+	public function label() {
+		return $this->label ?: $this->name();
+	}
 
-		return isset( $this->$property ) ? $this->$property : false;
+	public function group() {
+		return App::resolve( Groups::class )->get( $this->group );
+	}
+
+	public function hasCaps() {
+		return 0 < $this->grantedCapCount();
+	}
+
+	public function caps() {
+		return $this->caps;
+	}
+
+	public function grantedCaps() {
+		return $this->granted_caps;
+	}
+
+	public function deniedCaps() {
+		return $this->denied_caps;
+	}
+
+	public function grantedCapCount() {
+		return count( $this->grantedCaps() );
+	}
+
+	public function deniedCapCount() {
+		return count( $this->deniedCaps() );
 	}
 }

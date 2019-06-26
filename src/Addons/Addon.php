@@ -12,6 +12,8 @@
 
 namespace Members\Addons;
 
+use Members\Proxies\App;
+
 /**
  * Add-on object class.
  *
@@ -68,7 +70,7 @@ class Addon {
 		$this->name = sanitize_key( $name );
 
 		if ( ! $this->options['icon_url'] ) {
-			$this->options['icon_url'] = members_plugin()->uri . 'img/icon-addon.png';
+			$this->options['icon_url'] = App::resolve( 'uri' ) . 'img/icon-addon.png';
 		}
 	}
 

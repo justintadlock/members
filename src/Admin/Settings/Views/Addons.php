@@ -10,39 +10,42 @@
  * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
-namespace Members\Admin;
+namespace Members\Admin\Settings\Views;
 
-/**
- * Sets up and handles the add-ons settings view.
- *
- * @since  2.0.0
- * @access public
- */
-class View_Addons extends View {
+use Members\Proxies\App;
+use Members\Addons\AddonManager;
+use Members\Addons\Addons as AddonCollection;
 
-	/**
-	 * Renders the settings page.
-	 *
-	 * @since  2.0.0
-	 * @access public
-	 * @return void
-	 */
-	public function template() {
+class Addons extends View {
 
-		require_once( members_plugin()->dir . 'admin/class-addon.php'      );
-		require_once( members_plugin()->dir . 'admin/functions-addons.php' );
+	protected $addons;
 
-		do_action( 'members_register_addons' );
+	public function name() {
+		return 'addons';
+	}
 
-		$addons = members_get_addons(); ?>
+	public function label() {
+		return __( 'Add-ons', 'members' );
+	}
+
+	public function boot() {
+		$addons = App::resolve( AddonManager::class );
+
+		$addons->boot();
+		$addons->register();
+
+		$this->addons = $addons->addons();
+	}
+
+	public function template() { ?>
 
 		<div class="widefat">
 
-			<?php if ( $addons ) : ?>
+			<?php if ( $this->addons->all() ) : ?>
 
-				<?php foreach ( $addons as $addon ) : ?>
+				<?php foreach ( $this->addons->all() as $addon ) : ?>
 
-					<?php $this->addon_card( $addon ); ?>
+					<?php $this->card( $addon ); ?>
 
 				<?php endforeach; ?>
 
@@ -66,24 +69,24 @@ class View_Addons extends View {
 	 * @access public
 	 * @return void
 	 */
-	public function addon_card( $addon ) { ?>
+	public function card( $addon ) { ?>
 
-		<div class="plugin-card plugin-card-<?php echo esc_attr( $addon->name ); ?>">
+		<div class="plugin-card plugin-card-<?php echo esc_attr( $addon->name() ); ?>">
 
 			<div class="plugin-card-top">
 
 				<div class="name column-name">
 					<h3>
-						<a href="<?php echo esc_url( $addon->url ); ?>">
-							<?php echo esc_html( $addon->title ); ?>
+						<a href="<?php echo esc_url( $addon->url() ); ?>">
+							<?php echo esc_html( $addon->label() ); ?>
 
-							<?php if ( file_exists( members_plugin()->dir . "img/icon-{$addon->name}.png" ) ) : ?>
+							<?php if ( file_exists( App::resolve( 'path' ) . 'img/icon-' . $addon->name() . '.png' ) ) : ?>
 
-								<img class="plugin-icon" src="<?php echo esc_url( members_plugin()->uri . "img/icon-{$addon->name}.png" ); ?>" alt="" />
+								<img class="plugin-icon" src="<?php echo esc_url( App::resolve( 'uri' ) . 'img/icon-' . $addon->name() . '.png' ); ?>" alt="" />
 
-							<?php elseif ( $addon->icon_url ) : ?>
+							<?php elseif ( $addon->iconUrl() ) : ?>
 
-								<img class="plugin-icon" src="<?php echo esc_url( $addon->icon_url ); ?>" alt="" />
+								<img class="plugin-icon" src="<?php echo esc_url( $addon->iconUrl() ); ?>" alt="" />
 
 							<?php endif; ?>
 						</a>
@@ -94,17 +97,17 @@ class View_Addons extends View {
 
 					<ul class="plugin-action-buttons">
 						<li>
-							<?php if ( $addon->purchase_url ) : ?>
+							<?php if ( $addon->purchaseUrl() ) : ?>
 
-								<a class="install-now button" href="<?php echo esc_url( $addon->purchase_url ); ?>"><?php esc_html_e( 'Purchase', 'members' ); ?></a>
+								<a class="install-now button" href="<?php echo esc_url( $addon->purchaseUrl() ); ?>"><?php esc_html_e( 'Purchase', 'members' ); ?></a>
 
-							<?php elseif ( $addon->download_url ) : ?>
+							<?php elseif ( $addon->downloadUrl() ) : ?>
 
-								<a class="install-now button" href="<?php echo esc_url( $addon->download_url ); ?>"><?php esc_html_e( 'Download', 'members' ); ?></a>
+								<a class="install-now button" href="<?php echo esc_url( $addon->downloadUrl() ); ?>"><?php esc_html_e( 'Download', 'members' ); ?></a>
 
 							<?php else : ?>
 
-								<a class="install-now button" href="<?php echo esc_url( $addon->url ); ?>"><?php esc_html_e( 'Download', 'members' ); ?></a>
+								<a class="install-now button" href="<?php echo esc_url( $addon->url() ); ?>"><?php esc_html_e( 'Download', 'members' ); ?></a>
 
 							<?php endif; ?>
 						</li>
@@ -113,10 +116,10 @@ class View_Addons extends View {
 
 				<div class="desc column-description">
 
-					<?php echo wpautop( wp_strip_all_tags( $addon->excerpt ) ); ?>
+					<?php echo wpautop( wp_strip_all_tags( $addon->excerpt() ) ); ?>
 
 					<p class="authors">
-						<?php $author = sprintf( '<a href="%s">%s</a>', esc_url( $addon->author_url ), esc_html( $addon->author_name ) ); ?>
+						<?php $author = sprintf( '<a href="%s">%s</a>', esc_url( $addon->authorUrl() ), esc_html( $addon->authorName() ) ); ?>
 
 						<cite><?php printf( esc_html__( 'By %s', 'members' ), $author ); ?></cite>
 					</p>
@@ -125,25 +128,29 @@ class View_Addons extends View {
 
 			</div><!-- .plugin-card-top -->
 
-			<?php if ( ( $addon->rating && $addon->rating_count ) || $addon->install_count ) : ?>
+			<?php if ( ( $addon->rating() && $addon->ratingCount() ) || $addon->installCount() ) : ?>
 
 				<div class="plugin-card-bottom">
 
-					<?php if ( $addon->rating && $addon->rating_count ) : ?>
+					<?php if ( $addon->rating() && $addon->ratingCount() ) : ?>
 
 						<div class="vers column-rating">
-							<?php wp_star_rating( array( 'type' => 'rating', 'rating' => floatval( $addon->rating ), 'number' => absint( $addon->rating_count ) ) ); ?>
-							<span class="num-ratings" aria-hidden="true">(<?php echo absint( $addon->rating_count ); ?>)</span>
+							<?php wp_star_rating( [
+								'type'   => 'rating',
+								'rating' => floatval( $addon->rating() ),
+								'number' => absint( $addon->ratingCount() )
+							] ); ?>
+							<span class="num-ratings" aria-hidden="true">(<?php echo absint( $addon->ratingCount() ); ?>)</span>
 						</div>
 
 					<?php endif; ?>
 
-					<?php if ( $addon->install_count ) : ?>
+					<?php if ( $addon->installCount() ) : ?>
 
 						<div class="column-downloaded">
 							<?php printf(
 								esc_html__( '%s+ Active Installs', 'members' ),
-								number_format_i18n( absint( $addon->install_count ) )
+								number_format_i18n( absint( $addon->installCount() ) )
 							); ?>
 						</div>
 

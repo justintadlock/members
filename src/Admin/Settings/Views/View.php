@@ -2,6 +2,8 @@
 
 namespace Members\Admin\Settings\Views;
 
+use Members\Admin\Settings\OptionsPage;
+
 abstract class View {
 
 	protected $manager;

@@ -1,17 +1,15 @@
 <?php
 
-namespace Members\Shortcodes;
+namespace Members\Shortcodes\Tags;
 
-use Members\Contracts\Shortcodes\Shortcode;
-
-class LoggedIn implements Shortcode {
+class LoggedIn extends Shortcode {
 
 	public function tag() {
 
 		return 'members_logged_in';
 	}
 
-	public function callback( array $attr = [], $content = null ) {
+	public function render( $attr = [], $content = null ) {
 
 		return is_feed() || ! is_user_logged_in() || is_null( $content )
 		       ? ''
