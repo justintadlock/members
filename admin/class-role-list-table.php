@@ -278,7 +278,21 @@ class Role_List_Table extends \WP_List_Table {
 	 * @return string
 	 */
 	protected function column_users( $role ) {
-		return apply_filters( 'members_manage_roles_column_users', members_get_role_user_count( $role ), $role );
+
+		$user_count = members_get_role_user_count( $role );
+
+		$output = number_format_i18n( $user_count );
+
+		if ( 0 < absint( $user_count ) && current_user_can( 'list_users' ) ) {
+
+			$output = sprintf(
+				'<a href="%s">%s</a>',
+				esc_url( add_query_arg( 'role', $role, admin_url( 'users.php' ) ) ),
+				$output
+			);
+		}
+
+		return apply_filters( 'members_manage_roles_column_users', $output, $role );
 	}
 
 	/**

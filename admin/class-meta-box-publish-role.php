@@ -97,8 +97,19 @@ final class Meta_Box_Publish_Role {
 
 				<div class="misc-pub-section misc-pub-section-users">
 					<i class="dashicons dashicons-admin-users"></i>
-					<?php esc_html_e( 'Users:', 'members' ); ?>
-					<strong class="user-count"><?php echo number_format_i18n( $user_count ); ?></strong>
+					<?php if ( 0 < $user_count && current_user_can( 'list_users' ) ) : ?>
+
+						<a href="<?php echo esc_url( add_query_arg( 'role', $role->name, admin_url( 'users.php' ) ) ); ?>"><?php echo esc_html(
+							sprintf(
+								_n( '%s User', '%s Users', absint( $user_count ), 'members' ),
+								number_format_i18n( $user_count )
+							)
+						); ?></a>
+
+					<?php else : ?>
+						<?php esc_html_e( 'Users:', 'members' ); ?>
+						<strong class="user-count"><?php echo number_format_i18n( $user_count ); ?></strong>
+					<?php endif; ?>
 				</div>
 
 				<div class="misc-pub-section misc-pub-section-granted">
