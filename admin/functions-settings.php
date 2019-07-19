@@ -48,6 +48,17 @@ function members_register_default_settings_views( $manager ) {
 			)
 		)
 	);
+
+	// Register add-ons view.
+	$manager->register_view(
+		new \Members\Admin\View_Donate(
+			'donate',
+			array(
+				'label'    => esc_html__( 'Help Fund Version 3.0', 'members' ),
+				'priority' => 100
+			)
+		)
+	);
 }
 
 /**

@@ -1,3 +1,79 @@
+/* ====== Members Settings Screen. ====== */
+
+.settings_page_members-settings .welcome-panel {
+	margin-top: 0;
+	padding:    40px 20px;
+}
+
+.settings_page_members-settings .welcome-panel .about-description {
+	margin: 20px 0;
+}
+
+.settings_page_members-settings .welcome-panel-content {
+	margin: 0;
+}
+
+@media screen and (min-width: 870px) {
+
+	.settings_page_members-settings .members-short-p {
+		max-width: 612px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+	.settings_page_members-settings .welcome-panel-content {
+		text-align: center;
+	}
+}
+
+.settings_page_members-settings .welcome-panel .button.button-hero {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.settings_page_members-settings .members-svg-wrap {
+	display: inline-block;
+	margin: 0 auto 20px;
+}
+
+@media screen and (max-width: 870px) {
+	.settings_page_members-settings .welcome-panel {
+		padding: 20px;
+	}
+
+	.settings_page_members-settings .members-svg-wrap {
+		float: left;
+		margin-right: 28px;
+	}
+
+	.settings_page_members-settings.rtl .members-svg-wrap {
+		float: right;
+		margin-right: 0;
+		margin-left: 28px;
+	}
+}
+
+.settings_page_members-settings .members-svg-link {
+	display: table-cell;
+	text-align: center;
+	width: 128px;
+	height: 128px;
+	background: #363b3f;
+	color: #fff;
+	padding: 24px 16px 16px;
+	border-radius: 50%;
+	box-sizing: border-box;
+	border: 4px solid #ffffff;
+	box-shadow: 0 0 0 4px #363b3f;
+}
+
+.settings_page_members-settings .members-svg-link svg {
+	max-width: 84px;
+	max-height: 64px;
+	width: auto;
+	height: auto;
+}
+
 /* ====== Manage Roles Screen. ====== */
 
 @media only screen and ( min-width: 783px ) {
