@@ -1,14 +1,14 @@
-# Copyright (C) 2017 Members
+# Copyright (C) 2019 Members
 # This file is distributed under the same license as the Members package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Members 2.0.0-dev\n"
+"Project-Id-Version: Members 2.2.0-alpha\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/members\n"
-"POT-Creation-Date: 2017-07-18 22:34:50+00:00\n"
+"POT-Creation-Date: 2019-07-20 01:10:06+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2017-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2019-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
@@ -75,7 +75,7 @@ msgstr ""
 msgid "Deny"
 msgstr ""
 
-#: _assets/class-cap-list-table.php:377 admin/class-role-list-table.php:337
+#: _assets/class-cap-list-table.php:377 admin/class-role-list-table.php:355
 #: admin/class-role-new.php:335 admin/functions-admin.php:46
 msgid "Edit"
 msgstr ""
@@ -83,17 +83,17 @@ msgstr ""
 #: _assets/class-cap-list-table.php:381 _assets/class-cap-list-table.php:520
 #: _assets/class-capability-list-table.php:264
 #: _assets/class-capability-list-table.php:387
-#: admin/class-role-list-table.php:341 admin/class-role-list-table.php:490
+#: admin/class-role-list-table.php:359 admin/class-role-list-table.php:508
 msgid "Delete"
 msgstr ""
 
-#: _assets/class-cap-list-table.php:387 admin/class-role-list-table.php:347
+#: _assets/class-cap-list-table.php:387 admin/class-role-list-table.php:365
 msgid "View"
 msgstr ""
 
 #: _assets/class-cap-list-table.php:452
 #: _assets/class-capability-list-table.php:319
-#: admin/class-role-list-table.php:400
+#: admin/class-role-list-table.php:418
 msgid "All %s"
 msgid_plural "All %s"
 msgstr[0] ""
@@ -101,7 +101,7 @@ msgstr[1] ""
 
 #: _assets/class-cap-list-table.php:464
 #: _assets/class-capability-list-table.php:320
-#: admin/class-role-list-table.php:405
+#: admin/class-role-list-table.php:423
 msgid "Mine %s"
 msgid_plural "Mine %s"
 msgstr[0] ""
@@ -192,7 +192,7 @@ msgid "Capabilities"
 msgstr ""
 
 #: _assets/class-caps.php:212 admin/class-roles.php:210
-#: admin/functions-help.php:46 admin/views/class-view-addons.php:176
+#: admin/functions-help.php:46 admin/views/class-view-addons.php:173
 msgid "Overview"
 msgstr ""
 
@@ -329,7 +329,7 @@ msgid "None"
 msgstr ""
 
 #: admin/class-meta-box-content-permissions.php:115
-#: admin/views/class-view-general.php:63 admin/views/class-view-general.php:362
+#: admin/views/class-view-general.php:63 admin/views/class-view-general.php:363
 msgid "Content Permissions"
 msgstr ""
 
@@ -355,28 +355,34 @@ msgctxt "capability"
 msgid "Add New"
 msgstr ""
 
-#: admin/class-meta-box-publish-role.php:100
+#: admin/class-meta-box-publish-role.php:104
+msgid "%s User"
+msgid_plural "%s Users"
+msgstr[0] ""
+msgstr[1] ""
+
+#: admin/class-meta-box-publish-role.php:110
 msgid "Users:"
 msgstr ""
 
-#: admin/class-meta-box-publish-role.php:106
+#: admin/class-meta-box-publish-role.php:117
 msgid "Granted:"
 msgstr ""
 
-#: admin/class-meta-box-publish-role.php:112
+#: admin/class-meta-box-publish-role.php:123
 msgid "Denied:"
 msgstr ""
 
-#: admin/class-meta-box-publish-role.php:123
+#: admin/class-meta-box-publish-role.php:134
 msgctxt "delete role"
 msgid "Delete"
 msgstr ""
 
-#: admin/class-meta-box-publish-role.php:130
+#: admin/class-meta-box-publish-role.php:141
 msgid "Update"
 msgstr ""
 
-#: admin/class-meta-box-publish-role.php:130
+#: admin/class-meta-box-publish-role.php:141
 msgid "Add Role"
 msgstr ""
 
@@ -423,38 +429,38 @@ msgstr ""
 msgid "Your Role"
 msgstr ""
 
-#: admin/class-role-list-table.php:352
+#: admin/class-role-list-table.php:370
 msgid "Clone"
 msgstr ""
 
-#: admin/class-role-list-table.php:356
+#: admin/class-role-list-table.php:374
 msgid "Change Default"
 msgstr ""
 
-#: admin/class-role-list-table.php:360 admin/class-roles.php:69
+#: admin/class-role-list-table.php:378 admin/class-roles.php:69
 #: inc/class-widget-users.php:59 inc/functions-cap-groups.php:121
 msgid "Users"
 msgstr ""
 
-#: admin/class-role-list-table.php:410
+#: admin/class-role-list-table.php:428
 msgid "Has Users %s"
 msgid_plural "Has Users %s"
 msgstr[0] ""
 msgstr[1] ""
 
-#: admin/class-role-list-table.php:415
+#: admin/class-role-list-table.php:433
 msgid "No Users %s"
 msgid_plural "No Users %s"
 msgstr[0] ""
 msgstr[1] ""
 
-#: admin/class-role-list-table.php:420
+#: admin/class-role-list-table.php:438
 msgid "Editable %s"
 msgid_plural "Editable %s"
 msgstr[0] ""
 msgstr[1] ""
 
-#: admin/class-role-list-table.php:425
+#: admin/class-role-list-table.php:443
 msgid "Uneditable %s"
 msgid_plural "Uneditable %s"
 msgstr[0] ""
@@ -540,13 +546,13 @@ msgstr ""
 msgid "You can permanently delete multiple roles at once. Select the roles you want to act on using the checkboxes, then select the action you want to take from the Bulk Actions menu and click Apply."
 msgstr ""
 
-#: admin/class-settings.php:174 admin/class-settings.php:175
-#: admin/class-settings.php:275
+#: admin/class-settings.php:175 admin/class-settings.php:176
+#: admin/class-settings.php:276
 msgctxt "admin screen"
 msgid "Members"
 msgstr ""
 
-#: admin/class-user-edit.php:97 admin/class-user-new.php:106
+#: admin/class-user-edit.php:97 admin/class-user-new.php:109
 msgid "User Roles"
 msgstr ""
 
@@ -622,44 +628,75 @@ msgstr ""
 msgid "Add-Ons"
 msgstr ""
 
-#: admin/views/class-view-addons.php:53
+#: admin/functions-settings.php:57
+msgid "Help Fund Version 3.0"
+msgstr ""
+
+#: admin/views/class-view-addons.php:65
+msgid "Go Pro With Members Add-ons"
+msgstr ""
+
+#: admin/views/class-view-addons.php:68
+msgid "Take your membership site to the next level with add-ons. Pro users also enjoy live chat support and support forum access."
+msgstr ""
+
+#: admin/views/class-view-addons.php:71
+msgid "Upgrade To Pro"
+msgstr ""
+
+#: admin/views/class-view-addons.php:74
+msgid "Purchase Support-Only Membership"
+msgstr ""
+
+#: admin/views/class-view-addons.php:99
 msgid "There are currently no add-ons to show. Please try again later."
 msgstr ""
 
-#: admin/views/class-view-addons.php:99 admin/views/class-view-addons.php:194
-msgid "Purchase"
-msgstr ""
-
-#: admin/views/class-view-addons.php:103 admin/views/class-view-addons.php:107
-#: admin/views/class-view-addons.php:185
+#: admin/views/class-view-addons.php:182
 msgid "Download"
 msgstr ""
 
-#: admin/views/class-view-addons.php:121
-msgid "By %s"
+#: admin/views/class-view-addons.php:191
+msgid "Purchase"
 msgstr ""
 
-#: admin/views/class-view-addons.php:145
-msgid "%s+ Active Installs"
-msgstr ""
-
-#: admin/views/class-view-addons.php:213
+#: admin/views/class-view-addons.php:210
 msgid "The Add-Ons screen allows you to view available add-ons for the Members plugin. You can download some plugins directly. Others may be available to purchase."
 msgstr ""
 
-#: admin/views/class-view-addons.php:227
+#: admin/views/class-view-addons.php:224
 msgid "Some plugins may be available for direct download. In such cases, you can click the download button to get a ZIP file of the plugin."
 msgstr ""
 
-#: admin/views/class-view-addons.php:241
+#: admin/views/class-view-addons.php:238
 msgid "Some add-ons may require purchase before downloading them. Clicking the purchase button will take you off-site to view the add-on in more detail."
 msgstr ""
 
-#: admin/views/class-view-general.php:64 admin/views/class-view-general.php:371
+#: admin/views/class-view-donate.php:50
+msgid "Donate Toward Future Development"
+msgstr ""
+
+#: admin/views/class-view-donate.php:54
+msgid "The Members plugin needs funding to cover development costs toward version 3.0."
+msgstr ""
+
+#: admin/views/class-view-donate.php:58
+msgid "Members itself will always remain free as long as I'm able to work on it. However, it is easily my largest and most complex plugin. A major update takes 100s of hours of development. If every user would donate just $1, it would fund fulltime development of this plugin for at least 3 years. Of course, it's not a reality that everyone is able donate. Pitching in any amount will help."
+msgstr ""
+
+#: admin/views/class-view-donate.php:62
+msgid "Donate Via PayPal"
+msgstr ""
+
+#: admin/views/class-view-donate.php:65
+msgid "Learn More"
+msgstr ""
+
+#: admin/views/class-view-general.php:64 admin/views/class-view-general.php:372
 msgid "Sidebar Widgets"
 msgstr ""
 
-#: admin/views/class-view-general.php:65 admin/views/class-view-general.php:380
+#: admin/views/class-view-general.php:65 admin/views/class-view-general.php:381
 msgid "Private Site"
 msgstr ""
 
@@ -699,83 +736,83 @@ msgstr ""
 msgid "Feed Error Message"
 msgstr ""
 
-#: admin/views/class-view-general.php:128
+#: admin/views/class-view-general.php:129
 msgid "Your roles and capabilities will not revert back to their previous settings after deactivating or uninstalling this plugin, so use this feature wisely."
 msgstr ""
 
-#: admin/views/class-view-general.php:143
+#: admin/views/class-view-general.php:144
 msgid "Enable the role manager."
 msgstr ""
 
-#: admin/views/class-view-general.php:161
+#: admin/views/class-view-general.php:162
 msgid "Denied capabilities should always overrule granted capabilities."
 msgstr ""
 
-#: admin/views/class-view-general.php:168
+#: admin/views/class-view-general.php:169
 msgid "Show human-readable capabilities when possible."
 msgstr ""
 
-#: admin/views/class-view-general.php:186
+#: admin/views/class-view-general.php:187
 msgid "Allow users to be assigned more than a single role."
 msgstr ""
 
-#: admin/views/class-view-general.php:201
+#: admin/views/class-view-general.php:202
 msgid "Enable the content permissions feature."
 msgstr ""
 
-#: admin/views/class-view-general.php:236
+#: admin/views/class-view-general.php:237
 msgid "Enable the login form widget."
 msgstr ""
 
-#: admin/views/class-view-general.php:251
+#: admin/views/class-view-general.php:252
 msgid "Enable the users widget."
 msgstr ""
 
-#: admin/views/class-view-general.php:266
+#: admin/views/class-view-general.php:267
 msgid "Redirect all logged-out users to the login page before allowing them to view the site."
 msgstr ""
 
-#: admin/views/class-view-general.php:281
+#: admin/views/class-view-general.php:282
 msgid "Require authentication for access to the REST API."
 msgstr ""
 
-#: admin/views/class-view-general.php:296
+#: admin/views/class-view-general.php:297
 msgid "Show error message for feed items."
 msgstr ""
 
-#: admin/views/class-view-general.php:332
+#: admin/views/class-view-general.php:333
 msgid "Update Settings"
 msgstr ""
 
-#: admin/views/class-view-general.php:353
+#: admin/views/class-view-general.php:354
 msgid "Role and Capabilities"
 msgstr ""
 
-#: admin/views/class-view-general.php:399
+#: admin/views/class-view-general.php:400
 msgid "The role manager allows you to manage roles on your site by giving you the ability to create, edit, and delete any role. Note that changes to roles do not change settings for the Members plugin. You are literally changing data in your WordPress database. This plugin feature merely provides an interface for you to make these changes."
 msgstr ""
 
-#: admin/views/class-view-general.php:403
+#: admin/views/class-view-general.php:404
 msgid "The multiple user roles feature allows you to assign more than one role to each user from the edit user screen."
 msgstr ""
 
-#: admin/views/class-view-general.php:407
+#: admin/views/class-view-general.php:408
 msgid "Tick the checkbox for denied capabilities to always take precedence over granted capabilities when there is a conflict. This is only relevant when using multiple roles per user."
 msgstr ""
 
-#: admin/views/class-view-general.php:411
+#: admin/views/class-view-general.php:412
 msgid "Tick the checkbox to show human-readable capabilities when possible. Note that custom capabilities and capabilities from third-party plugins will show the machine-readable capability name unless they are registered."
 msgstr ""
 
-#: admin/views/class-view-general.php:425
+#: admin/views/class-view-general.php:426
 msgid "The content permissions features adds a meta box to the edit post screen that allows you to grant permissions for who can read the post content based on the user's role. Only users of roles with the %s capability will be able to use this component."
 msgstr ""
 
-#: admin/views/class-view-general.php:439
+#: admin/views/class-view-general.php:440
 msgid "The sidebar widgets feature adds additional widgets for use in your theme's sidebars."
 msgstr ""
 
-#: admin/views/class-view-general.php:453
+#: admin/views/class-view-general.php:454
 msgid "The private site feature redirects all users who are not logged into the site to the login page, creating an entirely private site. You may also replace your feed content with a custom error message."
 msgstr ""
 
@@ -1223,15 +1260,15 @@ msgstr ""
 msgid "You must be logged into the site to view this content."
 msgstr ""
 
-#: inc/functions-private-site.php:163
+#: inc/functions-private-site.php:167
 msgid "You are not currently logged in."
 msgstr ""
 
-#: inc/functions-private-site.php:187
+#: inc/functions-private-site.php:191
 msgid "You do not currently have access to the \"%s\" site. If you believe you should have access, please contact your network administrator."
 msgstr ""
 
-#: inc/functions-private-site.php:194
+#: inc/functions-private-site.php:198
 msgid "If you reached this page by accident and meant to visit one of your own sites, try one of the following links."
 msgstr ""
 
@@ -1243,7 +1280,7 @@ msgstr ""
 msgid "Method does not exist."
 msgstr ""
 
-#: members.php:282
+#: members.php:323
 msgid "Members requires PHP version %1$s. You are running version %2$s. Please upgrade and try again."
 msgstr ""
 #. Plugin Name of the plugin/theme
