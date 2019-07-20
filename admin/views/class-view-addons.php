@@ -70,9 +70,6 @@ class View_Addons extends View {
 							<p>
 								<a class="button button-primary button-hero" href="https://themehybrid.com/plugins/members" target="_blank"><?php esc_html_e( 'Upgrade To Pro', 'members' ); ?></a>
 							</p>
-							<p>
-								<a href="https://themehybrid.com/plugins/members" target="_blank"><?php esc_html_e( 'Purchase Support-Only Membership' ); ?></a>
-							</p>
 						</div>
 					</div>
 
