@@ -28,7 +28,7 @@ class View_Donate extends View {
 	 * @return void
 	 */
 	public function enqueue() {
-		wp_enqueue_style( 'members-admin', members_plugin()->uri . 'css/admin.css' );
+		wp_enqueue_style( 'members-admin' );
 	}
 
 	/**
