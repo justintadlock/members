@@ -30,7 +30,7 @@ It puts you in control over permissions on your site by providing a user interfa
 * **Private Site:** You can make your site and its feed completely private if you want.
 * **Plugin Integration:** Members is highly recommended by  other WordPress developers. Many existing plugins integrate their custom roles and caps directly into it.
 
-For more info, vist the [Members plugin home page](https://themehybrid.com/plugins/members).
+For more info, visit the [Members plugin home page](https://themehybrid.com/plugins/members).
 
 ### Like this plugin?
 
