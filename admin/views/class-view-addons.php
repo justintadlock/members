@@ -21,6 +21,17 @@ namespace Members\Admin;
 class View_Addons extends View {
 
 	/**
+	 * Enqueues scripts/styles.
+	 *
+	 * @since  2.2.0
+	 * @access public
+	 * @return void
+	 */
+	public function enqueue() {
+		wp_enqueue_style( 'members-admin' );
+	}
+
+	/**
 	 * Renders the settings page.
 	 *
 	 * @since  2.0.0
@@ -35,6 +46,38 @@ class View_Addons extends View {
 		do_action( 'members_register_addons' );
 
 		$addons = members_get_addons(); ?>
+
+		<div class="widefat">
+
+			<div class="welcome-panel">
+
+				<div class="welcome-panel-content">
+
+					<div>
+						<div class="members-svg-wrap">
+							<a href="https://themehybrid.com/plugins/members" class="members-svg-link" target="_blank">
+								<?php include members_plugin()->dir . 'img/members.svg'; ?>
+							</a>
+						</div>
+
+						<div style="overflow: hidden;">
+							<h2>
+								<?php _e( 'Go Pro With Members Add-ons', 'members' ); ?>
+							</h2>
+							<p class="about-description" style="margin:20px 0 10px;">
+								<?php esc_html_e( 'Take your membership site to the next level with add-ons. Pro users also enjoy live chat support and support forum access.', 'members' ); ?>
+							</p>
+							<p>
+								<a class="button button-primary button-hero" href="https://themehybrid.com/plugins/members" target="_blank"><?php esc_html_e( 'Upgrade To Pro', 'members' ); ?></a>
+							</p>
+						</div>
+					</div>
+
+				</div><!-- .welcome-panel-content -->
+
+			</div><!-- .welcome-panel -->
+
+		</div>
 
 		<div class="widefat">
 
@@ -74,84 +117,35 @@ class View_Addons extends View {
 
 				<div class="name column-name">
 					<h3>
-						<a href="<?php echo esc_url( $addon->url ); ?>">
+						<?php if ( $addon->url ) : ?>
+							<a href="<?php echo esc_url( $addon->url ); ?>" target="_blank">
+						<?php endif; ?>
+
 							<?php echo esc_html( $addon->title ); ?>
 
-							<?php if ( file_exists( members_plugin()->dir . "img/icon-{$addon->name}.png" ) ) : ?>
+							<?php if ( file_exists( members_plugin()->dir . "img/{$addon->name}.svg" ) ) : ?>
 
-								<img class="plugin-icon" src="<?php echo esc_url( members_plugin()->uri . "img/icon-{$addon->name}.png" ); ?>" alt="" />
+								<span class="plugin-icon members-svg-link">
+									<?php include members_plugin()->dir . "img/{$addon->name}.svg"; ?>
+								</span>
 
 							<?php elseif ( $addon->icon_url ) : ?>
 
 								<img class="plugin-icon" src="<?php echo esc_url( $addon->icon_url ); ?>" alt="" />
 
 							<?php endif; ?>
-						</a>
+
+						<?php if ( $addon->url ) : ?>
+							</a>
+						<?php endif; ?>
 					</h3>
 				</div>
 
-				<div class="action-links">
-
-					<ul class="plugin-action-buttons">
-						<li>
-							<?php if ( $addon->purchase_url ) : ?>
-
-								<a class="install-now button" href="<?php echo esc_url( $addon->purchase_url ); ?>"><?php esc_html_e( 'Purchase', 'members' ); ?></a>
-
-							<?php elseif ( $addon->download_url ) : ?>
-
-								<a class="install-now button" href="<?php echo esc_url( $addon->download_url ); ?>"><?php esc_html_e( 'Download', 'members' ); ?></a>
-
-							<?php else : ?>
-
-								<a class="install-now button" href="<?php echo esc_url( $addon->url ); ?>"><?php esc_html_e( 'Download', 'members' ); ?></a>
-
-							<?php endif; ?>
-						</li>
-					</ul>
-				</div>
-
-				<div class="desc column-description">
-
-					<?php echo wpautop( wp_strip_all_tags( $addon->excerpt ) ); ?>
-
-					<p class="authors">
-						<?php $author = sprintf( '<a href="%s">%s</a>', esc_url( $addon->author_url ), esc_html( $addon->author_name ) ); ?>
-
-						<cite><?php printf( esc_html__( 'By %s', 'members' ), $author ); ?></cite>
-					</p>
-
+				<div class="desc column-description" style="margin-right:0;">
+					<?php echo wpautop( wp_kses_post( $addon->excerpt ) ); ?>
 				</div>
 
 			</div><!-- .plugin-card-top -->
-
-			<?php if ( ( $addon->rating && $addon->rating_count ) || $addon->install_count ) : ?>
-
-				<div class="plugin-card-bottom">
-
-					<?php if ( $addon->rating && $addon->rating_count ) : ?>
-
-						<div class="vers column-rating">
-							<?php wp_star_rating( array( 'type' => 'rating', 'rating' => floatval( $addon->rating ), 'number' => absint( $addon->rating_count ) ) ); ?>
-							<span class="num-ratings" aria-hidden="true">(<?php echo absint( $addon->rating_count ); ?>)</span>
-						</div>
-
-					<?php endif; ?>
-
-					<?php if ( $addon->install_count ) : ?>
-
-						<div class="column-downloaded">
-							<?php printf(
-								esc_html__( '%s+ Active Installs', 'members' ),
-								number_format_i18n( absint( $addon->install_count ) )
-							); ?>
-						</div>
-
-					<?php endif; ?>
-
-				</div><!-- .plugin-card-bottom -->
-
-			<?php endif; ?>
 
 		</div><!-- .plugin-card -->
 

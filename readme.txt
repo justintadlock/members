@@ -1,12 +1,12 @@
 === Members ===
 
 Contributors: greenshady
-Donate link: https://themehybrid.com/donate
+Donate link: https://themehybrid.com/plugins/members#donate
 Tags: capabilities, roles, members, users
 Requires at least: 4.7
-Tested up to: 4.9
+Tested up to: 5.2
 Requires PHP: 5.6
-Stable tag: 2.1.0
+Stable tag: 2.2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -30,14 +30,14 @@ It puts you in control over permissions on your site by providing a user interfa
 * **Private Site:** You can make your site and its feed completely private if you want.
 * **Plugin Integration:** Members is highly recommended by  other WordPress developers. Many existing plugins integrate their custom roles and caps directly into it.
 
-For more info, vist the [Members plugin home page](https://themehybrid.com/plugins/members).
+For more info, visit the [Members plugin home page](https://themehybrid.com/plugins/members).
 
 ### Like this plugin?
 
 The Members plugin is a massive project with 1,000s of lines of code to maintain.  A major update can take weeks or months of work.  I don't make any money directly from this plugin while other, similar plugins charge substantial fees to even download them or get updates.  Please consider helping the cause by:
 
-* [Making a donation](https://themehybrid.com/donate).
-* [Signing up at my site](https://themehybrid.com/club).
+* [Making a donation](https://themehybrid.com/plugins/members#donate).
+* [Signing up at my site](https://themehybrid.com/plugins/members).
 * [Rating the plugin](https://wordpress.org/support/view/plugin-reviews/members?rate=5#postform).
 
 ### Professional Support

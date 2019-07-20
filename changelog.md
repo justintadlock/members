@@ -1,5 +1,23 @@
 # Change Log
 
+## [2.2.0] - 2019-07-20
+
+### Added
+
+- Settings page sub-view for donations.
+
+### Fixed
+
+- Makes sure that we have a post object when determining whether a user can view a given post.
+- Makes sure that denied capabilities are an array when filtering `user_has_cap`.
+- Typo in `readme.txt`.
+
+### Changed
+
+- Links user count on edit role screen to users by role page.
+- Links user count on manage roles screen to users by role page.
+- Updated the add-ons sub-view with design changes and a "pro" section.
+
 ## [2.1.0] - 2018-04-19
 
 ### Added

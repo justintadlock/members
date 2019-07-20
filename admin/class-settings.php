@@ -92,6 +92,7 @@ final class Settings_Page {
 		require_once( members_plugin()->dir . 'admin/views/class-view.php'         );
 		require_once( members_plugin()->dir . 'admin/views/class-view-general.php' );
 		require_once( members_plugin()->dir . 'admin/views/class-view-addons.php'  );
+		require_once( members_plugin()->dir . 'admin/views/class-view-donate.php'  );
 	}
 
 	/**
